@@ -311,12 +311,12 @@
     </div>
     <div class="flock">
       <label for="recInput"><b>Kodla giriş</b></label>
-      <input type="text" id="recInput" autocomplete="off" placeholder="Kurtarma kodunu yapıştır">
+      <input type="password" id="recInput" autocomplete="off" placeholder="Kurtarma kodunu yapıştır">
       <button class="btn small" id="recUse" type="button">Bu cihazda kullan</button>
     </div>
     <div class="flock">
       <label for="adminKey"><b>Yönetici anahtarı</b></label>
-      <input type="text" id="adminKey" autocomplete="off" placeholder="Yalnız site sahibi için">
+      <input type="password" id="adminKey" autocomplete="off" placeholder="Yalnız site sahibi için">
       <button class="btn small" id="adminSave" type="button">Kaydet</button>
       <span class="meta" id="adminState"></span>
     </div>
@@ -373,7 +373,7 @@
   function refresh() {
     if (refreshing) return refreshing;
     const fresh = nextFresh; nextFresh = false;
-    refreshing = api('/state' + (fresh ? '?fresh=1' : '')).then(d => {
+    refreshing = api('/state' + (fresh ? '?t=' + Date.now() : '')).then(d => {
       S.mode = 'remote'; S.birdsLoaded = true;
       S.me = d.me?.uid || 'anon'; S.myName = d.me?.name || '';
       S.isOwner = !!d.admin; S.banned = !!d.me?.banned; HIDE_FLAGS = d.hideFlags || 3;
@@ -425,6 +425,8 @@
     else if (code === 'too_many_flocks') toast('En fazla 12 sürü kurabilirsin.');
     else if (code === 'not_yours') toast('Bu senin kuşun değil.');
     else if (code === 'banned') toast('Bu cihazdan kuş gönderimi kapatıldı.');
+    else if (code === 'slow_down') toast('Biraz yavaş! Bir dakika sonra tekrar dene.');
+    else if (code === 'too_many_new') toast('Bu ağdan bugün çok fazla yeni hesap açıldı. Yarın tekrar dene.');
     else if (code === 'too_large' || code === 'bad_image') toast('Çizim çok büyük. Biraz sadeleştirip tekrar dene.');
     else toast('Kaydedilemedi, birazdan tekrar dene.');
     throw e;
@@ -909,6 +911,11 @@
       const watch = el('button', 'btn small beak', 'Gökyüzünde izle'); watch.type = 'button';
       watch.onclick = () => watchFlock(f);
       row.append(el('b', null, f.name), thumbs, watch);
+      if (S.isOwner) {
+        const rm = el('button', 'btn small', 'Sürüyü kaldır (yönetici)'); rm.type = 'button';
+        rm.onclick = () => api('/admin/flock-delete', { body: { id: f.id } }).then(() => refresh(), writeFailed).catch(() => {});
+        row.append(rm);
+      }
       return row;
     }));
   }
@@ -962,7 +969,9 @@
       del.onclick = () => api('/birds/' + r.id, { method: 'DELETE' }).then(after, writeFailed).catch(() => {});
       const ban = el('button', 'btn small', banned.has(r.uid) ? 'Engeli kaldır' : 'Kuşçuyu engelle'); ban.type = 'button';
       ban.onclick = () => api('/admin/ban', { body: { uid: r.uid, on: !banned.has(r.uid) } }).then(after, writeFailed).catch(() => {});
-      acts.append(clear, del, ban);
+      const ren = el('button', 'btn small', 'Kuşçu adını sil'); ren.type = 'button';
+      ren.onclick = () => api('/admin/rename', { body: { uid: r.uid } }).then(after, writeFailed).catch(() => {});
+      acts.append(clear, del, ban, ren);
       card.append(art, el('div', 'name', r.name), el('div', 'meta', `${r.author || 'İsimsiz kuşçu'} · ${r.flags} bildirim · ${fmtDate(r.created)}`), acts);
       return card;
     }) : [el('div', 'empty', 'Bildirilen kuş yok.')]));

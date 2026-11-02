@@ -7,5 +7,10 @@
   "d1_databases": [
     { "binding": "DB", "database_name": "drawbird", "database_id": "f8f26ac2-12df-4c4a-bc7d-83eecc2f4787", "migrations_dir": "migrations" }
   ],
+  "ratelimits": [
+    { "name": "RL_WRITE", "namespace_id": "1001", "simple": { "limit": 120, "period": 60 } },
+    { "name": "RL_BIRD", "namespace_id": "1002", "simple": { "limit": 10, "period": 60 } },
+    { "name": "RL_ADMIN", "namespace_id": "1003", "simple": { "limit": 30, "period": 60 } }
+  ],
   "observability": { "enabled": true }
 }

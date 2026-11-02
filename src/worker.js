@@ -4,11 +4,41 @@ const MAX_FLOCKS = 12;
 const MAX_IMG = 90_000; // data URL characters (~65 KB image)
 const HIDE_FLAGS = 3;
 const PUBLIC_TTL = 10; // seconds the shared part of /api/state is cached at the edge
+const NEW_IDS_PER_IP_DAY = 40; // classrooms share one IP, so keep this generous
+
+// Hardening headers for everything the Worker answers.
+const CSP = [
+  "default-src 'self'", "script-src 'self' 'unsafe-inline'", "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src https://fonts.gstatic.com", "img-src 'self' data: blob:", "connect-src 'self'", "manifest-src 'self'",
+  "object-src 'none'", "base-uri 'none'", "form-action 'none'", "frame-ancestors 'none'",
+].join('; ');
+const SECURITY_HEADERS = {
+  'x-content-type-options': 'nosniff',
+  'referrer-policy': 'strict-origin-when-cross-origin',
+  'permissions-policy': 'camera=(), microphone=(), geolocation=(), payment=()',
+  'x-frame-options': 'DENY',
+  'strict-transport-security': 'max-age=31536000; includeSubDomains',
+};
+function secure(res) {
+  const out = new Response(res.body, res);
+  for (const [k, v] of Object.entries(SECURITY_HEADERS)) out.headers.set(k, v);
+  const type = out.headers.get('content-type') || '';
+  if (type.startsWith('text/html')) out.headers.set('content-security-policy', CSP);
+  else if (!out.headers.has('content-security-policy')) out.headers.set('content-security-policy', "default-src 'none'; frame-ancestors 'none'; sandbox");
+  return out;
+}
+
+// Per-IP limits through Workers Rate Limiting bindings; missing bindings (local dev) never block.
+const clientIp = req => req.headers.get('cf-connecting-ip') || 'local';
+async function limited(binding, key) {
+  if (!binding) return false;
+  try { return !(await binding.limit({ key })).success; } catch { return false; }
+}
 
 const json = (data, status = 200, headers = {}) =>
   new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', ...headers } });
 const fail = (status, error) => json({ error }, status);
-const clean = (s, n) => String(s ?? '').replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, n);
+const clean = (s, n) => String(s ?? '').replace(/[\u0000-\u001f\u007f-\u009f\u00ad\u200b-\u200f\u202a-\u202e\u2060-\u206f\ufeff]/g, '').replace(/\s+/g, ' ').trim().slice(0, n);
 const newId = () => crypto.randomUUID().replace(/-/g, '').slice(0, 16);
 const ID = /^[a-z0-9]{16}$/;
 
@@ -24,23 +54,35 @@ async function auth(req, env, create) {
   const hash = await sha256(m[1]);
   let row = await env.DB.prepare('SELECT uid, name FROM users WHERE token_hash = ?').bind(hash).first();
   if (!row && create) {
+    // Cap how many new identities one IP can mint per day (vote and flag stuffing). Only a salted hash of the IP is kept, for two days.
+    const day = new Date().toISOString().slice(0, 10);
+    const ipHash = (await sha256(`${clientIp(req)}|${day}|${env.ADMIN_KEY || ''}`)).slice(0, 32);
+    const n = await env.DB.prepare('INSERT INTO new_ids (day, ip_hash, n) VALUES (?, ?, 1) ON CONFLICT(day, ip_hash) DO UPDATE SET n = n + 1 RETURNING n')
+      .bind(day, ipHash).first('n');
+    if (Math.random() < .02) await env.DB.prepare('DELETE FROM new_ids WHERE day < ?').bind(new Date(Date.now() - 864e5).toISOString().slice(0, 10)).run();
+    if (n > NEW_IDS_PER_IP_DAY) throw { status: 429, error: 'too_many_new' };
     row = { uid: hash.slice(0, 16), name: '' };
     await env.DB.prepare('INSERT OR IGNORE INTO users (uid, token_hash, name, created) VALUES (?, ?, ?, ?)')
       .bind(row.uid, hash, '', Date.now()).run();
   }
   return row;
 }
-const isAdmin = (req, env) => !!env.ADMIN_KEY && req.headers.get('x-admin-key') === env.ADMIN_KEY;
+async function isAdmin(req, env) {
+  const given = req.headers.get('x-admin-key');
+  if (!env.ADMIN_KEY || !given) return false;
+  const enc = t => new TextEncoder().encode(t);
+  const [a, b] = await Promise.all([sha256(given), sha256(env.ADMIN_KEY)]);
+  return crypto.subtle.timingSafeEqual(enc(a), enc(b));
+}
 const isBanned = (env, uid) => env.DB.prepare('SELECT 1 FROM bans WHERE uid = ?').bind(uid).first();
 
 // The shared part of the sky: same for every viewer, so it is cached briefly at the edge.
-async function publicState(env, url, fresh) {
+const publicKey = url => new Request(new URL('/api/__public', url).toString());
+async function publicState(env, url) {
   const cache = caches.default;
-  const key = new Request(new URL('/api/__public', url).toString());
-  if (!fresh) {
-    const hit = await cache.match(key);
-    if (hit) return hit.json();
-  }
+  const key = publicKey(url);
+  const hit = await cache.match(key);
+  if (hit) return hit.json();
   const [birds, users, flocks] = await env.DB.batch([
     env.DB.prepare(`SELECT b.id, b.uid, b.name, b.created,
         COALESCE(SUM(v.v = 1), 0) AS up, COALESCE(SUM(v.v = -1), 0) AS down,
@@ -49,7 +91,7 @@ async function publicState(env, url, fresh) {
       WHERE b.uid NOT IN (SELECT uid FROM bans)
       GROUP BY b.id ORDER BY b.created DESC LIMIT 2000`),
     env.DB.prepare('SELECT uid, name FROM users WHERE uid IN (SELECT DISTINCT uid FROM birds UNION SELECT DISTINCT uid FROM flocks)'),
-    env.DB.prepare('SELECT id, uid, name, birds, created, public FROM flocks WHERE public = 1 ORDER BY created'),
+    env.DB.prepare('SELECT id, uid, name, birds, created, public FROM flocks WHERE public = 1 AND uid NOT IN (SELECT uid FROM bans) ORDER BY created'),
   ]);
   const data = {
     birds: birds.results,
@@ -62,7 +104,7 @@ async function publicState(env, url, fresh) {
 
 async function state(req, env, url) {
   const me = await auth(req, env, false);
-  const pub = await publicState(env, url, url.searchParams.has('fresh'));
+  const pub = await publicState(env, url);
   const mine = { v: {}, f: {} };
   let flocks = pub.flocks;
   if (me) {
@@ -77,19 +119,37 @@ async function state(req, env, url) {
   }
   return json({
     me: me ? { uid: me.uid, name: me.name, banned: !!(await isBanned(env, me.uid)) } : null,
-    admin: isAdmin(req, env),
+    admin: await isAdmin(req, env),
     hideFlags: HIDE_FLAGS, maxBirds: MAX_BIRDS,
     birds: pub.birds, names: pub.names, flocks, mine,
   });
 }
 
-async function image(id, env) {
+async function image(req, id, env) {
+  const cache = caches.default;
+  const key = new Request(new URL(req.url).origin + '/api/img/' + id);
+  const hit = await cache.match(key);
+  if (hit) return hit;
   const row = await env.DB.prepare('SELECT img FROM birds WHERE id = ?').bind(id).first();
   if (!row) return new Response('not found', { status: 404 });
   const m = /^data:(image\/(?:png|webp));base64,([A-Za-z0-9+/=]+)$/.exec(row.img);
   if (!m) return new Response('bad image', { status: 500 });
   const bytes = Uint8Array.from(atob(m[2]), c => c.charCodeAt(0));
-  return new Response(bytes, { headers: { 'content-type': m[1], 'cache-control': 'public, max-age=31536000, immutable' } });
+  const res = new Response(bytes, { headers: {
+    'content-type': m[1], 'cache-control': 'public, max-age=31536000, immutable',
+    'content-security-policy': "default-src 'none'; sandbox", 'content-disposition': 'inline',
+  } });
+  await cache.put(key, res.clone());
+  return res;
+}
+
+// The bytes must really be a PNG or WebP, not something else wearing an image label.
+function looksLikeImage(dataUrl) {
+  try {
+    const head = atob(dataUrl.split(',')[1].slice(0, 24));
+    if (dataUrl.startsWith('data:image/png')) return head.startsWith('\x89PNG\r\n\x1a\n');
+    return head.startsWith('RIFF') && head.slice(8, 12) === 'WEBP';
+  } catch { return false; }
 }
 
 async function readBody(req, limit = 120_000) {
@@ -101,7 +161,8 @@ async function readBody(req, limit = 120_000) {
 }
 
 async function adminApi(req, env, path, method, body) {
-  if (!isAdmin(req, env)) return fail(403, 'not_admin');
+  if (await limited(env.RL_ADMIN, 'admin:' + clientIp(req))) return fail(429, 'slow_down');
+  if (!(await isAdmin(req, env))) return fail(403, 'not_admin');
   if (method === 'GET' && path === '/admin/reports') {
     const [reported, bans] = await env.DB.batch([
       env.DB.prepare(`SELECT b.id, b.uid, b.name, b.created, COUNT(f.uid) AS flags,
@@ -123,6 +184,18 @@ async function adminApi(req, env, path, method, body) {
     await env.DB.prepare('DELETE FROM flags WHERE bird_id = ?').bind(body.bird).run();
     return json({ ok: true });
   }
+  if (method === 'POST' && path === '/admin/rename') {
+    const uid = String(body.uid || '');
+    if (!ID.test(uid)) return fail(400, 'bad_uid');
+    await env.DB.prepare("UPDATE users SET name = '' WHERE uid = ?").bind(uid).run();
+    return json({ ok: true });
+  }
+  if (method === 'POST' && path === '/admin/flock-delete') {
+    const id = String(body.id || '');
+    if (!ID.test(id)) return fail(400, 'bad_flock');
+    await env.DB.prepare('DELETE FROM flocks WHERE id = ?').bind(id).run();
+    return json({ ok: true });
+  }
   if (method === 'POST' && path === '/admin/ban') {
     const uid = String(body.uid || '');
     if (!ID.test(uid)) return fail(400, 'bad_uid');
@@ -138,6 +211,7 @@ async function handleApi(req, env, url) {
   const method = req.method;
 
   if (method === 'GET' && path === '/state') return state(req, env, url);
+  if (method !== 'GET' && !path.startsWith('/admin/') && await limited(env.RL_WRITE, 'w:' + clientIp(req))) return fail(429, 'slow_down');
   if (method === 'POST' && path === '/hit') {
     // One count per browser session; nothing about the visitor is stored.
     await env.DB.prepare('INSERT INTO visits (day, n) VALUES (?, 1) ON CONFLICT(day) DO UPDATE SET n = n + 1')
@@ -145,7 +219,7 @@ async function handleApi(req, env, url) {
     return json({ ok: true });
   }
   const img = /^\/img\/([a-z0-9]{16})$/.exec(path);
-  if (method === 'GET' && img) return image(img[1], env);
+  if (method === 'GET' && img) return image(req, img[1], env);
 
   let body = {};
   if (method === 'POST') { try { body = await readBody(req); } catch { return fail(413, 'too_large'); } }
@@ -154,7 +228,7 @@ async function handleApi(req, env, url) {
 
   const me = await auth(req, env, true);
   if (!me) return fail(401, 'no_token');
-  const admin = isAdmin(req, env);
+  const admin = await isAdmin(req, env);
 
   if (method === 'POST' && path === '/me') {
     await env.DB.prepare('UPDATE users SET name = ? WHERE uid = ?').bind(clean(body.name, 24), me.uid).run();
@@ -163,8 +237,9 @@ async function handleApi(req, env, url) {
 
   if (method === 'POST' && path === '/birds') {
     if (await isBanned(env, me.uid)) return fail(403, 'banned');
+    if (await limited(env.RL_BIRD, 'b:' + clientIp(req))) return fail(429, 'slow_down');
     const data = String(body.img || '');
-    if (!/^data:image\/(png|webp);base64,[A-Za-z0-9+/=]+$/.test(data) || data.length > MAX_IMG) return fail(400, 'bad_image');
+    if (!/^data:image\/(png|webp);base64,[A-Za-z0-9+/=]+$/.test(data) || data.length > MAX_IMG || !looksLikeImage(data)) return fail(400, 'bad_image');
     const count = await env.DB.prepare('SELECT COUNT(*) AS n FROM birds WHERE uid = ?').bind(me.uid).first('n');
     if (count >= MAX_BIRDS) return fail(409, 'too_many_birds');
     const id = newId();
@@ -245,7 +320,8 @@ async function handleApi(req, env, url) {
 // Edge-cache a generated page for `ttl` seconds.
 async function cached(req, build, ttl) {
   const cache = caches.default;
-  const key = new Request(new URL(req.url).toString());
+  const u = new URL(req.url); u.search = '';
+  const key = new Request(u.toString());
   const hit = await cache.match(key);
   if (hit) return hit;
   const res = await build();
@@ -348,16 +424,22 @@ export default {
   async fetch(req, env) {
     const url = new URL(req.url);
     if (url.pathname.startsWith('/api/')) {
-      try { return await handleApi(req, env, url); }
-      catch (e) { console.error(e); return fail(500, 'server_error'); }
+      let res;
+      try { res = await handleApi(req, env, url); }
+      catch (e) {
+        if (e?.status) res = fail(e.status, e.error);
+        else { console.error(e); res = fail(500, 'server_error'); }
+      }
+      if (req.method !== 'GET' && res.ok && url.pathname !== '/api/hit') await caches.default.delete(publicKey(url));
+      return secure(res);
     }
     const share = /^\/k\/([a-z0-9]{16})$/.exec(url.pathname);
-    if (share && req.method === 'GET') return sharePage(req, env, url, share[1]);
-    if (url.pathname === '/haftanin-kuslari') return cached(req, () => weeklyPage(env, url), 300);
-    if (url.pathname === '/sitemap.xml') return cached(req, () => sitemap(env, url), 3600);
+    if (share && req.method === 'GET') return secure(await sharePage(req, env, url, share[1]));
+    if (url.pathname === '/haftanin-kuslari') return secure(await cached(req, () => weeklyPage(env, url), 300));
+    if (url.pathname === '/sitemap.xml') return secure(await cached(req, () => sitemap(env, url), 3600));
     if (url.pathname === '/robots.txt') {
-      return new Response(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${url.origin}/sitemap.xml\n`, { headers: { 'content-type': 'text/plain; charset=utf-8' } });
+      return secure(new Response(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${url.origin}/sitemap.xml\n`, { headers: { 'content-type': 'text/plain; charset=utf-8' } }));
     }
-    return env.ASSETS.fetch(req);
+    return secure(await env.ASSETS.fetch(req));
   },
 };
