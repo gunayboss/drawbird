@@ -559,14 +559,16 @@ function shell({ lang, path, title, desc, image, body, origin }) {
 <meta property="og:url" content="${origin}${p}${path}">
 ${alt}
 <link rel="alternate" hreflang="x-default" href="${origin}${path}">
-<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
 <style>.weeks { display: grid; gap: 8px; padding: 0; list-style: none; } .weeks a { display: flex; justify-content: space-between; gap: 10px; background: var(--chip); border-radius: 12px; padding: 10px 14px; text-decoration: none; } .pager { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 16px; } .langs { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; } .langs a[aria-current] { font-weight: 700; text-decoration: none; }</style>
 </head>
 <body>
 <main>
-<nav class="top">${nav}</nav>
+<nav class="top"><a class="brand" href="${lang === 'tr' ? '/' : `/?lang=${lang}`}" aria-label="DrawBird"><picture><source srcset="/logo/sembol-koyu.svg" media="(prefers-color-scheme: dark)"><img src="/logo/sembol.svg" alt="" width="40" height="40"></picture><picture><source srcset="/logo/yazi-koyu.svg" media="(prefers-color-scheme: dark)"><img src="/logo/yazi-acik.svg" alt="" width="99" height="30"></picture></a>${nav}</nav>
 <article>
 ${body}
 </article>

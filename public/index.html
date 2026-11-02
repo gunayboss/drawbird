@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>DrawBird</title>
 <meta name="description" content="Bir kuş çiz, herkesin kuşlarıyla aynı gökyüzünde uçsun.">
-<link rel="icon" href="/icons/icon-192.png" type="image/png">
-<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#7cc3ee">
 <meta property="og:type" content="website">
@@ -77,6 +78,8 @@
     font-weight: 500; white-space: nowrap;
   }
   nav.top a.on { background: var(--ink); color: var(--paper); }
+  nav.top a.brand { padding: 0 4px; display: grid; place-items: center; flex: none; }
+  nav.top a.brand img { display: block; width: 34px; height: 34px; max-width: none; }
   .view[hidden] { display: none !important; }
   .page {
     padding-block: 76px 40px;
@@ -218,6 +221,7 @@
 </head>
 <body>
 <nav class="top">
+  <a class="brand" href="#ciz" aria-label="DrawBird"><picture><source srcset="/logo/sembol-koyu.svg" media="(prefers-color-scheme: dark)"><img src="/logo/sembol.svg" alt="" width="34" height="34"></picture></a>
   <label class="lang"><span class="sr">Dil</span><select id="langSel" aria-label="Dil / Language"></select></label>
   <a href="#ciz" data-v="ciz">Çiz</a>
   <a href="#gok" data-v="gok">Gökyüzü</a>

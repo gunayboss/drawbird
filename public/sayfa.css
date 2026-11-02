@@ -13,6 +13,10 @@ main { max-width: 760px; margin: 0 auto; padding-block: 28px 56px; padding-left:
 .top { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
 .top a { background: var(--paper); color: var(--ink); text-decoration: none; padding: 7px 13px; border-radius: 999px; font-weight: 500; font-size: 14px; }
 .top a.on { background: var(--ink); color: var(--paper); }
+.top a.brand { direction: ltr; background: none; padding: 0 10px 0 0; display: flex; align-items: center; gap: 6px; flex-basis: 100%; margin-bottom: 4px; }
+[dir="rtl"] .top a.brand { justify-content: flex-end; }
+.top a.brand img { display: block; height: 40px; width: auto; }
+.top a.brand picture + picture img { height: 30px; }
 article { background: var(--paper); border-radius: 20px; padding: clamp(18px, 4vw, 32px); }
 h1 { font-family: var(--font-display); font-size: clamp(38px, 7vw, 54px); line-height: 1; margin: 0 0 8px; text-wrap: balance; }
 h2 { font-size: 20px; margin: 30px 0 6px; text-wrap: balance; }

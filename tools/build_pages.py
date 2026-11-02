@@ -154,14 +154,16 @@ def page(lang, U, path, title, desc, body, active=None, jsonld=None):
 <meta property="og:image" content="{ORIGIN}/og-card.png">
 <meta property="og:url" content="{ORIGIN}{p}{path}">
 <link rel="canonical" href="{ORIGIN}{p}{path}">{alt}
-<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
 {EXTRA_CSS}{ld}{ads}
 </head>
 <body>
 <main>
-<nav class="top">{links}</nav>
+<nav class="top"><a class="brand" href="{"/" if lang == "tr" else f"/?lang={lang}"}" aria-label="DrawBird"><picture><source srcset="/logo/sembol-koyu.svg" media="(prefers-color-scheme: dark)"><img src="/logo/sembol.svg" alt="" width="40" height="40"></picture><picture><source srcset="/logo/yazi-koyu.svg" media="(prefers-color-scheme: dark)"><img src="/logo/yazi-acik.svg" alt="" width="99" height="30"></picture></a>{links}</nav>
 <article>
 {localize(body, lang)}
 </article>
