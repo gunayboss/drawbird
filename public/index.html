@@ -15,8 +15,7 @@
 <meta property="og:image" content="/og-card.png">
 <meta property="og:url" content="/">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Rubik:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
   /* Layout: full-bleed sky scene; floating nav pill; content panels float over the sky like paper notes. */
   :root {
@@ -64,6 +63,9 @@
   button, input, select { font: inherit; color: inherit; }
   :focus-visible { outline: 3px solid var(--beak); outline-offset: 2px; }
 
+  .lang select { border: 0; background: var(--chip); border-radius: 999px; padding: 7px 8px; font-size: 13px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  [dir="rtl"] .card .meta, [dir="rtl"] .verdict { text-align: right; }
   nav.top {
     position: fixed; z-index: 20; left: 50%; transform: translateX(-50%);
     top: calc(env(safe-area-inset-top, 0px) + 10px);
@@ -205,6 +207,7 @@
 </head>
 <body>
 <nav class="top">
+  <label class="lang"><span class="sr">Dil</span><select id="langSel" aria-label="Dil / Language"></select></label>
   <a href="#ciz" data-v="ciz">Çiz</a>
   <a href="#gok" data-v="gok">Gökyüzü</a>
   <a href="#sira" data-v="sira">Sıralama</a>
@@ -236,7 +239,7 @@
     </div>
     <div class="verdict" id="verdict" hidden></div>
   </div>
-  <p class="foot">Kuşlar herkese açıktır; uygunsuz çizimi Bildir ile işaretle. <a href="/nasil-oynanir.html">Nasıl oynanır</a> · <a href="/haftanin-kuslari">Haftanın kuşları</a> · <a href="/kosullar.html">Koşullar</a> · <a href="/gizlilik.html">Gizlilik</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></p>
+  <p class="foot">Kuşlar herkese açıktır; uygunsuz çizimi Bildir ile işaretle. <a href="/nasil-oynanir.html">Nasıl oynanır</a> · <a href="/dersler/">Çizim dersleri</a> · <a href="/kuslar/">Kuşlar</a> · <a href="/haftanin-kuslari">Haftanın kuşları</a> · <a href="/kosullar.html">Koşullar</a> · <a href="/gizlilik.html">Gizlilik</a> · <a href="/kvkk.html">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></p>
 </section>
 
 <section id="gok" class="view" hidden>
@@ -291,6 +294,7 @@
     <button class="btn small" id="admRefresh" type="button">Yenile</button>
   </div>
   <div class="stats" id="admStats"></div>
+  <div class="flocks"><div class="flock"><b>Bakım modu</b><span class="meta">Bir sorun ya da saldırı anında siteyi yalnız okunur yapar: kimse kuş gönderemez, oy veremez.</span><button class="btn small" id="roToggle" type="button">Aç</button></div></div>
   <h2 class="section-title">Onay sırası</h2>
   <div class="review" id="review"></div>
   <h2 class="section-title">Telegram</h2>
@@ -314,7 +318,7 @@
   <div id="meArea" class="flocks">
     <div class="flock">
       <label for="nick"><b>Kuşçu adın</b></label>
-      <input type="text" id="nick" maxlength="24" placeholder="Herkes bu adı görür">
+      <input type="text" id="nick" maxlength="24" placeholder="Herkes bu adı görür. Gerçek adını yazma.">
       <button class="btn small" id="nickSave" type="button">Kaydet</button>
     </div>
     <div class="flock">
@@ -327,6 +331,12 @@
       <label for="recInput"><b>Kodla giriş</b></label>
       <input type="password" id="recInput" autocomplete="off" placeholder="Kurtarma kodunu yapıştır">
       <button class="btn small" id="recUse" type="button">Bu cihazda kullan</button>
+    </div>
+    <div class="flock">
+      <b>Verilerim</b>
+      <span class="meta">Kuşların, oyların, bildirimlerin, sürülerin ve kuşçu adın kalıcı olarak silinir. Geri alınamaz.</span>
+      <button class="btn small" id="eraseMe" type="button">Tüm verilerimi sil</button>
+      <a class="meta" href="/kvkk.html">KVKK aydınlatma metni</a>
     </div>
     <div class="flock">
       <label for="adminKey"><b>Yönetici anahtarı</b></label>
@@ -348,7 +358,7 @@
 </section>
 
 <script>
-(() => {
+(async () => {
   // ================= data layer =================
   // Cloudflare Worker + D1. Each browser holds an anonymous device token; the server knows it only as a hash.
   const MAX_BIRDS = 8;
@@ -390,7 +400,7 @@
     refreshing = api('/state' + (fresh ? '?t=' + Date.now() : '')).then(d => {
       S.mode = 'remote'; S.birdsLoaded = true;
       S.me = d.me?.uid || 'anon'; S.myName = d.me?.name || '';
-      S.isOwner = !!d.admin; S.banned = !!d.me?.banned; HIDE_FLAGS = d.hideFlags || 3; HIDE_FLAGS_NEW = d.hideFlagsNew || 2;
+      S.readonly = !!d.readonly; S.isOwner = !!d.admin; S.banned = !!d.me?.banned; HIDE_FLAGS = d.hideFlags || 3; HIDE_FLAGS_NEW = d.hideFlagsNew || 2;
       S.list = d.birds; S.names = d.names; S.flockRows = d.flocks; S.mine = d.mine;
       emit();
     }, () => {
@@ -439,6 +449,7 @@
     else if (code === 'too_many_flocks') toast('En fazla 12 sürü kurabilirsin.');
     else if (code === 'not_yours') toast('Bu senin kuşun değil.');
     else if (code === 'banned') toast('Bu cihazdan kuş gönderimi kapatıldı.');
+    else if (code === 'readonly') toast('Site kısa bir bakımda; şu an yalnız izlenebiliyor.');
     else if (code === 'bad_name') toast('Bu ad uygun değil. Başka bir ad dene.');
     else if (code === 'slow_down') toast('Biraz yavaş! Bir dakika sonra tekrar dene.');
     else if (code === 'too_many_new') toast('Bu ağdan bugün çok fazla yeni hesap açıldı. Yarın tekrar dene.');
@@ -454,12 +465,82 @@
 
   // ================= ui helpers =================
   const $ = id => document.getElementById(id);
+
+  // ================= i18n =================
+  // The page is written in Turkish. For other languages every Turkish string on screen is looked up in
+  // /i18n/<lang>.json: exact strings first, then templates whose {0}, {1}… parts are filled from the Turkish text.
+  // A MutationObserver translates anything the code writes later, so call sites stay plain Turkish.
+  const LANGS = { tr: 'Türkçe', en: 'English', es: 'Español', pt: 'Português', fr: 'Français', de: 'Deutsch',
+                  ru: 'Русский', ar: 'العربية', zh: '中文', ja: '日本語', id: 'Bahasa Indonesia' };
+  const pickLang = () => {
+    const saved = lsGet('drawbird.lang', '');
+    if (LANGS[saved]) return saved;
+    for (const l of navigator.languages || [navigator.language || '']) { const k = String(l).slice(0, 2).toLowerCase(); if (LANGS[k]) return k; }
+    return 'en';
+  };
+  const LANG = pickLang();
+  const LOCALE = { tr: 'tr-TR', en: 'en-GB', es: 'es-ES', pt: 'pt-BR', fr: 'fr-FR', de: 'de-DE', ru: 'ru-RU', ar: 'ar', zh: 'zh-CN', ja: 'ja-JP', id: 'id-ID' }[LANG];
+  let DICT = {}, PATTERNS = [], DONE = new Set();
+  const missing = new Set();
+  function tr(text) {
+    if (LANG === 'tr' || text == null) return text;
+    const key = String(text);
+    if (DICT[key] != null) return DICT[key];
+    if (DONE.has(key)) return key;
+    const trimmed = key.trim();
+    if (trimmed !== key && DICT[trimmed] != null) return key.replace(trimmed, DICT[trimmed]);
+    for (const [re, out] of PATTERNS) { const m = re.exec(key); if (m) return out.replace(/\{(\d)\}/g, (_, i) => tr(m[+i + 1])); }
+    if (/[çğıöşüÇĞİÖŞÜ]/.test(key)) missing.add(key);
+    DONE.add(key);
+    return key;
+  }
+  window.drawbirdMissing = () => [...missing];
+  const ATTRS = ['placeholder', 'title', 'aria-label'];
+  function translateTree(root) {
+    if (LANG === 'tr') return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      if (!n.nodeValue.trim() || n.parentElement?.closest('script,style')) continue;
+      const t = tr(n.nodeValue); if (t !== n.nodeValue) n.nodeValue = t;
+    }
+    if (root.querySelectorAll) for (const e of [root, ...root.querySelectorAll('[placeholder],[title],[aria-label]')]) {
+      for (const a of ATTRS) if (e.getAttribute?.(a)) { const t = tr(e.getAttribute(a)); if (t !== e.getAttribute(a)) e.setAttribute(a, t); }
+    }
+  }
+  const i18nReady = (async () => {
+    document.documentElement.lang = LANG;
+    document.documentElement.dir = LANG === 'ar' ? 'rtl' : 'ltr';
+    if (LANG === 'tr') return;
+    try {
+      DICT = await (await fetch(`/i18n/${LANG}.json`)).json();
+      PATTERNS = Object.keys(DICT).filter(k => /\{\d\}/.test(k)).map(k => [
+        new RegExp('^' + k.replace(/[.*+?^$()|[\]\\]/g, '\\$&').replace(/\{\d\}/g, '([\\s\\S]*?)') + '$'), DICT[k]]);
+    } catch { /* stays Turkish */ }
+    translateTree(document.body);
+    new MutationObserver(list => {
+      for (const m of list) {
+        if (m.type === 'characterData') { const t = tr(m.target.nodeValue); if (t !== m.target.nodeValue) m.target.nodeValue = t; }
+        else if (m.type === 'attributes') { const v = m.target.getAttribute(m.attributeName); const t = v && tr(v); if (v && t !== v) m.target.setAttribute(m.attributeName, t); }
+        else m.addedNodes.forEach(n => n.nodeType === 3 ? (n.nodeValue = tr(n.nodeValue)) : n.nodeType === 1 && translateTree(n));
+      }
+    }).observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
+    // Text pages exist in Turkish and English; other languages get the English ones.
+    const EN_PAGES = { '/nasil-oynanir.html': '/en/how-to-play.html', '/kosullar.html': '/en/terms.html', '/gizlilik.html': '/en/privacy.html' };
+    document.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (EN_PAGES[href]) a.setAttribute('href', EN_PAGES[href]);
+      if (href === '/dersler/' || href === '/kuslar/') { const prev = a.previousSibling; a.remove(); if (prev?.nodeType === 3) prev.nodeValue = prev.nodeValue.replace(/·\s*$/, ''); }
+    });
+  })();
+  const langSel = $('langSel');
+  for (const [k, v] of Object.entries(LANGS)) langSel.append(new Option(v, k, false, k === LANG));
+  langSel.onchange = () => { lsSet('drawbird.lang', langSel.value); location.reload(); };
   function toast(msg) {
     const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
     $('toasts').appendChild(t); setTimeout(() => t.remove(), 4200);
   }
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
-  const fmtDate = ts => new Date(ts).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short', year: 'numeric' });
+  const fmtDate = ts => new Date(ts).toLocaleDateString(LOCALE, { day: 'numeric', month: 'short', year: 'numeric' });
 
   // ================= router =================
   const VIEWS = ['ciz', 'gok', 'sira', 'profil', 'yonetim'];
@@ -636,7 +717,7 @@
     newcomerKey = null;
     for (const [k, f] of ents) if (!keep.has(k)) { f.leave = 1; leaving.push(f); }
     ents = keep;
-    document.title = `DrawBird · ${ents.size} kuş uçuyor`;
+    document.title = tr(`DrawBird · ${ents.size} kuş uçuyor`);
     if (focusKey && ents.has(focusKey)) {
       const f = ents.get(focusKey); focusKey = null;
       setTimeout(() => showTip(f.b.key, Math.min(W - 240, Math.max(20, f.x)), Math.max(80, f.y)), 600);
@@ -1090,6 +1171,22 @@
     }
     box.replaceChildren(row);
   }
+  $('roToggle').onclick = () => api('/admin/readonly', { body: { on: !S.readonly } }).then(() => refresh().then(() => toast(S.readonly ? 'Bakım modu açık.' : 'Bakım modu kapalı.')), writeFailed).catch(() => {});
+  onChange(() => {
+    $('roToggle').textContent = S.readonly ? 'Kapat' : 'Aç';
+    const b = $('modeBanner');
+    if (S.readonly) { b.textContent = 'Site kısa bir bakımda. Kuşları izleyebilirsin; gönderim birazdan açılacak.'; b.hidden = false; }
+    else if (b.textContent.startsWith('Site kısa bir bakımda')) b.hidden = true;
+  });
+  $('eraseMe').onclick = e => {
+    const btn = e.currentTarget;
+    if (!btn.dataset.armed) { btn.dataset.armed = '1'; btn.textContent = 'Emin misin? Tekrar bas'; setTimeout(() => { delete btn.dataset.armed; btn.textContent = 'Tüm verilerimi sil'; }, 4000); return; }
+    api('/me', { method: 'DELETE' }).then(async r => {
+      token = [...crypto.getRandomValues(new Uint8Array(24))].map(b => b.toString(16).padStart(2, '0')).join('');
+      lsSet('drawbird.token', token);
+      await refresh(); toast(`Verilerin silindi (${r.birds} kuş). Bu cihaz artık yeni ve boş bir kimlik kullanıyor.`);
+    }, writeFailed).catch(() => {});
+  };
   $('admRefresh').onclick = renderAdmin;
   let wasOwner = false;
   onChange(() => {
@@ -1124,6 +1221,7 @@
   try { if (!sessionStorage.getItem('drawbird.hit')) { sessionStorage.setItem('drawbird.hit', '1'); fetch('/api/hit', { method: 'POST' }).catch(() => {}); } } catch { /* storage blocked: skip counting */ }
 
   // ================= boot =================
+  await Promise.race([i18nReady, new Promise(r => setTimeout(r, 1500))]);
   route();
   refresh();
 })();

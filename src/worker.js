@@ -1,5 +1,5 @@
 // DrawBird API: anonymous device tokens, birds, votes, flags, flocks, moderation on D1.
-import { isBadName, notifyBird, connectTelegram, telegramStatus, handleTelegram } from './moderation.js';
+import { isBadName, notifyBird, notifyText, connectTelegram, telegramStatus, handleTelegram, setting } from './moderation.js';
 const MAX_BIRDS = 8;
 const MAX_FLOCKS = 12;
 const MAX_IMG = 90_000; // data URL characters (~65 KB image)
@@ -14,8 +14,8 @@ const NEW_IDS_PER_IP_DAY = 40; // classrooms share one IP, so keep this generous
 
 // Hardening headers for everything the Worker answers.
 const CSP = [
-  "default-src 'self'", "script-src 'self' 'unsafe-inline'", "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src https://fonts.gstatic.com", "img-src 'self' data: blob:", "connect-src 'self'", "manifest-src 'self'",
+  "default-src 'self'", "script-src 'self' 'unsafe-inline'", "style-src 'self' 'unsafe-inline'",
+  "font-src 'self'", "img-src 'self' data: blob:", "connect-src 'self'", "manifest-src 'self'",
   "object-src 'none'", "base-uri 'none'", "form-action 'none'", "frame-ancestors 'none'",
 ].join('; ');
 const SECURITY_HEADERS = {
@@ -79,6 +79,7 @@ async function auth(req, env, create) {
     const n = await env.DB.prepare('INSERT INTO new_ids (day, ip_hash, n) VALUES (?, ?, 1) ON CONFLICT(day, ip_hash) DO UPDATE SET n = n + 1 RETURNING n')
       .bind(day, ipHash).first('n');
     if (Math.random() < .02) await env.DB.prepare('DELETE FROM new_ids WHERE day < ?').bind(new Date(Date.now() - 864e5).toISOString().slice(0, 10)).run();
+    if (n === NEW_IDS_PER_IP_DAY + 1) await notifyText(env, '⚠️ Bir ağdan bugün çok sayıda yeni hesap açılmaya çalışıldı (sahte oy/bildirim girişimi olabilir). Yeni hesaplar o ağ için yarına kadar durduruldu.');
     if (n > NEW_IDS_PER_IP_DAY) throw { status: 429, error: 'too_many_new' };
     row = { uid: hash.slice(0, 16), name: '' };
     await env.DB.prepare('INSERT OR IGNORE INTO users (uid, token_hash, name, created) VALUES (?, ?, ?, ?)')
@@ -145,6 +146,7 @@ async function state(req, env, url) {
   return json({
     me: me ? { uid: me.uid, name: me.name, banned: !!(await isBanned(env, me.uid)) } : null,
     admin: await isAdmin(req, env),
+    readonly: (await setting(env, 'readonly')) === '1',
     hideFlags: HIDE_FLAGS, hideFlagsNew: HIDE_FLAGS_NEW, maxBirds: MAX_BIRDS,
     birds: [...pending, ...pub.birds], names: pub.names, flocks, mine,
   });
@@ -238,7 +240,10 @@ async function adminApi(req, env, path, method, body) {
   if (await limited(env.RL_ADMIN, 'admin:' + clientIp(req))) return fail(429, 'slow_down');
   if (!(await isAdmin(req, env))) {
     // Wrong keys are counted: 20 misses per IP lock admin out for an hour.
-    if (await overLimit(env, req, 'adminfail', 20, 3600)) return fail(429, 'slow_down');
+    if (await overLimit(env, req, 'adminfail', 20, 3600)) {
+      if (!(await overLimit(env, req, 'adminfail-alert', 1, 3600))) await notifyText(env, '🚨 Yönetici anahtarı bir saatte 20 kez yanlış girildi. O ağ bir saat kilitlendi. Sen değilsen anahtarı yenile: npx wrangler secret put ADMIN_KEY');
+      return fail(429, 'slow_down');
+    }
     return fail(403, 'not_admin');
   }
   if (method === 'GET' && path === '/admin/reports') {
@@ -274,6 +279,11 @@ async function adminApi(req, env, path, method, body) {
     return json({ ok: true, result: await decide(env, kind, String(body.bird || '')) });
   }
   if (method === 'GET' && path === '/admin/telegram') return json(await telegramStatus(env));
+  if (method === 'POST' && path === '/admin/readonly') {
+    await env.DB.prepare("INSERT INTO settings (k, v) VALUES ('readonly', ?) ON CONFLICT(k) DO UPDATE SET v = excluded.v").bind(body.on ? '1' : '0').run();
+    await notifyText(env, body.on ? '🔒 Bakım modu açıldı: site yalnız okunur.' : '🔓 Bakım modu kapatıldı.');
+    return json({ ok: true });
+  }
   if (method === 'POST' && path === '/admin/telegram') return json(await connectTelegram(env, new URL(req.url).origin));
   if (method === 'POST' && path === '/admin/rename') {
     const uid = String(body.uid || '');
@@ -302,6 +312,7 @@ async function handleApi(req, env, url, ctx) {
 
   if (method === 'GET' && path === '/state') return state(req, env, url);
   if (method !== 'GET' && !path.startsWith('/admin/') && await limited(env.RL_WRITE, 'w:' + clientIp(req))) return fail(429, 'slow_down');
+  if (method !== 'GET' && !path.startsWith('/admin/') && path !== '/telegram' && path !== '/hit' && (await setting(env, 'readonly')) === '1') return fail(503, 'readonly');
   if (method === 'POST' && path === '/hit') {
     // One count per browser session; nothing about the visitor is stored.
     await env.DB.prepare('INSERT INTO visits (day, n) VALUES (?, 1) ON CONFLICT(day) DO UPDATE SET n = n + 1')
@@ -320,6 +331,25 @@ async function handleApi(req, env, url, ctx) {
   const me = await auth(req, env, true);
   if (!me) return fail(401, 'no_token');
   const admin = await isAdmin(req, env);
+
+  if (method === 'DELETE' && path === '/me') {
+    // Erase everything tied to this identity. Votes/flags others gave to these birds go with the birds.
+    const { results } = await env.DB.prepare('SELECT id FROM birds WHERE uid = ?').bind(me.uid).all();
+    const ids = results.map(r => r.id);
+    const writes = [
+      env.DB.prepare('DELETE FROM votes WHERE uid = ?').bind(me.uid),
+      env.DB.prepare('DELETE FROM flags WHERE uid = ?').bind(me.uid),
+      env.DB.prepare('DELETE FROM flocks WHERE uid = ?').bind(me.uid),
+      env.DB.prepare('DELETE FROM users WHERE uid = ?').bind(me.uid),
+    ];
+    for (const id of ids) writes.push(
+      env.DB.prepare('DELETE FROM birds WHERE id = ?').bind(id),
+      env.DB.prepare('DELETE FROM votes WHERE bird_id = ?').bind(id),
+      env.DB.prepare('DELETE FROM flags WHERE bird_id = ?').bind(id));
+    await env.DB.batch(writes);
+    // A ban outlives the account on purpose (bans table), so erasing cannot be used to dodge one.
+    return json({ ok: true, birds: ids.length });
+  }
 
   if (method === 'POST' && path === '/me') {
     let name = clean(body.name, 24);
@@ -470,7 +500,7 @@ async function weeklyPage(env, url) {
 <meta property="og:description" content="Bu hafta ortak gökyüzünde en çok beğenilen kuş çizimleri.">
 <meta property="og:image" content="${first ? `${url.origin}/api/img/${first.id}` : `${url.origin}/og-card.png`}">
 <link rel="icon" href="/icons/icon-192.png" type="image/png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Rubik:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
 </head>
 <body>
@@ -497,7 +527,10 @@ async function sitemap(env, url) {
     AND NOT ${hiddenSql('birds')} ORDER BY created DESC LIMIT 1000`).all();
   const day = ts => new Date(ts).toISOString().slice(0, 10);
   const today = day(Date.now());
-  const pages = [['/', today], ['/haftanin-kuslari', today], ['/nasil-oynanir.html'], ['/kosullar.html'], ['/gizlilik.html'],
+  const pages = [['/', today], ['/haftanin-kuslari', today], ['/nasil-oynanir'], ['/kosullar'], ['/gizlilik'], ['/kvkk'],
+    ['/dersler/'], ['/dersler/serce'], ['/dersler/marti'], ['/dersler/baykus'],
+    ['/kuslar/'], ['/kuslar/kumru'], ['/kuslar/leylek'],
+    ['/en/how-to-play'], ['/en/terms'], ['/en/privacy'],
     ...results.map(b => [`/k/${b.id}`, day(b.created)])];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -534,7 +567,11 @@ export default {
       try { res = await handleApi(req, env, url, ctx); }
       catch (e) {
         if (e?.status) res = fail(e.status, e.error);
-        else { console.error(e); res = fail(500, 'server_error'); }
+        else {
+          console.error(e);
+          res = fail(500, 'server_error');
+          ctx.waitUntil(overLimit(env, req, 'err-alert', 1, 600).then(over => over ? null : notifyText(env, `❗ Sunucu hatası: ${url.pathname} — ${String(e?.message || e).slice(0, 200)}`)).catch(() => {}));
+        }
       }
       if (req.method !== 'GET' && res.ok && url.pathname !== '/api/hit') await caches.default.delete(publicKey(url));
       return secure(res);

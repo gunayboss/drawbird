@@ -79,6 +79,13 @@ export async function telegramStatus(env) {
   return { token: !!env.TELEGRAM_TOKEN, connected: !!(await setting(env, 'tg_chat')) };
 }
 
+// Plain security or operations alert to the owner's chat.
+export async function notifyText(env, text) {
+  if (!env.TELEGRAM_TOKEN) return;
+  const chat = await setting(env, 'tg_chat');
+  if (chat) await tg(env, 'sendMessage', { chat_id: chat, text });
+}
+
 // Fire-and-forget notice about one bird, with decision buttons.
 export async function notifyBird(env, origin, bird, kind) {
   if (!env.TELEGRAM_TOKEN) return;
