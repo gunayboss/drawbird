@@ -35,6 +35,18 @@ async function limited(binding, key) {
   try { return !(await binding.limit({ key })).success; } catch { return false; }
 }
 
+// Exact fixed-window counter in D1 for the costly or sensitive paths (the bindings above are best-effort).
+// Keys carry only a salted hash of the IP.
+async function overLimit(env, req, kind, limit, windowSec) {
+  const now = Date.now();
+  const key = kind + ':' + (await sha256(`${clientIp(req)}|${env.ADMIN_KEY || ''}`)).slice(0, 32);
+  const n = await env.DB.prepare(`INSERT INTO limits (k, n, exp) VALUES (?, 1, ?)
+      ON CONFLICT(k) DO UPDATE SET n = CASE WHEN exp < ? THEN 1 ELSE n + 1 END, exp = CASE WHEN exp < ? THEN ? ELSE exp END
+      RETURNING n`).bind(key, now + windowSec * 1000, now, now, now + windowSec * 1000).first('n');
+  if (Math.random() < .01) await env.DB.prepare('DELETE FROM limits WHERE exp < ?').bind(now).run();
+  return n > limit;
+}
+
 const json = (data, status = 200, headers = {}) =>
   new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', ...headers } });
 const fail = (status, error) => json({ error }, status);
@@ -162,7 +174,11 @@ async function readBody(req, limit = 120_000) {
 
 async function adminApi(req, env, path, method, body) {
   if (await limited(env.RL_ADMIN, 'admin:' + clientIp(req))) return fail(429, 'slow_down');
-  if (!(await isAdmin(req, env))) return fail(403, 'not_admin');
+  if (!(await isAdmin(req, env))) {
+    // Wrong keys are counted: 20 misses per IP lock admin out for an hour.
+    if (await overLimit(env, req, 'adminfail', 20, 3600)) return fail(429, 'slow_down');
+    return fail(403, 'not_admin');
+  }
   if (method === 'GET' && path === '/admin/reports') {
     const [reported, bans] = await env.DB.batch([
       env.DB.prepare(`SELECT b.id, b.uid, b.name, b.created, COUNT(f.uid) AS flags,
@@ -237,7 +253,7 @@ async function handleApi(req, env, url) {
 
   if (method === 'POST' && path === '/birds') {
     if (await isBanned(env, me.uid)) return fail(403, 'banned');
-    if (await limited(env.RL_BIRD, 'b:' + clientIp(req))) return fail(429, 'slow_down');
+    if (await limited(env.RL_BIRD, 'b:' + clientIp(req)) || await overLimit(env, req, 'bird', 40, 3600)) return fail(429, 'slow_down');
     const data = String(body.img || '');
     if (!/^data:image\/(png|webp);base64,[A-Za-z0-9+/=]+$/.test(data) || data.length > MAX_IMG || !looksLikeImage(data)) return fail(400, 'bad_image');
     const count = await env.DB.prepare('SELECT COUNT(*) AS n FROM birds WHERE uid = ?').bind(me.uid).first('n');
