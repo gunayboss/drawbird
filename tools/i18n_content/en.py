@@ -519,10 +519,10 @@ PAGES = {'ogretmenler': {'title': 'DrawBird for the class',
                          '  <li><b>Wrap-up (3 min):</b> Close the day by asking "Why does your bird have that kind of beak?" If you like, give a bird-watching task at home as homework.</li>\n'
                          '</ol>\n'
                          '\n'
-                         '<h2>Important: first birds wait for approval</h2>\n'
-                         '<p>So that children of any age can use DrawBird, <b>the first two birds of new artists are visible only to the person who drew them until an admin has looked at them</b>. '
-                         'So the first birds drawn in class may not drop into the shared sky right away. Students still see their own bird on their own screen. To keep the shared screen from being '
-                         "empty, it's enough to draw two birds in your own browser the day before the lesson and get them approved.</p>\n"
+                         '<h2>Important: if an inappropriate bird shows up</h2>\n'
+                         "<p>Birds enter the shared sky the moment they're flown, so birds drawn in class show up on the board right away. An admin looks at new birds every day. But if an "
+                         'inappropriate bird shows up in the middle of the lesson, tap it and press <b>Report</b>. <b>A new bird comes down from the sky after two reports.</b> If you want to show '
+                         "only the class's birds during the lesson, create a flock, add the birds to it and open the flock's link.</p>\n"
                          '\n'
                          '<h2>Child safety</h2>\n'
                          '<ul>\n'
@@ -547,8 +547,8 @@ PAGES = {'ogretmenler': {'title': 'DrawBird for the class',
          'items': [['Does DrawBird cost money?', "No, it's completely free. No payments, no subscriptions, no in-app purchases."],
                    ['Do I need to sign up?', "No. You can draw the moment you open the page. Your browser makes a random code for you. We don't ask for an email or a password."],
                    ["Why isn't my bird showing in the sky?",
-                    "The first two birds of new artists are visible only to the person who drew them until an admin has looked at them. That's to keep the site safe for users of every age. Once your "
-                    'two birds are approved, the next ones fly right away.'],
+                    'Only up to 100 birds fly in the sky at once, so in a crowd yours may have to wait in line. Pick “Newest” from the Show menu and your bird comes to the front. If your bird got a '
+                    'few reports, it comes down from the sky until an admin looks at it.'],
                    ["Why isn't my bird flapping?",
                     'The part above the dashed line on the canvas flaps like a wing, and the part below stays as the body. Try drawing the wings above the line. The <a href="/dersler/">drawing '
                     'lessons</a> show this step by step.'],
@@ -585,7 +585,7 @@ PAGES = {'ogretmenler': {'title': 'DrawBird for the class',
                       '<h2>My rules</h2>\n'
                       '<ul>\n'
                       "  <li><b>Free, no accounts.</b> I don't ask for an email, a password or a real name.</li>\n"
-                      '  <li><b>Safe for every age.</b> The first birds of new artists go through approval, inappropriate names are blocked, and every bird can be reported.</li>\n'
+                      '  <li><b>Safe for every age.</b> New birds get a look every day, inappropriate names are blocked, and every bird can be reported.</li>\n'
                       '  <li><b>Little data.</b> I keep only the data the game needs to work. No cookies, no tracking tools.</li>\n'
                       '  <li><b>Open source.</b> All of the code is on <a href="https://github.com/gunayboss/drawbird">GitHub</a>, under the AGPL-3.0 license.</li>\n'
                       '</ul>\n'
@@ -615,9 +615,9 @@ LEGAL = {'nasil-oynanir': {'title': 'How to play',
                            '  <li><b>Name it and fly it.</b> Give your bird a name of up to 24 letters and press <b>fly!</b>. Your bird enters the sky from the left.</li>\n'
                            '</ol>\n'
                            '\n'
-                           '<h2>Your first birds</h2>\n'
-                           '<p>To keep DrawBird safe for people of every age, the first two birds of new artists are visible only to the person who drew them until an admin has looked at them. Until '
-                           'then, only you see it in the sky. Once your two birds are approved, the next ones fly right away.</p>\n'
+                           '<h2>Your bird flies right away</h2>\n'
+                           "<p>The moment you let your bird fly, it enters everyone's sky. To keep DrawBird safe for people of every age, an admin looks at new birds every day. If you see an "
+                           "inappropriate bird, press <b>Report</b> and we'll take care of the rest.</p>\n"
                            '\n'
                            '<h2>In the sky</h2>\n'
                            '<ul>\n'
@@ -675,8 +675,8 @@ LEGAL = {'nasil-oynanir': {'title': 'How to play',
                       "  <p>You confirm that the drawing you submit belongs to you and does not infringe anyone else's rights.</p>\n"
                       '\n'
                       '  <h2>5. Moderation</h2>\n'
-                      '  <p>The first two birds of new artists become visible to everyone after admin approval; later birds of an approved artist fly directly. Inappropriate words in bird names, '
-                      'artist names and flock names are blocked automatically.</p>\n'
+                      '  <p>Birds you send are visible to everyone right away. An admin looks at new birds every day and deletes the inappropriate ones. When needed, the birds of new artists can be '
+                      'put on approval before they are published. Inappropriate words in bird names, artist names and flock names are blocked automatically.</p>\n'
                       '  <p>Every bird can be flagged with <b>Report</b>. A bird that gets three reports (two on its first day) comes down from the sky and is reviewed by the admin. Birds that break '
                       'the rules can be deleted without warning; a device that repeatedly breaks the rules can be blocked from submitting.</p>\n'
                       '  <p>If you think a drawing infringes your rights, write to us through the contact route below with the link of the bird; we will review it and remove it.</p>\n'
@@ -715,9 +715,9 @@ LEGAL = {'nasil-oynanir': {'title': 'How to play',
                       'accounts, and for at most one hour for submission limits. Expired records are deleted. The hash of the network you submitted a bird from is stored with your account; it is '
                       'used only to pause opening new accounts from that network for 24 hours when an account that breaks the rules is blocked.</p>\n'
                       '\n'
-                      '  <h2>Approval</h2>\n'
-                      '  <p>The first two birds of new artists are visible only to the person who drew them until an admin has looked at them. To approve, the admin sees the picture and name of the '
-                      'bird.</p>\n'
+                      '  <h2>Review</h2>\n'
+                      "  <p>An admin looks at new birds and reported birds. To do that, the admin sees the bird's picture, its name and the artist name. When needed, the birds of new artists can be "
+                      'put on approval before publishing; in that case the bird is visible only to the person who drew it.</p>\n'
                       '\n'
                       "  <h2>What we don't collect</h2>\n"
                       "  <p>Right now we don't use ads, ad cookies, location, contact lists or third-party analytics tools. If ads are added, this page will be updated and your consent will be asked "
@@ -771,8 +771,8 @@ LEGAL = {'nasil-oynanir': {'title': 'How to play',
                   '  <ul>\n'
                   '    <li>Providing the game, showing your birds in the sky, storing votes and flocks: <b>establishment and performance of a contract</b> (KVKK Art. 5/2-c; <a href="/kosullar">terms '
                   'of use</a>).</li>\n'
-                  '    <li>Preventing spam, fake votes, inappropriate content and attacks, blocking those who break the rules, approving the first drawings of new artists: <b>legitimate interest</b> '
-                  '(KVKK Art. 5/2-f).</li>\n'
+                  '    <li>Preventing spam, fake votes, inappropriate content and attacks, blocking those who break the rules, reviewing new and reported drawings: <b>legitimate interest</b> (KVKK '
+                  'Art. 5/2-f).</li>\n'
                   '    <li>Requests from authorized institutions and legal retention obligations: <b>legal obligation</b> (KVKK Art. 5/2-ç).</li>\n'
                   '  </ul>\n'
                   '  <p>We do not carry out any processing based on explicit consent, marketing messages or profiling.</p>\n'
@@ -781,7 +781,7 @@ LEGAL = {'nasil-oynanir': {'title': 'How to play',
                   '  <ul>\n'
                   '    <li><b>Cloudflare, Inc.</b> (hosting and database): All data is kept on Cloudflare servers; the database is in the Eastern Europe region, and pages are served from servers '
                   'around the world.</li>\n'
-                  "    <li><b>Telegram</b> (moderation): The picture, name and artist name of a bird awaiting approval or reported are sent to the admin's Telegram account.</li>\n"
+                  "    <li><b>Telegram</b> (moderation): The picture, name and artist name of new birds, birds awaiting approval and reported birds are sent to the admin's Telegram account.</li>\n"
                   '  </ul>\n'
                   "  <p>These providers' servers are abroad; the transfer is made under KVKK Art. 9. We do not sell or hand over your data to anyone else.</p>\n"
                   '\n'
@@ -828,9 +828,9 @@ POSTS = {'2026-11-drawbird-yayinda': {'title': 'DrawBird is live: notes from the
                                       '</ul>\n'
                                       '\n'
                                       '<h2>A safe sky</h2>\n'
-                                      "<p>Kids use DrawBird too. That's why the first two birds of new artists are visible only to the person who drew them until a human has looked at them. "
-                                      'Inappropriate words in bird, artist and flock names are blocked automatically. Every bird can be reported. I know these slow things down a bit. But keeping the '
-                                      'sky pleasant for everyone matters more.</p>\n'
+                                      "<p>Kids use DrawBird too. That's why a human looks at new birds every day. Inappropriate words in bird, artist and flock names are blocked automatically. Every "
+                                      'bird can be reported, and a bird that gets a few reports comes down by itself. This way your bird flies without waiting, and the sky stays pleasant for '
+                                      'everyone.</p>\n'
                                       '\n'
                                       "<h2>This month's challenge: the funniest owl</h2>\n"
                                       '<p>This month I\'m inviting everyone to draw an owl. You can follow the <a href="/dersler/baykus">owl lesson</a> or draw completely in your own style. Write '

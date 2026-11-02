@@ -343,7 +343,8 @@
     <button class="btn small" id="admRefresh" type="button">Yenile</button>
   </div>
   <div class="stats" id="admStats"></div>
-  <div class="flocks"><div class="flock"><b>Bakım modu</b><span class="meta">Bir sorun ya da saldırı anında siteyi yalnız okunur yapar: kimse kuş gönderemez, oy veremez.</span><button class="btn small" id="roToggle" type="button">Aç</button></div></div>
+  <div class="flocks"><div class="flock"><b>Bakım modu</b><span class="meta">Bir sorun ya da saldırı anında siteyi yalnız okunur yapar: kimse kuş gönderemez, oy veremez.</span><button class="btn small" id="roToggle" type="button">Aç</button></div>
+    <div class="flock"><b>Ön onay</b><span class="meta" id="reviewInfo">Kapalıyken yeni kuşlar hemen uçar; bildirilenler gizlenip sana gelir, günün kuşları her sabah Telegram'a albüm olarak düşer. Açıkken yeni kuşçuların ilk kuşları senin onayını bekler.</span><button class="btn small" id="reviewToggle" type="button">Aç</button></div></div>
   <h2 class="section-title">Onay sırası</h2>
   <div class="review" id="review"></div>
   <h2 class="section-title">Telegram</h2>
@@ -1309,6 +1310,10 @@
     const box = $('tgBox');
     let st = { token: false, connected: false };
     try { st = await api('/admin/telegram'); } catch { /* shown as not ready */ }
+    const rv = $('reviewToggle');
+    rv.textContent = st.review ? 'Kapat' : 'Aç';
+    rv.onclick = () => api('/admin/review-mode', { body: { on: !st.review } })
+      .then(() => { toast(st.review ? 'Ön onay kapandı: yeni kuşlar hemen uçacak.' : 'Ön onay açıldı.'); renderTelegram(); }, writeFailed).catch(() => {});
     const row = el('div', 'flock');
     if (!st.token) {
       const ol = el('ol', 'tgsteps');
@@ -1326,7 +1331,7 @@
         btn.disabled = false; renderTelegram();
       };
       row.append(el('b', null, st.connected ? 'Telegram bağlı' : 'Bot anahtarı var, sohbet bağlı değil'),
-        el('span', 'meta', st.connected ? 'Onay bekleyen ve bildirilen kuşlar resmiyle gelir; düğmelerle oradan karar verebilirsin.' : 'Botuna bir mesaj yaz, sonra bağla.'), btn);
+        el('span', 'meta', st.connected ? 'Bildirilen kuşlar resmiyle anında gelir, günün kuşları her sabah albüm olarak; düğmelerle oradan karar verebilirsin.' : 'Botuna bir mesaj yaz, sonra bağla.'), btn);
     }
     box.replaceChildren(row);
   }

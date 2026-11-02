@@ -1,6 +1,6 @@
 // DrawBird API: anonymous device tokens, birds, votes, flags, flocks, moderation on D1.
 import { STATIC_PAGES, LANGS, WEEK_UI } from './static_pages.js';
-import { isBadName, notifyBird, notifyText, connectTelegram, telegramStatus, handleTelegram, setting } from './moderation.js';
+import { isBadName, notifyBird, notifyText, connectTelegram, telegramStatus, handleTelegram, sendDigest, setting } from './moderation.js';
 const MAX_BIRDS = 8;
 const MAX_FLOCKS = 12;
 const MAX_IMG = 90_000; // data URL characters (~65 KB image)
@@ -313,6 +313,10 @@ async function adminApi(req, env, path, method, body) {
     await notifyText(env, body.on ? '🔒 Bakım modu açıldı: site yalnız okunur.' : '🔓 Bakım modu kapatıldı.');
     return json({ ok: true });
   }
+  if (method === 'POST' && path === '/admin/review-mode') {
+    await env.DB.prepare("INSERT INTO settings (k, v) VALUES ('review', ?) ON CONFLICT(k) DO UPDATE SET v = excluded.v").bind(body.on ? '1' : '0').run();
+    return json({ ok: true });
+  }
   if (method === 'POST' && path === '/admin/telegram') return json(await connectTelegram(env, new URL(req.url).origin));
   if (method === 'POST' && path === '/admin/rename') {
     const uid = String(body.uid || '');
@@ -417,8 +421,11 @@ async function handleApi(req, env, url, ctx) {
     let name = clean(body.name, 24) || 'İsimsiz kuş';
     const filtered = isBadName(name);
     if (filtered) name = 'İsimsiz kuş';
-    const trusted = await env.DB.prepare('SELECT trusted FROM users WHERE uid = ?').bind(me.uid).first('trusted');
-    const status = trusted ? 'live' : 'pending';
+    // Pre-review of new artists is optional (admin setting 'review'); without it birds go live at once
+    // and the community's reports plus the nightly Telegram digest are the safety net.
+    const review = (await setting(env, 'review')) === '1';
+    const trusted = review && await env.DB.prepare('SELECT trusted FROM users WHERE uid = ?').bind(me.uid).first('trusted');
+    const status = !review || trusted ? 'live' : 'pending';
     await env.DB.batch([
       env.DB.prepare('INSERT INTO birds (id, uid, name, img, created, status) VALUES (?, ?, ?, ?, ?, ?)').bind(id, me.uid, name, data, Date.now(), status),
       env.DB.prepare('UPDATE users SET ip_hash = ? WHERE uid = ?').bind(await ipKey(req, env), me.uid),
@@ -704,6 +711,9 @@ export default {
       env.DB.prepare('DELETE FROM new_ids WHERE day < ?').bind(new Date(now - 2 * 864e5).toISOString().slice(0, 10)),
       env.DB.prepare('DELETE FROM ip_bans WHERE exp < ?').bind(now),
     ]);
+    const { results } = await env.DB.prepare(`SELECT b.id, b.name, u.name AS author FROM birds b LEFT JOIN users u ON u.uid = b.uid
+      WHERE b.created >= ? AND b.status = 'live' AND b.uid NOT IN (SELECT uid FROM bans) ORDER BY b.created`).bind(now - 864e5).all();
+    await sendDigest(env, results);
   },
   async fetch(req, env, ctx) {
     const url = new URL(req.url);

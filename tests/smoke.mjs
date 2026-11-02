@@ -67,6 +67,15 @@ async function pages() {
 }
 
 async function birdsFlow() {
+  // Pre-review is off by default: a new artist's bird goes live at once.
+  const quick = mk();
+  const r0 = await postBird(quick, 'Hemen kus');
+  if (r0.body?.id) created.push(r0.body.id);
+  check('review off: new artist bird is live at once', r0.status === 200 && r0.body?.pending === false, JSON.stringify(r0.body));
+
+  // The rest of the flow runs with pre-review on.
+  const on = await api('POST', '/admin/review-mode', { admin: true, body: { on: true } });
+  check('admin review-mode on -> 200', on.status === 200, `status ${on.status}`);
   const poster = mk();
   const r1 = await postBird(poster, 'Ilk kuş');
   check('POST /api/birds new token -> 200 pending', r1.status === 200 && r1.body?.pending === true, JSON.stringify(r1.body));
@@ -94,6 +103,7 @@ async function birdsFlow() {
   const r3 = await postBird(poster, 'Uc kus');
   if (r3.body?.id) created.push(r3.body.id);
   check('third bird from trusted artist is not pending', r3.status === 200 && r3.body?.pending === false, JSON.stringify(r3.body));
+  await api('POST', '/admin/review-mode', { admin: true, body: { on: false } });
   return { poster, bird: b1 };
 }
 

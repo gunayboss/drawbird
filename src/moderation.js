@@ -84,14 +84,39 @@ export async function connectTelegram(env, origin) {
   const secret = [...crypto.getRandomValues(new Uint8Array(24))].map(b => b.toString(16).padStart(2, '0')).join('');
   await putSetting(env, 'tg_chat', String(last.chat.id));
   await putSetting(env, 'tg_secret', secret);
+  // The nightly digest runs without a request, so it needs to know the site address for photo links.
+  await putSetting(env, 'origin', origin);
   const hook = await tg(env, 'setWebhook', { url: `${origin}/api/telegram`, secret_token: secret, allowed_updates: ['callback_query'] });
   if (!hook.ok) return { ok: false, error: 'webhook_failed' };
-  await tg(env, 'sendMessage', { chat_id: last.chat.id, text: 'DrawBird bağlandı. Onay bekleyen ve bildirilen kuşlar buraya gelecek; düğmelerle karar verebilirsin.' });
+  await tg(env, 'sendMessage', { chat_id: last.chat.id, text: 'DrawBird bağlandı. Bildirilen kuşlar anında, günün yeni kuşları her sabah albüm olarak buraya gelecek; düğmelerle karar verebilirsin.' });
   return { ok: true, name: [last.chat.first_name, last.chat.last_name].filter(Boolean).join(' ') };
 }
 
 export async function telegramStatus(env) {
-  return { token: !!env.TELEGRAM_TOKEN, connected: !!(await setting(env, 'tg_chat')) };
+  return { token: !!env.TELEGRAM_TOKEN, connected: !!(await setting(env, 'tg_chat')), review: (await setting(env, 'review')) === '1' };
+}
+
+// Nightly album of the day's new birds, so the owner can glance at them once instead of approving each one.
+// Ten photos per album (Telegram's limit), each followed by numbered delete buttons.
+const DIGEST_MAX = 30;
+export async function sendDigest(env, birds) {
+  if (!env.TELEGRAM_TOKEN || !birds.length) return;
+  const [chat, origin] = await Promise.all([setting(env, 'tg_chat'), setting(env, 'origin')]);
+  if (!chat || !origin) return;
+  const shown = birds.slice(0, DIGEST_MAX);
+  const more = birds.length - shown.length;
+  await tg(env, 'sendMessage', { chat_id: chat, text: `📸 Son 24 saatte ${birds.length} yeni kuş.${more ? ` İlk ${DIGEST_MAX} tanesi aşağıda, kalanı sitede.` : ''} Kötü olan varsa numarasına basıp sil.` });
+  for (let i = 0; i < shown.length; i += 10) {
+    const part = shown.slice(i, i + 10);
+    await tg(env, 'sendMediaGroup', {
+      chat_id: chat,
+      media: part.map((b, j) => ({ type: 'photo', media: `${origin}/api/img/${b.id}`, caption: `${i + j + 1}. “${b.name}” · ${b.author || 'İsimsiz kuşçu'}` })),
+    });
+    const buttons = part.map((b, j) => ({ text: `🗑 ${i + j + 1}`, callback_data: `no:${b.id}` }));
+    const rows = [];
+    for (let k = 0; k < buttons.length; k += 5) rows.push(buttons.slice(k, k + 5));
+    await tg(env, 'sendMessage', { chat_id: chat, text: `${i + 1}–${i + part.length} arası:`, reply_markup: { inline_keyboard: rows } });
+  }
 }
 
 // Plain security or operations alert to the owner's chat.
@@ -129,6 +154,11 @@ export async function handleTelegram(req, env, act) {
   const [kind, id] = String(cb.data || '').split(':');
   const text = await act(kind, id);
   await tg(env, 'answerCallbackQuery', { callback_query_id: cb.id, text });
-  await tg(env, 'editMessageCaption', { chat_id: chat, message_id: cb.message.message_id, caption: `${cb.message.caption || ''}\n→ ${text}` });
+  if (cb.message.photo) await tg(env, 'editMessageCaption', { chat_id: chat, message_id: cb.message.message_id, caption: `${cb.message.caption || ''}\n→ ${text}` });
+  else {
+    // Digest button rows: note which number was handled and keep the other buttons.
+    const label = cb.message.reply_markup?.inline_keyboard.flat().find(x => x.callback_data === cb.data)?.text || '';
+    await tg(env, 'editMessageText', { chat_id: chat, message_id: cb.message.message_id, text: `${cb.message.text || ''}\n${label} → ${text}`, reply_markup: cb.message.reply_markup });
+  }
   return new Response('ok');
 }

@@ -19,8 +19,8 @@ TEACHERS = {
   <li><b>Kapanış (3 dk):</b> "Senin kuşunun gagası neden öyle?" diye sorup günü bağla. İstersen ödev olarak evden bir kuş gözlemi iste.</li>
 </ol>
 
-<h2>Önemli: ilk kuşlar onay bekliyor</h2>
-<p>DrawBird'ü her yaştan çocuk kullanabilsin diye <b>yeni kuşçuların ilk iki kuşu bir yönetici bakana kadar sadece çizen kişiye görünüyor</b>. Yani sınıfta ilk kez çizilen kuşlar ortak gökyüzüne hemen düşmeyebilir. Öğrenciler kendi ekranında yine kendi kuşunu görür. Ortak ekranın boş kalmaması için dersten bir gün önce kendi tarayıcında iki kuş çizip onaylatman yeterli.</p>
+<h2>Önemli: uygunsuz bir kuş çıkarsa</h2>
+<p>Kuşlar uçurulduğu an ortak gökyüzüne giriyor, yani sınıfta çizilen kuşlar tahtada hemen görünür. Yeni kuşlara her gün bir yönetici göz atıyor. Ama ders ortasında uygunsuz bir kuş çıkarsa üstüne dokunup <b>Bildir</b>'e basın. <b>Yeni bir kuş iki bildirimde gökyüzünden iner.</b> Ders boyunca yalnız sınıfın kuşlarını göstermek istersen bir sürü kur, kuşları içine ekle ve sürünün linkini aç.</p>
 
 <h2>Çocuk güvenliği</h2>
 <ul>
@@ -48,7 +48,7 @@ FAQ = {
     'items': [
         ('DrawBird ücretli mi?', 'Hayır, tamamen ücretsiz. Ödeme yok, abonelik yok, uygulama içi satın alma yok.'),
         ('Üye olmam gerekiyor mu?', 'Hayır. Sayfayı açtığın an çizebilirsin. Tarayıcın senin için rastgele bir kod üretiyor. E-posta ya da şifre istemiyoruz.'),
-        ('Kuşum neden gökyüzünde görünmüyor?', 'Yeni kuşçuların ilk iki kuşu bir yönetici bakana kadar sadece çizene görünüyor. Siteyi her yaştan kullanıcı için güvenli tutmak için böyle. İki kuşun onaylanınca sonrakiler direkt uçuyor.'),
+        ('Kuşum neden gökyüzünde görünmüyor?', 'Gökyüzünde aynı anda en fazla 100 kuş uçuyor, kalabalıkta seninki sıraya girebilir. Göster menüsünden "En yeniler"i seç, kuşun öne çıkar. Kuşun birkaç bildirim aldıysa yönetici bakana kadar gökyüzünden iner.'),
         ('Kuşum neden kanat çırpmıyor?', 'Çizim alanındaki kesik çizginin üstü kanat gibi çırpıyor, altı gövde olarak duruyor. Kanatları çizginin üstüne çizmeyi dene. <a href="/dersler/">Çizim dersleri</a> bunu adım adım gösteriyor.'),
         ('Bir şeklin içini nasıl boyarım?', 'Araçlardan kovayı seç, rengini seç ve şeklin içine dokun. Kapalı şeklin içi tek seferde dolar. Kenarda boşluk varsa boya dışarı taşar, o yüzden şekli kapat.'),
         ('Kaç kuş çizebilirim?', 'Aynı anda en fazla 8 kuşun olabilir. Yeni kuş için Profil\'den eskilerden birini silebilirsin.'),
@@ -77,7 +77,7 @@ ABOUT = {
 <h2>Kurallarım</h2>
 <ul>
   <li><b>Ücretsiz ve üyeliksiz.</b> E-posta, şifre ya da gerçek ad istemiyorum.</li>
-  <li><b>Her yaşa güvenli.</b> Yeni kuşçuların ilk kuşları onaydan geçiyor, uygunsuz adlar engelleniyor, her kuş bildirilebiliyor.</li>
+  <li><b>Her yaşa güvenli.</b> Yeni kuşlara her gün göz atılıyor, uygunsuz adlar engelleniyor, her kuş bildirilebiliyor.</li>
   <li><b>Az veri.</b> Sadece oyunun çalışması için gereken veriyi tutuyorum. Çerez ve takip aracı yok.</li>
   <li><b>Açık kaynak.</b> Kodun tamamı <a href="https://github.com/gunayboss/drawbird">GitHub'da</a>, AGPL-3.0 lisansıyla.</li>
 </ul>
@@ -110,7 +110,7 @@ POSTS = [
 </ul>
 
 <h2>Güvenli bir gökyüzü</h2>
-<p>DrawBird'ü çocuklar da kullanıyor. O yüzden yeni kuşçuların ilk iki kuşu bir insan bakana kadar sadece çizene görünüyor. Kuş, kuşçu ve sürü adlarındaki uygunsuz kelimeler otomatik engelleniyor. Her kuş bildirilebiliyor. Bunların işleri biraz yavaşlattığını biliyorum. Ama gökyüzünün herkes için keyifli kalması daha önemli.</p>
+<p>DrawBird'ü çocuklar da kullanıyor. O yüzden yeni kuşlara her gün bir insan göz atıyor. Kuş, kuşçu ve sürü adlarındaki uygunsuz kelimeler otomatik engelleniyor. Her kuş bildirilebiliyor, birkaç bildirim alan kuş kendiliğinden iniyor. Böylece kuşun beklemeden uçuyor, gökyüzü de herkes için keyifli kalıyor.</p>
 
 <h2>Bu ayın meydan okuması: en komik baykuş</h2>
 <p>Bu ay herkesi bir baykuş çizmeye çağırıyorum. <a href="/dersler/baykus">Baykuş dersini</a> izleyebilirsin ya da tamamen kendi tarzında çizebilirsin. Kuşunun adına "baykuş" yaz. Ay sonunda en çok beğeni alan baykuşları <a href="/haftanin-kuslari">Haftanın kuşları</a> sayfasında öne çıkaracağım.</p>

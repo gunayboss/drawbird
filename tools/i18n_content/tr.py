@@ -486,10 +486,10 @@ PAGES = {'ogretmenler': {'title': 'Sınıfça DrawBird',
                          '  <li><b>Kapanış (3 dk):</b> "Senin kuşunun gagası neden öyle?" diye sorup günü bağla. İstersen ödev olarak evden bir kuş gözlemi iste.</li>\n'
                          '</ol>\n'
                          '\n'
-                         '<h2>Önemli: ilk kuşlar onay bekliyor</h2>\n'
-                         "<p>DrawBird'ü her yaştan çocuk kullanabilsin diye <b>yeni kuşçuların ilk iki kuşu bir yönetici bakana kadar sadece çizen kişiye görünüyor</b>. Yani sınıfta ilk kez çizilen "
-                         'kuşlar ortak gökyüzüne hemen düşmeyebilir. Öğrenciler kendi ekranında yine kendi kuşunu görür. Ortak ekranın boş kalmaması için dersten bir gün önce kendi tarayıcında iki '
-                         'kuş çizip onaylatman yeterli.</p>\n'
+                         '<h2>Önemli: uygunsuz bir kuş çıkarsa</h2>\n'
+                         '<p>Kuşlar uçurulduğu an ortak gökyüzüne giriyor, yani sınıfta çizilen kuşlar tahtada hemen görünür. Yeni kuşlara her gün bir yönetici göz atıyor. Ama ders ortasında '
+                         "uygunsuz bir kuş çıkarsa üstüne dokunup <b>Bildir</b>'e basın. <b>Yeni bir kuş iki bildirimde gökyüzünden iner.</b> Ders boyunca yalnız sınıfın kuşlarını göstermek istersen "
+                         'bir sürü kur, kuşları içine ekle ve sürünün linkini aç.</p>\n'
                          '\n'
                          '<h2>Çocuk güvenliği</h2>\n'
                          '<ul>\n'
@@ -513,8 +513,8 @@ PAGES = {'ogretmenler': {'title': 'Sınıfça DrawBird',
          'items': [['DrawBird ücretli mi?', 'Hayır, tamamen ücretsiz. Ödeme yok, abonelik yok, uygulama içi satın alma yok.'],
                    ['Üye olmam gerekiyor mu?', 'Hayır. Sayfayı açtığın an çizebilirsin. Tarayıcın senin için rastgele bir kod üretiyor. E-posta ya da şifre istemiyoruz.'],
                    ['Kuşum neden gökyüzünde görünmüyor?',
-                    'Yeni kuşçuların ilk iki kuşu bir yönetici bakana kadar sadece çizene görünüyor. Siteyi her yaştan kullanıcı için güvenli tutmak için böyle. İki kuşun onaylanınca sonrakiler '
-                    'direkt uçuyor.'],
+                    'Gökyüzünde aynı anda en fazla 100 kuş uçuyor, kalabalıkta seninki sıraya girebilir. Göster menüsünden "En yeniler"i seç, kuşun öne çıkar. Kuşun birkaç bildirim aldıysa yönetici '
+                    'bakana kadar gökyüzünden iner.'],
                    ['Kuşum neden kanat çırpmıyor?',
                     'Çizim alanındaki kesik çizginin üstü kanat gibi çırpıyor, altı gövde olarak duruyor. Kanatları çizginin üstüne çizmeyi dene. <a href="/dersler/">Çizim dersleri</a> bunu adım '
                     'adım gösteriyor.'],
@@ -548,7 +548,7 @@ PAGES = {'ogretmenler': {'title': 'Sınıfça DrawBird',
                       '<h2>Kurallarım</h2>\n'
                       '<ul>\n'
                       '  <li><b>Ücretsiz ve üyeliksiz.</b> E-posta, şifre ya da gerçek ad istemiyorum.</li>\n'
-                      '  <li><b>Her yaşa güvenli.</b> Yeni kuşçuların ilk kuşları onaydan geçiyor, uygunsuz adlar engelleniyor, her kuş bildirilebiliyor.</li>\n'
+                      '  <li><b>Her yaşa güvenli.</b> Yeni kuşlara her gün göz atılıyor, uygunsuz adlar engelleniyor, her kuş bildirilebiliyor.</li>\n'
                       '  <li><b>Az veri.</b> Sadece oyunun çalışması için gereken veriyi tutuyorum. Çerez ve takip aracı yok.</li>\n'
                       '  <li><b>Açık kaynak.</b> Kodun tamamı <a href="https://github.com/gunayboss/drawbird">GitHub\'da</a>, AGPL-3.0 lisansıyla.</li>\n'
                       '</ul>\n'
@@ -576,9 +576,9 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                            "  <li><b>Adını koy ve uçur.</b> Kuşuna en fazla 24 harflik bir ad ver ve <b>uçur!</b>'a bas. Kuşun soldan gökyüzüne giriyor.</li>\n"
                            '</ol>\n'
                            '\n'
-                           '<h2>İlk kuşların</h2>\n'
-                           '<p>DrawBird her yaştan insan için güvenli kalsın diye yeni kuşçuların ilk iki kuşu bir yönetici bakana kadar sadece çizene görünüyor. O zamana kadar gökyüzünde onu sadece '
-                           'sen görürsün. İki kuşun onaylanınca sonrakiler direkt uçuyor.</p>\n'
+                           '<h2>Kuşun hemen uçuyor</h2>\n'
+                           "<p>Uçur'a bastığın an kuşun herkesin gökyüzüne giriyor. DrawBird her yaştan insan için güvenli kalsın diye yeni kuşlara her gün bir yönetici göz atıyor. Uygunsuz bir kuş "
+                           "görürsen <b>Bildir</b>'e bas, gerisini biz hallederiz.</p>\n"
                            '\n'
                            '<h2>Gökyüzünde</h2>\n'
                            '<ul>\n'
@@ -636,8 +636,8 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                       '  <p>Gönderdiğin çizimin sana ait olduğunu ve başkasının hakkını ihlal etmediğini kabul edersin.</p>\n'
                       '\n'
                       '  <h2>5. Moderasyon</h2>\n'
-                      '  <p>Yeni kuşçuların ilk iki kuşu yönetici onayından sonra herkese görünür; onaylanan kuşçunun sonraki kuşları doğrudan uçar. Kuş adlarında, kuşçu adlarında ve sürü adlarında '
-                      'uygunsuz kelimeler otomatik olarak engellenir.</p>\n'
+                      '  <p>Gönderilen kuşlar hemen herkese görünür. Yönetici yeni kuşlara her gün göz atar, uygunsuz olanları siler. Gerektiğinde yeni kuşçuların kuşları yayından önce onaya '
+                      'alınabilir. Kuş adlarında, kuşçu adlarında ve sürü adlarında uygunsuz kelimeler otomatik olarak engellenir.</p>\n'
                       '  <p>Her kuş <b>Bildir</b> ile işaretlenebilir. Üç bildirim alan kuş (ilk gününde iki) gökyüzünden iner ve yönetici tarafından incelenir. Kurallara aykırı kuşlar uyarı '
                       'yapılmadan silinebilir; kuralları tekrar tekrar çiğneyen cihazın gönderimi kapatılabilir.</p>\n'
                       '  <p>Bir çizimin hakkını ihlal ettiğini düşünüyorsan aşağıdaki iletişim yolundan kuşun linkiyle bize yaz; inceleyip kaldırırız.</p>\n'
@@ -675,8 +675,9 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                       'sayımı için en fazla iki gün, gönderim sınırları için en fazla bir saat. Süresi dolan kayıtlar silinir. Kuş gönderdiğin ağın özeti hesabınla birlikte saklanır; yalnız '
                       'kuralları çiğneyen bir hesap engellendiğinde o ağdan yeni hesap açılmasını 24 saat durdurmak için kullanılır.</p>\n'
                       '\n'
-                      '  <h2>Onay</h2>\n'
-                      '  <p>Yeni kuşçuların ilk iki kuşu, bir yönetici bakana kadar yalnız çizen kişiye görünür. Onaylanmak için yönetici kuşun resmini ve adını görür.</p>\n'
+                      '  <h2>İnceleme</h2>\n'
+                      '  <p>Yeni kuşlara ve bildirilen kuşlara bir yönetici göz atar. Bunun için yönetici kuşun resmini, adını ve kuşçu adını görür. Gerektiğinde yeni kuşçuların kuşları yayından '
+                      'önce onaya alınabilir; o sırada kuş yalnız çizen kişiye görünür.</p>\n'
                       '\n'
                       '  <h2>Ne toplamıyoruz</h2>\n'
                       '  <p>Şu an reklam, reklam çerezi, konum, kişi listesi veya üçüncü taraf analiz aracı kullanmıyoruz. Reklam eklenirse bu sayfa güncellenir ve gerekli yerlerde önce onayın '
@@ -728,7 +729,7 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                   '  <ul>\n'
                   '    <li>Oyunu sunmak, kuşlarını gökyüzünde göstermek, oy ve sürüleri saklamak: <b>sözleşmenin kurulması ve ifası</b> (KVKK m.5/2-c; <a href="/kosullar">kullanım '
                   'koşulları</a>).</li>\n'
-                  '    <li>Spam, sahte oy, uygunsuz içerik ve saldırıları önlemek, kuralları çiğneyenleri engellemek, yeni kuşçuların ilk çizimlerini onaylamak: <b>meşru menfaat</b> (KVKK '
+                  '    <li>Spam, sahte oy, uygunsuz içerik ve saldırıları önlemek, kuralları çiğneyenleri engellemek, yeni ve bildirilen çizimleri incelemek: <b>meşru menfaat</b> (KVKK '
                   'm.5/2-f).</li>\n'
                   '    <li>Yetkili kurumların talepleri ve yasal saklama yükümlülükleri: <b>hukuki yükümlülük</b> (KVKK m.5/2-ç).</li>\n'
                   '  </ul>\n'
@@ -738,7 +739,7 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                   '  <ul>\n'
                   '    <li><b>Cloudflare, Inc.</b> (barındırma ve veritabanı): Tüm veriler Cloudflare sunucularında tutulur; veritabanı Doğu Avrupa bölgesindedir, sayfalar dünya genelindeki '
                   'sunuculardan sunulur.</li>\n'
-                  '    <li><b>Telegram</b> (moderasyon): Onay bekleyen veya bildirilen bir kuşun resmi, adı ve kuşçu adı yöneticinin Telegram hesabına iletilir.</li>\n'
+                  '    <li><b>Telegram</b> (moderasyon): Yeni, onay bekleyen veya bildirilen kuşların resmi, adı ve kuşçu adı yöneticinin Telegram hesabına iletilir.</li>\n'
                   '  </ul>\n'
                   '  <p>Bu sağlayıcıların sunucuları yurt dışındadır; aktarım KVKK m.9 kapsamında yapılır. Verilerini başka kimseye satmayız veya devretmeyiz.</p>\n'
                   '\n'
@@ -785,9 +786,9 @@ POSTS = {'2026-11-drawbird-yayinda': {'title': 'DrawBird yayında: ilk ayın not
                                       '</ul>\n'
                                       '\n'
                                       '<h2>Güvenli bir gökyüzü</h2>\n'
-                                      "<p>DrawBird'ü çocuklar da kullanıyor. O yüzden yeni kuşçuların ilk iki kuşu bir insan bakana kadar sadece çizene görünüyor. Kuş, kuşçu ve sürü adlarındaki "
-                                      'uygunsuz kelimeler otomatik engelleniyor. Her kuş bildirilebiliyor. Bunların işleri biraz yavaşlattığını biliyorum. Ama gökyüzünün herkes için keyifli kalması '
-                                      'daha önemli.</p>\n'
+                                      "<p>DrawBird'ü çocuklar da kullanıyor. O yüzden yeni kuşlara her gün bir insan göz atıyor. Kuş, kuşçu ve sürü adlarındaki uygunsuz kelimeler otomatik "
+                                      'engelleniyor. Her kuş bildirilebiliyor, birkaç bildirim alan kuş kendiliğinden iniyor. Böylece kuşun beklemeden uçuyor, gökyüzü de herkes için keyifli '
+                                      'kalıyor.</p>\n'
                                       '\n'
                                       '<h2>Bu ayın meydan okuması: en komik baykuş</h2>\n'
                                       '<p>Bu ay herkesi bir baykuş çizmeye çağırıyorum. <a href="/dersler/baykus">Baykuş dersini</a> izleyebilirsin ya da tamamen kendi tarzında çizebilirsin. Kuşunun '
