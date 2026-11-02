@@ -186,6 +186,15 @@
   .traffic .b { background: var(--beak); border-radius: 3px; min-height: 0; }
   .traffic .legend { display: flex; gap: 14px; font-size: 13px; color: var(--muted); margin-top: 8px; flex-wrap: wrap; }
   .traffic .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+  .review { max-width: 520px; margin: 0 auto; background: var(--paper); border-radius: 20px; padding: 16px; box-shadow: var(--shadow); display: grid; gap: 12px; text-align: center; touch-action: pan-y; }
+  .review .art { background: #ffffff; border-radius: 14px; height: 220px; display: grid; place-items: center; transition: transform .18s ease, opacity .18s ease; }
+  .review .art img { max-height: 200px; }
+  .review .name { font-family: var(--font-display); font-size: 32px; line-height: 1; overflow-wrap: anywhere; }
+  .review .row { justify-content: center; }
+  .review .btn.no { background: var(--bad); color: var(--paper); }
+  .review .btn.ok { background: var(--good); color: var(--paper); }
+  .tag { font-size: 12px; padding: 2px 8px; border-radius: 99px; background: var(--beak); color: var(--beak-ink); justify-self: start; }
+  .tgsteps { margin: 0; padding-left: 1.2em; text-align: left; font-size: 14px; }
   #toasts {
     position: fixed; z-index: 30; right: max(12px, env(safe-area-inset-right, 0px));
     top: calc(env(safe-area-inset-top, 0px) + 64px); display: grid; gap: 8px; max-width: calc(100% - 24px);
@@ -282,6 +291,11 @@
     <button class="btn small" id="admRefresh" type="button">Yenile</button>
   </div>
   <div class="stats" id="admStats"></div>
+  <h2 class="section-title">Onay sırası</h2>
+  <div class="review" id="review"></div>
+  <h2 class="section-title">Telegram</h2>
+  <div class="flocks" id="tgBox"></div>
+  <h2 class="section-title">Bildirilen kuşlar</h2>
   <div class="traffic" id="admTraffic" aria-label="Son 14 gün: ziyaret ve yeni kuş"></div>
   <div class="grid" id="admGrid"></div>
   <h2 class="section-title">Engellenenler</h2>
@@ -338,7 +352,7 @@
   // ================= data layer =================
   // Cloudflare Worker + D1. Each browser holds an anonymous device token; the server knows it only as a hash.
   const MAX_BIRDS = 8;
-  let HIDE_FLAGS = 3;
+  let HIDE_FLAGS = 3, HIDE_FLAGS_NEW = 2;
   const S = {
     mode: 'loading', me: null, isOwner: false, banned: false,
     list: [], names: {}, flockRows: [], mine: { v: {}, f: {} },
@@ -376,7 +390,7 @@
     refreshing = api('/state' + (fresh ? '?t=' + Date.now() : '')).then(d => {
       S.mode = 'remote'; S.birdsLoaded = true;
       S.me = d.me?.uid || 'anon'; S.myName = d.me?.name || '';
-      S.isOwner = !!d.admin; S.banned = !!d.me?.banned; HIDE_FLAGS = d.hideFlags || 3;
+      S.isOwner = !!d.admin; S.banned = !!d.me?.banned; HIDE_FLAGS = d.hideFlags || 3; HIDE_FLAGS_NEW = d.hideFlagsNew || 2;
       S.list = d.birds; S.names = d.names; S.flockRows = d.flocks; S.mine = d.mine;
       emit();
     }, () => {
@@ -394,7 +408,7 @@
       const score = b.up - b.down;
       const hours = Math.max(0, (Date.now() - b.created) / 36e5);
       return { ...b, key: b.id, author: b.uid, img: '/api/img/' + b.id, score,
-               hot: (score + 1) / Math.pow(hours + 2, 1.3), hidden: b.flags >= HIDE_FLAGS };
+               hot: (score + 1) / Math.pow(hours + 2, 1.3), hidden: b.flags >= (Date.now() - b.created < 864e5 ? HIDE_FLAGS_NEW : HIDE_FLAGS) };
     });
   }
   const myVotes = () => S.mine;
@@ -425,6 +439,7 @@
     else if (code === 'too_many_flocks') toast('En fazla 12 sürü kurabilirsin.');
     else if (code === 'not_yours') toast('Bu senin kuşun değil.');
     else if (code === 'banned') toast('Bu cihazdan kuş gönderimi kapatıldı.');
+    else if (code === 'bad_name') toast('Bu ad uygun değil. Başka bir ad dene.');
     else if (code === 'slow_down') toast('Biraz yavaş! Bir dakika sonra tekrar dene.');
     else if (code === 'too_many_new') toast('Bu ağdan bugün çok fazla yeni hesap açıldı. Yarın tekrar dene.');
     else if (code === 'too_large' || code === 'bad_image') toast('Çizim çok büyük. Biraz sadeleştirip tekrar dene.');
@@ -559,12 +574,16 @@
     const v = $('verdict');
     $('fly').disabled = true;
     let id;
-    try { ({ id } = await api('/birds', { body: { name: bird.name, img: bird.img } })); }
+    let pending = false, filtered = false;
+    try { ({ id, pending, filtered } = await api('/birds', { body: { name: bird.name, img: bird.img } })); }
     catch (e) { $('fly').disabled = false; try { writeFailed(e); } catch { /* shown */ } return; }
     $('fly').disabled = false;
     pg.clearRect(0, 0, pad.width, pad.height); history.length = 0; $('birdName').value = '';
     v.hidden = true;
-    toast('Kuşun yolda! Linkini paylaşmak için kuşa dokun.');
+    if (filtered) toast('Kuşunun adı uygun bulunmadı, "İsimsiz kuş" yaptık.');
+    toast(pending
+      ? 'Kuşun onay bekliyor. Yönetici onaylayınca herkes görecek; şimdilik gökyüzünde yalnız sen görüyorsun.'
+      : 'Kuşun yolda! Linkini paylaşmak için kuşa dokun.');
     newcomerKey = id;
     S.known.add(id);
     await refresh();
@@ -749,7 +768,8 @@
     const a = el('a', null, names[b.author]); a.href = '#profil'; a.onclick = () => { profileOf = b.author; };
     who.append('çizen: ', a);
     const share = el('button', 'btn small', 'Linkini kopyala'); share.type = 'button'; share.onclick = () => copyLink('/k/' + b.id);
-    tip.replaceChildren(el('b', null, b.name), who, voteRow(b, () => showTip(key, x, y)), share);
+    tip.replaceChildren(el('b', null, b.name), who, voteRow(b, () => showTip(key, x, y)));
+    if (!b.pending) tip.append(share);
     tip.style.left = Math.max(8, Math.min(x + 12, innerWidth - 232)) + 'px';
     tip.style.top = Math.max(8, Math.min(y + 12, innerHeight - 170)) + 'px';
     tip.hidden = false;
@@ -763,6 +783,7 @@
     renderRank();
   });
   function voteRow(b, after) {
+    if (b.pending) return el('div', 'meta', 'Onay bekliyor · şimdilik yalnız sen görüyorsun');
     const mv = myVotes(), row = el('div', 'acts');
     const up = el('button', 'btn small up' + (mv.v?.[b.key] === 1 ? ' on' : ''), `▲ ${b.up}`); up.type = 'button'; up.title = 'Beğen';
     const down = el('button', 'btn small down' + (mv.v?.[b.key] === -1 ? ' on' : ''), `▼ ${b.down}`); down.type = 'button'; down.title = 'Beğenme';
@@ -783,6 +804,7 @@
     const stats = el('div', 'meta');
     stats.append(el('span', 'score', `Puan ${b.score > 0 ? '+' : ''}${b.score}`), el('span', null, ''));
     if (opts.rank) card.append(el('div', 'meta', `#${opts.rank}`));
+    if (b.pending) card.append(el('span', 'tag', 'Onay bekliyor'));
     card.append(art, el('div', 'name', b.name), meta, stats, voteRow(b, () => {}));
     if (b.hidden) card.append(el('div', 'meta', `${b.flags} bildirim aldı, gökyüzünde gizli`));
     const acts = el('div', 'acts');
@@ -810,7 +832,7 @@
   async function renderRank() {
     const grid = $('rankGrid');
     if (S.mode === 'loading') { grid.replaceChildren(el('div', 'empty', 'Kuşlar yükleniyor…')); return; }
-    let list = allBirds().filter(b => !b.hidden || S.isOwner);
+    let list = allBirds().filter(b => !b.pending && (!b.hidden || S.isOwner));
     $('rankSub').textContent = `${list.length} kuş, ${new Set(list.map(b => b.author)).size} kuşçu`;
     if (!list.length) {
       const e = el('div', 'empty'); const a = el('a', 'btn beak', 'Kuş çiz'); a.href = '#ciz';
@@ -889,7 +911,7 @@
   // ---- nickname + site-owner key ----
   $('nickSave').onclick = () => {
     const name = $('nick').value.trim().slice(0, 24);
-    api('/me', { body: { name } }).then(async () => { await refresh(); toast(name ? `Artık "${name}" olarak görünüyorsun.` : 'Adın kaldırıldı.'); }, writeFailed).catch(() => {});
+    api('/me', { body: { name } }).then(async r => { await refresh(); toast(r?.filtered ? 'Bu ad uygun bulunmadı. Başka bir ad dene.' : name ? `Artık "${name}" olarak görünüyorsun.` : 'Adın kaldırıldı.'); }, writeFailed).catch(() => {});
   };
   $('adminSave').onclick = () => {
     adminKey = $('adminKey').value.trim(); lsSet('drawbird.admin', adminKey);
@@ -955,7 +977,8 @@
     let d;
     try { d = await api('/admin/reports'); } catch { $('admGrid').replaceChildren(el('div', 'empty', 'Yüklenemedi.')); return; }
     const stat = (n, label) => { const x = el('div'); x.append(el('b', null, String(n)), el('span', 'meta', label)); return x; };
-    $('admStats').replaceChildren(stat(d.stats.birds, 'kuş'), stat(d.stats.users, 'kuşçu'), stat(d.stats.votes, 'oy'), stat(d.reported.length, 'bildirilen kuş'));
+    $('admStats').replaceChildren(stat(d.stats.birds, 'kuş'), stat(d.stats.users, 'kuşçu'), stat(d.stats.votes, 'oy'), stat(d.stats.pending, 'onay bekleyen'), stat(d.reported.length, 'bildirilen kuş'));
+    renderQueue(); renderTelegram();
     renderTraffic(d.visits || [], d.newBirds || []);
     const banned = new Set(d.bans.map(x => x.uid));
     const after = () => { renderAdmin(); refresh(); };
@@ -1000,6 +1023,72 @@
     const total = days.reduce((n, d) => n + (vm[d] || 0), 0);
     legend.append(key('v', 'Ziyaret (oturum başına bir)'), key('b', 'Yeni kuş'), el('span', null, `14 günde ${total} ziyaret`));
     $('admTraffic').replaceChildren(el('b', null, 'Son 14 gün'), bars, legend);
+  }
+  // ---- review queue: one bird at a time, decide with ← / → or a swipe ----
+  let queue = [], qBusy = false;
+  async function renderQueue() {
+    try { queue = (await api('/admin/queue')).queue; } catch { queue = []; }
+    showQueue();
+  }
+  function showQueue() {
+    const box = $('review'), b = queue[0];
+    if (!b) { box.replaceChildren(el('div', 'meta', 'Onay bekleyen kuş yok. Yeni kuşlar burada ve Telegram\'da görünür.')); return; }
+    const art = el('div', 'art'); const img = el('img'); img.src = '/api/img/' + b.id; img.alt = b.name; art.append(img);
+    const row = el('div', 'row');
+    const no = el('button', 'btn no', '← Reddet'); no.type = 'button'; no.onclick = () => review('no');
+    const ok = el('button', 'btn ok', 'Onayla →'); ok.type = 'button'; ok.onclick = () => review('ok');
+    const ban = el('button', 'btn small', 'Reddet ve engelle'); ban.type = 'button'; ban.onclick = () => review('ban');
+    row.append(no, ok);
+    box.replaceChildren(
+      el('div', 'meta', `${queue.length} kuş bekliyor`), art, el('div', 'name', b.name),
+      el('div', 'meta', `${b.author || 'İsimsiz kuşçu'} · ${fmtDate(b.created)} · onaylı kuşu: ${b.liveCount}`), row, ban,
+      el('div', 'meta', 'Klavye: ← reddet, → onayla. Telefonda kartı sola ya da sağa kaydır.'));
+    let x0 = null;
+    art.onpointerdown = e => { x0 = e.clientX; art.setPointerCapture(e.pointerId); };
+    art.onpointermove = e => { if (x0 != null) art.style.transform = `translateX(${e.clientX - x0}px) rotate(${(e.clientX - x0) / 30}deg)`; };
+    art.onpointerup = e => {
+      const dx = e.clientX - (x0 ?? e.clientX); x0 = null; art.style.transform = '';
+      if (Math.abs(dx) > 90) review(dx > 0 ? 'ok' : 'no');
+    };
+  }
+  async function review(kind) {
+    const b = queue[0]; if (!b || qBusy) return;
+    qBusy = true;
+    try { await api('/admin/review', { body: { bird: b.id, kind } }); queue.shift(); showQueue(); refresh(); }
+    catch (e) { try { writeFailed(e); } catch { /* shown */ } }
+    qBusy = false;
+  }
+  addEventListener('keydown', e => {
+    if (view !== 'yonetim' || !queue.length || /input|textarea|select/i.test(document.activeElement?.tagName || '')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); review('ok'); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); review('no'); }
+  });
+
+  // ---- Telegram pairing ----
+  async function renderTelegram() {
+    const box = $('tgBox');
+    let st = { token: false, connected: false };
+    try { st = await api('/admin/telegram'); } catch { /* shown as not ready */ }
+    const row = el('div', 'flock');
+    if (!st.token) {
+      const ol = el('ol', 'tgsteps');
+      ['Telegram\'da @BotFather ile konuş, /newbot yaz ve bir bot oluştur.', 'Verdiği bot anahtarını bilgisayarında şu komutla kaydet: npx wrangler secret put TELEGRAM_TOKEN', 'Kendi botuna Telegram\'dan "merhaba" yaz.', 'Bu sayfayı yenile ve "Telegram\'ı bağla" düğmesine bas.']
+        .forEach(t => ol.append(el('li', null, t)));
+      row.append(el('b', null, 'Bot anahtarı henüz yok'), ol);
+    } else {
+      const btn = el('button', 'btn small beak', st.connected ? 'Yeniden bağla' : 'Telegram\'ı bağla'); btn.type = 'button';
+      btn.onclick = async () => {
+        btn.disabled = true;
+        try {
+          const r = await api('/admin/telegram', { body: {} });
+          toast(r.ok ? `Telegram bağlandı${r.name ? ': ' + r.name : ''}.` : r.error === 'no_message' ? 'Önce kendi botuna Telegram\'dan bir mesaj yaz.' : 'Bağlanamadı, bot anahtarını kontrol et.');
+        } catch (e) { try { writeFailed(e); } catch { /* shown */ } }
+        btn.disabled = false; renderTelegram();
+      };
+      row.append(el('b', null, st.connected ? 'Telegram bağlı' : 'Bot anahtarı var, sohbet bağlı değil'),
+        el('span', 'meta', st.connected ? 'Onay bekleyen ve bildirilen kuşlar resmiyle gelir; düğmelerle oradan karar verebilirsin.' : 'Botuna bir mesaj yaz, sonra bağla.'), btn);
+    }
+    box.replaceChildren(row);
   }
   $('admRefresh').onclick = renderAdmin;
   let wasOwner = false;

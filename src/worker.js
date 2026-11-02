@@ -1,8 +1,14 @@
 // DrawBird API: anonymous device tokens, birds, votes, flags, flocks, moderation on D1.
+import { isBadName, notifyBird, connectTelegram, telegramStatus, handleTelegram } from './moderation.js';
 const MAX_BIRDS = 8;
 const MAX_FLOCKS = 12;
 const MAX_IMG = 90_000; // data URL characters (~65 KB image)
 const HIDE_FLAGS = 3;
+const HIDE_FLAGS_NEW = 2; // birds younger than a day hide sooner
+const TRUST_AFTER = 2; // approved birds before an artist skips the review queue
+const IP_BAN_MS = 24 * 3600e3;
+// SQL for "this bird is hidden by reports", given a birds alias.
+const hiddenSql = a => `(SELECT COUNT(*) FROM flags f WHERE f.bird_id = ${a}.id) >= CASE WHEN ${a}.created > (strftime('%s','now') * 1000 - 86400000) THEN ${HIDE_FLAGS_NEW} ELSE ${HIDE_FLAGS} END`;
 const PUBLIC_TTL = 10; // seconds the shared part of /api/state is cached at the edge
 const NEW_IDS_PER_IP_DAY = 40; // classrooms share one IP, so keep this generous
 
@@ -66,6 +72,7 @@ async function auth(req, env, create) {
   const hash = await sha256(m[1]);
   let row = await env.DB.prepare('SELECT uid, name FROM users WHERE token_hash = ?').bind(hash).first();
   if (!row && create) {
+    if (await ipBanned(req, env)) throw { status: 403, error: 'banned' };
     // Cap how many new identities one IP can mint per day (vote and flag stuffing). Only a salted hash of the IP is kept, for two days.
     const day = new Date().toISOString().slice(0, 10);
     const ipHash = (await sha256(`${clientIp(req)}|${day}|${env.ADMIN_KEY || ''}`)).slice(0, 32);
@@ -87,6 +94,10 @@ async function isAdmin(req, env) {
   return crypto.subtle.timingSafeEqual(enc(a), enc(b));
 }
 const isBanned = (env, uid) => env.DB.prepare('SELECT 1 FROM bans WHERE uid = ?').bind(uid).first();
+const ipKey = async (req, env) => (await sha256(`ip|${clientIp(req)}|${env.ADMIN_KEY || ''}`)).slice(0, 32);
+async function ipBanned(req, env) {
+  return !!(await env.DB.prepare('SELECT 1 FROM ip_bans WHERE ip_hash = ? AND exp > ?').bind(await ipKey(req, env), Date.now()).first());
+}
 
 // The shared part of the sky: same for every viewer, so it is cached briefly at the edge.
 const publicKey = url => new Request(new URL('/api/__public', url).toString());
@@ -100,7 +111,7 @@ async function publicState(env, url) {
         COALESCE(SUM(v.v = 1), 0) AS up, COALESCE(SUM(v.v = -1), 0) AS down,
         (SELECT COUNT(*) FROM flags f WHERE f.bird_id = b.id) AS flags
       FROM birds b LEFT JOIN votes v ON v.bird_id = b.id
-      WHERE b.uid NOT IN (SELECT uid FROM bans)
+      WHERE b.status = 'live' AND b.uid NOT IN (SELECT uid FROM bans)
       GROUP BY b.id ORDER BY b.created DESC LIMIT 2000`),
     env.DB.prepare('SELECT uid, name FROM users WHERE uid IN (SELECT DISTINCT uid FROM birds UNION SELECT DISTINCT uid FROM flocks)'),
     env.DB.prepare('SELECT id, uid, name, birds, created, public FROM flocks WHERE public = 1 AND uid NOT IN (SELECT uid FROM bans) ORDER BY created'),
@@ -118,13 +129,15 @@ async function state(req, env, url) {
   const me = await auth(req, env, false);
   const pub = await publicState(env, url);
   const mine = { v: {}, f: {} };
-  let flocks = pub.flocks;
+  let flocks = pub.flocks, pending = [];
   if (me) {
-    const [mv, mf, priv] = await env.DB.batch([
+    const [mv, mf, priv, pend] = await env.DB.batch([
       env.DB.prepare('SELECT bird_id, v FROM votes WHERE uid = ?').bind(me.uid),
       env.DB.prepare('SELECT bird_id FROM flags WHERE uid = ?').bind(me.uid),
       env.DB.prepare('SELECT id, uid, name, birds, created, public FROM flocks WHERE uid = ? AND public = 0').bind(me.uid),
+      env.DB.prepare("SELECT id, uid, name, created FROM birds WHERE uid = ? AND status = 'pending'").bind(me.uid),
     ]);
+    pending = pend.results.map(b => ({ ...b, up: 0, down: 0, flags: 0, pending: true }));
     mv.results.forEach(r => { mine.v[r.bird_id] = r.v; });
     mf.results.forEach(r => { mine.f[r.bird_id] = true; });
     flocks = [...flocks, ...priv.results.map(f => ({ ...f, public: false, birds: JSON.parse(f.birds) }))];
@@ -132,8 +145,8 @@ async function state(req, env, url) {
   return json({
     me: me ? { uid: me.uid, name: me.name, banned: !!(await isBanned(env, me.uid)) } : null,
     admin: await isAdmin(req, env),
-    hideFlags: HIDE_FLAGS, maxBirds: MAX_BIRDS,
-    birds: pub.birds, names: pub.names, flocks, mine,
+    hideFlags: HIDE_FLAGS, hideFlagsNew: HIDE_FLAGS_NEW, maxBirds: MAX_BIRDS,
+    birds: [...pending, ...pub.birds], names: pub.names, flocks, mine,
   });
 }
 
@@ -172,6 +185,55 @@ async function readBody(req, limit = 120_000) {
   return text ? JSON.parse(text) : {};
 }
 
+// ---- moderation actions (admin panel and Telegram buttons share these) ----
+async function birdInfo(env, id) {
+  return env.DB.prepare(`SELECT b.id, b.uid, b.name, b.status, b.created, u.name AS author,
+      (SELECT COUNT(*) FROM flags f WHERE f.bird_id = b.id) AS flags
+    FROM birds b LEFT JOIN users u ON u.uid = b.uid WHERE b.id = ?`).bind(id).first();
+}
+async function deleteBird(env, id) {
+  await env.DB.batch([
+    env.DB.prepare('DELETE FROM birds WHERE id = ?').bind(id),
+    env.DB.prepare('DELETE FROM votes WHERE bird_id = ?').bind(id),
+    env.DB.prepare('DELETE FROM flags WHERE bird_id = ?').bind(id),
+  ]);
+}
+async function approveBird(env, id) {
+  const b = await env.DB.prepare("UPDATE birds SET status = 'live' WHERE id = ? RETURNING uid").bind(id).first();
+  if (!b) return;
+  await env.DB.prepare(`UPDATE users SET trusted = 1 WHERE uid = ? AND (SELECT COUNT(*) FROM birds WHERE uid = ? AND status = 'live') >= ${TRUST_AFTER}`)
+    .bind(b.uid, b.uid).run();
+}
+async function setBan(env, uid, on) {
+  if (on) {
+    const u = await env.DB.prepare('SELECT ip_hash FROM users WHERE uid = ?').bind(uid).first();
+    const writes = [
+      env.DB.prepare('INSERT OR IGNORE INTO bans (uid, created) VALUES (?, ?)').bind(uid, Date.now()),
+      env.DB.prepare('UPDATE users SET trusted = 0 WHERE uid = ?').bind(uid),
+    ];
+    // The ban also covers the network they posted from for a day, so a fresh identity does not help.
+    if (u?.ip_hash) writes.push(env.DB.prepare('INSERT INTO ip_bans (ip_hash, exp) VALUES (?, ?) ON CONFLICT(ip_hash) DO UPDATE SET exp = excluded.exp').bind(u.ip_hash, Date.now() + IP_BAN_MS));
+    await env.DB.batch(writes);
+  } else {
+    const u = await env.DB.prepare('SELECT ip_hash FROM users WHERE uid = ?').bind(uid).first();
+    await env.DB.batch([
+      env.DB.prepare('DELETE FROM bans WHERE uid = ?').bind(uid),
+      env.DB.prepare('DELETE FROM ip_bans WHERE ip_hash = ?').bind(u?.ip_hash || ''),
+    ]);
+  }
+}
+// kind: ok (approve), no (reject/delete), ban (delete + ban artist), clear (reports were wrong)
+async function decide(env, kind, id) {
+  if (!ID.test(String(id))) return 'Geçersiz kuş';
+  const b = await birdInfo(env, id);
+  if (!b) return 'Kuş zaten yok';
+  if (kind === 'ok') { await approveBird(env, id); await env.DB.prepare('DELETE FROM flags WHERE bird_id = ?').bind(id).run(); return 'Onaylandı'; }
+  if (kind === 'clear') { await env.DB.prepare('DELETE FROM flags WHERE bird_id = ?').bind(id).run(); return 'Bildirimler temizlendi'; }
+  if (kind === 'no') { await deleteBird(env, id); return 'Silindi'; }
+  if (kind === 'ban') { await deleteBird(env, id); await setBan(env, b.uid, true); return 'Silindi, kuşçu engellendi'; }
+  return 'Bilinmeyen işlem';
+}
+
 async function adminApi(req, env, path, method, body) {
   if (await limited(env.RL_ADMIN, 'admin:' + clientIp(req))) return fail(429, 'slow_down');
   if (!(await isAdmin(req, env))) {
@@ -186,7 +248,7 @@ async function adminApi(req, env, path, method, body) {
         FROM birds b JOIN flags f ON f.bird_id = b.id GROUP BY b.id ORDER BY flags DESC, b.created DESC LIMIT 200`),
       env.DB.prepare('SELECT bans.uid, bans.created, users.name FROM bans LEFT JOIN users ON users.uid = bans.uid ORDER BY bans.created DESC'),
     ]);
-    const stats = await env.DB.prepare('SELECT (SELECT COUNT(*) FROM birds) AS birds, (SELECT COUNT(*) FROM users) AS users, (SELECT COUNT(*) FROM votes) AS votes').first();
+    const stats = await env.DB.prepare("SELECT (SELECT COUNT(*) FROM birds) AS birds, (SELECT COUNT(*) FROM users) AS users, (SELECT COUNT(*) FROM votes) AS votes, (SELECT COUNT(*) FROM birds WHERE status = 'pending') AS pending").first();
     const since = new Date(Date.now() - 13 * 864e5).toISOString().slice(0, 10);
     const [visits, newBirds] = await env.DB.batch([
       env.DB.prepare('SELECT day, n FROM visits WHERE day >= ? ORDER BY day').bind(since),
@@ -200,6 +262,19 @@ async function adminApi(req, env, path, method, body) {
     await env.DB.prepare('DELETE FROM flags WHERE bird_id = ?').bind(body.bird).run();
     return json({ ok: true });
   }
+  if (method === 'GET' && path === '/admin/queue') {
+    const { results } = await env.DB.prepare(`SELECT b.id, b.uid, b.name, b.created, u.name AS author,
+        (SELECT COUNT(*) FROM birds x WHERE x.uid = b.uid AND x.status = 'live') AS liveCount
+      FROM birds b LEFT JOIN users u ON u.uid = b.uid WHERE b.status = 'pending' ORDER BY b.created LIMIT 200`).all();
+    return json({ queue: results });
+  }
+  if (method === 'POST' && path === '/admin/review') {
+    const kind = ['ok', 'no', 'ban', 'clear'].includes(body.kind) ? body.kind : null;
+    if (!kind) return fail(400, 'bad_kind');
+    return json({ ok: true, result: await decide(env, kind, String(body.bird || '')) });
+  }
+  if (method === 'GET' && path === '/admin/telegram') return json(await telegramStatus(env));
+  if (method === 'POST' && path === '/admin/telegram') return json(await connectTelegram(env, new URL(req.url).origin));
   if (method === 'POST' && path === '/admin/rename') {
     const uid = String(body.uid || '');
     if (!ID.test(uid)) return fail(400, 'bad_uid');
@@ -215,14 +290,13 @@ async function adminApi(req, env, path, method, body) {
   if (method === 'POST' && path === '/admin/ban') {
     const uid = String(body.uid || '');
     if (!ID.test(uid)) return fail(400, 'bad_uid');
-    if (body.on) await env.DB.prepare('INSERT OR IGNORE INTO bans (uid, created) VALUES (?, ?)').bind(uid, Date.now()).run();
-    else await env.DB.prepare('DELETE FROM bans WHERE uid = ?').bind(uid).run();
+    await setBan(env, uid, !!body.on);
     return json({ ok: true });
   }
   return fail(404, 'not_found');
 }
 
-async function handleApi(req, env, url) {
+async function handleApi(req, env, url, ctx) {
   const path = url.pathname.slice(4); // strip "/api"
   const method = req.method;
 
@@ -236,6 +310,7 @@ async function handleApi(req, env, url) {
   }
   const img = /^\/img\/([a-z0-9]{16})$/.exec(path);
   if (method === 'GET' && img) return image(req, img[1], env);
+  if (method === 'POST' && path === '/telegram') return handleTelegram(req, env, (kind, id) => decide(env, kind, id));
 
   let body = {};
   if (method === 'POST') { try { body = await readBody(req); } catch { return fail(413, 'too_large'); } }
@@ -247,21 +322,32 @@ async function handleApi(req, env, url) {
   const admin = await isAdmin(req, env);
 
   if (method === 'POST' && path === '/me') {
-    await env.DB.prepare('UPDATE users SET name = ? WHERE uid = ?').bind(clean(body.name, 24), me.uid).run();
-    return json({ ok: true });
+    let name = clean(body.name, 24);
+    const filtered = !!name && isBadName(name);
+    if (filtered) name = '';
+    await env.DB.prepare('UPDATE users SET name = ? WHERE uid = ?').bind(name, me.uid).run();
+    return json({ ok: true, filtered });
   }
 
   if (method === 'POST' && path === '/birds') {
-    if (await isBanned(env, me.uid)) return fail(403, 'banned');
+    if (await isBanned(env, me.uid) || await ipBanned(req, env)) return fail(403, 'banned');
     if (await limited(env.RL_BIRD, 'b:' + clientIp(req)) || await overLimit(env, req, 'bird', 40, 3600)) return fail(429, 'slow_down');
     const data = String(body.img || '');
     if (!/^data:image\/(png|webp);base64,[A-Za-z0-9+/=]+$/.test(data) || data.length > MAX_IMG || !looksLikeImage(data)) return fail(400, 'bad_image');
     const count = await env.DB.prepare('SELECT COUNT(*) AS n FROM birds WHERE uid = ?').bind(me.uid).first('n');
     if (count >= MAX_BIRDS) return fail(409, 'too_many_birds');
     const id = newId();
-    await env.DB.prepare('INSERT INTO birds (id, uid, name, img, created) VALUES (?, ?, ?, ?, ?)')
-      .bind(id, me.uid, clean(body.name, 24) || 'İsimsiz kuş', data, Date.now()).run();
-    return json({ id });
+    let name = clean(body.name, 24) || 'İsimsiz kuş';
+    const filtered = isBadName(name);
+    if (filtered) name = 'İsimsiz kuş';
+    const trusted = await env.DB.prepare('SELECT trusted FROM users WHERE uid = ?').bind(me.uid).first('trusted');
+    const status = trusted ? 'live' : 'pending';
+    await env.DB.batch([
+      env.DB.prepare('INSERT INTO birds (id, uid, name, img, created, status) VALUES (?, ?, ?, ?, ?, ?)').bind(id, me.uid, name, data, Date.now(), status),
+      env.DB.prepare('UPDATE users SET ip_hash = ? WHERE uid = ?').bind(await ipKey(req, env), me.uid),
+    ]);
+    if (status === 'pending') ctx.waitUntil(notifyBird(env, url.origin, { id, name, author: me.name }, 'pending'));
+    return json({ id, pending: status === 'pending', filtered });
   }
 
   const del = /^\/birds\/([a-z0-9]{16})$/.exec(path);
@@ -269,11 +355,7 @@ async function handleApi(req, env, url) {
     const row = await env.DB.prepare('SELECT uid FROM birds WHERE id = ?').bind(del[1]).first();
     if (!row) return fail(404, 'not_found');
     if (row.uid !== me.uid && !admin) return fail(403, 'not_yours');
-    await env.DB.batch([
-      env.DB.prepare('DELETE FROM birds WHERE id = ?').bind(del[1]),
-      env.DB.prepare('DELETE FROM votes WHERE bird_id = ?').bind(del[1]),
-      env.DB.prepare('DELETE FROM flags WHERE bird_id = ?').bind(del[1]),
-    ]);
+    await deleteBird(env, del[1]);
     return json({ ok: true });
   }
 
@@ -281,7 +363,7 @@ async function handleApi(req, env, url) {
     const bird = String(body.bird || ''), v = Number(body.v);
     if (!ID.test(bird) || ![-1, 0, 1].includes(v)) return fail(400, 'bad_vote');
     if (v === 0) await env.DB.prepare('DELETE FROM votes WHERE uid = ? AND bird_id = ?').bind(me.uid, bird).run();
-    else await env.DB.prepare('INSERT INTO votes (uid, bird_id, v) SELECT ?, ?, ? WHERE EXISTS (SELECT 1 FROM birds WHERE id = ?) ON CONFLICT(uid, bird_id) DO UPDATE SET v = excluded.v')
+    else await env.DB.prepare("INSERT INTO votes (uid, bird_id, v) SELECT ?, ?, ? WHERE EXISTS (SELECT 1 FROM birds WHERE id = ? AND status = 'live') ON CONFLICT(uid, bird_id) DO UPDATE SET v = excluded.v")
       .bind(me.uid, bird, v, bird).run();
     return json({ ok: true });
   }
@@ -289,15 +371,22 @@ async function handleApi(req, env, url) {
   if (method === 'POST' && path === '/flag') {
     const bird = String(body.bird || '');
     if (!ID.test(bird)) return fail(400, 'bad_flag');
-    if (body.on) await env.DB.prepare('INSERT OR IGNORE INTO flags (uid, bird_id) SELECT ?, ? WHERE EXISTS (SELECT 1 FROM birds WHERE id = ? AND uid != ?)')
-      .bind(me.uid, bird, bird, me.uid).run();
-    else await env.DB.prepare('DELETE FROM flags WHERE uid = ? AND bird_id = ?').bind(me.uid, bird).run();
+    if (body.on) {
+      const added = await env.DB.prepare("INSERT OR IGNORE INTO flags (uid, bird_id) SELECT ?, ? WHERE EXISTS (SELECT 1 FROM birds WHERE id = ? AND uid != ? AND status = 'live')")
+        .bind(me.uid, bird, bird, me.uid).run();
+      if (added.meta.changes) {
+        const b = await birdInfo(env, bird);
+        const limit = b && Date.now() - b.created < 864e5 ? HIDE_FLAGS_NEW : HIDE_FLAGS;
+        if (b && b.flags === limit) ctx.waitUntil(notifyBird(env, url.origin, b, 'flagged'));
+      }
+    } else await env.DB.prepare('DELETE FROM flags WHERE uid = ? AND bird_id = ?').bind(me.uid, bird).run();
     return json({ ok: true });
   }
 
   if (method === 'POST' && path === '/flocks') {
     const name = clean(body.name, 24);
     if (!name) return fail(400, 'no_name');
+    if (isBadName(name)) return fail(400, 'bad_name');
     const n = await env.DB.prepare('SELECT COUNT(*) AS n FROM flocks WHERE uid = ?').bind(me.uid).first('n');
     if (n >= MAX_FLOCKS) return fail(409, 'too_many_flocks');
     const id = newId();
@@ -324,7 +413,8 @@ async function handleApi(req, env, url) {
       return json({ ok: true, added: !had });
     }
     if (method === 'POST') {
-      const name = body.name == null ? null : clean(body.name, 24);
+      let name = body.name == null ? null : clean(body.name, 24);
+      if (name && isBadName(name)) return fail(400, 'bad_name');
       await env.DB.prepare('UPDATE flocks SET name = COALESCE(?, name), public = COALESCE(?, public) WHERE id = ?')
         .bind(name || null, typeof body.public === 'boolean' ? (body.public ? 1 : 0) : null, fl[1]).run();
       return json({ ok: true });
@@ -352,8 +442,8 @@ async function weeklyPage(env, url) {
   const query = cutoff => env.DB.prepare(`SELECT b.id, b.name, b.created, u.name AS author,
       COALESCE(SUM(v.v), 0) AS score, COALESCE(SUM(v.v = 1), 0) AS up
     FROM birds b LEFT JOIN votes v ON v.bird_id = b.id LEFT JOIN users u ON u.uid = b.uid
-    WHERE b.created >= ? AND b.uid NOT IN (SELECT uid FROM bans)
-      AND (SELECT COUNT(*) FROM flags f WHERE f.bird_id = b.id) < ${HIDE_FLAGS}
+    WHERE b.created >= ? AND b.status = 'live' AND b.uid NOT IN (SELECT uid FROM bans)
+      AND NOT ${hiddenSql('b')}
     GROUP BY b.id ORDER BY score DESC, b.created DESC LIMIT 24`).bind(cutoff).all();
   let { results: birds } = await query(weekAgo);
   const allTime = birds.length < 6;
@@ -403,8 +493,8 @@ async function weeklyPage(env, url) {
 }
 
 async function sitemap(env, url) {
-  const { results } = await env.DB.prepare(`SELECT id, created FROM birds WHERE uid NOT IN (SELECT uid FROM bans)
-    AND (SELECT COUNT(*) FROM flags f WHERE f.bird_id = birds.id) < ${HIDE_FLAGS} ORDER BY created DESC LIMIT 1000`).all();
+  const { results } = await env.DB.prepare(`SELECT id, created FROM birds WHERE status = 'live' AND uid NOT IN (SELECT uid FROM bans)
+    AND NOT ${hiddenSql('birds')} ORDER BY created DESC LIMIT 1000`).all();
   const day = ts => new Date(ts).toISOString().slice(0, 10);
   const today = day(Date.now());
   const pages = [['/', today], ['/haftanin-kuslari', today], ['/nasil-oynanir.html'], ['/kosullar.html'], ['/gizlilik.html'],
@@ -420,7 +510,7 @@ ${pages.map(([p, d]) => `  <url><loc>${url.origin}${p}</loc>${d ? `<lastmod>${d}
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 async function sharePage(req, env, url, birdId) {
   const page = await env.ASSETS.fetch(new Request(new URL('/', url)));
-  const bird = await env.DB.prepare('SELECT b.name, u.name AS author FROM birds b LEFT JOIN users u ON u.uid = b.uid WHERE b.id = ?').bind(birdId).first();
+  const bird = await env.DB.prepare("SELECT b.name, u.name AS author FROM birds b LEFT JOIN users u ON u.uid = b.uid WHERE b.id = ? AND b.status = 'live'").bind(birdId).first();
   if (!bird) return page;
   const title = `${bird.name} · DrawBird`;
   const desc = `${bird.author || 'Bir kuşçu'} bu kuşu çizdi. Sen de bir kuş çiz, ortak gökyüzünde uçsun.`;
@@ -437,11 +527,11 @@ async function sharePage(req, env, url, birdId) {
 }
 
 export default {
-  async fetch(req, env) {
+  async fetch(req, env, ctx) {
     const url = new URL(req.url);
     if (url.pathname.startsWith('/api/')) {
       let res;
-      try { res = await handleApi(req, env, url); }
+      try { res = await handleApi(req, env, url, ctx); }
       catch (e) {
         if (e?.status) res = fail(e.status, e.error);
         else { console.error(e); res = fail(500, 'server_error'); }
