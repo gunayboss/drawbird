@@ -13,6 +13,7 @@ UI = {'nav_draw': 'Çiz',
  'foot_privacy': 'Gizlilik',
  'foot_kvkk': 'KVKK',
  'foot_source': 'Kaynak kod',
+ 'foot_contact': 'Bize yaz',
  'language': 'Dil',
  'wing_note': 'Kesik çizgi, DrawBird çizim alanındaki kanat hattı: üstündekiler çırpıyor, altındakiler gövde olarak kalıyor.',
  'step_by_step': 'Adım adım',
@@ -711,6 +712,7 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                   '\n'
                   '  <h2>1. Veri sorumlusu</h2>\n'
                   '  <p>DrawBird\'ü işleten gerçek kişi veri sorumlusudur. Başvuru ve sorularını <a href="https://github.com/gunayboss/drawbird/issues">GitHub üzerinden</a> iletebilirsin.</p>\n'
+                  '  <p>En kolay yol sitedeki <a href="/#iletisim">Bize yaz</a> formu. Konu olarak "Kişisel verilerim (KVKK)"yı seç.</p>\n'
                   '\n'
                   '  <h2>2. Hangi verileri işliyoruz</h2>\n'
                   '  <ul>\n'
@@ -747,6 +749,7 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                   '    <li>Engelleme kayıtları: kötüye kullanımı önlemek için engel kaldırılana kadar; ağ engeli 24 saat.</li>\n'
                   "    <li>Sunucu kayıtları: Cloudflare'in kayıt süresi kadar (birkaç gün).</li>\n"
                   '  </ul>\n'
+                  '  <p>Bize yaz formuna yazdıkların ve istersen bıraktığın iletişim bilgisi, talebin sonuçlanana kadar, en fazla bir yıl saklanır.</p>\n'
                   '\n'
                   '  <h2>6. Hakların (KVKK m.11)</h2>\n'
                   '  <p>Kişisel verinin işlenip işlenmediğini öğrenme, işlenmişse bilgi isteme, amacını ve amaca uygun kullanılıp kullanılmadığını öğrenme, aktarıldığı kişileri bilme, eksik veya '

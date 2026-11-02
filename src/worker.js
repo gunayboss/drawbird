@@ -123,15 +123,24 @@ async function publicState(env, url) {
     names: Object.fromEntries(users.results.map(u => [u.uid, u.name])),
     flocks: flocks.results.map(f => ({ ...f, public: true, birds: JSON.parse(f.birds) })),
   };
+  data.etag = '"' + (await sha256(JSON.stringify(data))).slice(0, 20) + '"';
   await cache.put(key, new Response(JSON.stringify(data), { headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${PUBLIC_TTL}` } }));
   return data;
 }
 
+// GET /api/sky: the shared sky. Browsers revalidate with If-None-Match, so an unchanged sky costs a 304 and no body.
+async function sky(req, env, url) {
+  const pub = await publicState(env, url);
+  const headers = { etag: pub.etag, 'cache-control': 'no-cache' };
+  if (req.headers.get('if-none-match') === pub.etag) return new Response(null, { status: 304, headers });
+  const { etag, ...body } = pub;
+  return json(body, 200, headers);
+}
+
 async function state(req, env, url) {
   const me = await auth(req, env, false);
-  const pub = await publicState(env, url);
   const mine = { v: {}, f: {} };
-  let flocks = pub.flocks, pending = [];
+  let flocks = [], pending = [];
   if (me) {
     const [mv, mf, priv, pend] = await env.DB.batch([
       env.DB.prepare('SELECT bird_id, v FROM votes WHERE uid = ?').bind(me.uid),
@@ -139,35 +148,41 @@ async function state(req, env, url) {
       env.DB.prepare('SELECT id, uid, name, birds, created, public FROM flocks WHERE uid = ? AND public = 0').bind(me.uid),
       env.DB.prepare("SELECT id, uid, name, created FROM birds WHERE uid = ? AND status = 'pending'").bind(me.uid),
     ]);
-    pending = pend.results.map(b => ({ ...b, up: 0, down: 0, flags: 0, pending: true }));
+    pending = await Promise.all(pend.results.map(async b => ({ ...b, up: 0, down: 0, flags: 0, pending: true, sig: await imgSig(env, b.id) })));
     mv.results.forEach(r => { mine.v[r.bird_id] = r.v; });
     mf.results.forEach(r => { mine.f[r.bird_id] = true; });
-    flocks = [...flocks, ...priv.results.map(f => ({ ...f, public: false, birds: JSON.parse(f.birds) }))];
+    flocks = priv.results.map(f => ({ ...f, public: false, birds: JSON.parse(f.birds) }));
   }
   return json({
     me: me ? { uid: me.uid, name: me.name, banned: !!(await isBanned(env, me.uid)) } : null,
     admin: await isAdmin(req, env),
     readonly: (await setting(env, 'readonly')) === '1',
     hideFlags: HIDE_FLAGS, hideFlagsNew: HIDE_FLAGS_NEW, maxBirds: MAX_BIRDS,
-    birds: [...pending, ...pub.birds], names: pub.names, flocks, mine,
+    pending, flocks, mine,
   });
 }
 
+// Signed links let the artist, the admin panel and Telegram see a bird that is still waiting for review.
+async function imgSig(env, id) { return (await sha256(`img|${id}|${env.ADMIN_KEY || ''}`)).slice(0, 24); }
+const imgCacheKey = (url, id) => new Request(new URL(url).origin + '/api/img/' + id);
+
 async function image(req, id, env) {
   const cache = caches.default;
-  const key = new Request(new URL(req.url).origin + '/api/img/' + id);
+  const key = imgCacheKey(req.url, id);
   const hit = await cache.match(key);
   if (hit) return hit;
-  const row = await env.DB.prepare('SELECT img FROM birds WHERE id = ?').bind(id).first();
+  const row = await env.DB.prepare('SELECT img, status FROM birds WHERE id = ?').bind(id).first();
   if (!row) return new Response('not found', { status: 404 });
+  const live = row.status === 'live';
+  if (!live && new URL(req.url).searchParams.get('s') !== await imgSig(env, id)) return new Response('not found', { status: 404 });
   const m = /^data:(image\/(?:png|webp));base64,([A-Za-z0-9+/=]+)$/.exec(row.img);
   if (!m) return new Response('bad image', { status: 500 });
   const bytes = Uint8Array.from(atob(m[2]), c => c.charCodeAt(0));
   const res = new Response(bytes, { headers: {
-    'content-type': m[1], 'cache-control': 'public, max-age=31536000, immutable',
+    'content-type': m[1], 'cache-control': live ? 'public, max-age=86400' : 'private, no-store',
     'content-security-policy': "default-src 'none'; sandbox", 'content-disposition': 'inline',
   } });
-  await cache.put(key, res.clone());
+  if (live) await cache.put(key, res.clone());
   return res;
 }
 
@@ -194,7 +209,8 @@ async function birdInfo(env, id) {
       (SELECT COUNT(*) FROM flags f WHERE f.bird_id = b.id) AS flags
     FROM birds b LEFT JOIN users u ON u.uid = b.uid WHERE b.id = ?`).bind(id).first();
 }
-async function deleteBird(env, id) {
+async function deleteBird(env, id, url) {
+  if (url) await caches.default.delete(imgCacheKey(url, id));
   await env.DB.batch([
     env.DB.prepare('DELETE FROM birds WHERE id = ?').bind(id),
     env.DB.prepare('DELETE FROM votes WHERE bird_id = ?').bind(id),
@@ -226,14 +242,14 @@ async function setBan(env, uid, on) {
   }
 }
 // kind: ok (approve), no (reject/delete), ban (delete + ban artist), clear (reports were wrong)
-async function decide(env, kind, id) {
+async function decide(env, kind, id, url) {
   if (!ID.test(String(id))) return 'Geçersiz kuş';
   const b = await birdInfo(env, id);
   if (!b) return 'Kuş zaten yok';
   if (kind === 'ok') { await approveBird(env, id); await env.DB.prepare('DELETE FROM flags WHERE bird_id = ?').bind(id).run(); return 'Onaylandı'; }
   if (kind === 'clear') { await env.DB.prepare('DELETE FROM flags WHERE bird_id = ?').bind(id).run(); return 'Bildirimler temizlendi'; }
-  if (kind === 'no') { await deleteBird(env, id); return 'Silindi'; }
-  if (kind === 'ban') { await deleteBird(env, id); await setBan(env, b.uid, true); return 'Silindi, kuşçu engellendi'; }
+  if (kind === 'no') { await deleteBird(env, id, url); return 'Silindi'; }
+  if (kind === 'ban') { await deleteBird(env, id, url); await setBan(env, b.uid, true); return 'Silindi, kuşçu engellendi'; }
   return 'Bilinmeyen işlem';
 }
 
@@ -254,7 +270,7 @@ async function adminApi(req, env, path, method, body) {
         FROM birds b JOIN flags f ON f.bird_id = b.id GROUP BY b.id ORDER BY flags DESC, b.created DESC LIMIT 200`),
       env.DB.prepare('SELECT bans.uid, bans.created, users.name FROM bans LEFT JOIN users ON users.uid = bans.uid ORDER BY bans.created DESC'),
     ]);
-    const stats = await env.DB.prepare("SELECT (SELECT COUNT(*) FROM birds) AS birds, (SELECT COUNT(*) FROM users) AS users, (SELECT COUNT(*) FROM votes) AS votes, (SELECT COUNT(*) FROM birds WHERE status = 'pending') AS pending").first();
+    const stats = await env.DB.prepare("SELECT (SELECT COUNT(*) FROM birds) AS birds, (SELECT COUNT(*) FROM users) AS users, (SELECT COUNT(*) FROM votes) AS votes, (SELECT COUNT(*) FROM birds WHERE status = 'pending') AS pending, (SELECT COUNT(*) FROM messages WHERE done = 0) AS messages").first();
     const since = new Date(Date.now() - 13 * 864e5).toISOString().slice(0, 10);
     const [visits, newBirds] = await env.DB.batch([
       env.DB.prepare('SELECT day, n FROM visits WHERE day >= ? ORDER BY day').bind(since),
@@ -272,14 +288,26 @@ async function adminApi(req, env, path, method, body) {
     const { results } = await env.DB.prepare(`SELECT b.id, b.uid, b.name, b.created, u.name AS author,
         (SELECT COUNT(*) FROM birds x WHERE x.uid = b.uid AND x.status = 'live') AS liveCount
       FROM birds b LEFT JOIN users u ON u.uid = b.uid WHERE b.status = 'pending' ORDER BY b.created LIMIT 200`).all();
+    for (const r of results) r.sig = await imgSig(env, r.id);
     return json({ queue: results });
   }
   if (method === 'POST' && path === '/admin/review') {
     const kind = ['ok', 'no', 'ban', 'clear'].includes(body.kind) ? body.kind : null;
     if (!kind) return fail(400, 'bad_kind');
-    return json({ ok: true, result: await decide(env, kind, String(body.bird || '')) });
+    return json({ ok: true, result: await decide(env, kind, String(body.bird || ''), req.url) });
   }
   if (method === 'GET' && path === '/admin/telegram') return json(await telegramStatus(env));
+  if (method === 'GET' && path === '/admin/messages') {
+    const { results } = await env.DB.prepare('SELECT id, uid, topic, body, contact, created, done FROM messages ORDER BY done, created DESC LIMIT 200').all();
+    return json({ messages: results });
+  }
+  if (method === 'POST' && path === '/admin/message') {
+    const id = String(body.id || '');
+    if (!ID.test(id)) return fail(400, 'bad_id');
+    if (body.delete) await env.DB.prepare('DELETE FROM messages WHERE id = ?').bind(id).run();
+    else await env.DB.prepare('UPDATE messages SET done = ? WHERE id = ?').bind(body.done ? 1 : 0, id).run();
+    return json({ ok: true });
+  }
   if (method === 'POST' && path === '/admin/readonly') {
     await env.DB.prepare("INSERT INTO settings (k, v) VALUES ('readonly', ?) ON CONFLICT(k) DO UPDATE SET v = excluded.v").bind(body.on ? '1' : '0').run();
     await notifyText(env, body.on ? '🔒 Bakım modu açıldı: site yalnız okunur.' : '🔓 Bakım modu kapatıldı.');
@@ -312,6 +340,7 @@ async function handleApi(req, env, url, ctx) {
   const method = req.method;
 
   if (method === 'GET' && path === '/state') return state(req, env, url);
+  if (method === 'GET' && path === '/sky') return sky(req, env, url);
   if (method !== 'GET' && !path.startsWith('/admin/') && await limited(env.RL_WRITE, 'w:' + clientIp(req))) return fail(429, 'slow_down');
   if (method !== 'GET' && !path.startsWith('/admin/') && path !== '/telegram' && path !== '/hit' && (await setting(env, 'readonly')) === '1') return fail(503, 'readonly');
   if (method === 'POST' && path === '/hit') {
@@ -322,7 +351,7 @@ async function handleApi(req, env, url, ctx) {
   }
   const img = /^\/img\/([a-z0-9]{16})$/.exec(path);
   if (method === 'GET' && img) return image(req, img[1], env);
-  if (method === 'POST' && path === '/telegram') return handleTelegram(req, env, (kind, id) => decide(env, kind, id));
+  if (method === 'POST' && path === '/telegram') return handleTelegram(req, env, (kind, id) => decide(env, kind, id, req.url));
 
   let body = {};
   if (method === 'POST') { try { body = await readBody(req); } catch { return fail(413, 'too_large'); } }
@@ -341,15 +370,32 @@ async function handleApi(req, env, url, ctx) {
       env.DB.prepare('DELETE FROM votes WHERE uid = ?').bind(me.uid),
       env.DB.prepare('DELETE FROM flags WHERE uid = ?').bind(me.uid),
       env.DB.prepare('DELETE FROM flocks WHERE uid = ?').bind(me.uid),
-      env.DB.prepare('DELETE FROM users WHERE uid = ?').bind(me.uid),
     ];
     for (const id of ids) writes.push(
-      env.DB.prepare('DELETE FROM birds WHERE id = ?').bind(id),
       env.DB.prepare('DELETE FROM votes WHERE bird_id = ?').bind(id),
-      env.DB.prepare('DELETE FROM flags WHERE bird_id = ?').bind(id));
+      env.DB.prepare('DELETE FROM flags WHERE bird_id = ?').bind(id),
+      env.DB.prepare('DELETE FROM birds WHERE id = ?').bind(id));
+    // birds.uid references users, so the user row goes last.
+    writes.push(env.DB.prepare('DELETE FROM users WHERE uid = ?').bind(me.uid));
     await env.DB.batch(writes);
+    for (const id of ids) await caches.default.delete(imgCacheKey(req.url, id));
     // A ban outlives the account on purpose (bans table), so erasing cannot be used to dodge one.
     return json({ ok: true, birds: ids.length });
+  }
+
+  if (method === 'POST' && path === '/contact') {
+    // Rate-limited, stored in D1 and forwarded to the owner's Telegram. Contact details are optional.
+    if (await overLimit(env, req, 'contact', 5, 3600)) return fail(429, 'slow_down');
+    const topic = ['report', 'kvkk', 'bug', 'idea', 'other'].includes(body.topic) ? body.topic : 'other';
+    const text = String(body.body ?? '').replace(/[\u0000-\u0008\u000b-\u001f\u007f\u200b-\u200f\u202a-\u202e\u2060-\u206f\ufeff]/g, '').trim().slice(0, 2000);
+    if (text.length < 5) return fail(400, 'too_short');
+    const contact = clean(body.contact, 120);
+    const id = newId();
+    await env.DB.prepare('INSERT INTO messages (id, uid, topic, body, contact, created) VALUES (?, ?, ?, ?, ?, ?)')
+      .bind(id, me.uid, topic, text, contact, Date.now()).run();
+    const label = { report: '🚩 Bildirim', kvkk: '🔐 KVKK talebi', bug: '🐞 Hata', idea: '💡 Öneri', other: '✉️ Mesaj' }[topic];
+    ctx.waitUntil(notifyText(env, `${label}\n${text.slice(0, 900)}${contact ? `\nİletişim: ${contact}` : ''}`));
+    return json({ ok: true });
   }
 
   if (method === 'POST' && path === '/me') {
@@ -377,7 +423,7 @@ async function handleApi(req, env, url, ctx) {
       env.DB.prepare('INSERT INTO birds (id, uid, name, img, created, status) VALUES (?, ?, ?, ?, ?, ?)').bind(id, me.uid, name, data, Date.now(), status),
       env.DB.prepare('UPDATE users SET ip_hash = ? WHERE uid = ?').bind(await ipKey(req, env), me.uid),
     ]);
-    if (status === 'pending') ctx.waitUntil(notifyBird(env, url.origin, { id, name, author: me.name }, 'pending'));
+    if (status === 'pending') ctx.waitUntil(notifyBird(env, url.origin, { id, name, author: me.name, sig: await imgSig(env, id) }, 'pending'));
     return json({ id, pending: status === 'pending', filtered });
   }
 
@@ -386,7 +432,7 @@ async function handleApi(req, env, url, ctx) {
     const row = await env.DB.prepare('SELECT uid FROM birds WHERE id = ?').bind(del[1]).first();
     if (!row) return fail(404, 'not_found');
     if (row.uid !== me.uid && !admin) return fail(403, 'not_yours');
-    await deleteBird(env, del[1]);
+    await deleteBird(env, del[1], req.url);
     return json({ ok: true });
   }
 
@@ -491,7 +537,7 @@ function shell({ lang, path, title, desc, image, body, origin }) {
     [`${p}/haftanin-kuslari`, U.nav_week, true], [`${p}/blog/`, U.nav_blog], [`${p}/sss`, U.nav_faq]]
     .map(([h, l, on]) => `<a${on ? ' class="on"' : ''} href="${h}">${esc(l)}</a>`).join('');
   const langs = LANGS.map(l => `<a href="${pre(l)}${path}" hreflang="${l}" lang="${l}"${l === lang ? ' aria-current="page"' : ''}>${NATIVE[l]}</a>`).join('');
-  const alt = LANGS.map(l => `<link rel="alternate" hreflang="${l}" href="${pre(l)}${path}">`).join('\n');
+  const alt = LANGS.map(l => `<link rel="alternate" hreflang="${l}" href="${origin}${pre(l)}${path}">`).join('\n');
   return new Response(`<!doctype html>
 <html lang="${lang}" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">
 <head>
@@ -502,9 +548,10 @@ function shell({ lang, path, title, desc, image, body, origin }) {
 <meta property="og:title" content="${esc(title)} · DrawBird">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:image" content="${image || `${origin}/og-card.png`}">
-<link rel="canonical" href="${p}${path}">
+<link rel="canonical" href="${origin}${p}${path}">
+<meta property="og:url" content="${origin}${p}${path}">
 ${alt}
-<link rel="alternate" hreflang="x-default" href="${path}">
+<link rel="alternate" hreflang="x-default" href="${origin}${path}">
 <link rel="icon" href="/icons/icon-192.png" type="image/png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
@@ -516,7 +563,7 @@ ${alt}
 <article>
 ${body}
 </article>
-<footer>DrawBird · <a href="${p}/hakkinda">${esc(U.foot_about)}</a> · <a href="${p}/ogretmenler">${esc(U.foot_teachers)}</a> · <a href="${p}/kosullar">${esc(U.foot_terms)}</a> · <a href="${p}/gizlilik">${esc(U.foot_privacy)}</a> · <a href="${p}/kvkk">${esc(U.foot_kvkk)}</a> · <a href="https://github.com/gunayboss/drawbird">${esc(U.foot_source)}</a><div class="langs">${langs}</div></footer>
+<footer>DrawBird · <a href="${p}/hakkinda">${esc(U.foot_about)}</a> · <a href="${p}/ogretmenler">${esc(U.foot_teachers)}</a> · <a href="${p}/kosullar">${esc(U.foot_terms)}</a> · <a href="${p}/gizlilik">${esc(U.foot_privacy)}</a> · <a href="${p}/kvkk">${esc(U.foot_kvkk)}</a> · <a href="${lang === 'tr' ? '/#iletisim' : `/?lang=${lang}#iletisim`}">${esc(U.foot_contact)}</a> · <a href="https://github.com/gunayboss/drawbird">${esc(U.foot_source)}</a><div class="langs">${langs}</div></footer>
 </main>
 </body>
 </html>`, { headers: { 'content-type': 'text/html; charset=utf-8' } });
@@ -649,6 +696,15 @@ async function sharePage(req, env, url, birdId) {
 }
 
 export default {
+  async scheduled(event, env) {
+    const now = Date.now();
+    await env.DB.batch([
+      env.DB.prepare('DELETE FROM messages WHERE created < ?').bind(now - 365 * 864e5),
+      env.DB.prepare('DELETE FROM limits WHERE exp < ?').bind(now),
+      env.DB.prepare('DELETE FROM new_ids WHERE day < ?').bind(new Date(now - 2 * 864e5).toISOString().slice(0, 10)),
+      env.DB.prepare('DELETE FROM ip_bans WHERE exp < ?').bind(now),
+    ]);
+  },
   async fetch(req, env, ctx) {
     const url = new URL(req.url);
     if (url.pathname.startsWith('/api/')) {
@@ -665,6 +721,9 @@ export default {
       if (req.method !== 'GET' && res.ok && url.pathname !== '/api/hit') await caches.default.delete(publicKey(url));
       return secure(res);
     }
+    if (/^\/[us]\/[a-z0-9]{16}$/.test(url.pathname)) return secure(await env.ASSETS.fetch(new Request(new URL('/', url), req)));
+    const langRoot = /^\/([a-z]{2})\/?$/.exec(url.pathname);
+    if (langRoot && LANGS.includes(langRoot[1]) && langRoot[1] !== 'tr') return Response.redirect(`${url.origin}/?lang=${langRoot[1]}`, 302);
     const share = /^\/k\/([a-z0-9]{16})$/.exec(url.pathname);
     if (share && req.method === 'GET') return secure(await sharePage(req, env, url, share[1]));
     // Week pages, with an optional language prefix: /haftanin-kuslari, /en/hafta/, /de/hafta/2026-W45

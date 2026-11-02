@@ -56,12 +56,22 @@ DrawBird tarayıcıda çalışan küçük bir çizim oyunu. Sağa bakan bir kuş
 - Dinamik `sitemap.xml` ve `robots.txt` (hangi alan adında çalışırsa onu kullanır)
 - Çerezsiz ziyaret sayacı: oturum başına bir sayım, kişi bilgisi yok; yönetim panelinde son 14 gün grafiği
 
+### Eğlence
+- Kova (doldurma), neon fırça, çizimi PNG olarak indirme
+- Gökyüzü temaları: gündüz, gece, neon (synthwave)
+- İlk açılışta 3 adımlık ipucu
+
 ### Güvenlik ve moderasyon
 - Üyelik yok: tarayıcı rastgele bir cihaz kodu üretir, sunucu yalnız özetini (SHA-256) saklar
 - Kurtarma kodu ile başka cihazda aynı hesaba geçiş
 - Bildir: 3 bildirim alan kuş gökyüzünden iner
 - Yönetim paneli: bildirilen kuşlar, bildirimleri temizle, sil, kuşçuyu engelle
 - Kişi başı 8 kuş, 12 sürü; çizim boyutu sunucuda sınırlı
+- Onay bekleyen kuşların resmi yalnız imzalı linkle açılır
+- Bize yaz formu (bildirim, KVKK talebi, hata, öneri) → yönetim paneli + Telegram
+- 11 dilde isim filtresi (`src/badwords.js`, test: `node tools/test_badwords.mjs`)
+- Testler: `node tests/smoke.mjs` (yalnız yerel geliştirme sunucusuna karşı)
+- Yedek: `python tools/backup.py` (varsayılan `~/drawbird-yedek`, son 12 yedek)
 
 ## Nasıl çalışır
 

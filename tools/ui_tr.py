@@ -6,7 +6,7 @@ UI = {
     # navigation and footer
     'nav_draw': 'Çiz', 'nav_lessons': 'Dersler', 'nav_birds': 'Kuşlar', 'nav_week': 'Haftanın kuşları', 'nav_blog': 'Blog', 'nav_faq': 'SSS',
     'foot_about': 'Hakkında', 'foot_teachers': 'Öğretmenler', 'foot_howto': 'Nasıl oynanır', 'foot_terms': 'Koşullar',
-    'foot_privacy': 'Gizlilik', 'foot_kvkk': 'KVKK', 'foot_source': 'Kaynak kod', 'language': 'Dil',
+    'foot_privacy': 'Gizlilik', 'foot_kvkk': 'KVKK', 'foot_source': 'Kaynak kod', 'foot_contact': 'Bize yaz', 'language': 'Dil',
     # lessons
     'wing_note': 'Kesik çizgi, DrawBird çizim alanındaki kanat hattı: üstündekiler çırpıyor, altındakiler gövde olarak kalıyor.',
     'step_by_step': 'Adım adım', 'step_n': 'Adım {n}', 'finished_label': 'Bitmiş hâli', 'done': 'Bitti!',

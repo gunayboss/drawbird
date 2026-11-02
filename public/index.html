@@ -12,8 +12,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="DrawBird">
 <meta property="og:description" content="Bir kuş çiz, herkesin kuşlarıyla aynı gökyüzünde uçsun.">
-<meta property="og:image" content="/og-card.png">
-<meta property="og:url" content="/">
+<meta property="og:image" content="https://drawbird.the-pit.workers.dev/og-card.png">
+<meta property="og:url" content="https://drawbird.the-pit.workers.dev/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
@@ -197,6 +197,17 @@
   .review .btn.ok { background: var(--good); color: var(--paper); }
   .tag { font-size: 12px; padding: 2px 8px; border-radius: 99px; background: var(--beak); color: var(--beak-ink); justify-self: start; }
   .tgsteps { margin: 0; padding-left: 1.2em; text-align: left; font-size: 14px; }
+  .contact { text-align: start; justify-items: stretch; max-width: 560px; }
+  .contact label { font-weight: 500; }
+  .contact textarea, .contact select, .contact input { width: 100%; padding: 10px 12px; border-radius: 12px; border: 2px solid var(--line); background: var(--paper); color: var(--ink); font: inherit; }
+  .contact .btn.big { justify-self: start; }
+  .intro { position: fixed; inset: 0; z-index: 40; background: rgba(10, 16, 32, .55); display: grid; place-items: center; padding: 16px; }
+  .intro-card { background: var(--paper); border-radius: 22px; padding: 22px; max-width: 420px; box-shadow: var(--shadow); display: grid; gap: 10px; }
+  .intro-card h2 { margin: 0; font-size: 40px; }
+  .intro-card ol { margin: 0; padding-inline-start: 1.2em; display: grid; gap: 8px; }
+  .msg { display: grid; gap: 6px; }
+  .msg p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .msg.done { opacity: .55; }
   #toasts {
     position: fixed; z-index: 30; right: max(12px, env(safe-area-inset-right, 0px));
     top: calc(env(safe-area-inset-top, 0px) + 64px); display: grid; gap: 8px; max-width: calc(100% - 24px);
@@ -212,9 +223,21 @@
   <a href="#gok" data-v="gok">Gökyüzü</a>
   <a href="#sira" data-v="sira">Sıralama</a>
   <a href="#profil" data-v="profil">Profil</a>
+  <a href="#iletisim" data-v="iletisim">Bize yaz</a>
   <a href="#yonetim" data-v="yonetim" id="navAdmin" hidden>Yönetim</a>
 </nav>
 <div id="toasts" aria-live="polite"></div>
+<div id="intro" class="intro" hidden>
+  <div class="intro-card" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+    <h2 class="hand" id="introTitle">Hoş geldin!</h2>
+    <ol>
+      <li><b>Gagası sağa baksın.</b> Kuşun gökyüzünde iki yöne de uçar.</li>
+      <li><b>Kanatlar kesik çizginin üstüne.</b> Üstü çırpar, altı gövde olarak kalır.</li>
+      <li><b>Kovayla boya, neonla parlat.</b> Sonra adını yaz ve uçur!</li>
+    </ol>
+    <button class="btn beak big" id="introOk" type="button">Anladım, çizelim</button>
+  </div>
+</div>
 
 <section id="ciz" class="view page">
   <div class="banner" id="modeBanner" hidden></div>
@@ -227,6 +250,8 @@
     <div class="tools">
       <button class="btn" id="eraser" type="button">Silgi</button>
       <button class="btn" id="bucket" type="button" title="Kapalı bir şeklin içine dokun, tek seferde boyansın">Kova</button>
+      <button class="btn" id="neonBrush" type="button" title="Parlayan neon çizgiler">Neon</button>
+      <button class="btn" id="saveDrawing" type="button" title="Çizimini resim olarak kaydet">İndir</button>
       <label class="size" for="size">Kalınlık <input type="range" id="size" min="1" max="24" value="6"></label>
       <button class="btn" id="undo" type="button">Geri al</button>
       <button class="btn" id="clear" type="button">Temizle</button>
@@ -240,7 +265,7 @@
     </div>
     <div class="verdict" id="verdict" hidden></div>
   </div>
-  <p class="foot">Kuşlar herkese açıktır; uygunsuz çizimi Bildir ile işaretle. <a href="/nasil-oynanir.html">Nasıl oynanır</a> · <a href="/dersler/">Çizim dersleri</a> · <a href="/kuslar/">Kuşlar</a> · <a href="/haftanin-kuslari">Haftanın kuşları</a> · <a href="/blog/">Blog</a> · <a href="/sss">SSS</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/hakkinda">Hakkında</a> · <a href="/kosullar.html">Koşullar</a> · <a href="/gizlilik.html">Gizlilik</a> · <a href="/kvkk.html">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></p>
+  <p class="foot">Kuşlar herkese açıktır; uygunsuz çizimi Bildir ile işaretle. <a href="/nasil-oynanir.html">Nasıl oynanır</a> · <a href="/dersler/">Çizim dersleri</a> · <a href="/kuslar/">Kuşlar</a> · <a href="/haftanin-kuslari">Haftanın kuşları</a> · <a href="/blog/">Blog</a> · <a href="/sss">SSS</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/hakkinda">Hakkında</a> · <a href="/kosullar.html">Koşullar</a> · <a href="/gizlilik.html">Gizlilik</a> · <a href="/kvkk.html">KVKK</a> · <a href="#iletisim">Bize yaz</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></p>
 </section>
 
 <section id="gok" class="view" hidden>
@@ -263,7 +288,7 @@
     <button class="btn small" id="skyShuffle" type="button">Yenile</button>
     <button class="btn small" id="feedBtn" type="button">Yem modu</button>
     <label for="notify"><input type="checkbox" id="notify" checked> Yeni kuş bildirimi</label>
-    <button class="btn small" id="nightBtn" type="button">Gece</button>
+    <button class="btn small" id="nightBtn" type="button" title="Gökyüzü teması">Gece</button>
     <div class="skyhint">Kuşa dokun: oy ver. Yem atmak için Shift+tıkla, sağ tıkla ya da Yem modunu aç.</div>
   </div>
   <div id="tip" hidden></div>
@@ -286,6 +311,29 @@
   <div class="row" style="margin-top:16px"><button class="btn" id="rankMore" type="button" hidden>Daha fazla göster</button></div>
 </section>
 
+<section id="iletisim" class="view page" hidden>
+  <div class="studio contact">
+    <div>
+      <h1 class="hand">Bize yaz</h1>
+      <p class="sub">Uygunsuz bir çizim, kişisel verilerinle ilgili bir istek, bir hata ya da bir fikir. Hepsini okuyorum.</p>
+    </div>
+    <label for="cTopic">Konu</label>
+    <select id="cTopic">
+      <option value="report">Uygunsuz bir çizim bildirmek istiyorum</option>
+      <option value="kvkk">Kişisel verilerim (KVKK)</option>
+      <option value="bug">Bir hata buldum</option>
+      <option value="idea">Bir fikrim var</option>
+      <option value="other">Başka bir şey</option>
+    </select>
+    <label for="cBody">Mesajın</label>
+    <textarea id="cBody" rows="6" maxlength="2000" placeholder="Ne oldu? Bir kuşla ilgiliyse kuşun linkini de ekle."></textarea>
+    <label for="cContact">Sana nasıl dönelim? (isteğe bağlı)</label>
+    <input type="text" id="cContact" maxlength="120" placeholder="E-posta ya da başka bir yol. Boş bırakabilirsin.">
+    <p class="guide">Çocuksan bu alanı boş bırak ya da bir büyüğünün adresini yaz. Mesajın ve yazdığın iletişim bilgisi en fazla bir yıl saklanır.</p>
+    <button class="btn beak big" id="cSend" type="button">Gönder</button>
+  </div>
+</section>
+
 <section id="yonetim" class="view page" hidden>
   <div class="head">
     <div>
@@ -303,6 +351,8 @@
   <h2 class="section-title">Bildirilen kuşlar</h2>
   <div class="traffic" id="admTraffic" aria-label="Son 14 gün: ziyaret ve yeni kuş"></div>
   <div class="grid" id="admGrid"></div>
+  <h2 class="section-title">Mesajlar</h2>
+  <div class="flocks" id="admMsgs"></div>
   <h2 class="section-title">Engellenenler</h2>
   <div class="flocks" id="admBans"></div>
 </section>
@@ -398,7 +448,12 @@
   function refresh() {
     if (refreshing) return refreshing;
     const fresh = nextFresh; nextFresh = false;
-    refreshing = api('/state' + (fresh ? '?t=' + Date.now() : '')).then(d => {
+    // The sky is shared and revalidated with ETag (an unchanged sky costs a 304); the state is this viewer's own.
+    refreshing = Promise.all([
+      fetch('/api/sky' + (fresh ? '?t=' + Date.now() : ''), { cache: fresh ? 'reload' : 'no-cache' }).then(r => { if (!r.ok) throw r; return r.json(); }),
+      api('/state'),
+    ]).then(([sky, d]) => {
+      d.birds = [...(d.pending || []), ...sky.birds]; d.names = sky.names; d.flocks = [...sky.flocks, ...(d.flocks || [])];
       S.mode = 'remote'; S.birdsLoaded = true;
       S.me = d.me?.uid || 'anon'; S.myName = d.me?.name || '';
       S.readonly = !!d.readonly; S.isOwner = !!d.admin; S.banned = !!d.me?.banned; HIDE_FLAGS = d.hideFlags || 3; HIDE_FLAGS_NEW = d.hideFlagsNew || 2;
@@ -418,7 +473,7 @@
     return S.list.map(b => {
       const score = b.up - b.down;
       const hours = Math.max(0, (Date.now() - b.created) / 36e5);
-      return { ...b, key: b.id, author: b.uid, img: '/api/img/' + b.id, score,
+      return { ...b, key: b.id, author: b.uid, img: '/api/img/' + b.id + (b.pending && b.sig ? '?s=' + b.sig : ''), score,
                hot: (score + 1) / Math.pow(hours + 2, 1.3), hidden: b.flags >= (Date.now() - b.created < 864e5 ? HIDE_FLAGS_NEW : HIDE_FLAGS) };
     });
   }
@@ -544,7 +599,7 @@
   const fmtDate = ts => new Date(ts).toLocaleDateString(LOCALE, { day: 'numeric', month: 'short', year: 'numeric' });
 
   // ================= router =================
-  const VIEWS = ['ciz', 'gok', 'sira', 'profil', 'yonetim'];
+  const VIEWS = ['ciz', 'gok', 'sira', 'profil', 'iletisim', 'yonetim'];
   let view = 'ciz', profileOf = null;
   function route() {
     view = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'ciz';
@@ -651,7 +706,25 @@
     pg.globalCompositeOperation = erasing ? 'destination-out' : 'source-over';
     pg.strokeStyle = color; pg.lineWidth = +$('size').value * (erasing ? 2.2 : 1);
     pg.lineCap = pg.lineJoin = 'round';
+    // Neon: a coloured glow around the line; it is part of the drawing, so it flies too.
+    if (neon && !erasing) { pg.shadowBlur = Math.max(8, +$('size').value * 1.6); pg.shadowColor = color; }
     pg.beginPath(); pg.moveTo(a.x, a.y); pg.lineTo(b.x, b.y); pg.stroke();
+    pg.shadowBlur = 0;
+  }
+  let neon = false;
+  $('neonBrush').onclick = () => { neon = !neon; $('neonBrush').classList.toggle('on', neon); if (neon) setBucket(false); };
+  // Save the drawing on the pad (before flying) as a PNG on a white background.
+  function savePng(canvasLike, name) {
+    const out = el('canvas'); out.width = canvasLike.width || canvasLike.naturalWidth; out.height = canvasLike.height || canvasLike.naturalHeight;
+    const g = out.getContext('2d'); g.fillStyle = '#ffffff'; g.fillRect(0, 0, out.width, out.height); g.drawImage(canvasLike, 0, 0);
+    out.toBlob(b => {
+      const a = el('a'); a.href = URL.createObjectURL(b); a.download = (name || 'drawbird').replace(/[^\p{L}\p{N}_-]+/gu, '-').slice(0, 40) + '.png';
+      document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    }, 'image/png');
+  }
+  $('saveDrawing').onclick = () => savePng(pad, $('birdName').value.trim() || 'drawbird');
+  function downloadBird(b) {
+    const img = new Image(); img.onload = () => savePng(img, b.name); img.src = b.img;
   }
   pad.addEventListener('pointerdown', e => {
     if (filling) { snapshot(); const p = toPad(e); if (!floodFill(p.x, p.y, color)) history.pop(); return; }
@@ -721,7 +794,9 @@
   const sky = $('skyCanvas'), sg = sky.getContext('2d'), tip = $('tip');
   let ents = new Map(), clouds = [], seeds = [], distant = [], raf = 0, W = 0, H = 0, lastT = 0, newcomerKey = null;
   let leaving = [], speedK = 1, focusKey = null;
-  let night = matchMedia('(prefers-color-scheme: dark)').matches, feedMode = false, randSeed = Math.random();
+  let theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day', night = theme !== 'day', feedMode = false, randSeed = Math.random();
+  try { const t = localStorage.getItem('drawbird.theme'); if (['day', 'night', 'neon'].includes(t)) { theme = t; night = t !== 'day'; } } catch { /* storage blocked */ }
+  const THEME_NEXT = { day: 'Gece', night: 'Neon', neon: 'Gündüz' };
   const imgCache = new Map();
   const imgFor = b => { let i = imgCache.get(b.key); if (!i) { i = new Image(); i.src = b.img; imgCache.set(b.key, i); } return i; };
   $('nightBtn').textContent = night ? 'Gündüz' : 'Gece';
@@ -757,6 +832,7 @@
               speed: 45 + Math.random() * 55, phase: Math.random() * 6.28, flapRate: 5 + Math.random() * 4,
               scale: .6 + Math.random() * .4, targetY: altitude(), peck: 0 };
         if (!isNew && Math.random() < .5) f.dir = -1;
+        f.hue = ['#3df5ff', '#ff4fd8', '#ffe66d', '#7cff6b'][Math.floor(Math.random() * 4)];
       }
       f.b = b; f.img = imgFor(b); keep.set(b.key, f);
     }
@@ -781,7 +857,7 @@
     sel.value = [...sel.options].some(o => o.value === cur) ? cur : 'new';
   }
   function drawCloud(c) {
-    sg.fillStyle = night ? 'rgba(200,210,240,.14)' : 'rgba(255,255,255,.88)';
+    sg.fillStyle = theme === 'neon' ? 'rgba(255,79,216,.10)' : night ? 'rgba(200,210,240,.14)' : 'rgba(255,255,255,.88)';
     sg.beginPath();
     for (const [dx, dy, r] of [[0, 0, 26], [28, -10, 32], [58, 0, 26], [30, 8, 24]]) sg.arc(c.x + dx * c.s, c.y + dy * c.s, r * c.s, 0, Math.PI * 2);
     sg.fill();
@@ -792,6 +868,7 @@
     const w = img.naturalWidth * f.scale, h = img.naturalHeight * f.scale, split = img.naturalHeight / 2;
     const flap = f.peck > 0 ? .9 : Math.cos(f.phase);
     sg.save();
+    if (glow) { sg.shadowBlur = 14; sg.shadowColor = f.hue || '#3df5ff'; }
     sg.translate(f.x, f.y + (f.peck > 0 ? 0 : Math.sin(f.phase) * 4));
     sg.scale(f.dir * f.turn, 1);
     sg.rotate(f.peck > 0 ? .28 * Math.abs(Math.sin(f.phase * 2)) : Math.max(-.22, Math.min(.22, (f.targetY - f.y) / 420)));
@@ -799,20 +876,36 @@
     sg.save(); sg.scale(1, .25 + .75 * flap);
     sg.drawImage(img, 0, 0, img.naturalWidth, split, -w / 2, -h / 2, w, h / 2);
     sg.restore(); sg.restore();
+    sg.shadowBlur = 0;
   }
   function frame(t) {
     const rdt = Math.min(.05, (t - (lastT || t)) / 1000); lastT = t;
     const dt = rdt * speedK;
     const grd = sg.createLinearGradient(0, 0, 0, H);
-    if (night) { grd.addColorStop(0, '#0b1533'); grd.addColorStop(1, '#2b3a67'); } else { grd.addColorStop(0, '#7cc3ee'); grd.addColorStop(1, '#e4f4ff'); }
+    if (theme === 'neon') { grd.addColorStop(0, '#0d0221'); grd.addColorStop(.62, '#2b0b4a'); grd.addColorStop(1, '#ff2a6d'); }
+    else if (night) { grd.addColorStop(0, '#0b1533'); grd.addColorStop(1, '#2b3a67'); } else { grd.addColorStop(0, '#7cc3ee'); grd.addColorStop(1, '#e4f4ff'); }
     sg.fillStyle = grd; sg.fillRect(0, 0, W, H);
-    if (night) {
+    // Glow is costly; with a crowded sky only the neon background stays.
+    glow = theme === 'neon' && ents.size <= 60;
+    if (theme === 'neon') {
+      // striped synthwave sun
+      const sx = W - 130, sy = 130, r = 56;
+      const sun = sg.createLinearGradient(0, sy - r, 0, sy + r); sun.addColorStop(0, '#ffe66d'); sun.addColorStop(1, '#ff2a6d');
+      sg.save(); sg.beginPath(); sg.arc(sx, sy, r, 0, Math.PI * 2); sg.clip();
+      sg.fillStyle = sun; sg.fillRect(sx - r, sy - r, r * 2, r * 2);
+      sg.fillStyle = '#2b0b4a';
+      for (let i = 0; i < 5; i++) sg.fillRect(sx - r, sy + 6 + i * 11, r * 2, 2 + i * 1.4);
+      sg.restore();
+      sg.fillStyle = '#fff';
+      for (let i = 0; i < 60; i++) { sg.globalAlpha = .2 + .6 * Math.abs(Math.sin(t / 700 + i)); sg.fillRect((i * 991) % W, (i * 577) % (H * .5), 2, 2); }
+      sg.globalAlpha = 1;
+    } else if (night) {
       sg.fillStyle = '#fff';
       for (let i = 0; i < 90; i++) { sg.globalAlpha = .3 + .7 * Math.abs(Math.sin(t / 900 + i)); sg.fillRect((i * 997) % W, (i * 571) % (H * .7), 2, 2); }
       sg.globalAlpha = 1; sg.fillStyle = '#fdf6d8'; sg.beginPath(); sg.arc(W - 110, 110, 38, 0, Math.PI * 2); sg.fill();
     } else { sg.fillStyle = '#fff3b0'; sg.beginPath(); sg.arc(W - 110, 110, 44, 0, Math.PI * 2); sg.fill(); }
     // far-off silhouettes: atmosphere only, not anyone's drawing
-    sg.strokeStyle = night ? 'rgba(200,210,240,.35)' : 'rgba(27,39,64,.35)'; sg.lineWidth = 1.5;
+    sg.strokeStyle = theme === 'neon' ? 'rgba(61,245,255,.6)' : night ? 'rgba(200,210,240,.35)' : 'rgba(27,39,64,.35)'; sg.lineWidth = 1.5;
     for (const d of distant) {
       d.x += d.v * dt; if (d.x > W + 30) d.x = -30;
       const wy = Math.sin(t / 160 + d.p) * 3;
@@ -821,7 +914,7 @@
     for (const c of clouds) { c.x += c.v * dt; if (c.x > W + 90) c.x = -170; drawCloud(c); }
 
     // seeds fall to the hills
-    sg.fillStyle = night ? '#f7c948' : '#a5671f';
+    sg.fillStyle = theme === 'neon' ? '#3df5ff' : night ? '#f7c948' : '#a5671f';
     for (const s of seeds) {
       if (s.y < H - 50) s.y += 60 * dt;
       sg.beginPath(); sg.ellipse(s.x, s.y, 3, 2, 0, 0, Math.PI * 2); sg.fill();
@@ -856,10 +949,22 @@
     }
     leaving = leaving.filter(f => f.leave > 0);
     seeds = seeds.filter(s => s.bites > 0);
-    sg.fillStyle = night ? '#16263f' : '#8fcf8a';
-    sg.beginPath(); sg.moveTo(0, H);
-    for (let x = 0; x <= W; x += 20) sg.lineTo(x, H - 40 - Math.sin(x / 140) * 18);
-    sg.lineTo(W, H); sg.fill();
+    if (theme === 'neon') {
+      // perspective grid floor
+      const top = H - 70;
+      sg.fillStyle = '#12002b'; sg.fillRect(0, top, W, H - top);
+      sg.strokeStyle = 'rgba(255,79,216,.75)'; sg.lineWidth = 1.5; sg.shadowBlur = 8; sg.shadowColor = '#ff4fd8';
+      sg.beginPath();
+      const scroll = (t / 40) % 14;
+      for (let i = 0; i < 7; i++) { const y = top + Math.pow((i * 14 + scroll) / 98, 1.6) * (H - top); sg.moveTo(0, y); sg.lineTo(W, y); }
+      for (let i = -12; i <= 12; i++) { sg.moveTo(W / 2 + i * 30, top); sg.lineTo(W / 2 + i * 140, H); }
+      sg.stroke(); sg.shadowBlur = 0;
+    } else {
+      sg.fillStyle = night ? '#16263f' : '#8fcf8a';
+      sg.beginPath(); sg.moveTo(0, H);
+      for (let x = 0; x <= W; x += 20) sg.lineTo(x, H - 40 - Math.sin(x / 140) * 18);
+      sg.lineTo(W, H); sg.fill();
+    }
     raf = requestAnimationFrame(frame);
   }
   function startSky() {
@@ -871,7 +976,13 @@
   }
   function stopSky() { cancelAnimationFrame(raf); raf = 0; tip.hidden = true; document.title = 'DrawBird'; }
   addEventListener('resize', () => { if (raf) resize(); });
-  $('nightBtn').onclick = e => { night = !night; e.currentTarget.textContent = night ? 'Gündüz' : 'Gece'; };
+  let glow = false;
+  $('nightBtn').textContent = THEME_NEXT[theme];
+  $('nightBtn').onclick = e => {
+    theme = { day: 'night', night: 'neon', neon: 'day' }[theme]; night = theme !== 'day';
+    e.currentTarget.textContent = THEME_NEXT[theme];
+    try { localStorage.setItem('drawbird.theme', theme); } catch { /* storage blocked */ }
+  };
   $('skyMode').onchange = syncFlock;
   $('skySpeed').oninput = () => { speedK = +$('skySpeed').value; };
   $('skyCount').oninput = () => { $('skyCountVal').textContent = $('skyCount').value; syncFlock(); };
@@ -943,7 +1054,9 @@
       sel.onchange = () => { if (sel.value) toggleInFlock(sel.value, b.key); };
       acts.append(sel);
     }
-    const sh = el('button', 'btn small', 'Paylaş'); sh.type = 'button'; sh.onclick = () => copyLink('/k/' + b.id); acts.append(sh);
+    const sh = el('button', 'btn small', 'Paylaş'); sh.type = 'button'; sh.onclick = () => copyLink('/k/' + b.id);
+    if (!b.pending) acts.append(sh);
+    if (b.author === S.me) { const dl = el('button', 'btn small', 'İndir'); dl.type = 'button'; dl.onclick = () => downloadBird(b); acts.append(dl); }
     if (b.author === S.me || S.isOwner) {
       const del = el('button', 'btn small', 'Sil'); del.type = 'button';
       del.onclick = () => {
@@ -1104,8 +1217,8 @@
     let d;
     try { d = await api('/admin/reports'); } catch { $('admGrid').replaceChildren(el('div', 'empty', 'Yüklenemedi.')); return; }
     const stat = (n, label) => { const x = el('div'); x.append(el('b', null, String(n)), el('span', 'meta', label)); return x; };
-    $('admStats').replaceChildren(stat(d.stats.birds, 'kuş'), stat(d.stats.users, 'kuşçu'), stat(d.stats.votes, 'oy'), stat(d.stats.pending, 'onay bekleyen'), stat(d.reported.length, 'bildirilen kuş'));
-    renderQueue(); renderTelegram();
+    $('admStats').replaceChildren(stat(d.stats.birds, 'kuş'), stat(d.stats.users, 'kuşçu'), stat(d.stats.votes, 'oy'), stat(d.stats.pending, 'onay bekleyen'), stat(d.stats.messages, 'yeni mesaj'), stat(d.reported.length, 'bildirilen kuş'));
+    renderQueue(); renderTelegram(); renderMessages();
     renderTraffic(d.visits || [], d.newBirds || []);
     const banned = new Set(d.bans.map(x => x.uid));
     const after = () => { renderAdmin(); refresh(); };
@@ -1160,7 +1273,7 @@
   function showQueue() {
     const box = $('review'), b = queue[0];
     if (!b) { box.replaceChildren(el('div', 'meta', 'Onay bekleyen kuş yok. Yeni kuşlar burada ve Telegram\'da görünür.')); return; }
-    const art = el('div', 'art'); const img = el('img'); img.src = '/api/img/' + b.id; img.alt = b.name; art.append(img);
+    const art = el('div', 'art'); const img = el('img'); img.src = '/api/img/' + b.id + '?s=' + b.sig; img.alt = b.name; art.append(img);
     const row = el('div', 'row');
     const no = el('button', 'btn no', '← Reddet'); no.type = 'button'; no.onclick = () => review('no');
     const ok = el('button', 'btn ok', 'Onayla →'); ok.type = 'button'; ok.onclick = () => review('ok');
@@ -1233,6 +1346,24 @@
       await refresh(); toast(`Verilerin silindi (${r.birds} kuş). Bu cihaz artık yeni ve boş bir kimlik kullanıyor.`);
     }, writeFailed).catch(() => {});
   };
+  const TOPIC = { report: '🚩 Uygunsuz çizim', kvkk: '🔐 KVKK', bug: '🐞 Hata', idea: '💡 Fikir', other: '✉️ Diğer' };
+  async function renderMessages() {
+    let list = [];
+    try { list = (await api('/admin/messages')).messages; } catch { /* shown empty */ }
+    $('admMsgs').replaceChildren(...(list.length ? list.map(m => {
+      const row = el('div', 'flock msg' + (m.done ? ' done' : ''));
+      const acts = el('div', 'acts');
+      const done = el('button', 'btn small', m.done ? 'Yeniden aç' : 'Tamamlandı'); done.type = 'button';
+      done.onclick = () => api('/admin/message', { body: { id: m.id, done: !m.done } }).then(renderMessages, writeFailed).catch(() => {});
+      const del = el('button', 'btn small', 'Sil'); del.type = 'button';
+      del.onclick = () => api('/admin/message', { body: { id: m.id, delete: true } }).then(renderMessages, writeFailed).catch(() => {});
+      acts.append(done, del);
+      row.append(el('b', null, `${TOPIC[m.topic] || m.topic} · ${fmtDate(m.created)}`), el('p', null, m.body));
+      if (m.contact) row.append(el('span', 'meta', 'İletişim: ' + m.contact));
+      row.append(acts);
+      return row;
+    }) : [el('div', 'empty', 'Mesaj yok.')]));
+  }
   $('admRefresh').onclick = renderAdmin;
   let wasOwner = false;
   onChange(() => {
@@ -1265,6 +1396,24 @@
 
   // Cookieless visit count: one ping per browser session.
   try { if (!sessionStorage.getItem('drawbird.hit')) { sessionStorage.setItem('drawbird.hit', '1'); fetch('/api/hit', { method: 'POST' }).catch(() => {}); } } catch { /* storage blocked: skip counting */ }
+
+  // ---- contact form ----
+  $('cSend').onclick = () => {
+    const body = $('cBody').value.trim();
+    if (body.length < 5) { toast('Biraz daha yaz, ne olduğunu anlayalım.'); $('cBody').focus(); return; }
+    $('cSend').disabled = true;
+    api('/contact', { body: { topic: $('cTopic').value, body, contact: $('cContact').value.trim() } })
+      .then(() => { $('cBody').value = ''; $('cContact').value = ''; toast('Mesajın geldi, teşekkürler! En kısa sürede bakacağım.'); }, writeFailed)
+      .catch(() => {}).finally(() => { $('cSend').disabled = false; });
+  };
+
+  // ---- first visit: three quick tips on the drawing page ----
+  try {
+    if (!localStorage.getItem('drawbird.intro')) {
+      $('intro').hidden = false;
+      $('introOk').onclick = () => { $('intro').hidden = true; try { localStorage.setItem('drawbird.intro', '1'); } catch { /* storage blocked */ } };
+    }
+  } catch { /* storage blocked: skip the tips */ }
 
   // ================= boot =================
   await Promise.race([i18nReady, new Promise(r => setTimeout(r, 1500))]);

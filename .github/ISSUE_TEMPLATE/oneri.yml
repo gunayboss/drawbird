@@ -1,0 +1,21 @@
+name: Öneri
+description: DrawBird'e eklenmesini istediğin bir şey var mı?
+title: "[Öneri] "
+labels: ["öneri"]
+body:
+  - type: textarea
+    id: fikir
+    attributes:
+      label: Fikrin ne?
+      description: Kısaca anlat.
+    validations:
+      required: true
+  - type: textarea
+    id: neden
+    attributes:
+      label: Neden işe yarar?
+      description: Hangi sorunu çözer, kime yarar?
+  - type: textarea
+    id: alternatif
+    attributes:
+      label: Aklına gelen başka çözüm var mı?

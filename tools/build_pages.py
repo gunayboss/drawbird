@@ -13,6 +13,8 @@ from content_lessons import LESSONS as SHAPES
 from content_birds import BIRDS as BIRD_META
 
 HERE = os.path.dirname(__file__)
+# Full site address for share cards and canonical links. Change it when the site moves to its own domain, then rebuild.
+ORIGIN = 'https://drawbird.the-pit.workers.dev'
 ROOT = os.path.join(HERE, '..')
 PUBLIC = os.path.join(ROOT, 'public')
 ALL_LANGS = ['tr', 'en', 'es', 'pt', 'fr', 'de', 'ru', 'ar', 'zh', 'ja', 'id']
@@ -42,7 +44,7 @@ def localize(text, lang):
     text = text.replace('.html"', '"')
     if lang == 'tr': return text
     text = re.sub(r'href="/(' + SECTIONS + r')([/"#])', lambda m: f'href="/{lang}/{m.group(1)}{m.group(2)}', text)
-    text = text.replace('href="/#ciz"', f'href="/?lang={lang}#ciz"').replace('href="/"', f'href="/?lang={lang}"')
+    text = text.replace('href="/#ciz"', f'href="/?lang={lang}#ciz"').replace('href="/#iletisim"', f'href="/?lang={lang}#iletisim"').replace('href="/"', f'href="/?lang={lang}"')
     return text
 
 def svg(steps, upto, full=False, label=''):
@@ -97,11 +99,12 @@ def page(lang, U, path, title, desc, body, active=None, jsonld=None):
     foot = (f'<footer>DrawBird · <a href="{p}/hakkinda">{esc(U["foot_about"])}</a> · <a href="{p}/ogretmenler">{esc(U["foot_teachers"])}</a> · '
             f'<a href="{p}/nasil-oynanir">{esc(U["foot_howto"])}</a> · <a href="{p}/kosullar">{esc(U["foot_terms"])}</a> · '
             f'<a href="{p}/gizlilik">{esc(U["foot_privacy"])}</a> · <a href="{p}/kvkk">{esc(U["foot_kvkk"])}</a> · '
+            f'<a href="{"/#iletisim" if lang == "tr" else f"/?lang={lang}#iletisim"}">{esc(U["foot_contact"])}</a> · '
             f'<a href="https://github.com/gunayboss/drawbird">{esc(U["foot_source"])}</a>'
             f'<div class="langs" aria-label="{esc(U["language"])}">' +
             ''.join(f'<a href="{pre(l)}{path}" hreflang="{l}" lang="{l}"{" aria-current=\"page\"" if l == lang else ""}>{NATIVE[l]}</a>' for l in LANGS) +
             '</div></footer>')
-    alt = ''.join(f'\n<link rel="alternate" hreflang="{l}" href="{pre(l)}{path}">' for l in LANGS) + f'\n<link rel="alternate" hreflang="x-default" href="{path}">'
+    alt = ''.join(f'\n<link rel="alternate" hreflang="{l}" href="{ORIGIN}{pre(l)}{path}">' for l in LANGS) + f'\n<link rel="alternate" hreflang="x-default" href="{ORIGIN}{path}">'
     ld = f'\n<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ''
     full = f'''<!doctype html>
 <html lang="{lang}" dir="{'rtl' if lang == 'ar' else 'ltr'}">
@@ -112,8 +115,9 @@ def page(lang, U, path, title, desc, body, active=None, jsonld=None):
 <meta name="description" content="{esc(desc)}">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
-<meta property="og:image" content="/og-card.png">
-<link rel="canonical" href="{p}{path}">{alt}
+<meta property="og:image" content="{ORIGIN}/og-card.png">
+<meta property="og:url" content="{ORIGIN}{p}{path}">
+<link rel="canonical" href="{ORIGIN}{p}{path}">{alt}
 <link rel="icon" href="/icons/icon-192.png" type="image/png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
@@ -232,7 +236,7 @@ for lang in LANGS:
 
 # ---- for the Worker: sitemap list and week-page strings ----
 WEEK_KEYS = ['nav_draw', 'nav_lessons', 'nav_birds', 'nav_week', 'nav_blog', 'nav_faq', 'foot_about', 'foot_teachers', 'foot_terms',
-             'foot_privacy', 'foot_kvkk', 'foot_source', 'months', 'date_format'] + [k for k in load('tr').UI if k.startswith(('week', 'archive', 'weekpage', 'card_', 'prev_', 'next_', 'share_'))] + ['an_artist']
+             'foot_privacy', 'foot_kvkk', 'foot_source', 'foot_contact', 'months', 'date_format'] + [k for k in load('tr').UI if k.startswith(('week', 'archive', 'weekpage', 'card_', 'prev_', 'next_', 'share_'))] + ['an_artist']
 week_ui = {l: {k: load(l).UI[k] for k in WEEK_KEYS} for l in LANGS}
 fixed = []
 for l in LANGS:
@@ -243,4 +247,9 @@ io.open(os.path.join(ROOT, 'src', 'static_pages.js'), 'w', encoding='utf-8', new
     f'export const LANGS = {json.dumps(LANGS)};\n'
     f'export const STATIC_PAGES = {json.dumps(entries, ensure_ascii=False)};\n'
     f'export const WEEK_UI = {json.dumps(week_ui, ensure_ascii=False)};\n')
+g = os.path.join(PUBLIC, 'index.html')
+gs = io.open(g, encoding='utf-8').read()
+gs = re.sub(r'<meta property="og:image" content="[^"]*">', f'<meta property="og:image" content="{ORIGIN}/og-card.png">', gs)
+gs = re.sub(r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{ORIGIN}/">', gs)
+io.open(g, 'w', encoding='utf-8', newline='\n').write(gs)
 print(len(LANGS), 'dil,', len(written), 'sayfa:', ', '.join(LANGS))

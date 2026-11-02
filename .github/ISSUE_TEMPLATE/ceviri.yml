@@ -1,0 +1,39 @@
+name: Çeviri düzeltmesi
+description: Bir çeviride yanlış ya da kulağa garip gelen bir yer mi gördün?
+title: "[Çeviri] "
+labels: ["çeviri"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Çeviri kuralları için `tools/i18n_content/CEVIRI.md` dosyasına bakabilirsin.
+  - type: input
+    id: dil
+    attributes:
+      label: Dil
+      placeholder: English, Español, Deutsch, ...
+    validations:
+      required: true
+  - type: input
+    id: sayfa
+    attributes:
+      label: Sayfa adresi
+      placeholder: https://drawbird.the-pit.workers.dev/en/...
+    validations:
+      required: true
+  - type: textarea
+    id: mevcut
+    attributes:
+      label: Şu an yazan
+    validations:
+      required: true
+  - type: textarea
+    id: onerilen
+    attributes:
+      label: Olması gereken
+    validations:
+      required: true
+  - type: textarea
+    id: not
+    attributes:
+      label: Not (isteğe bağlı)

@@ -1,4 +1,5 @@
 // Name filter and Telegram moderation for DrawBird.
+import { BADWORDS } from './badwords.js';
 
 // ---- name filter ----
 // Words are matched after normalising: Turkish lowercase, look-alike digits and symbols mapped to
@@ -19,7 +20,7 @@ const SHORT = ['am', 'sik', 'pic', 'got', 'mal', 'ass', 'sex', 'seks', 'oc', 'aq
 const LONG_AS_WORD = new Set(['got', 'mal', 'amk', 'salak', 'cock', 'dick', 'rape', 'nazi', 'fuk']);
 
 const LEET = { '0': 'o', '1': 'i', '!': 'i', '|': 'i', '3': 'e', '4': 'a', '@': 'a', '5': 's', '$': 's', '7': 't', '8': 'b', '9': 'g', '+': 't' };
-const FOLD = { 'ç': 'c', 'ğ': 'g', 'ı': 'i', 'İ': 'i', 'ö': 'o', 'ş': 's', 'ü': 'u', 'â': 'a', 'î': 'i', 'û': 'u' };
+const FOLD = { 'ß': 'ss', 'ç': 'c', 'ğ': 'g', 'ı': 'i', 'İ': 'i', 'ö': 'o', 'ş': 's', 'ü': 'u', 'â': 'a', 'î': 'i', 'û': 'u' };
 
 function normalise(text) {
   let s = String(text).toLocaleLowerCase('tr');
@@ -41,7 +42,21 @@ export function isBadName(text) {
     const root = normalise(w).replace(/[^a-z]/g, '');
     if (LONG_AS_WORD.has(w) ? asWord(root) : inside(root)) return true;
   }
-  return SHORT.some(asWord);
+  if (SHORT.some(asWord)) return true;
+  // The other site languages. Latin-script lists go through the same normalising as above.
+  for (const lang of ['es', 'pt', 'fr', 'de', 'id']) {
+    const L = BADWORDS[lang];
+    if (L.long.some(w => inside(normalise(w).replace(/[^a-z]/g, ''))) || L.word.some(w => asWord(normalise(w).replace(/[^a-z]/g, '')))) return true;
+  }
+  // Cyrillic, Arabic, Chinese, Japanese: lowercase only (no NFKD, which would split Japanese kana), separators removed.
+  const lower = String(text).toLowerCase();
+  const parts = lower.split(/[\s\p{P}\p{S}\d_]+/u).filter(Boolean);
+  const compact = parts.join('');
+  for (const lang of ['ru', 'ar', 'zh', 'ja']) {
+    const L = BADWORDS[lang];
+    if (L.long.some(w => compact.includes(w)) || L.word.some(w => parts.includes(w))) return true;
+  }
+  return false;
 }
 
 // ---- Telegram ----
@@ -97,7 +112,7 @@ export async function notifyBird(env, origin, bird, kind) {
     : [[{ text: '👍 Sorun yok', callback_data: `clear:${bird.id}` }, { text: '🗑 Sil', callback_data: `no:${bird.id}` }], [{ text: '⛔ Sil ve engelle', callback_data: `ban:${bird.id}` }]];
   await tg(env, 'sendPhoto', {
     chat_id: chat,
-    photo: `${origin}/api/img/${bird.id}?v=${Date.now()}`,
+    photo: `${origin}/api/img/${bird.id}?${bird.sig ? `s=${bird.sig}&` : ''}v=${Date.now()}`,
     caption: `${head}\n“${bird.name}” · ${bird.author || 'İsimsiz kuşçu'}`,
     reply_markup: { inline_keyboard: buttons },
   });

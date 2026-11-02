@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Sayfa bulunamadı · DrawBird</title>
+<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/sayfa.css">
+<style>
+  .lost { text-align: center; display: grid; gap: 10px; justify-items: center; }
+  .lost svg { width: min(260px, 70vw); height: auto; }
+  .lost .row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .lost .ghost { background: var(--chip); color: var(--ink); }
+</style>
+</head>
+<body>
+<main>
+<article class="lost">
+  <svg viewBox="0 0 240 150" role="img" aria-label="" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="110" cy="96" rx="48" ry="26" fill="#9fb3c8" stroke="#1b2740" stroke-width="3"/>
+    <circle cx="156" cy="76" r="20" fill="#9fb3c8" stroke="#1b2740" stroke-width="3"/>
+    <path d="M174 72 L192 78 L174 84 Z" fill="#f2b705" stroke="#1b2740" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M150 70 l8 8 M158 70 l-8 8" stroke="#1b2740" stroke-width="3" stroke-linecap="round"/>
+    <path d="M86 86 Q96 34 130 40 Q118 66 118 86 Z" fill="#7d93ab" stroke="#1b2740" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M62 92 L28 82 L32 110 L64 104 Z" fill="#7d93ab" stroke="#1b2740" stroke-width="3" stroke-linejoin="round"/>
+    <text x="200" y="40" font-size="28" fill="#f2b705" font-family="sans-serif">?</text>
+  </svg>
+  <h1 id="t">Bu kuş uçup gitmiş</h1>
+  <p id="d">Aradığın sayfa yok ya da taşınmış. Gökyüzüne dön, orada bir sürü kuş var.</p>
+  <div class="row">
+    <a class="cta" id="home" href="/#ciz">Kuş çiz</a>
+    <a class="cta ghost" id="sky" href="/#gok">Gökyüzüne bak</a>
+  </div>
+</article>
+</main>
+<script>
+// One page for every language: the language comes from the address (/en/…) or the browser.
+(() => {
+  const T = {
+    tr: ['Bu kuş uçup gitmiş', 'Aradığın sayfa yok ya da taşınmış. Gökyüzüne dön, orada bir sürü kuş var.', 'Kuş çiz', 'Gökyüzüne bak', 'Sayfa bulunamadı'],
+    en: ['This bird has flown away', 'The page you’re looking for doesn’t exist or has moved. Head back to the sky, there are plenty of birds there.', 'Draw a bird', 'Look at the sky', 'Page not found'],
+    es: ['Este pájaro se ha ido volando', 'La página que buscas no existe o se ha movido. Vuelve al cielo, allí hay muchos pájaros.', 'Dibuja un pájaro', 'Mira el cielo', 'Página no encontrada'],
+    pt: ['Esse pássaro voou para longe', 'A página que você procura não existe ou mudou de lugar. Volte para o céu, lá tem um monte de pássaros.', 'Desenhe um pássaro', 'Olhe o céu', 'Página não encontrada'],
+    fr: ['Cet oiseau s’est envolé', 'La page que tu cherches n’existe pas ou a été déplacée. Retourne dans le ciel, il y a plein d’oiseaux.', 'Dessine un oiseau', 'Regarde le ciel', 'Page introuvable'],
+    de: ['Dieser Vogel ist weggeflogen', 'Die Seite, die du suchst, gibt es nicht oder sie ist umgezogen. Zurück in den Himmel, da sind jede Menge Vögel.', 'Vogel zeichnen', 'Zum Himmel', 'Seite nicht gefunden'],
+    ru: ['Эта птица улетела', 'Страницы, которую ты ищешь, нет или она переехала. Возвращайся в небо, там полно птиц.', 'Нарисовать птицу', 'Смотреть небо', 'Страница не найдена'],
+    ar: ['طار هذا الطائر بعيدًا', 'الصفحة التي تبحث عنها غير موجودة أو نُقلت. عُد إلى السماء، هناك الكثير من الطيور.', 'ارسم طائرًا', 'انظر إلى السماء', 'الصفحة غير موجودة'],
+    zh: ['这只鸟飞走了', '你要找的页面不存在或已搬走。回到天空吧，那里有很多小鸟。', '画一只鸟', '看看天空', '页面不存在'],
+    ja: ['この鳥は飛んでいっちゃった', '探しているページはないか、移動しました。空に戻ろう、鳥がたくさんいるよ。', '鳥を描く', '空を見る', 'ページが見つかりません'],
+    id: ['Burung ini sudah terbang', 'Halaman yang kamu cari tidak ada atau sudah pindah. Kembali ke langit, di sana banyak burung.', 'Gambar burung', 'Lihat langit', 'Halaman tidak ditemukan'],
+  };
+  const fromPath = (location.pathname.match(/^\/([a-z]{2})\//) || [])[1];
+  let saved = ''; try { saved = localStorage.getItem('drawbird.lang') || ''; } catch { /* storage blocked */ }
+  const browser = (navigator.languages || [navigator.language || '']).map(l => String(l).slice(0, 2).toLowerCase()).find(l => T[l]);
+  const lang = [fromPath, saved, browser, 'tr'].find(l => l && T[l]);
+  const [t, d, home, sky, title] = T[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.title = `${title} · DrawBird`;
+  document.getElementById('t').textContent = t;
+  document.getElementById('d').textContent = d;
+  const q = lang === 'tr' ? '' : `?lang=${lang}`;
+  const a = document.getElementById('home'), b = document.getElementById('sky');
+  a.textContent = home; a.href = `/${q}#ciz`;
+  b.textContent = sky; b.href = `/${q}#gok`;
+})();
+</script>
+</body>
+</html>
