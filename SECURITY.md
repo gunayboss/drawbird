@@ -31,4 +31,4 @@ Test ederken başka kullanıcıların verisine dokunma. Yerelde kendi kopyanda d
 
 ## Uygunsuz içerik ve veri talepleri
 
-Bunlar güvenlik açığı değil. Sitedeki iletişim formunu kullan: https://drawbird.the-pit.workers.dev/#iletisim
+Bunlar güvenlik açığı değil. Sitedeki iletişim formunu kullan: https://drawbird.app/#iletisim

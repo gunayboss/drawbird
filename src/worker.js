@@ -719,6 +719,11 @@ export default {
   },
   async fetch(req, env, ctx) {
     const url = new URL(req.url);
+    // The site lives on drawbird.app. Pages asked for on the old workers.dev address or on www move there for good;
+    // the API stays answering everywhere so already-open tabs keep working.
+    if ((url.hostname === 'www.drawbird.app' || url.hostname.endsWith('.workers.dev')) && !url.pathname.startsWith('/api/')) {
+      return Response.redirect(`https://drawbird.app${url.pathname}${url.search}`, 301);
+    }
     if (url.pathname.startsWith('/api/')) {
       let res;
       try { res = await handleApi(req, env, url, ctx); }

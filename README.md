@@ -4,7 +4,7 @@
 
 **Bir kuş çiz, herkesin kuşlarıyla aynı gökyüzünde uçsun.**
 
-🐦 Canlı: **https://drawbird.the-pit.workers.dev**
+🐦 Canlı: **https://drawbird.app**
 
 DrawBird tarayıcıda çalışan küçük bir çizim oyunu. Sağa bakan bir kuş çizersin, "uçur!" dersin; kuşun kanat çırparak ortak gökyüzüne katılır. Herkes kuşları oylar, sürüler kurar, yem atar.
 

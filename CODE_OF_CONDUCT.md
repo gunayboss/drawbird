@@ -21,5 +21,5 @@ DrawBird'de çocuklar da çizim yapıyor, öğretmenler sınıfta kullanıyor. B
 
 Bu kurallara uymayan yorumlar silinebilir, konular kilitlenebilir, kişiler projeden uzaklaştırılabilir.
 
-Bir sorun gördüysen sitedeki iletişim formundan yaz: https://drawbird.the-pit.workers.dev/#iletisim
+Bir sorun gördüysen sitedeki iletişim formundan yaz: https://drawbird.app/#iletisim
 Bildirimler gizli tutulur.

@@ -14,7 +14,7 @@ from content_birds import BIRDS as BIRD_META
 
 HERE = os.path.dirname(__file__)
 # Full site address for share cards and canonical links. Change it when the site moves to its own domain, then rebuild.
-ORIGIN = 'https://drawbird.the-pit.workers.dev'
+ORIGIN = 'https://drawbird.app'
 # AdSense. Empty = no ads anywhere (no script, no slots, no ads.txt, strict CSP). After approval fill in the
 # publisher id ('ca-pub-…') and the two display ad unit ids, then rebuild and deploy.
 # Keep Auto ads OFF in the AdSense account: these hand-placed slots are the only ad spots (none on the game).
