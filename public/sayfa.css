@@ -1,0 +1,32 @@
+/* Shared look for DrawBird's text pages (rules, privacy, how-to, weekly birds). */
+:root {
+  --bg: #e4f4ff; --sky: #7cc3ee; --paper: #ffffff; --ink: #1b2740; --muted: #5d6b83;
+  --line: rgba(27, 39, 64, .14); --chip: #edf2f8; --beak: #f2b705; --beak-ink: #2b2100;
+  --font-display: "Caveat", "Comic Sans MS", cursive; --font-body: "Rubik", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0d1630; --sky: #0b1533; --paper: #18233d; --ink: #e8eefb; --muted: #9aa8c4; --line: rgba(232, 238, 251, .16); --chip: #22304f; --beak: #f7c948; --beak-ink: #221a00; color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: linear-gradient(var(--sky), var(--bg) 340px) var(--bg); color: var(--ink); font: 16px/1.65 var(--font-body); }
+main { max-width: 760px; margin: 0 auto; padding-block: 28px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.top { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+.top a { background: var(--paper); color: var(--ink); text-decoration: none; padding: 7px 13px; border-radius: 999px; font-weight: 500; font-size: 14px; }
+.top a.on { background: var(--ink); color: var(--paper); }
+article { background: var(--paper); border-radius: 20px; padding: clamp(18px, 4vw, 32px); }
+h1 { font-family: var(--font-display); font-size: clamp(38px, 7vw, 54px); line-height: 1; margin: 0 0 8px; text-wrap: balance; }
+h2 { font-size: 20px; margin: 30px 0 6px; text-wrap: balance; }
+p, li { max-width: 65ch; }
+a { color: inherit; }
+.muted { color: var(--muted); font-size: 14px; }
+.cta { display: inline-block; background: var(--beak); color: var(--beak-ink); font-weight: 700; text-decoration: none; padding: 11px 20px; border-radius: 14px; margin-top: 8px; }
+.steps { padding-left: 1.2em; }
+.steps li { margin-bottom: 10px; }
+kbd { background: var(--chip); border-radius: 6px; padding: 1px 6px; font-size: 14px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 16px; }
+.bird { background: var(--chip); border-radius: 14px; padding: 10px; text-decoration: none; display: grid; gap: 4px; min-width: 0; }
+.bird .art { background: #ffffff; border-radius: 10px; height: 100px; display: grid; place-items: center; }
+.bird img { max-height: 88px; max-width: 100%; }
+.bird b { font-family: var(--font-display); font-size: 24px; line-height: 1; overflow-wrap: anywhere; }
+.bird span { color: var(--muted); font-size: 13px; }
+footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 20px; }

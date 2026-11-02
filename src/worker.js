@@ -110,7 +110,13 @@ async function adminApi(req, env, path, method, body) {
       env.DB.prepare('SELECT bans.uid, bans.created, users.name FROM bans LEFT JOIN users ON users.uid = bans.uid ORDER BY bans.created DESC'),
     ]);
     const stats = await env.DB.prepare('SELECT (SELECT COUNT(*) FROM birds) AS birds, (SELECT COUNT(*) FROM users) AS users, (SELECT COUNT(*) FROM votes) AS votes').first();
-    return json({ reported: reported.results, bans: bans.results, stats });
+    const since = new Date(Date.now() - 13 * 864e5).toISOString().slice(0, 10);
+    const [visits, newBirds] = await env.DB.batch([
+      env.DB.prepare('SELECT day, n FROM visits WHERE day >= ? ORDER BY day').bind(since),
+      env.DB.prepare("SELECT strftime('%Y-%m-%d', created / 1000, 'unixepoch') AS day, COUNT(*) AS n FROM birds WHERE created >= ? GROUP BY day")
+        .bind(Date.parse(since)),
+    ]);
+    return json({ reported: reported.results, bans: bans.results, stats, visits: visits.results, newBirds: newBirds.results });
   }
   if (method === 'POST' && path === '/admin/clear') {
     if (!ID.test(String(body.bird))) return fail(400, 'bad_bird');
@@ -132,6 +138,12 @@ async function handleApi(req, env, url) {
   const method = req.method;
 
   if (method === 'GET' && path === '/state') return state(req, env, url);
+  if (method === 'POST' && path === '/hit') {
+    // One count per browser session; nothing about the visitor is stored.
+    await env.DB.prepare('INSERT INTO visits (day, n) VALUES (?, 1) ON CONFLICT(day) DO UPDATE SET n = n + 1')
+      .bind(new Date().toISOString().slice(0, 10)).run();
+    return json({ ok: true });
+  }
   const img = /^\/img\/([a-z0-9]{16})$/.exec(path);
   if (method === 'GET' && img) return image(img[1], env);
 
@@ -230,6 +242,88 @@ async function handleApi(req, env, url) {
   return fail(404, 'not_found');
 }
 
+// Edge-cache a generated page for `ttl` seconds.
+async function cached(req, build, ttl) {
+  const cache = caches.default;
+  const key = new Request(new URL(req.url).toString());
+  const hit = await cache.match(key);
+  if (hit) return hit;
+  const res = await build();
+  res.headers.set('cache-control', `public, max-age=${ttl}`);
+  await cache.put(key, res.clone());
+  return res;
+}
+
+// Server-rendered "birds of the week": real text and images for visitors and search engines.
+async function weeklyPage(env, url) {
+  const weekAgo = Date.now() - 7 * 864e5;
+  const query = cutoff => env.DB.prepare(`SELECT b.id, b.name, b.created, u.name AS author,
+      COALESCE(SUM(v.v), 0) AS score, COALESCE(SUM(v.v = 1), 0) AS up
+    FROM birds b LEFT JOIN votes v ON v.bird_id = b.id LEFT JOIN users u ON u.uid = b.uid
+    WHERE b.created >= ? AND b.uid NOT IN (SELECT uid FROM bans)
+      AND (SELECT COUNT(*) FROM flags f WHERE f.bird_id = b.id) < ${HIDE_FLAGS}
+    GROUP BY b.id ORDER BY score DESC, b.created DESC LIMIT 24`).bind(cutoff).all();
+  let { results: birds } = await query(weekAgo);
+  const allTime = birds.length < 6;
+  if (allTime) ({ results: birds } = await query(0));
+  const fmt = ts => new Date(ts).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+  const cards = birds.map((b, i) => `
+    <a class="bird" href="/k/${b.id}">
+      <div class="art"><img src="/api/img/${b.id}" alt="${esc(b.name)}" loading="lazy" width="140" height="88"></div>
+      <b>${esc(b.name)}</b>
+      <span>#${i + 1} · ${esc(b.author || 'Bir kuşçu')} · ${b.up} beğeni</span>
+    </a>`).join('');
+  const intro = allTime
+    ? 'Bu hafta henüz yeterince kuş uçmadı; şimdilik tüm zamanların en sevilen kuşları burada.'
+    : `${fmt(weekAgo)} ile bugün arasında gökyüzüne katılan ve en çok beğeni alan kuşlar.`;
+  const first = birds[0];
+  const html = `<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Haftanın Kuşları · DrawBird</title>
+<meta name="description" content="DrawBird'de bu hafta en çok beğenilen kuş çizimleri.">
+<meta property="og:title" content="Haftanın kuşları · DrawBird">
+<meta property="og:description" content="Bu hafta ortak gökyüzünde en çok beğenilen kuş çizimleri.">
+<meta property="og:image" content="${first ? `${url.origin}/api/img/${first.id}` : `${url.origin}/og-card.png`}">
+<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Rubik:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/sayfa.css">
+</head>
+<body>
+<main>
+<nav class="top">
+  <a href="/#ciz">Çiz</a><a href="/nasil-oynanir.html">Nasıl oynanır</a><a class="on" href="/haftanin-kuslari">Haftanın kuşları</a><a href="/kosullar.html">Koşullar</a><a href="/gizlilik.html">Gizlilik</a>
+</nav>
+<article>
+  <h1>Haftanın kuşları</h1>
+  <p>${intro} Bir kuşa dokunursan gökyüzünde onu bulur, oy verebilirsin.</p>
+  ${birds.length ? `<div class="grid">${cards}</div>` : '<p class="muted">Gökyüzü henüz boş. İlk kuşu sen çiz!</p>'}
+  <p><a class="cta" href="/#ciz">Sen de bir kuş çiz</a></p>
+  <p class="muted">Liste beş dakikada bir yenilenir. Sıralama, kuşların aldığı ▲ ve ▼ oyların farkına göre yapılır.</p>
+</article>
+<footer>DrawBird · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></footer>
+</main>
+</body>
+</html>`;
+  return new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8' } });
+}
+
+async function sitemap(env, url) {
+  const { results } = await env.DB.prepare(`SELECT id, created FROM birds WHERE uid NOT IN (SELECT uid FROM bans)
+    AND (SELECT COUNT(*) FROM flags f WHERE f.bird_id = birds.id) < ${HIDE_FLAGS} ORDER BY created DESC LIMIT 1000`).all();
+  const day = ts => new Date(ts).toISOString().slice(0, 10);
+  const today = day(Date.now());
+  const pages = [['/', today], ['/haftanin-kuslari', today], ['/nasil-oynanir.html'], ['/kosullar.html'], ['/gizlilik.html'],
+    ...results.map(b => [`/k/${b.id}`, day(b.created)])];
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${pages.map(([p, d]) => `  <url><loc>${url.origin}${p}</loc>${d ? `<lastmod>${d}</lastmod>` : ''}</url>`).join('\n')}
+</urlset>`;
+  return new Response(xml, { headers: { 'content-type': 'application/xml; charset=utf-8' } });
+}
+
 // Share links (/k/<bird>) get their own preview card for chat apps and social sites.
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 async function sharePage(req, env, url, birdId) {
@@ -259,6 +353,11 @@ export default {
     }
     const share = /^\/k\/([a-z0-9]{16})$/.exec(url.pathname);
     if (share && req.method === 'GET') return sharePage(req, env, url, share[1]);
+    if (url.pathname === '/haftanin-kuslari') return cached(req, () => weeklyPage(env, url), 300);
+    if (url.pathname === '/sitemap.xml') return cached(req, () => sitemap(env, url), 3600);
+    if (url.pathname === '/robots.txt') {
+      return new Response(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${url.origin}/sitemap.xml\n`, { headers: { 'content-type': 'text/plain; charset=utf-8' } });
+    }
     return env.ASSETS.fetch(req);
   },
 };

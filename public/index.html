@@ -179,6 +179,13 @@
   .stats { max-width: 1000px; margin: 0 auto 14px; display: flex; gap: 10px; flex-wrap: wrap; }
   .stats div { background: var(--paper); border-radius: 12px; padding: 10px 14px; box-shadow: var(--shadow); }
   .stats b { font-size: 22px; font-variant-numeric: tabular-nums; display: block; }
+  .traffic { max-width: 1000px; margin: 0 auto 18px; background: var(--paper); border-radius: 16px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .traffic .bars { display: grid; grid-template-columns: repeat(14, 1fr); gap: 6px; align-items: end; height: 120px; }
+  .traffic .col { display: grid; gap: 2px; align-content: end; height: 100%; text-align: center; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .traffic .v { background: var(--ink); border-radius: 4px 4px 0 0; min-height: 2px; }
+  .traffic .b { background: var(--beak); border-radius: 3px; min-height: 0; }
+  .traffic .legend { display: flex; gap: 14px; font-size: 13px; color: var(--muted); margin-top: 8px; flex-wrap: wrap; }
+  .traffic .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
   #toasts {
     position: fixed; z-index: 30; right: max(12px, env(safe-area-inset-right, 0px));
     top: calc(env(safe-area-inset-top, 0px) + 64px); display: grid; gap: 8px; max-width: calc(100% - 24px);
@@ -220,7 +227,7 @@
     </div>
     <div class="verdict" id="verdict" hidden></div>
   </div>
-  <p class="foot">Kuşlar herkese açıktır; uygunsuz çizimi Bildir ile işaretle. <a href="/gizlilik.html">Gizlilik ve kurallar</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></p>
+  <p class="foot">Kuşlar herkese açıktır; uygunsuz çizimi Bildir ile işaretle. <a href="/nasil-oynanir.html">Nasıl oynanır</a> · <a href="/haftanin-kuslari">Haftanın kuşları</a> · <a href="/kosullar.html">Koşullar</a> · <a href="/gizlilik.html">Gizlilik</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></p>
 </section>
 
 <section id="gok" class="view" hidden>
@@ -275,6 +282,7 @@
     <button class="btn small" id="admRefresh" type="button">Yenile</button>
   </div>
   <div class="stats" id="admStats"></div>
+  <div class="traffic" id="admTraffic" aria-label="Son 14 gün: ziyaret ve yeni kuş"></div>
   <div class="grid" id="admGrid"></div>
   <h2 class="section-title">Engellenenler</h2>
   <div class="flocks" id="admBans"></div>
@@ -941,6 +949,7 @@
     try { d = await api('/admin/reports'); } catch { $('admGrid').replaceChildren(el('div', 'empty', 'Yüklenemedi.')); return; }
     const stat = (n, label) => { const x = el('div'); x.append(el('b', null, String(n)), el('span', 'meta', label)); return x; };
     $('admStats').replaceChildren(stat(d.stats.birds, 'kuş'), stat(d.stats.users, 'kuşçu'), stat(d.stats.votes, 'oy'), stat(d.reported.length, 'bildirilen kuş'));
+    renderTraffic(d.visits || [], d.newBirds || []);
     const banned = new Set(d.bans.map(x => x.uid));
     const after = () => { renderAdmin(); refresh(); };
     $('admGrid').replaceChildren(...(d.reported.length ? d.reported.map(r => {
@@ -965,8 +974,31 @@
       return row;
     }) : [el('div', 'empty', 'Engellenen kuşçu yok.')]));
   }
+  function renderTraffic(visits, newBirds) {
+    const days = Array.from({ length: 14 }, (_, i) => new Date(Date.now() - (13 - i) * 864e5).toISOString().slice(0, 10));
+    const vm = Object.fromEntries(visits.map(r => [r.day, r.n])), bm = Object.fromEntries(newBirds.map(r => [r.day, r.n]));
+    const max = Math.max(1, ...days.map(d => vm[d] || 0));
+    const bars = el('div', 'bars');
+    days.forEach(d => {
+      const col = el('div', 'col'); col.title = `${d}: ${vm[d] || 0} ziyaret, ${bm[d] || 0} yeni kuş`;
+      const v = el('div', 'v'); v.style.height = ((vm[d] || 0) / max * 80) + '%';
+      const b = el('div', 'b'); b.style.height = Math.min(16, (bm[d] || 0) * 3) + 'px';
+      col.append(el('span', null, String(vm[d] || 0)), v, b, el('span', null, d.slice(8) + '.' + d.slice(5, 7)));
+      bars.append(col);
+    });
+    const legend = el('div', 'legend');
+    const key = (cls, text) => { const s = el('span'); const i = el('i'); i.className = cls; i.style.background = cls === 'v' ? 'var(--ink)' : 'var(--beak)'; s.append(i, text); return s; };
+    const total = days.reduce((n, d) => n + (vm[d] || 0), 0);
+    legend.append(key('v', 'Ziyaret (oturum başına bir)'), key('b', 'Yeni kuş'), el('span', null, `14 günde ${total} ziyaret`));
+    $('admTraffic').replaceChildren(el('b', null, 'Son 14 gün'), bars, legend);
+  }
   $('admRefresh').onclick = renderAdmin;
-  onChange(() => { $('navAdmin').hidden = !S.isOwner; });
+  let wasOwner = false;
+  onChange(() => {
+    $('navAdmin').hidden = !S.isOwner;
+    if (S.isOwner && !wasOwner && view === 'yonetim') renderAdmin();
+    wasOwner = S.isOwner;
+  });
 
   // ---- welcome back, once per visit ----
   let greeted = false;
@@ -989,6 +1021,9 @@
       if (f && view === 'gok') { $('skyMode').value = `flock:${f.uid}:${f.id}`; syncFlock(); subs.splice(subs.indexOf(once), 1); }
     });
   }
+
+  // Cookieless visit count: one ping per browser session.
+  try { if (!sessionStorage.getItem('drawbird.hit')) { sessionStorage.setItem('drawbird.hit', '1'); fetch('/api/hit', { method: 'POST' }).catch(() => {}); } } catch { /* storage blocked: skip counting */ }
 
   // ================= boot =================
   route();

@@ -29,6 +29,12 @@ DrawBird tarayıcıda çalışan küçük bir çizim oyunu. Sağa bakan bir kuş
 - Sürüler: beğendiğin kuşları topla, herkese açık ya da yalnız sana özel tut, gökyüzünde yalnız onları izle
 - Paylaşım linkleri: `/k/<kuş>`, `/u/<kuşçu>`, `/s/<sürü>`; kuş linkleri sohbet uygulamalarında kuşun resmiyle önizlenir
 
+### Sayfalar
+- **Haftanın kuşları** (`/haftanin-kuslari`): son 7 günün en sevilen kuşları, sunucuda üretilir, 5 dk önbellek
+- **Nasıl oynanır**, **Kullanım koşulları**, **Gizlilik**
+- Dinamik `sitemap.xml` ve `robots.txt` (hangi alan adında çalışırsa onu kullanır)
+- Çerezsiz ziyaret sayacı: oturum başına bir sayım, kişi bilgisi yok; yönetim panelinde son 14 gün grafiği
+
 ### Güvenlik ve moderasyon
 - Üyelik yok: tarayıcı rastgele bir cihaz kodu üretir, sunucu yalnız özetini (SHA-256) saklar
 - Kurtarma kodu ile başka cihazda aynı hesaba geçiş
@@ -53,7 +59,10 @@ Gökyüzü 30 saniyede bir yenilenir; sekme arka plandayken durur.
 ```
 public/
   index.html            oyunun tamamı (çizim, gökyüzü, sıralama, profil, yönetim)
-  gizlilik.html         gizlilik ve kurallar
+  nasil-oynanir.html    nasıl oynanır
+  kosullar.html         kullanım koşulları
+  gizlilik.html         gizlilik
+  sayfa.css             yazı sayfalarının ortak stili
   manifest.webmanifest  ana ekrana eklenebilir uygulama
   icons/, og-card.png
 src/worker.js           API, paylaşım önizlemeleri
