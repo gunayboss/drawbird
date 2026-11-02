@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Privacidad · DrawBird</title>
+<meta name="description" content="Qué datos guarda DrawBird, cuáles no guarda y cómo se borran los dibujos.">
+<meta property="og:title" content="Privacidad">
+<meta property="og:description" content="Qué datos guarda DrawBird, cuáles no guarda y cómo se borran los dibujos.">
+<meta property="og:image" content="/og-card.png">
+<link rel="canonical" href="/es/gizlilik">
+<link rel="alternate" hreflang="tr" href="/gizlilik">
+<link rel="alternate" hreflang="en" href="/en/gizlilik">
+<link rel="alternate" hreflang="es" href="/es/gizlilik">
+<link rel="alternate" hreflang="pt" href="/pt/gizlilik">
+<link rel="alternate" hreflang="fr" href="/fr/gizlilik">
+<link rel="alternate" hreflang="de" href="/de/gizlilik">
+<link rel="alternate" hreflang="ru" href="/ru/gizlilik">
+<link rel="alternate" hreflang="ar" href="/ar/gizlilik">
+<link rel="alternate" hreflang="zh" href="/zh/gizlilik">
+<link rel="alternate" hreflang="ja" href="/ja/gizlilik">
+<link rel="alternate" hreflang="id" href="/id/gizlilik">
+<link rel="alternate" hreflang="x-default" href="/gizlilik">
+<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/sayfa.css">
+<style>
+  .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
+  .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
+  .step svg, .list svg { width: 100%; height: auto; background: #ffffff; border-radius: 12px; }
+  .list svg { margin-top: 8px; }
+  .step h3 { margin: 0 0 4px; font-size: 18px; }
+  .step p { margin: 0; }
+  @media (max-width: 560px) { .step { grid-template-columns: 1fr; } }
+  .facts { background: var(--chip); border-radius: 16px; padding: 4px 18px 4px 34px; }
+  [dir="rtl"] .facts { padding: 4px 34px 4px 18px; }
+  table.card { border-collapse: collapse; width: 100%; margin: 10px 0; }
+  table.card th, table.card td { text-align: start; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.card th { width: 40%; color: var(--muted); font-weight: 500; }
+  .list { display: grid; gap: 10px; padding: 0; list-style: none; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+  .list a { display: block; background: var(--chip); border-radius: 14px; padding: 12px 16px; text-decoration: none; height: 100%; }
+  .list b { font-size: 18px; }
+  .badge { display: inline-block; font-size: 12px; padding: 2px 9px; border-radius: 99px; background: var(--beak); color: var(--beak-ink); font-weight: 700; }
+  details { background: var(--chip); border-radius: 14px; padding: 10px 14px; margin-bottom: 8px; }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { margin: 8px 0 2px; }
+  .post-meta { color: var(--muted); font-size: 14px; }
+  .langs { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
+  .langs a[aria-current] { font-weight: 700; text-decoration: none; }
+</style>
+</head>
+<body>
+<main>
+<nav class="top"><a class="on" href="/?lang=es#ciz">Dibujar</a><a href="/es/dersler/">Lecciones</a><a href="/es/kuslar/">Pájaros</a><a href="/es/haftanin-kuslari">Pájaros de la semana</a><a href="/es/blog/">Blog</a><a href="/es/sss">Preguntas</a></nav>
+<article>
+  <h1>Privacidad</h1>
+  <p class="muted">Última actualización: 2 de noviembre de 2026</p>
+
+  <h2>Qué recogemos</h2>
+  <ul>
+    <li><b>Tus dibujos y los nombres de tus pájaros.</b> Cada pájaro que envías se ve en el cielo público y en el ranking.</li>
+    <li><b>Tu nombre de artista.</b> Si lo escribes en Perfil, aparece bajo tus pájaros. Puedes dejarlo vacío.</li>
+    <li><b>Tus votos, denuncias y bandadas.</b> Se guardan para calcular puntos y listas.</li>
+    <li><b>El código de dispositivo.</b> Tu navegador genera un código aleatorio y lo guarda él mismo. El servidor solo guarda un resumen unidireccional de ese código; no pedimos correo, contraseña ni nombre real.</li>
+  </ul>
+
+  <h2>Contra el abuso</h2>
+  <p>Para evitar el spam y los votos falsos, tu dirección IP nunca se guarda tal cual. Solo se conserva un resumen irreversible, mezclado con una clave secreta: como máximo dos días para contar cuentas nuevas y como máximo una hora para los límites de envío. Los registros caducados se borran. El resumen de la red desde la que envías un pájaro se guarda junto con tu cuenta; solo se usa para detener durante 24 horas la creación de cuentas nuevas desde esa red cuando se bloquea una cuenta que incumple las reglas.</p>
+
+  <h2>Aprobación</h2>
+  <p>Los dos primeros pájaros de los artistas nuevos solo los ve quien los dibujó hasta que un administrador los revisa. Para aprobarlos, el administrador ve la imagen y el nombre del pájaro.</p>
+
+  <h2>Qué no recogemos</h2>
+  <p>Ahora mismo no usamos publicidad, cookies publicitarias, ubicación, listas de contactos ni herramientas de análisis de terceros. Si se añade publicidad, esta página se actualizará y, donde haga falta, se pedirá antes tu consentimiento. Las fuentes se cargan desde nuestro propio servidor; al abrir la página no se envía ninguna petición a otra empresa.</p>
+
+  <h2>Recuento de visitas</h2>
+  <p>Para ver cuánta gente viene, un contador diario sube una unidad en cada visita. Este contador no usa cookies, no registra quién eres ni tu dirección IP; solo guarda el número de “visitas de hoy”.</p>
+
+  <h2>Reglas</h2>
+  <p>Las reglas detalladas están en las <a href="/es/kosullar">condiciones de uso</a>. En resumen:</p>
+  <ul>
+    <li>Dibuja pájaros. No envíes dibujos con datos personales, números de teléfono, direcciones, publicidad u odio.</li>
+    <li>No envíes como obra tuya el personaje protegido por derechos de autor de otra persona.</li>
+    <li>Si ves un pájaro inapropiado, pulsa <b>Denunciar</b>. Un pájaro con tres denuncias baja del cielo; un administrador lo revisa y lo borra o lo reabre. A un dispositivo que incumpla las reglas se le pueden cerrar los envíos.</li>
+  </ul>
+
+  <h2>Borrado</h2>
+  <p>Puedes borrar tus propios pájaros desde la página de Perfil cuando quieras. Un pájaro borrado se elimina de la base de datos junto con sus votos y denuncias.</p>
+
+  <h2>Los derechos de tus dibujos</h2>
+  <p>Tus dibujos son tuyos. Al enviarlos concedes a DrawBird un permiso gratuito y no exclusivo: publicar tu dibujo en el sitio (incluidas las páginas donde se muestran anuncios) y usarlo como vista previa en los enlaces para compartir. DrawBird no vende tu dibujo, no lo imprime en productos y no lo usa en otro sitio. Cuando borras el pájaro, este permiso termina.</p>
+
+  <h2>Código fuente</h2>
+  <p>DrawBird es de código abierto (AGPL-3.0): <a href="https://github.com/gunayboss/drawbird">github.com/gunayboss/drawbird</a></p>
+
+  <p><a href="/?lang=es">← Volver a DrawBird</a></p>
+</article>
+<footer>DrawBird · <a href="/es/hakkinda">Acerca de</a> · <a href="/es/ogretmenler">Profesores</a> · <a href="/es/nasil-oynanir">Cómo jugar</a> · <a href="/es/kosullar">Condiciones</a> · <a href="/es/gizlilik">Privacidad</a> · <a href="/es/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Código fuente</a><div class="langs" aria-label="Idioma"><a href="/gizlilik" hreflang="tr" lang="tr">Türkçe</a><a href="/en/gizlilik" hreflang="en" lang="en">English</a><a href="/es/gizlilik" hreflang="es" lang="es" aria-current="page">Español</a><a href="/pt/gizlilik" hreflang="pt" lang="pt">Português</a><a href="/fr/gizlilik" hreflang="fr" lang="fr">Français</a><a href="/de/gizlilik" hreflang="de" lang="de">Deutsch</a><a href="/ru/gizlilik" hreflang="ru" lang="ru">Русский</a><a href="/ar/gizlilik" hreflang="ar" lang="ar">العربية</a><a href="/zh/gizlilik" hreflang="zh" lang="zh">中文</a><a href="/ja/gizlilik" hreflang="ja" lang="ja">日本語</a><a href="/id/gizlilik" hreflang="id" lang="id">Bahasa Indonesia</a></div></footer>
+</main>
+</body>
+</html>

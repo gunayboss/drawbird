@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Конфиденциальность · DrawBird</title>
+<meta name="description" content="Какие данные хранит DrawBird, какие не хранит и как удалить свои рисунки.">
+<meta property="og:title" content="Конфиденциальность">
+<meta property="og:description" content="Какие данные хранит DrawBird, какие не хранит и как удалить свои рисунки.">
+<meta property="og:image" content="/og-card.png">
+<link rel="canonical" href="/ru/gizlilik">
+<link rel="alternate" hreflang="tr" href="/gizlilik">
+<link rel="alternate" hreflang="en" href="/en/gizlilik">
+<link rel="alternate" hreflang="es" href="/es/gizlilik">
+<link rel="alternate" hreflang="pt" href="/pt/gizlilik">
+<link rel="alternate" hreflang="fr" href="/fr/gizlilik">
+<link rel="alternate" hreflang="de" href="/de/gizlilik">
+<link rel="alternate" hreflang="ru" href="/ru/gizlilik">
+<link rel="alternate" hreflang="ar" href="/ar/gizlilik">
+<link rel="alternate" hreflang="zh" href="/zh/gizlilik">
+<link rel="alternate" hreflang="ja" href="/ja/gizlilik">
+<link rel="alternate" hreflang="id" href="/id/gizlilik">
+<link rel="alternate" hreflang="x-default" href="/gizlilik">
+<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/sayfa.css">
+<style>
+  .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
+  .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
+  .step svg, .list svg { width: 100%; height: auto; background: #ffffff; border-radius: 12px; }
+  .list svg { margin-top: 8px; }
+  .step h3 { margin: 0 0 4px; font-size: 18px; }
+  .step p { margin: 0; }
+  @media (max-width: 560px) { .step { grid-template-columns: 1fr; } }
+  .facts { background: var(--chip); border-radius: 16px; padding: 4px 18px 4px 34px; }
+  [dir="rtl"] .facts { padding: 4px 34px 4px 18px; }
+  table.card { border-collapse: collapse; width: 100%; margin: 10px 0; }
+  table.card th, table.card td { text-align: start; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.card th { width: 40%; color: var(--muted); font-weight: 500; }
+  .list { display: grid; gap: 10px; padding: 0; list-style: none; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+  .list a { display: block; background: var(--chip); border-radius: 14px; padding: 12px 16px; text-decoration: none; height: 100%; }
+  .list b { font-size: 18px; }
+  .badge { display: inline-block; font-size: 12px; padding: 2px 9px; border-radius: 99px; background: var(--beak); color: var(--beak-ink); font-weight: 700; }
+  details { background: var(--chip); border-radius: 14px; padding: 10px 14px; margin-bottom: 8px; }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { margin: 8px 0 2px; }
+  .post-meta { color: var(--muted); font-size: 14px; }
+  .langs { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
+  .langs a[aria-current] { font-weight: 700; text-decoration: none; }
+</style>
+</head>
+<body>
+<main>
+<nav class="top"><a class="on" href="/?lang=ru#ciz">Рисовать</a><a href="/ru/dersler/">Уроки</a><a href="/ru/kuslar/">Птицы</a><a href="/ru/haftanin-kuslari">Птицы недели</a><a href="/ru/blog/">Блог</a><a href="/ru/sss">Вопросы</a></nav>
+<article>
+  <h1>Конфиденциальность</h1>
+  <p class="muted">Последнее обновление: 2 ноября 2026 г.</p>
+
+  <h2>Что мы собираем</h2>
+  <ul>
+    <li><b>Твои рисунки и имена птиц.</b> Каждая отправленная тобой птица видна всем в небе и в рейтинге.</li>
+    <li><b>Твоё имя птицелюба.</b> Если напишешь его в Профиле, оно будет видно под твоими птицами. Можешь оставить пустым.</li>
+    <li><b>Твои голоса, жалобы и стаи.</b> Хранятся для подсчёта очков и списков.</li>
+    <li><b>Код устройства.</b> Браузер создаёт случайный код и хранит его у себя. Сервер хранит только односторонний хэш этого кода; почту, пароль или настоящее имя мы не просим.</li>
+  </ul>
+
+  <h2>Защита от злоупотреблений</h2>
+  <p>Чтобы предотвращать спам и накрутку голосов, твой IP-адрес никогда не хранится как есть. Хранится только необратимый хэш, смешанный с секретным ключом: для подсчёта новых аккаунтов не больше двух дней, для лимитов отправки не больше одного часа. Записи с истёкшим сроком удаляются. Хэш сети, из которой ты отправил птицу, хранится вместе с аккаунтом; он используется только для того, чтобы при блокировке нарушающего правила аккаунта на 24 часа остановить создание новых аккаунтов из этой сети.</p>
+
+  <h2>Одобрение</h2>
+  <p>Первые две птицы новых птицелюбов, пока их не проверит администратор, видны только тому, кто их нарисовал. Для одобрения администратор видит картинку и имя птицы.</p>
+
+  <h2>Чего мы не собираем</h2>
+  <p>Сейчас мы не используем рекламу, рекламные куки, геолокацию, списки контактов и сторонние средства аналитики. Если реклама появится, эта страница будет обновлена, а где нужно, сначала будет запрошено твоё согласие. Шрифты загружаются с нашего собственного сервера; при открытии страницы запрос другой компании не отправляется.</p>
+
+  <h2>Подсчёт посещений</h2>
+  <p>Чтобы видеть, сколько людей приходит, при каждом посещении дневной счётчик увеличивается на один. Этот счётчик не использует куки, не записывает, кто ты и какой у тебя IP-адрес; он хранит только число «сколько посещений сегодня».</p>
+
+  <h2>Правила</h2>
+  <p>Подробные правила в <a href="/ru/kosullar">условиях использования</a>. Коротко:</p>
+  <ul>
+    <li>Рисуй птиц. Не отправляй рисунки с личными данными, номерами телефонов, адресами, рекламой или с языком вражды.</li>
+    <li>Не отправляй чужого персонажа, защищённого авторским правом, как свою работу.</li>
+    <li>Если видишь неподобающую птицу, нажми <b>Пожаловаться</b>. Птица с тремя жалобами уходит из неба; администратор проверяет и удаляет её или возвращает. Отправка с устройства, нарушающего правила, может быть закрыта.</li>
+  </ul>
+
+  <h2>Удаление</h2>
+  <p>Свои птицы можно удалить на странице Профиля в любой момент. Удалённая птица вместе с голосами и жалобами убирается из базы данных.</p>
+
+  <h2>Права на твои рисунки</h2>
+  <p>Твои рисунки принадлежат тебе. Отправляя их, ты даёшь DrawBird бесплатное, неисключительное разрешение: публиковать твой рисунок на сайте (включая страницы, где показывается реклама) и использовать как превью в ссылках для публикации. DrawBird не продаёт твой рисунок, не печатает его на товарах и не использует в других местах. Когда ты удаляешь птицу, это разрешение прекращается.</p>
+
+  <h2>Исходный код</h2>
+  <p>DrawBird с открытым кодом (AGPL-3.0): <a href="https://github.com/gunayboss/drawbird">github.com/gunayboss/drawbird</a></p>
+
+  <p><a href="/?lang=ru">← Вернуться в DrawBird</a></p>
+</article>
+<footer>DrawBird · <a href="/ru/hakkinda">О проекте</a> · <a href="/ru/ogretmenler">Учителям</a> · <a href="/ru/nasil-oynanir">Как играть</a> · <a href="/ru/kosullar">Условия</a> · <a href="/ru/gizlilik">Конфиденциальность</a> · <a href="/ru/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Исходный код</a><div class="langs" aria-label="Язык"><a href="/gizlilik" hreflang="tr" lang="tr">Türkçe</a><a href="/en/gizlilik" hreflang="en" lang="en">English</a><a href="/es/gizlilik" hreflang="es" lang="es">Español</a><a href="/pt/gizlilik" hreflang="pt" lang="pt">Português</a><a href="/fr/gizlilik" hreflang="fr" lang="fr">Français</a><a href="/de/gizlilik" hreflang="de" lang="de">Deutsch</a><a href="/ru/gizlilik" hreflang="ru" lang="ru" aria-current="page">Русский</a><a href="/ar/gizlilik" hreflang="ar" lang="ar">العربية</a><a href="/zh/gizlilik" hreflang="zh" lang="zh">中文</a><a href="/ja/gizlilik" hreflang="ja" lang="ja">日本語</a><a href="/id/gizlilik" hreflang="id" lang="id">Bahasa Indonesia</a></div></footer>
+</main>
+</body>
+</html>

@@ -30,17 +30,18 @@ DrawBird tarayıcıda çalışan küçük bir çizim oyunu. Sağa bakan bir kuş
 - Paylaşım linkleri: `/k/<kuş>`, `/u/<kuşçu>`, `/s/<sürü>`; kuş linkleri sohbet uygulamalarında kuşun resmiyle önizlenir
 
 ### Diller
-- Oyun 11 dilde: Türkçe, English, Español, Português, Français, Deutsch, Русский, العربية (sağdan sola), 中文, 日本語, Bahasa Indonesia
-- Tarayıcı diline göre otomatik seçilir, menüden değiştirilir
-- Çeviriler `tools/i18n_table.py` içinde; `python tools/i18n_table.py` ile `public/i18n/*.json` üretilir
-- Yazı sayfaları Türkçe ve İngilizce (`/en/`); çizim dersleri ve kuş sayfaları şimdilik Türkçe
+- 11 dil, hepsinde aynı içerik: Türkçe (kök), English `/en/`, Español `/es/`, Português `/pt/`, Français `/fr/`, Deutsch `/de/`, Русский `/ru/`, العربية `/ar/` (sağdan sola), 中文 `/zh/`, 日本語 `/ja/`, Bahasa Indonesia `/id/`
+- Oyun metinleri: `tools/i18n_table.py` → `public/i18n/*.json`
+- Sayfa içerikleri: Türkçe kaynak `tools/content_*.py` → `python tools/export_tr.py` → `tools/i18n_content/tr.py`; çeviriler `tools/i18n_content/<dil>.py` (kurallar `CEVIRI.md`), `python tools/check_i18n.py` biçimi doğrular
+- Her sayfada hreflang bağlantıları ve dil seçici var; haftalık sayfalar ve paylaşım önizlemeleri de çok dilli
 
 ### İçerik
 - `/dersler/`: 10 adım adım çizim dersi (serçe, martı, baykuş, flamingo, papağan, ördek, penguen, kartal, tavus kuşu, kolibri)
 - `/kuslar/`: Türkiye'den 20 kuş (kumru, leylek, kelaynak, arıkuşu, ibibik…)
 - `/ogretmenler`: 40 dakikalık sınıf ders planı · `/sss` · `/hakkinda` · `/blog/`
 - `/hafta/`: hafta arşivi, `/hafta/2026-W45` gibi her hafta için sunucuda üretilen sayfa
-- İçerik `tools/content_*.py` dosyalarında; `python tools/build_pages.py` HTML'i ve site haritası listesini (`src/static_pages.js`) üretir
+- `python tools/build_pages.py` 11 dilde HTML'i, site haritası listesini ve haftalık sayfa metinlerini (`src/static_pages.js`) üretir
+- Yazım tarzı: `tools/YAZIM_TARZI.md`
 
 ### KVKK ve güvenlik
 - KVKK aydınlatma metni (`/kvkk.html`), "Tüm verilerimi sil" (Profil)

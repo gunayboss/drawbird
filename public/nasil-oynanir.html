@@ -1,59 +1,100 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Nasıl Oynanır · DrawBird</title>
-<meta name="description" content="DrawBird nasıl oynanır: kanat çırpan bir kuş çizmenin ipuçları, oylama, sürüler, yem atma ve paylaşma.">
-<meta property="og:title" content="DrawBird nasıl oynanır">
-<meta property="og:description" content="Kanat çırpan bir kuş çizmenin ipuçları, oylama, sürüler ve yem atma.">
+<title>Nasıl oynanır? · DrawBird</title>
+<meta name="description" content="DrawBird nasıl oynanır: kanat çırpan kuş çizme ipuçları, kova aracı, oylar, sürüler, yem atma ve paylaşma.">
+<meta property="og:title" content="Nasıl oynanır?">
+<meta property="og:description" content="DrawBird nasıl oynanır: kanat çırpan kuş çizme ipuçları, kova aracı, oylar, sürüler, yem atma ve paylaşma.">
 <meta property="og:image" content="/og-card.png">
+<link rel="canonical" href="/nasil-oynanir">
+<link rel="alternate" hreflang="tr" href="/nasil-oynanir">
+<link rel="alternate" hreflang="en" href="/en/nasil-oynanir">
+<link rel="alternate" hreflang="es" href="/es/nasil-oynanir">
+<link rel="alternate" hreflang="pt" href="/pt/nasil-oynanir">
+<link rel="alternate" hreflang="fr" href="/fr/nasil-oynanir">
+<link rel="alternate" hreflang="de" href="/de/nasil-oynanir">
+<link rel="alternate" hreflang="ru" href="/ru/nasil-oynanir">
+<link rel="alternate" hreflang="ar" href="/ar/nasil-oynanir">
+<link rel="alternate" hreflang="zh" href="/zh/nasil-oynanir">
+<link rel="alternate" hreflang="ja" href="/ja/nasil-oynanir">
+<link rel="alternate" hreflang="id" href="/id/nasil-oynanir">
+<link rel="alternate" hreflang="x-default" href="/nasil-oynanir">
 <link rel="icon" href="/icons/icon-192.png" type="image/png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
+<style>
+  .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
+  .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
+  .step svg, .list svg { width: 100%; height: auto; background: #ffffff; border-radius: 12px; }
+  .list svg { margin-top: 8px; }
+  .step h3 { margin: 0 0 4px; font-size: 18px; }
+  .step p { margin: 0; }
+  @media (max-width: 560px) { .step { grid-template-columns: 1fr; } }
+  .facts { background: var(--chip); border-radius: 16px; padding: 4px 18px 4px 34px; }
+  [dir="rtl"] .facts { padding: 4px 34px 4px 18px; }
+  table.card { border-collapse: collapse; width: 100%; margin: 10px 0; }
+  table.card th, table.card td { text-align: start; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.card th { width: 40%; color: var(--muted); font-weight: 500; }
+  .list { display: grid; gap: 10px; padding: 0; list-style: none; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+  .list a { display: block; background: var(--chip); border-radius: 14px; padding: 12px 16px; text-decoration: none; height: 100%; }
+  .list b { font-size: 18px; }
+  .badge { display: inline-block; font-size: 12px; padding: 2px 9px; border-radius: 99px; background: var(--beak); color: var(--beak-ink); font-weight: 700; }
+  details { background: var(--chip); border-radius: 14px; padding: 10px 14px; margin-bottom: 8px; }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { margin: 8px 0 2px; }
+  .post-meta { color: var(--muted); font-size: 14px; }
+  .langs { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
+  .langs a[aria-current] { font-weight: 700; text-decoration: none; }
+</style>
 </head>
 <body>
 <main>
-<nav class="top"><a href="/#ciz">Çiz</a><a href="/dersler/">Dersler</a><a href="/kuslar/">Kuşlar</a><a href="/haftanin-kuslari">Haftanın kuşları</a><a href="/blog/">Blog</a><a href="/sss">SSS</a></nav>
+<nav class="top"><a class="on" href="/#ciz">Çiz</a><a href="/dersler/">Dersler</a><a href="/kuslar/">Kuşlar</a><a href="/haftanin-kuslari">Haftanın kuşları</a><a href="/blog/">Blog</a><a href="/sss">SSS</a></nav>
 <article>
   <h1>Nasıl oynanır?</h1>
-  <p>DrawBird'de bir kuş çizersin, o da herkesin kuşlarıyla aynı gökyüzünde kanat çırparak uçar. Üye olmana gerek yok; sayfayı açtığın an çizebilirsin.</p>
+  <p>DrawBird'de bir kuş çiziyorsun, o da herkesin kuşlarıyla aynı gökyüzünde kanat çırpıyor. Üye olmana gerek yok. Sayfayı açtığın an çizmeye başlayabilirsin.</p>
 
-  <h2>Kuşunu çiz</h2>
-  <ol class="steps">
-    <li><b>Gagası sağa baksın.</b> Kuşlar gökyüzünde iki yöne de uçar; sağa bakan çizim sola dönünce otomatik aynalanır. Yanlış yöne çizdiysen <b>Çevir</b> düğmesine bas.</li>
-    <li><b>Kanatları kesik çizginin üstüne çiz.</b> Çizim alanının ortasındaki kesik çizgi kanat hattıdır. Üstte kalan her şey kanat gibi açılıp kapanır, altta kalan gövde olarak sabit durur. Gövdeyi çizginin altına, kanatları üstüne çizersen kuşun gerçekten çırpar.</li>
-    <li><b>Kalın çiz.</b> Gökyüzünde kuşlar küçülür. 6 ve üstü kalınlık, ince çizgilerden çok daha iyi görünür.</li>
-    <li><b>Renk kullan.</b> Dokuz hazır rengin yanında özel renk seçici var. Beyaz, koyu gökyüzünde parlar.</li>
-    <li><b>Adını koy ve uçur.</b> Kuşuna en fazla 24 harflik bir ad ver, <b>uçur!</b> düğmesine bas. Kuşun soldan gökyüzüne girer.</li>
-  </ol>
+<h2>Kuşunu çiz</h2>
+<ol class="steps">
+  <li><b>Gagası sağa baksın.</b> Kuşlar gökyüzünde iki yöne de uçuyor. Sağa bakan çizim sola dönünce kendiliğinden aynalanıyor. Ters çizdiysen <b>Çevir</b>'e bas.</li>
+  <li><b>Kanatları kesik çizginin üstüne çiz.</b> Çizim alanının ortasındaki kesik çizgi kanat hattı. Üstündeki her şey kanat gibi açılıp kapanıyor, altındaki gövde olarak duruyor.</li>
+  <li><b>Kalın çiz.</b> Gökyüzünde kuşlar küçülüyor. 6 ve üstü kalınlık ince çizgiden çok daha iyi görünüyor.</li>
+  <li><b>Kovayla boya.</b> Bir şekil çiz, <b>Kova</b>'yı seç ve içine dokun. Kapalı şeklin içi tek seferde doluyor. Kenarda boşluk kalırsa boya dışarı taşar, şekli kapatmayı unutma.</li>
+  <li><b>Renk kullan.</b> Dokuz hazır rengin yanında özel renk seçici de var. Beyaz koyu gökyüzünde parlıyor.</li>
+  <li><b>Adını koy ve uçur.</b> Kuşuna en fazla 24 harflik bir ad ver ve <b>uçur!</b>'a bas. Kuşun soldan gökyüzüne giriyor.</li>
+</ol>
 
-  <h2>Gökyüzünde</h2>
-  <ul>
-    <li><b>Göster</b> menüsünden en yeni, en sevilen ya da rastgele kuşları seç. <b>Kuş sayısı</b> 1 ile 100 arasında, <b>Hız</b> yavaştan hızlıya ayarlanır.</li>
-    <li><b>Yem at:</b> bilgisayarda <kbd>Shift</kbd> + tık ya da sağ tık; telefonda <b>Yem modu</b>nu açıp dokun. Yakındaki kuşlar yeme uçup gagalar.</li>
-    <li><b>Bir kuşa dokun:</b> adını, çizenini görür, oy verir, linkini kopyalarsın.</li>
-    <li>Başka biri kuş saldığında küçük bir bildirim çıkar. İstemiyorsan <b>Yeni kuş bildirimi</b>ni kapat.</li>
-  </ul>
+<h2>İlk kuşların</h2>
+<p>DrawBird her yaştan insan için güvenli kalsın diye yeni kuşçuların ilk iki kuşu bir yönetici bakana kadar sadece çizene görünüyor. O zamana kadar gökyüzünde onu sadece sen görürsün. İki kuşun onaylanınca sonrakiler direkt uçuyor.</p>
 
-  <h2>Oylar ve sıralama</h2>
-  <p>Her kuşa ▲ ya da ▼ verebilirsin; ikinci basış oyunu geri alır. <b>Sıralama</b> sayfasında dört düzen var: <b>Yükselen</b> yeni ve sevilen kuşları öne çıkarır, <b>Puan</b> tüm zamanların en iyilerini, <b>Tarih</b> en yenileri, <b>Rastgele</b> sürprizleri gösterir.</p>
+<h2>Gökyüzünde</h2>
+<ul>
+  <li><b>Göster</b> menüsünden en yeni, en sevilen ya da rastgele kuşları seç. <b>Kuş sayısı</b> 1 ile 100 arası, <b>Hız</b> yavaştan hızlıya ayarlanıyor.</li>
+  <li><b>Yem at:</b> bilgisayarda <kbd>Shift</kbd> + tık ya da sağ tık, telefonda <b>Yem modu</b>nu açıp dokun. Yakındaki kuşlar gelip gagalıyor.</li>
+  <li><b>Bir kuşa dokun:</b> adını ve çizenini görürsün, oy verirsin, linkini kopyalarsın.</li>
+  <li>Biri yeni kuş saldığında küçük bir bildirim çıkıyor. İstemiyorsan <b>Yeni kuş bildirimi</b>ni kapat.</li>
+</ul>
 
-  <h2>Sürüler</h2>
-  <p>Profil sayfasında bir sürü kur, sonra sıralamada beğendiğin kuşları "Sürüye ekle" ile içine topla. Sürüyü gökyüzünde tek başına izleyebilir, linkini arkadaşlarına gönderebilirsin. "Yalnız ben" seçeneğiyle sürün başkalarına görünmez.</p>
+<h2>Oylar ve sıralama</h2>
+<p>Her kuşa ▲ ya da ▼ verebilirsin. İkinci kez basınca oyun geri alınıyor. <b>Sıralama</b>'da dört düzen var: <b>Yükselen</b> yeni ve sevilenleri, <b>Puan</b> tüm zamanların en iyilerini, <b>Tarih</b> en yenileri, <b>Rastgele</b> sürprizleri gösteriyor.</p>
 
-  <h2>Hesabın ve başka cihazlar</h2>
-  <p>DrawBird e-posta ya da şifre istemez. Kuşların bu tarayıcıya bağlıdır. Telefonda da aynı kuşlarla devam etmek için Profil sayfasındaki <b>kurtarma kodunu</b> kopyala, diğer cihazda <b>Kodla giriş</b> alanına yapıştır. Kodu kimseyle paylaşma: kodu bilen, kuşlarını silebilir.</p>
+<h2>Sürüler</h2>
+<p>Profil'de bir sürü kur, sonra sıralamada beğendiğin kuşları "Sürüye ekle" ile içine topla. Sürüyü gökyüzünde tek başına izleyebilir, linkini arkadaşlarına atabilirsin. "Yalnız ben" seçersen kimse görmez.</p>
 
-  <h2>Sınırlar</h2>
-  <ul>
-    <li>Kişi başı en fazla 8 kuş ve 12 sürü. Yeni kuş için eskilerden birini Profil sayfasından silebilirsin.</li>
-    <li>Üç kez bildirilen kuş gökyüzünden iner ve yöneticiye gider. Kurallar için <a href="/kosullar.html">kullanım koşullarına</a> bak.</li>
-  </ul>
+<h2>Hesabın ve başka cihazlar</h2>
+<p>DrawBird e-posta ya da şifre istemiyor. Kuşların bu tarayıcıya bağlı. Telefonda da aynı kuşlarla devam etmek için Profil'deki <b>kurtarma kodunu</b> kopyala, öteki cihazda <b>Kodla giriş</b>'e yapıştır. Kodu kimseyle paylaşma, kodu bilen kuşlarını silebilir.</p>
 
-  <p><a class="cta" href="/#ciz">Şimdi bir kuş çiz</a></p>
+<h2>Sınırlar</h2>
+<ul>
+  <li>Kişi başı en fazla 8 kuş ve 12 sürü. Yeni kuş için Profil'den eskilerden birini silebilirsin.</li>
+  <li>Üç kez bildirilen kuş (ilk gününde iki) gökyüzünden iniyor ve yöneticiye gidiyor. Kurallar için <a href="/kosullar">kullanım koşullarına</a> bak.</li>
+</ul>
+
+<p><a class="cta" href="/#ciz">Şimdi bir kuş çiz</a></p>
 </article>
-<footer>DrawBird · <a href="/hakkinda">Hakkında</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/nasil-oynanir">Nasıl oynanır</a> · <a href="/kosullar">Koşullar</a> · <a href="/gizlilik">Gizlilik</a> · <a href="/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></footer>
+<footer>DrawBird · <a href="/hakkinda">Hakkında</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/nasil-oynanir">Nasıl oynanır</a> · <a href="/kosullar">Koşullar</a> · <a href="/gizlilik">Gizlilik</a> · <a href="/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a><div class="langs" aria-label="Dil"><a href="/nasil-oynanir" hreflang="tr" lang="tr" aria-current="page">Türkçe</a><a href="/en/nasil-oynanir" hreflang="en" lang="en">English</a><a href="/es/nasil-oynanir" hreflang="es" lang="es">Español</a><a href="/pt/nasil-oynanir" hreflang="pt" lang="pt">Português</a><a href="/fr/nasil-oynanir" hreflang="fr" lang="fr">Français</a><a href="/de/nasil-oynanir" hreflang="de" lang="de">Deutsch</a><a href="/ru/nasil-oynanir" hreflang="ru" lang="ru">Русский</a><a href="/ar/nasil-oynanir" hreflang="ar" lang="ar">العربية</a><a href="/zh/nasil-oynanir" hreflang="zh" lang="zh">中文</a><a href="/ja/nasil-oynanir" hreflang="ja" lang="ja">日本語</a><a href="/id/nasil-oynanir" hreflang="id" lang="id">Bahasa Indonesia</a></div></footer>
 </main>
 </body>
 </html>

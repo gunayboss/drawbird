@@ -474,6 +474,8 @@
   const LANGS = { tr: 'Türkçe', en: 'English', es: 'Español', pt: 'Português', fr: 'Français', de: 'Deutsch',
                   ru: 'Русский', ar: 'العربية', zh: '中文', ja: '日本語', id: 'Bahasa Indonesia' };
   const pickLang = () => {
+    const asked = new URLSearchParams(location.search).get('lang');
+    if (LANGS[asked]) { lsSet('drawbird.lang', asked); window.history.replaceState(null, '', '/' + location.hash); return asked; }
     const saved = lsGet('drawbird.lang', '');
     if (LANGS[saved]) return saved;
     for (const l of navigator.languages || [navigator.language || '']) { const k = String(l).slice(0, 2).toLowerCase(); if (LANGS[k]) return k; }
@@ -525,12 +527,10 @@
         else m.addedNodes.forEach(n => n.nodeType === 3 ? (n.nodeValue = tr(n.nodeValue)) : n.nodeType === 1 && translateTree(n));
       }
     }).observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
-    // Text pages exist in Turkish and English; other languages get the English ones.
-    const EN_PAGES = { '/nasil-oynanir.html': '/en/how-to-play.html', '/kosullar.html': '/en/terms.html', '/gizlilik.html': '/en/privacy.html' };
-    document.querySelectorAll('a[href]').forEach(a => {
-      const href = a.getAttribute('href');
-      if (EN_PAGES[href]) a.setAttribute('href', EN_PAGES[href]);
-      if (['/dersler/', '/kuslar/', '/blog/', '/sss', '/ogretmenler', '/hakkinda'].includes(href)) { const prev = a.previousSibling; a.remove(); if (prev?.nodeType === 3) prev.nodeValue = prev.nodeValue.replace(/·\s*$/, ''); }
+    // Every text page exists in every language under /<lang>/.
+    document.querySelectorAll('a[href^="/"]').forEach(a => {
+      const href = a.getAttribute('href').replace(/\.html$/, '');
+      if (/^\/(dersler|kuslar|haftanin-kuslari|hafta|blog|sss|ogretmenler|hakkinda|nasil-oynanir|kosullar|gizlilik|kvkk)(\/|$)/.test(href)) a.setAttribute('href', `/${LANG}${href}`);
     });
   })();
   const langSel = $('langSel');

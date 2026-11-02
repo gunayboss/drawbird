@@ -1,5 +1,5 @@
 // DrawBird API: anonymous device tokens, birds, votes, flags, flocks, moderation on D1.
-import { STATIC_PAGES } from './static_pages.js';
+import { STATIC_PAGES, LANGS, WEEK_UI } from './static_pages.js';
 import { isBadName, notifyBird, notifyText, connectTelegram, telegramStatus, handleTelegram, setting } from './moderation.js';
 const MAX_BIRDS = 8;
 const MAX_FLOCKS = 12;
@@ -467,9 +467,10 @@ async function cached(req, build, ttl) {
   return res;
 }
 
-// ---- server-rendered week pages: /haftanin-kuslari (last 7 days), /hafta/ (archive), /hafta/2026-W45 ----
-const MONTHS = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
-const trDate = ts => { const d = new Date(ts); return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`; };
+// ---- server-rendered week pages in every language: /haftanin-kuslari, /hafta/, /hafta/2026-W45 (others under /<lang>/) ----
+const pre = lang => (lang === 'tr' ? '' : `/${lang}`);
+const fill = (s, v) => String(s).replace(/\{(\w+)\}/g, (m, k) => (k in v ? v[k] : m));
+const fmtDate = (U, ts) => { const d = new Date(ts); return fill(U.date_format, { d: d.getUTCDate(), month: U.months[d.getUTCMonth()], y: d.getUTCFullYear() }); };
 // ISO 8601 week of a timestamp (UTC), and the Monday 00:00 UTC that starts a given ISO week.
 function isoWeek(ts) {
   const d = new Date(ts); d.setUTCHours(0, 0, 0, 0);
@@ -482,12 +483,17 @@ function weekStart(year, week) {
   return jan4.getTime() - ((jan4.getUTCDay() + 6) % 7) * 864e5 + (week - 1) * 7 * 864e5;
 }
 const weekKey = ({ year, week }) => `${year}-W${String(week).padStart(2, '0')}`;
+const NATIVE = { tr: 'Türkçe', en: 'English', es: 'Español', pt: 'Português', fr: 'Français', de: 'Deutsch', ru: 'Русский', ar: 'العربية', zh: '中文', ja: '日本語', id: 'Bahasa Indonesia' };
 
-const PAGE_NAV = [['/#ciz', 'Çiz'], ['/dersler/', 'Dersler'], ['/kuslar/', 'Kuşlar'], ['/haftanin-kuslari', 'Haftanın kuşları'], ['/blog/', 'Blog'], ['/sss', 'SSS']];
-function shell({ title, desc, image, active, body, origin }) {
-  const nav = PAGE_NAV.map(([h, l]) => `<a${h === active ? ' class="on"' : ''} href="${h}">${l}</a>`).join('');
+function shell({ lang, path, title, desc, image, body, origin }) {
+  const U = WEEK_UI[lang], p = pre(lang);
+  const nav = [[lang === 'tr' ? '/#ciz' : `/?lang=${lang}#ciz`, U.nav_draw], [`${p}/dersler/`, U.nav_lessons], [`${p}/kuslar/`, U.nav_birds],
+    [`${p}/haftanin-kuslari`, U.nav_week, true], [`${p}/blog/`, U.nav_blog], [`${p}/sss`, U.nav_faq]]
+    .map(([h, l, on]) => `<a${on ? ' class="on"' : ''} href="${h}">${esc(l)}</a>`).join('');
+  const langs = LANGS.map(l => `<a href="${pre(l)}${path}" hreflang="${l}" lang="${l}"${l === lang ? ' aria-current="page"' : ''}>${NATIVE[l]}</a>`).join('');
+  const alt = LANGS.map(l => `<link rel="alternate" hreflang="${l}" href="${pre(l)}${path}">`).join('\n');
   return new Response(`<!doctype html>
-<html lang="tr">
+<html lang="${lang}" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -496,10 +502,13 @@ function shell({ title, desc, image, active, body, origin }) {
 <meta property="og:title" content="${esc(title)} · DrawBird">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:image" content="${image || `${origin}/og-card.png`}">
+<link rel="canonical" href="${p}${path}">
+${alt}
+<link rel="alternate" hreflang="x-default" href="${path}">
 <link rel="icon" href="/icons/icon-192.png" type="image/png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
-<style>.weeks { display: grid; gap: 8px; padding: 0; list-style: none; } .weeks a { display: flex; justify-content: space-between; gap: 10px; background: var(--chip); border-radius: 12px; padding: 10px 14px; text-decoration: none; } .pager { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 16px; }</style>
+<style>.weeks { display: grid; gap: 8px; padding: 0; list-style: none; } .weeks a { display: flex; justify-content: space-between; gap: 10px; background: var(--chip); border-radius: 12px; padding: 10px 14px; text-decoration: none; } .pager { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 16px; } .langs { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; } .langs a[aria-current] { font-weight: 700; text-decoration: none; }</style>
 </head>
 <body>
 <main>
@@ -507,7 +516,7 @@ function shell({ title, desc, image, active, body, origin }) {
 <article>
 ${body}
 </article>
-<footer>DrawBird · <a href="/hakkinda">Hakkında</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/kosullar">Koşullar</a> · <a href="/gizlilik">Gizlilik</a> · <a href="/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></footer>
+<footer>DrawBird · <a href="${p}/hakkinda">${esc(U.foot_about)}</a> · <a href="${p}/ogretmenler">${esc(U.foot_teachers)}</a> · <a href="${p}/kosullar">${esc(U.foot_terms)}</a> · <a href="${p}/gizlilik">${esc(U.foot_privacy)}</a> · <a href="${p}/kvkk">${esc(U.foot_kvkk)}</a> · <a href="https://github.com/gunayboss/drawbird">${esc(U.foot_source)}</a><div class="langs">${langs}</div></footer>
 </main>
 </body>
 </html>`, { headers: { 'content-type': 'text/html; charset=utf-8' } });
@@ -526,71 +535,68 @@ async function weekStats(env, from, to) {
   return env.DB.prepare(`SELECT COUNT(*) AS birds, COUNT(DISTINCT uid) AS artists FROM birds
     WHERE created >= ? AND created < ? AND status = 'live' AND uid NOT IN (SELECT uid FROM bans)`).bind(from, to).first();
 }
-const birdCards = birds => `<div class="grid">${birds.map((b, i) => `
+const birdCards = (U, birds) => `<div class="grid">${birds.map((b, i) => `
     <a class="bird" href="/k/${b.id}">
       <div class="art"><img src="/api/img/${b.id}" alt="${esc(b.name)}" loading="lazy" width="140" height="88"></div>
       <b>${esc(b.name)}</b>
-      <span>#${i + 1} · ${esc(b.author || 'Bir kuşçu')} · ${b.up} beğeni</span>
+      <span>${esc(fill(U.card_line, { rank: i + 1, author: b.author || U.an_artist, up: b.up }))}</span>
     </a>`).join('')}</div>`;
 
-async function weeklyPage(env, url) {
-  const now = Date.now(), from = now - 7 * 864e5;
+async function weeklyPage(env, url, lang) {
+  const U = WEEK_UI[lang], now = Date.now(), from = now - 7 * 864e5;
   let birds = await birdsBetween(env, from, now + 1);
   const st = await weekStats(env, from, now + 1);
   const allTime = birds.length < 6;
   if (allTime) birds = await birdsBetween(env, 0, now + 1);
-  const intro = allTime
-    ? 'Bu hafta henüz yeterince kuş uçmadı; şimdilik tüm zamanların en sevilen kuşları burada.'
-    : `${trDate(from)} ile bugün arasında gökyüzüne ${st.birds} kuş katıldı, ${st.artists} kuşçu çizdi. İşte en çok beğenilenler.`;
+  const intro = allTime ? U.week_alltime : fill(U.week_intro, { from: fmtDate(U, from), birds: st.birds, artists: st.artists });
   return shell({
-    origin: url.origin, active: '/haftanin-kuslari', title: 'Haftanın kuşları',
-    desc: 'DrawBird\'de son yedi günde en çok beğenilen kuş çizimleri.',
+    lang, origin: url.origin, path: '/haftanin-kuslari', title: U.week_title, desc: U.week_desc,
     image: birds[0] && `${url.origin}/api/img/${birds[0].id}`,
-    body: `  <h1>Haftanın kuşları</h1>
-  <p>${intro} Bir kuşa dokunursan gökyüzünde onu bulur, oy verebilirsin.</p>
-  ${birds.length ? birdCards(birds) : '<p class="muted">Gökyüzü henüz boş. İlk kuşu sen çiz!</p>'}
-  <p><a class="cta" href="/#ciz">Sen de bir kuş çiz</a></p>
-  <p class="muted">Liste beş dakikada bir yenilenir. Sıralama, kuşların aldığı ▲ ve ▼ oyların farkına göre yapılır. Geçmiş haftalar için <a href="/hafta/">hafta arşivine</a> bak.</p>`,
+    body: `  <h1>${esc(U.week_title)}</h1>
+  <p>${esc(intro)} ${esc(U.week_tap)}</p>
+  ${birds.length ? birdCards(U, birds) : `<p class="muted">${esc(U.week_empty)}</p>`}
+  <p><a class="cta" href="${lang === 'tr' ? '/#ciz' : `/?lang=${lang}#ciz`}">${esc(U.week_cta)}</a></p>
+  <p class="muted">${fill(U.week_note, { archive: `${pre(lang)}/hafta/` })}</p>`,
   });
 }
 
-async function weekArchive(env, url) {
+async function weekArchive(env, url, lang) {
+  const U = WEEK_UI[lang];
   const { results } = await env.DB.prepare(`SELECT created FROM birds WHERE status = 'live' AND uid NOT IN (SELECT uid FROM bans)`).all();
   const counts = new Map();
   for (const r of results) { const k = weekKey(isoWeek(r.created)); counts.set(k, (counts.get(k) || 0) + 1); }
-  const weeks = [...counts.entries()].sort((a, b) => b[0].localeCompare(a[0]));
-  const rows = weeks.map(([k, n]) => {
+  const rows = [...counts.entries()].sort((a, b) => b[0].localeCompare(a[0])).map(([k, n]) => {
     const [y, w] = k.split('-W').map(Number), s = weekStart(y, w);
-    return `<li><a href="/hafta/${k}"><span><b>${y}, ${w}. hafta</b> · ${trDate(s)} – ${trDate(s + 6 * 864e5)}</span><span>${n} kuş</span></a></li>`;
+    return `<li><a href="${pre(lang)}/hafta/${k}"><span><b>${esc(fill(U.archive_row, { y, w }))}</b> · ${esc(fmtDate(U, s))} – ${esc(fmtDate(U, s + 6 * 864e5))}</span><span>${esc(fill(U.archive_count, { n }))}</span></a></li>`;
   }).join('');
   return shell({
-    origin: url.origin, active: '/haftanin-kuslari', title: 'Hafta arşivi',
-    desc: 'DrawBird\'ün geçmiş haftaları: her hafta gökyüzüne katılan kuşlar ve en çok beğenilenler.',
-    body: `  <h1>Hafta arşivi</h1>
-  <p>Her hafta gökyüzüne katılan kuşlar burada saklanır. Bir haftaya girince o hafta en çok beğenilen kuşları görürsün.</p>
-  ${rows ? `<ul class="weeks">${rows}</ul>` : '<p class="muted">Henüz arşivde hafta yok.</p>'}`,
+    lang, origin: url.origin, path: '/hafta/', title: U.archive_title, desc: U.archive_desc,
+    body: `  <h1>${esc(U.archive_title)}</h1>
+  <p>${esc(U.archive_intro)}</p>
+  ${rows ? `<ul class="weeks">${rows}</ul>` : `<p class="muted">${esc(U.archive_empty)}</p>`}`,
   });
 }
 
-async function weekPage(env, url, year, week) {
+async function weekPage(env, url, lang, year, week) {
   if (week < 1 || week > 53 || year < 2026 || year > 2100) return null;
-  const from = weekStart(year, week), to = from + 7 * 864e5;
+  const U = WEEK_UI[lang], from = weekStart(year, week), to = from + 7 * 864e5;
   if (from > Date.now()) return null;
   const [birds, st] = await Promise.all([birdsBetween(env, from, to), weekStats(env, from, to)]);
-  const prev = weekKey(isoWeek(from - 864e5)), next = weekKey(isoWeek(to + 864e5));
-  const best = birds[0];
+  const prev = weekKey(isoWeek(from - 864e5)), next = weekKey(isoWeek(to + 864e5)), best = birds[0];
+  const range = { from: fmtDate(U, from), to: fmtDate(U, to - 864e5) };
   const summary = st.birds
-    ? `${trDate(from)} – ${trDate(to - 864e5)} arasında gökyüzüne ${st.birds} kuş katıldı ve ${st.artists} kuşçu çizdi.${best ? ` Haftanın en sevilen kuşu “${esc(best.name)}” oldu (çizen: ${esc(best.author || 'bir kuşçu')}); ${best.up} beğeni aldı.` : ''}`
-    : `${trDate(from)} – ${trDate(to - 864e5)} arasında gökyüzüne kuş katılmadı.`;
+    ? fill(U.weekpage_summary, { ...range, birds: st.birds, artists: st.artists }) + (best ? ' ' + fill(U.weekpage_best, { name: best.name, author: best.author || U.an_artist, up: best.up }) : '')
+    : fill(U.weekpage_none, range);
+  const p = pre(lang), key = weekKey({ year, week });
   return shell({
-    origin: url.origin, active: '/haftanin-kuslari', title: `${year}, ${week}. haftanın kuşları`,
-    desc: `DrawBird ${year} yılı ${week}. hafta: ${st.birds} kuş, ${st.artists} kuşçu.`,
+    lang, origin: url.origin, path: `/hafta/${key}`, title: fill(U.weekpage_title, { y: year, w: week }),
+    desc: fill(U.weekpage_desc, { y: year, w: week, birds: st.birds, artists: st.artists }),
     image: best && `${url.origin}/api/img/${best.id}`,
-    body: `  <h1>${year}, ${week}. haftanın kuşları</h1>
-  <p>${summary}</p>
-  ${birds.length ? birdCards(birds) : ''}
-  <div class="pager"><a href="/hafta/${prev}">← Önceki hafta</a><a href="/hafta/">Arşiv</a>${to < Date.now() ? `<a href="/hafta/${next}">Sonraki hafta →</a>` : ''}</div>
-  <p><a class="cta" href="/#ciz">Sen de bir kuş çiz</a></p>`,
+    body: `  <h1>${esc(fill(U.weekpage_title, { y: year, w: week }))}</h1>
+  <p>${esc(summary)}</p>
+  ${birds.length ? birdCards(U, birds) : ''}
+  <div class="pager"><a href="${p}/hafta/${prev}">${esc(U.prev_week)}</a><a href="${p}/hafta/">${esc(U.archive_link)}</a>${to < Date.now() ? `<a href="${p}/hafta/${next}">${esc(U.next_week)}</a>` : ''}</div>
+  <p><a class="cta" href="${lang === 'tr' ? '/#ciz' : `/?lang=${lang}#ciz`}">${esc(U.week_cta)}</a></p>`,
   });
 }
 
@@ -601,8 +607,8 @@ async function sitemap(env, url) {
   const today = day(Date.now());
   const weeks = [...new Set(results.map(b => weekKey(isoWeek(b.created))))];
   const pages = [
-    ...STATIC_PAGES.map(([p, d]) => [p, p === '/' || p === '/haftanin-kuslari' ? today : d]),
-    ...weeks.map(w => [`/hafta/${w}`]),
+    ...STATIC_PAGES.map(([p, d]) => [p, d === 'today' ? today : d]),
+    ...LANGS.flatMap(l => weeks.map(w => [`${pre(l)}/hafta/${w}`])),
     ...results.map(b => [`/k/${b.id}`, day(b.created)]),
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -612,6 +618,15 @@ ${pages.map(([p, d]) => `  <url><loc>${url.origin}${p}</loc>${d ? `<lastmod>${d}
   return new Response(xml, { headers: { 'content-type': 'application/xml; charset=utf-8' } });
 }
 
+// Pick the visitor's language for pages that have no language in their address (share previews).
+function acceptLang(req) {
+  for (const part of (req.headers.get('accept-language') || '').split(',')) {
+    const l = part.trim().slice(0, 2).toLowerCase();
+    if (LANGS.includes(l)) return l;
+  }
+  return 'tr';
+}
+
 // Share links (/k/<bird>) get their own preview card for chat apps and social sites.
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 async function sharePage(req, env, url, birdId) {
@@ -619,7 +634,8 @@ async function sharePage(req, env, url, birdId) {
   const bird = await env.DB.prepare("SELECT b.name, u.name AS author FROM birds b LEFT JOIN users u ON u.uid = b.uid WHERE b.id = ? AND b.status = 'live'").bind(birdId).first();
   if (!bird) return page;
   const title = `${bird.name} · DrawBird`;
-  const desc = `${bird.author || 'Bir kuşçu'} bu kuşu çizdi. Sen de bir kuş çiz, ortak gökyüzünde uçsun.`;
+  const U = WEEK_UI[acceptLang(req)];
+  const desc = fill(U.share_desc, { author: bird.author || U.an_artist });
   const image = new URL('/api/img/' + birdId, url).toString();
   return new HTMLRewriter()
     .on('title', { element(e) { e.setInnerContent(title); } })
@@ -651,13 +667,19 @@ export default {
     }
     const share = /^\/k\/([a-z0-9]{16})$/.exec(url.pathname);
     if (share && req.method === 'GET') return secure(await sharePage(req, env, url, share[1]));
-    if (url.pathname === '/haftanin-kuslari') return secure(await cached(req, () => weeklyPage(env, url), 300));
-    if (url.pathname === '/hafta/' || url.pathname === '/hafta') return secure(await cached(req, () => weekArchive(env, url), 3600));
-    const wk = /^\/hafta\/(\d{4})-W(\d{2})$/.exec(url.pathname);
-    if (wk) {
-      const res = await cached(req, async () => (await weekPage(env, url, +wk[1], +wk[2])) || new Response('Bu hafta bulunamadı', { status: 404, headers: { 'content-type': 'text/plain; charset=utf-8' } }), 1800);
+    // Week pages, with an optional language prefix: /haftanin-kuslari, /en/hafta/, /de/hafta/2026-W45
+    const lm = /^(?:\/([a-z]{2}))?(\/haftanin-kuslari|\/hafta\/?|\/hafta\/(\d{4})-W(\d{2}))$/.exec(url.pathname);
+    const wlang = lm && (lm[1] || 'tr');
+    if (lm && LANGS.includes(wlang) && wlang !== (lm[1] ? 'tr' : '')) {
+      if (lm[2] === '/haftanin-kuslari') return secure(await cached(req, () => weeklyPage(env, url, wlang), 300));
+      if (!lm[3]) return secure(await cached(req, () => weekArchive(env, url, wlang), 3600));
+      const res = await cached(req, async () => (await weekPage(env, url, wlang, +lm[3], +lm[4]))
+        || new Response(WEEK_UI[wlang].week_not_found, { status: 404, headers: { 'content-type': 'text/plain; charset=utf-8' } }), 1800);
       return secure(res);
     }
+    // English pages that moved when every language got the same pages.
+    const moved = { '/en/how-to-play': '/en/nasil-oynanir', '/en/terms': '/en/kosullar', '/en/privacy': '/en/gizlilik' }[url.pathname.replace(/\.html$/, '')];
+    if (moved) return Response.redirect(url.origin + moved, 301);
     if (url.pathname === '/sitemap.xml') return secure(await cached(req, () => sitemap(env, url), 3600));
     if (url.pathname === '/robots.txt') {
       return secure(new Response(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${url.origin}/sitemap.xml\n`, { headers: { 'content-type': 'text/plain; charset=utf-8' } }));

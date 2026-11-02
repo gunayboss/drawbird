@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Confidentialité · DrawBird</title>
+<meta name="description" content="Quelles données DrawBird garde, lesquelles il ne garde pas, et comment supprimer tes dessins.">
+<meta property="og:title" content="Confidentialité">
+<meta property="og:description" content="Quelles données DrawBird garde, lesquelles il ne garde pas, et comment supprimer tes dessins.">
+<meta property="og:image" content="/og-card.png">
+<link rel="canonical" href="/fr/gizlilik">
+<link rel="alternate" hreflang="tr" href="/gizlilik">
+<link rel="alternate" hreflang="en" href="/en/gizlilik">
+<link rel="alternate" hreflang="es" href="/es/gizlilik">
+<link rel="alternate" hreflang="pt" href="/pt/gizlilik">
+<link rel="alternate" hreflang="fr" href="/fr/gizlilik">
+<link rel="alternate" hreflang="de" href="/de/gizlilik">
+<link rel="alternate" hreflang="ru" href="/ru/gizlilik">
+<link rel="alternate" hreflang="ar" href="/ar/gizlilik">
+<link rel="alternate" hreflang="zh" href="/zh/gizlilik">
+<link rel="alternate" hreflang="ja" href="/ja/gizlilik">
+<link rel="alternate" hreflang="id" href="/id/gizlilik">
+<link rel="alternate" hreflang="x-default" href="/gizlilik">
+<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/sayfa.css">
+<style>
+  .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
+  .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
+  .step svg, .list svg { width: 100%; height: auto; background: #ffffff; border-radius: 12px; }
+  .list svg { margin-top: 8px; }
+  .step h3 { margin: 0 0 4px; font-size: 18px; }
+  .step p { margin: 0; }
+  @media (max-width: 560px) { .step { grid-template-columns: 1fr; } }
+  .facts { background: var(--chip); border-radius: 16px; padding: 4px 18px 4px 34px; }
+  [dir="rtl"] .facts { padding: 4px 34px 4px 18px; }
+  table.card { border-collapse: collapse; width: 100%; margin: 10px 0; }
+  table.card th, table.card td { text-align: start; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.card th { width: 40%; color: var(--muted); font-weight: 500; }
+  .list { display: grid; gap: 10px; padding: 0; list-style: none; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+  .list a { display: block; background: var(--chip); border-radius: 14px; padding: 12px 16px; text-decoration: none; height: 100%; }
+  .list b { font-size: 18px; }
+  .badge { display: inline-block; font-size: 12px; padding: 2px 9px; border-radius: 99px; background: var(--beak); color: var(--beak-ink); font-weight: 700; }
+  details { background: var(--chip); border-radius: 14px; padding: 10px 14px; margin-bottom: 8px; }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { margin: 8px 0 2px; }
+  .post-meta { color: var(--muted); font-size: 14px; }
+  .langs { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
+  .langs a[aria-current] { font-weight: 700; text-decoration: none; }
+</style>
+</head>
+<body>
+<main>
+<nav class="top"><a class="on" href="/?lang=fr#ciz">Dessiner</a><a href="/fr/dersler/">Leçons</a><a href="/fr/kuslar/">Oiseaux</a><a href="/fr/haftanin-kuslari">Oiseaux de la semaine</a><a href="/fr/blog/">Blog</a><a href="/fr/sss">FAQ</a></nav>
+<article>
+  <h1>Confidentialité</h1>
+  <p class="muted">Dernière mise à jour : 2 novembre 2026</p>
+
+  <h2>Ce qu’on collecte</h2>
+  <ul>
+    <li><b>Tes dessins et les noms de tes oiseaux.</b> Chaque oiseau que tu envoies apparaît dans le ciel public et dans le classement.</li>
+    <li><b>Ton nom d’artiste.</b> Si tu l’écris dans le Profil, il apparaît sous tes oiseaux. Tu peux le laisser vide.</li>
+    <li><b>Tes votes, tes signalements et tes volées.</b> Ils sont gardés pour calculer les scores et les listes.</li>
+    <li><b>Le code d’appareil.</b> Ton navigateur génère un code aléatoire et le garde chez lui. Le serveur ne garde qu’une empreinte à sens unique de ce code ; on ne demande ni e-mail, ni mot de passe, ni vrai nom.</li>
+  </ul>
+
+  <h2>Contre les abus</h2>
+  <p>Pour empêcher le spam et les faux votes, ton adresse IP n’est jamais gardée telle quelle. On ne garde qu’une empreinte irréversible, mélangée avec une clé secrète : au maximum deux jours pour compter les nouveaux comptes, au maximum une heure pour les limites d’envoi. Les enregistrements expirés sont supprimés. L’empreinte du réseau depuis lequel tu envoies un oiseau est gardée avec ton compte ; elle sert uniquement, quand un compte qui enfreint les règles est bloqué, à empêcher pendant 24 heures la création de nouveaux comptes depuis ce réseau.</p>
+
+  <h2>Validation</h2>
+  <p>Les deux premiers oiseaux des nouveaux artistes ne sont visibles que de leur auteur jusqu’à ce qu’un modérateur les regarde. Pour valider, le modérateur voit l’image et le nom de l’oiseau.</p>
+
+  <h2>Ce qu’on ne collecte pas</h2>
+  <p>Pour l’instant, on n’utilise ni publicité, ni cookie publicitaire, ni localisation, ni liste de contacts, ni outil d’analyse tiers. Si de la publicité est ajoutée, cette page sera mise à jour et ton consentement sera d’abord demandé là où c’est nécessaire. Les polices sont chargées depuis notre propre serveur ; à l’ouverture de la page, aucune requête ne part vers une autre entreprise.</p>
+
+  <h2>Comptage des visites</h2>
+  <p>Pour voir combien de personnes viennent, un compteur quotidien augmente de un à chaque visite. Ce compteur n’utilise pas de cookie, n’enregistre ni qui tu es ni ton adresse IP ; il ne garde que le nombre de « visites aujourd’hui ».</p>
+
+  <h2>Règles</h2>
+  <p>Les règles détaillées sont dans les <a href="/fr/kosullar">conditions d’utilisation</a>. En résumé :</p>
+  <ul>
+    <li>Dessine un oiseau. N’envoie pas de dessin contenant des informations personnelles, un numéro de téléphone, une adresse, de la publicité ou de la haine.</li>
+    <li>N’envoie pas le personnage protégé par le droit d’auteur de quelqu’un d’autre comme si c’était ton œuvre.</li>
+    <li>Si tu vois un oiseau inapproprié, appuie sur <b>Signaler</b>. Un oiseau qui reçoit trois signalements disparaît du ciel ; le modérateur l’examine et le supprime ou le remet. L’envoi depuis un appareil qui enfreint les règles peut être fermé.</li>
+  </ul>
+
+  <h2>Suppression</h2>
+  <p>Tu peux supprimer tes propres oiseaux à tout moment depuis la page Profil. L’oiseau supprimé est retiré de la base de données avec ses votes et ses signalements.</p>
+
+  <h2>Droits sur tes dessins</h2>
+  <p>Tes dessins t’appartiennent. En les envoyant, tu accordes à DrawBird une autorisation gratuite et non exclusive : publier ton dessin sur le site (y compris sur les pages où de la publicité est affichée) et l’utiliser comme aperçu dans les liens de partage. DrawBird ne vend pas ton dessin, ne l’imprime pas sur des produits et ne l’utilise pas ailleurs. Quand tu supprimes l’oiseau, cette autorisation prend fin.</p>
+
+  <h2>Code source</h2>
+  <p>DrawBird est open source (AGPL-3.0) : <a href="https://github.com/gunayboss/drawbird">github.com/gunayboss/drawbird</a></p>
+
+  <p><a href="/?lang=fr">← Retour à DrawBird</a></p>
+</article>
+<footer>DrawBird · <a href="/fr/hakkinda">À propos</a> · <a href="/fr/ogretmenler">Enseignants</a> · <a href="/fr/nasil-oynanir">Comment jouer</a> · <a href="/fr/kosullar">Conditions</a> · <a href="/fr/gizlilik">Confidentialité</a> · <a href="/fr/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Code source</a><div class="langs" aria-label="Langue"><a href="/gizlilik" hreflang="tr" lang="tr">Türkçe</a><a href="/en/gizlilik" hreflang="en" lang="en">English</a><a href="/es/gizlilik" hreflang="es" lang="es">Español</a><a href="/pt/gizlilik" hreflang="pt" lang="pt">Português</a><a href="/fr/gizlilik" hreflang="fr" lang="fr" aria-current="page">Français</a><a href="/de/gizlilik" hreflang="de" lang="de">Deutsch</a><a href="/ru/gizlilik" hreflang="ru" lang="ru">Русский</a><a href="/ar/gizlilik" hreflang="ar" lang="ar">العربية</a><a href="/zh/gizlilik" hreflang="zh" lang="zh">中文</a><a href="/ja/gizlilik" hreflang="ja" lang="ja">日本語</a><a href="/id/gizlilik" hreflang="id" lang="id">Bahasa Indonesia</a></div></footer>
+</main>
+</body>
+</html>

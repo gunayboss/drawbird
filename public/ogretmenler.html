@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -9,6 +9,18 @@
 <meta property="og:description" content="Öğretmenler için 40 dakikalık DrawBird ders planı: kuşları tanı, çiz, ortak gökyüzüne sal. Çocuk güvenliği nasıl sağlanıyor?">
 <meta property="og:image" content="/og-card.png">
 <link rel="canonical" href="/ogretmenler">
+<link rel="alternate" hreflang="tr" href="/ogretmenler">
+<link rel="alternate" hreflang="en" href="/en/ogretmenler">
+<link rel="alternate" hreflang="es" href="/es/ogretmenler">
+<link rel="alternate" hreflang="pt" href="/pt/ogretmenler">
+<link rel="alternate" hreflang="fr" href="/fr/ogretmenler">
+<link rel="alternate" hreflang="de" href="/de/ogretmenler">
+<link rel="alternate" hreflang="ru" href="/ru/ogretmenler">
+<link rel="alternate" hreflang="ar" href="/ar/ogretmenler">
+<link rel="alternate" hreflang="zh" href="/zh/ogretmenler">
+<link rel="alternate" hreflang="ja" href="/ja/ogretmenler">
+<link rel="alternate" hreflang="id" href="/id/ogretmenler">
+<link rel="alternate" hreflang="x-default" href="/ogretmenler">
 <link rel="icon" href="/icons/icon-192.png" type="image/png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
@@ -21,8 +33,9 @@
   .step p { margin: 0; }
   @media (max-width: 560px) { .step { grid-template-columns: 1fr; } }
   .facts { background: var(--chip); border-radius: 16px; padding: 4px 18px 4px 34px; }
+  [dir="rtl"] .facts { padding: 4px 34px 4px 18px; }
   table.card { border-collapse: collapse; width: 100%; margin: 10px 0; }
-  table.card th, table.card td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.card th, table.card td { text-align: start; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
   table.card th { width: 40%; color: var(--muted); font-weight: 500; }
   .list { display: grid; gap: 10px; padding: 0; list-style: none; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
   .list a { display: block; background: var(--chip); border-radius: 14px; padding: 12px 16px; text-decoration: none; height: 100%; }
@@ -32,6 +45,8 @@
   summary { cursor: pointer; font-weight: 700; }
   details p { margin: 8px 0 2px; }
   .post-meta { color: var(--muted); font-size: 14px; }
+  .langs { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
+  .langs a[aria-current] { font-weight: 700; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -39,7 +54,6 @@
 <nav class="top"><a class="on" href="/#ciz">Çiz</a><a href="/dersler/">Dersler</a><a href="/kuslar/">Kuşlar</a><a href="/haftanin-kuslari">Haftanın kuşları</a><a href="/blog/">Blog</a><a href="/sss">SSS</a></nav>
 <article>
   <h1>Sınıfça DrawBird</h1>
-
 <p>DrawBird'ü sınıfta kullanmak çok kolay. Üyelik yok, e-posta yok, kurulum yok. Tahtaya yansıtılan bir tarayıcı ve öğrencilerin tableti ya da bilgisayarı yeter. Her öğrenci bir kuş çiziyor, hepsi aynı gökyüzünde uçuyor. Çocuklar kendi kuşunu bulunca sınıfın havası değişiyor.</p>
 
 <h2>Hangi yaşlar için?</h2>
@@ -75,10 +89,9 @@
   <li>Bir sürü kur, sınıfın kuşlarını içine ekle ve linki velilerle paylaş. "5-B sınıfının gökyüzü" gibi.</li>
   <li>Kalabalık sınıfta Gökyüzü'ndeki "Kuş sayısı"nı 40'a çıkar.</li>
 </ul>
-
-  <p><a class="cta" href="/#ciz">DrawBird'ü aç</a></p>
+  <p><a class="cta" href="/#ciz">DrawBird&#x27;ü aç</a></p>
 </article>
-<footer>DrawBird · <a href="/hakkinda">Hakkında</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/nasil-oynanir">Nasıl oynanır</a> · <a href="/kosullar">Koşullar</a> · <a href="/gizlilik">Gizlilik</a> · <a href="/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></footer>
+<footer>DrawBird · <a href="/hakkinda">Hakkında</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/nasil-oynanir">Nasıl oynanır</a> · <a href="/kosullar">Koşullar</a> · <a href="/gizlilik">Gizlilik</a> · <a href="/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a><div class="langs" aria-label="Dil"><a href="/ogretmenler" hreflang="tr" lang="tr" aria-current="page">Türkçe</a><a href="/en/ogretmenler" hreflang="en" lang="en">English</a><a href="/es/ogretmenler" hreflang="es" lang="es">Español</a><a href="/pt/ogretmenler" hreflang="pt" lang="pt">Português</a><a href="/fr/ogretmenler" hreflang="fr" lang="fr">Français</a><a href="/de/ogretmenler" hreflang="de" lang="de">Deutsch</a><a href="/ru/ogretmenler" hreflang="ru" lang="ru">Русский</a><a href="/ar/ogretmenler" hreflang="ar" lang="ar">العربية</a><a href="/zh/ogretmenler" hreflang="zh" lang="zh">中文</a><a href="/ja/ogretmenler" hreflang="ja" lang="ja">日本語</a><a href="/id/ogretmenler" hreflang="id" lang="id">Bahasa Indonesia</a></div></footer>
 </main>
 </body>
 </html>

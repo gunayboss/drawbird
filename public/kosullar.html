@@ -1,17 +1,57 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Kullanım Koşulları · DrawBird</title>
+<title>Kullanım koşulları · DrawBird</title>
 <meta name="description" content="DrawBird kullanım koşulları: çizim kuralları, çizimlerin hakları, moderasyon ve sorumluluk.">
+<meta property="og:title" content="Kullanım koşulları">
+<meta property="og:description" content="DrawBird kullanım koşulları: çizim kuralları, çizimlerin hakları, moderasyon ve sorumluluk.">
+<meta property="og:image" content="/og-card.png">
+<link rel="canonical" href="/kosullar">
+<link rel="alternate" hreflang="tr" href="/kosullar">
+<link rel="alternate" hreflang="en" href="/en/kosullar">
+<link rel="alternate" hreflang="es" href="/es/kosullar">
+<link rel="alternate" hreflang="pt" href="/pt/kosullar">
+<link rel="alternate" hreflang="fr" href="/fr/kosullar">
+<link rel="alternate" hreflang="de" href="/de/kosullar">
+<link rel="alternate" hreflang="ru" href="/ru/kosullar">
+<link rel="alternate" hreflang="ar" href="/ar/kosullar">
+<link rel="alternate" hreflang="zh" href="/zh/kosullar">
+<link rel="alternate" hreflang="ja" href="/ja/kosullar">
+<link rel="alternate" hreflang="id" href="/id/kosullar">
+<link rel="alternate" hreflang="x-default" href="/kosullar">
 <link rel="icon" href="/icons/icon-192.png" type="image/png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
+<style>
+  .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
+  .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
+  .step svg, .list svg { width: 100%; height: auto; background: #ffffff; border-radius: 12px; }
+  .list svg { margin-top: 8px; }
+  .step h3 { margin: 0 0 4px; font-size: 18px; }
+  .step p { margin: 0; }
+  @media (max-width: 560px) { .step { grid-template-columns: 1fr; } }
+  .facts { background: var(--chip); border-radius: 16px; padding: 4px 18px 4px 34px; }
+  [dir="rtl"] .facts { padding: 4px 34px 4px 18px; }
+  table.card { border-collapse: collapse; width: 100%; margin: 10px 0; }
+  table.card th, table.card td { text-align: start; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.card th { width: 40%; color: var(--muted); font-weight: 500; }
+  .list { display: grid; gap: 10px; padding: 0; list-style: none; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+  .list a { display: block; background: var(--chip); border-radius: 14px; padding: 12px 16px; text-decoration: none; height: 100%; }
+  .list b { font-size: 18px; }
+  .badge { display: inline-block; font-size: 12px; padding: 2px 9px; border-radius: 99px; background: var(--beak); color: var(--beak-ink); font-weight: 700; }
+  details { background: var(--chip); border-radius: 14px; padding: 10px 14px; margin-bottom: 8px; }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { margin: 8px 0 2px; }
+  .post-meta { color: var(--muted); font-size: 14px; }
+  .langs { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
+  .langs a[aria-current] { font-weight: 700; text-decoration: none; }
+</style>
 </head>
 <body>
 <main>
-<nav class="top"><a href="/#ciz">Çiz</a><a href="/dersler/">Dersler</a><a href="/kuslar/">Kuşlar</a><a href="/haftanin-kuslari">Haftanın kuşları</a><a href="/blog/">Blog</a><a href="/sss">SSS</a></nav>
+<nav class="top"><a class="on" href="/#ciz">Çiz</a><a href="/dersler/">Dersler</a><a href="/kuslar/">Kuşlar</a><a href="/haftanin-kuslari">Haftanın kuşları</a><a href="/blog/">Blog</a><a href="/sss">SSS</a></nav>
 <article>
   <h1>Kullanım koşulları</h1>
   <p class="muted">Yürürlük: 2 Kasım 2026</p>
@@ -56,7 +96,7 @@
 
   <p><a class="cta" href="/#ciz">Bir kuş çiz</a></p>
 </article>
-<footer>DrawBird · <a href="/hakkinda">Hakkında</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/nasil-oynanir">Nasıl oynanır</a> · <a href="/kosullar">Koşullar</a> · <a href="/gizlilik">Gizlilik</a> · <a href="/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></footer>
+<footer>DrawBird · <a href="/hakkinda">Hakkında</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/nasil-oynanir">Nasıl oynanır</a> · <a href="/kosullar">Koşullar</a> · <a href="/gizlilik">Gizlilik</a> · <a href="/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a><div class="langs" aria-label="Dil"><a href="/kosullar" hreflang="tr" lang="tr" aria-current="page">Türkçe</a><a href="/en/kosullar" hreflang="en" lang="en">English</a><a href="/es/kosullar" hreflang="es" lang="es">Español</a><a href="/pt/kosullar" hreflang="pt" lang="pt">Português</a><a href="/fr/kosullar" hreflang="fr" lang="fr">Français</a><a href="/de/kosullar" hreflang="de" lang="de">Deutsch</a><a href="/ru/kosullar" hreflang="ru" lang="ru">Русский</a><a href="/ar/kosullar" hreflang="ar" lang="ar">العربية</a><a href="/zh/kosullar" hreflang="zh" lang="zh">中文</a><a href="/ja/kosullar" hreflang="ja" lang="ja">日本語</a><a href="/id/kosullar" hreflang="id" lang="id">Bahasa Indonesia</a></div></footer>
 </main>
 </body>
 </html>

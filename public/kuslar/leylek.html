@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -9,6 +9,18 @@
 <meta property="og:description" content="Köyde bir bacanın tepesinde kocaman bir çalı yığını görürsen, orası büyük ihtimalle bir leylek yuvasıdır.">
 <meta property="og:image" content="/og-card.png">
 <link rel="canonical" href="/kuslar/leylek">
+<link rel="alternate" hreflang="tr" href="/kuslar/leylek">
+<link rel="alternate" hreflang="en" href="/en/kuslar/leylek">
+<link rel="alternate" hreflang="es" href="/es/kuslar/leylek">
+<link rel="alternate" hreflang="pt" href="/pt/kuslar/leylek">
+<link rel="alternate" hreflang="fr" href="/fr/kuslar/leylek">
+<link rel="alternate" hreflang="de" href="/de/kuslar/leylek">
+<link rel="alternate" hreflang="ru" href="/ru/kuslar/leylek">
+<link rel="alternate" hreflang="ar" href="/ar/kuslar/leylek">
+<link rel="alternate" hreflang="zh" href="/zh/kuslar/leylek">
+<link rel="alternate" hreflang="ja" href="/ja/kuslar/leylek">
+<link rel="alternate" hreflang="id" href="/id/kuslar/leylek">
+<link rel="alternate" hreflang="x-default" href="/kuslar/leylek">
 <link rel="icon" href="/icons/icon-192.png" type="image/png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
@@ -21,8 +33,9 @@
   .step p { margin: 0; }
   @media (max-width: 560px) { .step { grid-template-columns: 1fr; } }
   .facts { background: var(--chip); border-radius: 16px; padding: 4px 18px 4px 34px; }
+  [dir="rtl"] .facts { padding: 4px 34px 4px 18px; }
   table.card { border-collapse: collapse; width: 100%; margin: 10px 0; }
-  table.card th, table.card td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.card th, table.card td { text-align: start; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
   table.card th { width: 40%; color: var(--muted); font-weight: 500; }
   .list { display: grid; gap: 10px; padding: 0; list-style: none; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
   .list a { display: block; background: var(--chip); border-radius: 14px; padding: 12px 16px; text-decoration: none; height: 100%; }
@@ -32,6 +45,8 @@
   summary { cursor: pointer; font-weight: 700; }
   details p { margin: 8px 0 2px; }
   .post-meta { color: var(--muted); font-size: 14px; }
+  .langs { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
+  .langs a[aria-current] { font-weight: 700; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -44,14 +59,14 @@
   <table class="card"><tr><th>Boy</th><td>100–115 cm</td></tr><tr><th>Kanat açıklığı</th><td>155–215 cm</td></tr><tr><th>Ağırlık</th><td>2,3–4,4 kg</td></tr><tr><th>Beslenme</th><td>Kurbağa, böcek, solucan, küçük memeliler</td></tr><tr><th>Yumurta</th><td>3–5</td></tr><tr><th>Görüldüğü yer</th><td>Mart–Ağustos arası Türkiye&#x27;de, kışın Afrika&#x27;da</td></tr></table>
   <p>Ak leyleği karıştırmak zor. Gövdesi beyaz, kanat uçları siyah, gagası ve bacakları kırmızı. Uçarken boynunu ve bacaklarını dümdüz uzatıyor, uzaktan bir artı işareti gibi görünüyor.</p><p>Leylekler göçmen. Ağustos sonunda on binlercesi toplanıp Afrika&#x27;ya gidiyor ve yolu İstanbul Boğazı&#x27;ndan geçiyor. Kanat çırpmayı pek sevmiyorlar. Sıcak havayla yükselip kilometrelerce süzülüyorlar. Denizin üstünde sıcak hava akımı olmadığı için de dar boğazları seçiyorlar.</p><p>Sesleri de yok sayılır. Bunun yerine gagalarını takırdatıyorlar. Eşi yuvaya dönünce leylek başını arkaya atıp uzun uzun takırdıyor. Bir kere duyan unutmuyor.</p><p>Aynı yuvayı yıllarca kullanıyorlar ve her yıl biraz daha büyütüyorlar. Bazı yuvalar bir metreden geniş, yüzlerce kilo ağırlığında oluyor. Bacanın sahibi ne düşünüyor bilmiyoruz.</p>
   
-  <h2>DrawBird'de çizmek için</h2>
+  <h2>DrawBird&#x27;de çizmek için</h2>
   <p>Martı dersindeki gibi uzun bir gövde ve uzun kanat çiz. Gövde beyaz, kanat ucu siyah. Gagayı uzun ve kırmızı yap, boynu uzat. Bacakları da kırmızı çiz, gövdenin arkasından dışarı uzansın.</p>
   <p><a href="/dersler/marti">Çizim dersi: Martı nasıl çizilir? →</a></p>
   <p><a class="cta" href="/#ciz">Kendi leyleğini çiz</a></p>
   <h2>Diğer kuşlar</h2>
   <ul class="list"><li><a href="/kuslar/serce"><b>Serçe</b><br><span class="muted">Serçe insanla o kadar iç içe ki, bir yerde hiç serçe yoksa orada bir şeyler değişmiş demek…</span></a></li><li><a href="/kuslar/marti"><b>Martı</b><br><span class="muted">Vapurun peşinden gelip simit kapmaya çalışan martı büyük ihtimalle sarı bacaklı martıdır.…</span></a></li><li><a href="/kuslar/karga"><b>Leş kargası</b><br><span class="muted">Gri yelek giymiş siyah bir karga görürsen o leş kargası, yani kül rengi karga. Ve şehrin e…</span></a></li></ul>
 </article>
-<footer>DrawBird · <a href="/hakkinda">Hakkında</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/nasil-oynanir">Nasıl oynanır</a> · <a href="/kosullar">Koşullar</a> · <a href="/gizlilik">Gizlilik</a> · <a href="/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></footer>
+<footer>DrawBird · <a href="/hakkinda">Hakkında</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/nasil-oynanir">Nasıl oynanır</a> · <a href="/kosullar">Koşullar</a> · <a href="/gizlilik">Gizlilik</a> · <a href="/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a><div class="langs" aria-label="Dil"><a href="/kuslar/leylek" hreflang="tr" lang="tr" aria-current="page">Türkçe</a><a href="/en/kuslar/leylek" hreflang="en" lang="en">English</a><a href="/es/kuslar/leylek" hreflang="es" lang="es">Español</a><a href="/pt/kuslar/leylek" hreflang="pt" lang="pt">Português</a><a href="/fr/kuslar/leylek" hreflang="fr" lang="fr">Français</a><a href="/de/kuslar/leylek" hreflang="de" lang="de">Deutsch</a><a href="/ru/kuslar/leylek" hreflang="ru" lang="ru">Русский</a><a href="/ar/kuslar/leylek" hreflang="ar" lang="ar">العربية</a><a href="/zh/kuslar/leylek" hreflang="zh" lang="zh">中文</a><a href="/ja/kuslar/leylek" hreflang="ja" lang="ja">日本語</a><a href="/id/kuslar/leylek" hreflang="id" lang="id">Bahasa Indonesia</a></div></footer>
 </main>
 </body>
 </html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>隐私 · DrawBird</title>
+<meta name="description" content="DrawBird 会保存哪些数据、不会保存什么，以及怎么删除你的画。">
+<meta property="og:title" content="隐私">
+<meta property="og:description" content="DrawBird 会保存哪些数据、不会保存什么，以及怎么删除你的画。">
+<meta property="og:image" content="/og-card.png">
+<link rel="canonical" href="/zh/gizlilik">
+<link rel="alternate" hreflang="tr" href="/gizlilik">
+<link rel="alternate" hreflang="en" href="/en/gizlilik">
+<link rel="alternate" hreflang="es" href="/es/gizlilik">
+<link rel="alternate" hreflang="pt" href="/pt/gizlilik">
+<link rel="alternate" hreflang="fr" href="/fr/gizlilik">
+<link rel="alternate" hreflang="de" href="/de/gizlilik">
+<link rel="alternate" hreflang="ru" href="/ru/gizlilik">
+<link rel="alternate" hreflang="ar" href="/ar/gizlilik">
+<link rel="alternate" hreflang="zh" href="/zh/gizlilik">
+<link rel="alternate" hreflang="ja" href="/ja/gizlilik">
+<link rel="alternate" hreflang="id" href="/id/gizlilik">
+<link rel="alternate" hreflang="x-default" href="/gizlilik">
+<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/sayfa.css">
+<style>
+  .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
+  .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
+  .step svg, .list svg { width: 100%; height: auto; background: #ffffff; border-radius: 12px; }
+  .list svg { margin-top: 8px; }
+  .step h3 { margin: 0 0 4px; font-size: 18px; }
+  .step p { margin: 0; }
+  @media (max-width: 560px) { .step { grid-template-columns: 1fr; } }
+  .facts { background: var(--chip); border-radius: 16px; padding: 4px 18px 4px 34px; }
+  [dir="rtl"] .facts { padding: 4px 34px 4px 18px; }
+  table.card { border-collapse: collapse; width: 100%; margin: 10px 0; }
+  table.card th, table.card td { text-align: start; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.card th { width: 40%; color: var(--muted); font-weight: 500; }
+  .list { display: grid; gap: 10px; padding: 0; list-style: none; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+  .list a { display: block; background: var(--chip); border-radius: 14px; padding: 12px 16px; text-decoration: none; height: 100%; }
+  .list b { font-size: 18px; }
+  .badge { display: inline-block; font-size: 12px; padding: 2px 9px; border-radius: 99px; background: var(--beak); color: var(--beak-ink); font-weight: 700; }
+  details { background: var(--chip); border-radius: 14px; padding: 10px 14px; margin-bottom: 8px; }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { margin: 8px 0 2px; }
+  .post-meta { color: var(--muted); font-size: 14px; }
+  .langs { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
+  .langs a[aria-current] { font-weight: 700; text-decoration: none; }
+</style>
+</head>
+<body>
+<main>
+<nav class="top"><a class="on" href="/?lang=zh#ciz">画鸟</a><a href="/zh/dersler/">教程</a><a href="/zh/kuslar/">鸟类</a><a href="/zh/haftanin-kuslari">本周之鸟</a><a href="/zh/blog/">博客</a><a href="/zh/sss">常见问题</a></nav>
+<article>
+  <h1>隐私</h1>
+  <p class="muted">最后更新：2026 年 11 月 2 日</p>
+
+  <h2>我们收集什么</h2>
+  <ul>
+    <li><b>你的画和鸟名。</b>你发布的每一只鸟，都会出现在公开的天空和排名里。</li>
+    <li><b>你的鸟友名。</b>如果你在个人资料里填了，它会显示在你的鸟下面。你也可以留空。</li>
+    <li><b>你的投票、举报和鸟群。</b>为了计算得分和列表而保存。</li>
+    <li><b>设备代码。</b>你的浏览器会生成一个随机代码，并保存在自己这里。服务器只保存这个代码的单向摘要；我们不要邮箱、密码或真名。</li>
+  </ul>
+
+  <h2>防止滥用</h2>
+  <p>为了防止垃圾信息和假票，你的 IP 地址从来不会原样保存。只保留一个用秘密密钥混合过的、不可逆的摘要：统计新账号时最多保留两天，限制发布频率时最多保留一小时。过期的记录会被删除。你发布鸟时所在网络的摘要会和你的账号一起保存；只有当某个违反规则的账号被封禁时，它才会用来在 24 小时内暂停该网络开新账号。</p>
+
+  <h2>审核</h2>
+  <p>新鸟友的头两只鸟，在管理员看过之前只有画的人自己能看到。为了审核，管理员会看到鸟的图片和名字。</p>
+
+  <h2>我们不收集什么</h2>
+  <p>目前我们不使用广告、广告 Cookie、位置信息、联系人列表或第三方分析工具。如果加入广告，本页会更新，并在需要的地方先征求你的同意。字体从我们自己的服务器加载；打开页面时不会向别的公司发送请求。</p>
+
+  <h2>访问计数</h2>
+  <p>为了知道有多少人来过，每次访问时，一个每日计数器会加一。这个计数器不使用 Cookie，不记录你是谁，也不记录你的 IP 地址；它只保存“今天有多少次访问”这个数字。</p>
+
+  <h2>规则</h2>
+  <p>详细规则见<a href="/zh/kosullar">使用条款</a>。简单来说：</p>
+  <ul>
+    <li>画鸟。不要发布含有个人信息、电话号码、地址、广告或仇恨内容的画。</li>
+    <li>不要把别人受版权保护的角色当成自己的作品发布。</li>
+    <li>如果你看到不合适的鸟，就按<b>举报</b>。收到三次举报的鸟会从天空里撤下；管理员会审查后删除或恢复。反复违反规则的设备，可能被关闭发布功能。</li>
+  </ul>
+
+  <h2>删除</h2>
+  <p>你随时可以在“个人资料”页面里删除自己的鸟。你删除的鸟会连同它的投票和举报一起从数据库中移除。</p>
+
+  <h2>你的画的权利</h2>
+  <p>你的画属于你。发布时，你授予 DrawBird 一项免费的、非独占的许可：在网站上（包括展示广告的页面）发布你的画，并在分享链接里作为预览使用。DrawBird 不会出售你的画，不会印在商品上，也不会在别处使用。你删除这只鸟时，这项许可也随之结束。</p>
+
+  <h2>源代码</h2>
+  <p>DrawBird 是开源的（AGPL-3.0）：<a href="https://github.com/gunayboss/drawbird">github.com/gunayboss/drawbird</a></p>
+
+  <p><a href="/?lang=zh">← 回到 DrawBird</a></p>
+</article>
+<footer>DrawBird · <a href="/zh/hakkinda">关于</a> · <a href="/zh/ogretmenler">老师专区</a> · <a href="/zh/nasil-oynanir">怎么玩</a> · <a href="/zh/kosullar">使用条款</a> · <a href="/zh/gizlilik">隐私</a> · <a href="/zh/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">源代码</a><div class="langs" aria-label="语言"><a href="/gizlilik" hreflang="tr" lang="tr">Türkçe</a><a href="/en/gizlilik" hreflang="en" lang="en">English</a><a href="/es/gizlilik" hreflang="es" lang="es">Español</a><a href="/pt/gizlilik" hreflang="pt" lang="pt">Português</a><a href="/fr/gizlilik" hreflang="fr" lang="fr">Français</a><a href="/de/gizlilik" hreflang="de" lang="de">Deutsch</a><a href="/ru/gizlilik" hreflang="ru" lang="ru">Русский</a><a href="/ar/gizlilik" hreflang="ar" lang="ar">العربية</a><a href="/zh/gizlilik" hreflang="zh" lang="zh" aria-current="page">中文</a><a href="/ja/gizlilik" hreflang="ja" lang="ja">日本語</a><a href="/id/gizlilik" hreflang="id" lang="id">Bahasa Indonesia</a></div></footer>
+</main>
+</body>
+</html>
