@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>DrawBird hakkında · DrawBird</title>
+<meta name="description" content="DrawBird nedir, kim yaptı, neden var? Herkesin çizdiği kuşların aynı gökyüzünde uçtuğu ücretsiz, açık kaynak bir çizim oyunu.">
+<meta property="og:title" content="DrawBird hakkında">
+<meta property="og:description" content="DrawBird nedir, kim yaptı, neden var? Herkesin çizdiği kuşların aynı gökyüzünde uçtuğu ücretsiz, açık kaynak bir çizim oyunu.">
+<meta property="og:image" content="/og-card.png">
+<link rel="canonical" href="/hakkinda">
+<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/sayfa.css">
+<style>
+  .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
+  .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
+  .step svg, .list svg { width: 100%; height: auto; background: #ffffff; border-radius: 12px; }
+  .list svg { margin-top: 8px; }
+  .step h3 { margin: 0 0 4px; font-size: 18px; }
+  .step p { margin: 0; }
+  @media (max-width: 560px) { .step { grid-template-columns: 1fr; } }
+  .facts { background: var(--chip); border-radius: 16px; padding: 4px 18px 4px 34px; }
+  table.card { border-collapse: collapse; width: 100%; margin: 10px 0; }
+  table.card th, table.card td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.card th { width: 40%; color: var(--muted); font-weight: 500; }
+  .list { display: grid; gap: 10px; padding: 0; list-style: none; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+  .list a { display: block; background: var(--chip); border-radius: 14px; padding: 12px 16px; text-decoration: none; height: 100%; }
+  .list b { font-size: 18px; }
+  .badge { display: inline-block; font-size: 12px; padding: 2px 9px; border-radius: 99px; background: var(--beak); color: var(--beak-ink); font-weight: 700; }
+  details { background: var(--chip); border-radius: 14px; padding: 10px 14px; margin-bottom: 8px; }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { margin: 8px 0 2px; }
+  .post-meta { color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+<nav class="top"><a class="on" href="/#ciz">Çiz</a><a href="/dersler/">Dersler</a><a href="/kuslar/">Kuşlar</a><a href="/haftanin-kuslari">Haftanın kuşları</a><a href="/blog/">Blog</a><a href="/sss">SSS</a></nav>
+<article>
+  <h1>DrawBird hakkında</h1>
+
+<p>DrawBird, herkesin çizdiği kuşların aynı gökyüzünde kanat çırparak uçtuğu küçük bir çizim oyunudur. Bir kuş çizersin, adını koyarsın, "uçur!" dersin; birkaç saniye sonra kuşun dünyanın dört bir yanından gelen kuşlarla birlikte uçar.</p>
+
+<h2>Neden?</h2>
+<p>Çizmenin iyi olmak zorunda olmadığı, kimsenin puan peşinde koşmadığı, sadece bir şey yapıp paylaşmanın keyfini yaşatan bir yer istedik. Kuşları seçtik çünkü herkes bir kuş çizebilir, her çocuk bir kuş görmüştür ve kuşlar uçar: insanın çizdiği bir şeyin canlanıp gitmesi küçük ama gerçek bir sevinçtir.</p>
+<p>Oyunun yanında kuşları tanımayı da önemsiyoruz. <a href="/kuslar/">Türkiye'nin kuşları</a> sayfalarında balkonundan görebileceğin kuşları, <a href="/dersler/">çizim derslerinde</a> onları adım adım nasıl çizeceğini anlatıyoruz.</p>
+
+<h2>İlkelerimiz</h2>
+<ul>
+  <li><b>Ücretsiz ve üyeliksiz.</b> E-posta, şifre ya da gerçek ad istemeyiz.</li>
+  <li><b>Her yaşa güvenli.</b> Yeni kuşçuların ilk kuşları onaydan geçer, uygunsuz adlar engellenir, her kuş bildirilebilir.</li>
+  <li><b>Az veri.</b> Yalnız oyunun çalışması için gereken veriyi tutarız; çerez ve takip aracı kullanmayız.</li>
+  <li><b>Açık kaynak.</b> Kodun tamamı <a href="https://github.com/gunayboss/drawbird">GitHub'da</a>, AGPL-3.0 lisansıyla.</li>
+</ul>
+
+<h2>İlham</h2>
+<p>Fikir, Alden Hallak'ın balık çizme oyunu DrawAFish'ten esinlendi. DrawBird'ün kodu sıfırdan yazıldı; DrawAFish'in kodu, görselleri ya da modeli kullanılmadı.</p>
+
+<h2>Kim yaptı?</h2>
+<p>DrawBird Türkiye'de, bağımsız bir geliştirici tarafından yapılıyor. Öneri, hata bildirimi ve iş birliği için <a href="https://github.com/gunayboss/drawbird/issues">GitHub üzerinden</a> yazabilirsin.</p>
+
+</article>
+<footer>DrawBird · <a href="/hakkinda">Hakkında</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/nasil-oynanir">Nasıl oynanır</a> · <a href="/kosullar">Koşullar</a> · <a href="/gizlilik">Gizlilik</a> · <a href="/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></footer>
+</main>
+</body>
+</html>

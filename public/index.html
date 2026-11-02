@@ -239,7 +239,7 @@
     </div>
     <div class="verdict" id="verdict" hidden></div>
   </div>
-  <p class="foot">Kuşlar herkese açıktır; uygunsuz çizimi Bildir ile işaretle. <a href="/nasil-oynanir.html">Nasıl oynanır</a> · <a href="/dersler/">Çizim dersleri</a> · <a href="/kuslar/">Kuşlar</a> · <a href="/haftanin-kuslari">Haftanın kuşları</a> · <a href="/kosullar.html">Koşullar</a> · <a href="/gizlilik.html">Gizlilik</a> · <a href="/kvkk.html">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></p>
+  <p class="foot">Kuşlar herkese açıktır; uygunsuz çizimi Bildir ile işaretle. <a href="/nasil-oynanir.html">Nasıl oynanır</a> · <a href="/dersler/">Çizim dersleri</a> · <a href="/kuslar/">Kuşlar</a> · <a href="/haftanin-kuslari">Haftanın kuşları</a> · <a href="/blog/">Blog</a> · <a href="/sss">SSS</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/hakkinda">Hakkında</a> · <a href="/kosullar.html">Koşullar</a> · <a href="/gizlilik.html">Gizlilik</a> · <a href="/kvkk.html">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></p>
 </section>
 
 <section id="gok" class="view" hidden>
@@ -529,7 +529,7 @@
     document.querySelectorAll('a[href]').forEach(a => {
       const href = a.getAttribute('href');
       if (EN_PAGES[href]) a.setAttribute('href', EN_PAGES[href]);
-      if (href === '/dersler/' || href === '/kuslar/') { const prev = a.previousSibling; a.remove(); if (prev?.nodeType === 3) prev.nodeValue = prev.nodeValue.replace(/·\s*$/, ''); }
+      if (['/dersler/', '/kuslar/', '/blog/', '/sss', '/ogretmenler', '/hakkinda'].includes(href)) { const prev = a.previousSibling; a.remove(); if (prev?.nodeType === 3) prev.nodeValue = prev.nodeValue.replace(/·\s*$/, ''); }
     });
   })();
   const langSel = $('langSel');

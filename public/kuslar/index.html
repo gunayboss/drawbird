@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Türkiye&#x27;nin kuşları · DrawBird</title>
-<meta name="description" content="Türkiye&#x27;de görebileceğin kuşları tanı, sonra DrawBird&#x27;de çiz: kumru, leylek ve daha fazlası.">
+<meta name="description" content="Türkiye&#x27;de görebileceğin 20 kuşu tanı, sonra DrawBird&#x27;de çiz: kumru, leylek, flamingo, kelaynak ve daha fazlası.">
 <meta property="og:title" content="Türkiye&#x27;nin kuşları">
-<meta property="og:description" content="Türkiye&#x27;de görebileceğin kuşları tanı, sonra DrawBird&#x27;de çiz: kumru, leylek ve daha fazlası.">
+<meta property="og:description" content="Türkiye&#x27;de görebileceğin 20 kuşu tanı, sonra DrawBird&#x27;de çiz: kumru, leylek, flamingo, kelaynak ve daha fazlası.">
 <meta property="og:image" content="/og-card.png">
 <link rel="canonical" href="/kuslar/">
 <link rel="icon" href="/icons/icon-192.png" type="image/png">
@@ -15,7 +15,8 @@
 <style>
   .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
   .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
-  .step svg { width: 100%; height: auto; background: #ffffff; border-radius: 12px; }
+  .step svg, .list svg { width: 100%; height: auto; background: #ffffff; border-radius: 12px; }
+  .list svg { margin-top: 8px; }
   .step h3 { margin: 0 0 4px; font-size: 18px; }
   .step p { margin: 0; }
   @media (max-width: 560px) { .step { grid-template-columns: 1fr; } }
@@ -23,20 +24,25 @@
   table.card { border-collapse: collapse; width: 100%; margin: 10px 0; }
   table.card th, table.card td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
   table.card th { width: 40%; color: var(--muted); font-weight: 500; }
-  .list { display: grid; gap: 10px; padding: 0; list-style: none; }
-  .list a { display: block; background: var(--chip); border-radius: 14px; padding: 12px 16px; text-decoration: none; }
+  .list { display: grid; gap: 10px; padding: 0; list-style: none; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+  .list a { display: block; background: var(--chip); border-radius: 14px; padding: 12px 16px; text-decoration: none; height: 100%; }
   .list b { font-size: 18px; }
+  .badge { display: inline-block; font-size: 12px; padding: 2px 9px; border-radius: 99px; background: var(--beak); color: var(--beak-ink); font-weight: 700; }
+  details { background: var(--chip); border-radius: 14px; padding: 10px 14px; margin-bottom: 8px; }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { margin: 8px 0 2px; }
+  .post-meta { color: var(--muted); font-size: 14px; }
 </style>
 </head>
 <body>
 <main>
-<nav class="top"><a href="/#ciz">Çiz</a><a href="/dersler/">Dersler</a><a class="on" href="/kuslar/">Kuşlar</a><a href="/haftanin-kuslari">Haftanın kuşları</a><a href="/nasil-oynanir.html">Nasıl oynanır</a></nav>
+<nav class="top"><a href="/#ciz">Çiz</a><a href="/dersler/">Dersler</a><a class="on" href="/kuslar/">Kuşlar</a><a href="/haftanin-kuslari">Haftanın kuşları</a><a href="/blog/">Blog</a><a href="/sss">SSS</a></nav>
 <article>
   <h1>Türkiye'nin kuşları</h1>
-  <p>Balkonundan, parktan, kıyıdan tanıyabileceğin kuşlar. Her sayfada kuşun boyu, ne yediği, nerede yaşadığı ve onu DrawBird'de nasıl çizeceğin var. Yeni kuşlar ekleniyor.</p>
-  <ul class="list"><li><a href="/kuslar/kumru.html"><b>Kumru</b> <i class="muted">Streptopelia decaocto</i><br><span class="muted">Pencere kenarlarının, balkonların ve şehir parklarının en tanıdık seslerinden biri kumruya aittir: yumuşak, üç…</span></a></li><li><a href="/kuslar/leylek.html"><b>Leylek</b> <i class="muted">Ciconia ciconia</i><br><span class="muted">Baharın habercisi ak leylek, bacaların ve elektrik direklerinin tepesine kurduğu kocaman yuvalarıyla Anadolu k…</span></a></li></ul>
+  <p>Balkonundan, parktan, kıyıdan ve göllerden tanıyabileceğin 20 kuş. Her sayfada kuşun boyu, ne yediği, nerede yaşadığı ve onu DrawBird'de nasıl çizeceğin var.</p>
+  <ul class="list"><li><a href="/kuslar/agackakan"><b>Alaca ağaçkakan</b> <i class="muted">Dendrocopos syriacus</i><br><span class="muted">Parkta bir ağaçtan gelen hızlı &quot;tak-tak-tak&quot; sesi çoğu zaman siyah beyaz, kırmızı kuyruk altlı bir alaca ağaçk…</span></a></li><li><a href="/kuslar/arikusu"><b>Arıkuşu</b> <i class="muted">Merops apiaster</i><br><span class="muted">Turkuaz, sarı ve kestane renkleriyle arıkuşu, Avrupa&#x27;nın en renkli kuşlarından biri sayılır; yazın tellerde sı…</span></a></li><li><a href="/kuslar/bastankara"><b>Büyük baştankara</b> <i class="muted">Parus major</i><br><span class="muted">Siyah başı, beyaz yanakları ve sarı göğsünü boydan boya kesen siyah kravatıyla büyük baştankara, kuş yemlikler…</span></a></li><li><a href="/kuslar/ebabil"><b>Ebabil</b> <i class="muted">Apus apus</i><br><span class="muted">Yaz akşamları minarelerin çevresinde çığlık çığlığa dönen orak kanatlı kuşlar ebabillerdir; hayatlarının nered…</span></a></li><li><a href="/kuslar/flamingo"><b>Flamingo</b> <i class="muted">Phoenicopterus roseus</i><br><span class="muted">Pembe tüyleri, upuzun bacakları ve ters dönmüş gagasıyla büyük flamingo, Türkiye&#x27;nin tuzlu göllerinin en göz a…</span></a></li><li><a href="/kuslar/guvercin"><b>Güvercin</b> <i class="muted">Columba livia</i><br><span class="muted">Meydanlarda yem bekleyen güvercinlerin atası kaya güvercinidir; bugün hâlâ sarp kayalıklarda yabani olarak yaş…</span></a></li><li><a href="/kuslar/ibibik"><b>İbibik</b> <i class="muted">Upupa epops</i><br><span class="muted">Başındaki yelpaze gibi açılan tepeliği ve &quot;hüt hüt hüt&quot; ötüşüyle ibibik, halk arasında hüthüt ya da çavuşkuşu …</span></a></li><li><a href="/kuslar/ispinoz"><b>İspinoz</b> <i class="muted">Fringilla coelebs</i><br><span class="muted">Ormanın içinden duyulan, sonunda süslü bir kıvrımla biten neşeli ötüş çoğu zaman bir ispinoza aittir.…</span></a></li><li><a href="/kuslar/kelaynak"><b>Kelaynak</b> <i class="muted">Geronticus eremita</i><br><span class="muted">Kel kırmızı başı, dağınık tüylü ensesi ve uzun kırmızı gagasıyla kelaynak, Birecik&#x27;te koruma altında yaşayan, …</span></a></li><li><a href="/kuslar/kirlangic"><b>Kırlangıç</b> <i class="muted">Hirundo rustica</i><br><span class="muted">Çatal kuyruğu ve kiremit rengi boğazıyla kır kırlangıcı, ahırların ve sundurmaların altına çamurdan yuva yapan…</span></a></li><li><a href="/kuslar/kizilgerdan"><b>Kızılgerdan</b> <i class="muted">Erithacus rubecula</i><br><span class="muted">Turuncu göğsü ve iri siyah gözleriyle kızılgerdan, bahçede toprak kazarken çoğu zaman bir iki adım uzağına gel…</span></a></li><li><a href="/kuslar/kukumav"><b>Kukumav</b> <i class="muted">Athene noctua</i><br><span class="muted">Küçük, tombul ve kaşları çatık gibi bakan kukumav, Türkiye&#x27;de en kolay görülebilen baykuştur; gündüz bile bir …</span></a></li><li><a href="/kuslar/kumru"><b>Kumru</b> <i class="muted">Streptopelia decaocto</i><br><span class="muted">Pencere kenarlarının, balkonların ve şehir parklarının en tanıdık seslerinden biri kumruya aittir: yumuşak, üç…</span></a></li><li><a href="/kuslar/karga"><b>Leş kargası</b> <i class="muted">Corvus cornix</i><br><span class="muted">Gri yeleği ve siyah başıyla leş kargası (kül rengi karga), Türkiye şehirlerinin en akıllı sakinlerinden biridi…</span></a></li><li><a href="/kuslar/leylek"><b>Leylek</b> <i class="muted">Ciconia ciconia</i><br><span class="muted">Baharın habercisi ak leylek, bacaların ve elektrik direklerinin tepesine kurduğu kocaman yuvalarıyla Anadolu k…</span></a></li><li><a href="/kuslar/marti"><b>Martı</b> <i class="muted">Larus michahellis</i><br><span class="muted">Kıyı şehirlerinde vapurun peşinden gelen, simit kapmaya çalışan martıların çoğu sarı bacaklı martıdır.…</span></a></li><li><a href="/kuslar/saka"><b>Saka</b> <i class="muted">Carduelis carduelis</i><br><span class="muted">Kırmızı yüzü ve kanadındaki parlak sarı bantla saka, Türkiye&#x27;nin en renkli ötücü kuşlarından biridir.…</span></a></li><li><a href="/kuslar/saksagan"><b>Saksağan</b> <i class="muted">Pica pica</i><br><span class="muted">Siyah beyaz giysisi ve upuzun kuyruğuyla saksağanı bir kez gören unutmaz; yakından bakınca siyah sandığın tüyl…</span></a></li><li><a href="/kuslar/serce"><b>Serçe</b> <i class="muted">Passer domesticus</i><br><span class="muted">Ev serçesi insanla birlikte yaşamaya o kadar alışmıştır ki, bir kasabada serçe görmüyorsan orada bir şeylerin …</span></a></li><li><a href="/kuslar/yesilbas"><b>Yeşilbaş</b> <i class="muted">Anas platyrhynchos</i><br><span class="muted">Göl kenarında ekmek bekleyen ördeklerin çoğu yeşilbaştır; evcil ördeklerin neredeyse hepsinin atası da odur.…</span></a></li></ul>
 </article>
-<footer>DrawBird · <a href="/kosullar.html">Koşullar</a> · <a href="/gizlilik.html">Gizlilik</a> · <a href="/kvkk.html">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></footer>
+<footer>DrawBird · <a href="/hakkinda">Hakkında</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/nasil-oynanir">Nasıl oynanır</a> · <a href="/kosullar">Koşullar</a> · <a href="/gizlilik">Gizlilik</a> · <a href="/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></footer>
 </main>
 </body>
 </html>

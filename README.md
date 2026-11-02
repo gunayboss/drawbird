@@ -35,10 +35,12 @@ DrawBird tarayıcıda çalışan küçük bir çizim oyunu. Sağa bakan bir kuş
 - Çeviriler `tools/i18n_table.py` içinde; `python tools/i18n_table.py` ile `public/i18n/*.json` üretilir
 - Yazı sayfaları Türkçe ve İngilizce (`/en/`); çizim dersleri ve kuş sayfaları şimdilik Türkçe
 
-### Çizim dersleri ve kuşlar
-- `/dersler/`: serçe, martı, baykuş (adım adım SVG çizimler)
-- `/kuslar/`: kumru, leylek
-- `python tools/build_pages.py` ile üretilir
+### İçerik
+- `/dersler/`: 10 adım adım çizim dersi (serçe, martı, baykuş, flamingo, papağan, ördek, penguen, kartal, tavus kuşu, kolibri)
+- `/kuslar/`: Türkiye'den 20 kuş (kumru, leylek, kelaynak, arıkuşu, ibibik…)
+- `/ogretmenler`: 40 dakikalık sınıf ders planı · `/sss` · `/hakkinda` · `/blog/`
+- `/hafta/`: hafta arşivi, `/hafta/2026-W45` gibi her hafta için sunucuda üretilen sayfa
+- İçerik `tools/content_*.py` dosyalarında; `python tools/build_pages.py` HTML'i ve site haritası listesini (`src/static_pages.js`) üretir
 
 ### KVKK ve güvenlik
 - KVKK aydınlatma metni (`/kvkk.html`), "Tüm verilerimi sil" (Profil)

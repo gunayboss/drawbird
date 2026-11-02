@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sık sorulan sorular · DrawBird</title>
+<meta name="description" content="DrawBird hakkında sık sorulan sorular: üyelik, kuşum neden görünmüyor, başka cihaz, silme, güvenlik.">
+<meta property="og:title" content="Sık sorulan sorular">
+<meta property="og:description" content="DrawBird hakkında sık sorulan sorular: üyelik, kuşum neden görünmüyor, başka cihaz, silme, güvenlik.">
+<meta property="og:image" content="/og-card.png">
+<link rel="canonical" href="/sss">
+<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/sayfa.css">
+<style>
+  .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
+  .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
+  .step svg, .list svg { width: 100%; height: auto; background: #ffffff; border-radius: 12px; }
+  .list svg { margin-top: 8px; }
+  .step h3 { margin: 0 0 4px; font-size: 18px; }
+  .step p { margin: 0; }
+  @media (max-width: 560px) { .step { grid-template-columns: 1fr; } }
+  .facts { background: var(--chip); border-radius: 16px; padding: 4px 18px 4px 34px; }
+  table.card { border-collapse: collapse; width: 100%; margin: 10px 0; }
+  table.card th, table.card td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.card th { width: 40%; color: var(--muted); font-weight: 500; }
+  .list { display: grid; gap: 10px; padding: 0; list-style: none; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+  .list a { display: block; background: var(--chip); border-radius: 14px; padding: 12px 16px; text-decoration: none; height: 100%; }
+  .list b { font-size: 18px; }
+  .badge { display: inline-block; font-size: 12px; padding: 2px 9px; border-radius: 99px; background: var(--beak); color: var(--beak-ink); font-weight: 700; }
+  details { background: var(--chip); border-radius: 14px; padding: 10px 14px; margin-bottom: 8px; }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { margin: 8px 0 2px; }
+  .post-meta { color: var(--muted); font-size: 14px; }
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "DrawBird ücretli mi?", "acceptedAnswer": {"@type": "Answer", "text": "Hayır, tamamen ücretsiz. Ödeme, abonelik ya da uygulama içi satın alma yok."}}, {"@type": "Question", "name": "Üye olmam gerekiyor mu?", "acceptedAnswer": {"@type": "Answer", "text": "Hayır. Sayfayı açtığın an çizebilirsin. Tarayıcın senin için rastgele bir cihaz kodu üretir; e-posta ya da şifre istemeyiz."}}, {"@type": "Question", "name": "Kuşum neden gökyüzünde görünmüyor?", "acceptedAnswer": {"@type": "Answer", "text": "Yeni kuşçuların ilk iki kuşu, bir yönetici bakana kadar yalnız çizene görünür. Bu, siteyi her yaştan kullanıcı için güvenli tutmak içindir. İki kuşun onaylandıktan sonra sonraki kuşların hemen uçar."}}, {"@type": "Question", "name": "Kuşum neden kanat çırpmıyor?", "acceptedAnswer": {"@type": "Answer", "text": "Çizim alanındaki kesik çizginin üstü kanat olarak çırpar, altı gövde olarak sabit kalır. Kanatları çizginin üstüne çizmeyi dene. <a href=\"/dersler/\">Çizim dersleri</a> bunu adım adım gösteriyor."}}, {"@type": "Question", "name": "Kaç kuş çizebilirim?", "acceptedAnswer": {"@type": "Answer", "text": "Aynı anda en fazla 8 kuşun olabilir. Yeni bir kuş için Profil sayfasından eskilerden birini silebilirsin."}}, {"@type": "Question", "name": "Kuşlarımı telefonumda da görebilir miyim?", "acceptedAnswer": {"@type": "Answer", "text": "Evet. Profil sayfasındaki kurtarma kodunu kopyala, telefonunda DrawBird'ü açıp Profil → Kodla giriş alanına yapıştır. Kodu kimseyle paylaşma."}}, {"@type": "Question", "name": "Tarayıcımın verilerini silersem ne olur?", "acceptedAnswer": {"@type": "Answer", "text": "Cihaz kodun silinir ve kuşlarına bu cihazdan ulaşamazsın. Kurtarma kodunu önceden kaydettiysen yeniden girebilirsin."}}, {"@type": "Question", "name": "Uygunsuz bir çizim gördüm, ne yapmalıyım?", "acceptedAnswer": {"@type": "Answer", "text": "Kuşa dokun ve \"Bildir\"e bas. Üç bildirim alan kuş (ilk gününde iki) gökyüzünden hemen iner ve yöneticiye gider."}}, {"@type": "Question", "name": "Verilerimi nasıl silerim?", "acceptedAnswer": {"@type": "Answer", "text": "Profil sayfasındaki \"Tüm verilerimi sil\" düğmesi kuşlarını, oylarını, bildirimlerini, sürülerini ve kuşçu adını kalıcı olarak siler."}}, {"@type": "Question", "name": "Çizimlerimin hakları kime ait?", "acceptedAnswer": {"@type": "Answer", "text": "Sana. DrawBird yalnız sitede gösterme ve paylaşım linklerinde önizleme izni alır; çizimini satmaz, ürüne basmaz. Ayrıntılar <a href=\"/kosullar\">kullanım koşullarında</a>."}}, {"@type": "Question", "name": "Hangi dilleri destekliyor?", "acceptedAnswer": {"@type": "Answer", "text": "Oyun 11 dilde: Türkçe, İngilizce, İspanyolca, Portekizce, Fransızca, Almanca, Rusça, Arapça, Çince, Japonca ve Endonezce. Dil tarayıcına göre seçilir, menüden değiştirebilirsin."}}, {"@type": "Question", "name": "DrawBird'ü telefona uygulama gibi ekleyebilir miyim?", "acceptedAnswer": {"@type": "Answer", "text": "Evet. Tarayıcının menüsünden \"Ana ekrana ekle\"yi seç; DrawBird bir uygulama gibi açılır."}}, {"@type": "Question", "name": "Kaynak kodu açık mı?", "acceptedAnswer": {"@type": "Answer", "text": "Evet, AGPL-3.0 lisansıyla <a href=\"https://github.com/gunayboss/drawbird\">GitHub'da</a>."}}]}</script>
+</head>
+<body>
+<main>
+<nav class="top"><a href="/#ciz">Çiz</a><a href="/dersler/">Dersler</a><a href="/kuslar/">Kuşlar</a><a href="/haftanin-kuslari">Haftanın kuşları</a><a href="/blog/">Blog</a><a class="on" href="/sss">SSS</a></nav>
+<article>
+  <h1>Sık sorulan sorular</h1>
+  <details><summary>DrawBird ücretli mi?</summary><p>Hayır, tamamen ücretsiz. Ödeme, abonelik ya da uygulama içi satın alma yok.</p></details><details><summary>Üye olmam gerekiyor mu?</summary><p>Hayır. Sayfayı açtığın an çizebilirsin. Tarayıcın senin için rastgele bir cihaz kodu üretir; e-posta ya da şifre istemeyiz.</p></details><details><summary>Kuşum neden gökyüzünde görünmüyor?</summary><p>Yeni kuşçuların ilk iki kuşu, bir yönetici bakana kadar yalnız çizene görünür. Bu, siteyi her yaştan kullanıcı için güvenli tutmak içindir. İki kuşun onaylandıktan sonra sonraki kuşların hemen uçar.</p></details><details><summary>Kuşum neden kanat çırpmıyor?</summary><p>Çizim alanındaki kesik çizginin üstü kanat olarak çırpar, altı gövde olarak sabit kalır. Kanatları çizginin üstüne çizmeyi dene. <a href="/dersler/">Çizim dersleri</a> bunu adım adım gösteriyor.</p></details><details><summary>Kaç kuş çizebilirim?</summary><p>Aynı anda en fazla 8 kuşun olabilir. Yeni bir kuş için Profil sayfasından eskilerden birini silebilirsin.</p></details><details><summary>Kuşlarımı telefonumda da görebilir miyim?</summary><p>Evet. Profil sayfasındaki kurtarma kodunu kopyala, telefonunda DrawBird'ü açıp Profil → Kodla giriş alanına yapıştır. Kodu kimseyle paylaşma.</p></details><details><summary>Tarayıcımın verilerini silersem ne olur?</summary><p>Cihaz kodun silinir ve kuşlarına bu cihazdan ulaşamazsın. Kurtarma kodunu önceden kaydettiysen yeniden girebilirsin.</p></details><details><summary>Uygunsuz bir çizim gördüm, ne yapmalıyım?</summary><p>Kuşa dokun ve "Bildir"e bas. Üç bildirim alan kuş (ilk gününde iki) gökyüzünden hemen iner ve yöneticiye gider.</p></details><details><summary>Verilerimi nasıl silerim?</summary><p>Profil sayfasındaki "Tüm verilerimi sil" düğmesi kuşlarını, oylarını, bildirimlerini, sürülerini ve kuşçu adını kalıcı olarak siler.</p></details><details><summary>Çizimlerimin hakları kime ait?</summary><p>Sana. DrawBird yalnız sitede gösterme ve paylaşım linklerinde önizleme izni alır; çizimini satmaz, ürüne basmaz. Ayrıntılar <a href="/kosullar">kullanım koşullarında</a>.</p></details><details><summary>Hangi dilleri destekliyor?</summary><p>Oyun 11 dilde: Türkçe, İngilizce, İspanyolca, Portekizce, Fransızca, Almanca, Rusça, Arapça, Çince, Japonca ve Endonezce. Dil tarayıcına göre seçilir, menüden değiştirebilirsin.</p></details><details><summary>DrawBird&#x27;ü telefona uygulama gibi ekleyebilir miyim?</summary><p>Evet. Tarayıcının menüsünden "Ana ekrana ekle"yi seç; DrawBird bir uygulama gibi açılır.</p></details><details><summary>Kaynak kodu açık mı?</summary><p>Evet, AGPL-3.0 lisansıyla <a href="https://github.com/gunayboss/drawbird">GitHub'da</a>.</p></details>
+  <p>Cevabını bulamadın mı? <a href="https://github.com/gunayboss/drawbird/issues">GitHub üzerinden</a> sor.</p>
+</article>
+<footer>DrawBird · <a href="/hakkinda">Hakkında</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/nasil-oynanir">Nasıl oynanır</a> · <a href="/kosullar">Koşullar</a> · <a href="/gizlilik">Gizlilik</a> · <a href="/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></footer>
+</main>
+</body>
+</html>

@@ -1,4 +1,5 @@
 // DrawBird API: anonymous device tokens, birds, votes, flags, flocks, moderation on D1.
+import { STATIC_PAGES } from './static_pages.js';
 import { isBadName, notifyBird, notifyText, connectTelegram, telegramStatus, handleTelegram, setting } from './moderation.js';
 const MAX_BIRDS = 8;
 const MAX_FLOCKS = 12;
@@ -466,60 +467,131 @@ async function cached(req, build, ttl) {
   return res;
 }
 
-// Server-rendered "birds of the week": real text and images for visitors and search engines.
-async function weeklyPage(env, url) {
-  const weekAgo = Date.now() - 7 * 864e5;
-  const query = cutoff => env.DB.prepare(`SELECT b.id, b.name, b.created, u.name AS author,
-      COALESCE(SUM(v.v), 0) AS score, COALESCE(SUM(v.v = 1), 0) AS up
-    FROM birds b LEFT JOIN votes v ON v.bird_id = b.id LEFT JOIN users u ON u.uid = b.uid
-    WHERE b.created >= ? AND b.status = 'live' AND b.uid NOT IN (SELECT uid FROM bans)
-      AND NOT ${hiddenSql('b')}
-    GROUP BY b.id ORDER BY score DESC, b.created DESC LIMIT 24`).bind(cutoff).all();
-  let { results: birds } = await query(weekAgo);
-  const allTime = birds.length < 6;
-  if (allTime) ({ results: birds } = await query(0));
-  const fmt = ts => new Date(ts).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
-  const cards = birds.map((b, i) => `
-    <a class="bird" href="/k/${b.id}">
-      <div class="art"><img src="/api/img/${b.id}" alt="${esc(b.name)}" loading="lazy" width="140" height="88"></div>
-      <b>${esc(b.name)}</b>
-      <span>#${i + 1} · ${esc(b.author || 'Bir kuşçu')} · ${b.up} beğeni</span>
-    </a>`).join('');
-  const intro = allTime
-    ? 'Bu hafta henüz yeterince kuş uçmadı; şimdilik tüm zamanların en sevilen kuşları burada.'
-    : `${fmt(weekAgo)} ile bugün arasında gökyüzüne katılan ve en çok beğeni alan kuşlar.`;
-  const first = birds[0];
-  const html = `<!doctype html>
+// ---- server-rendered week pages: /haftanin-kuslari (last 7 days), /hafta/ (archive), /hafta/2026-W45 ----
+const MONTHS = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+const trDate = ts => { const d = new Date(ts); return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`; };
+// ISO 8601 week of a timestamp (UTC), and the Monday 00:00 UTC that starts a given ISO week.
+function isoWeek(ts) {
+  const d = new Date(ts); d.setUTCHours(0, 0, 0, 0);
+  d.setUTCDate(d.getUTCDate() + 3 - ((d.getUTCDay() + 6) % 7));
+  const y = d.getUTCFullYear(), jan4 = Date.UTC(y, 0, 4);
+  return { year: y, week: 1 + Math.round(((d - jan4) / 864e5 - 3 + ((new Date(jan4).getUTCDay() + 6) % 7)) / 7) };
+}
+function weekStart(year, week) {
+  const jan4 = new Date(Date.UTC(year, 0, 4));
+  return jan4.getTime() - ((jan4.getUTCDay() + 6) % 7) * 864e5 + (week - 1) * 7 * 864e5;
+}
+const weekKey = ({ year, week }) => `${year}-W${String(week).padStart(2, '0')}`;
+
+const PAGE_NAV = [['/#ciz', 'Çiz'], ['/dersler/', 'Dersler'], ['/kuslar/', 'Kuşlar'], ['/haftanin-kuslari', 'Haftanın kuşları'], ['/blog/', 'Blog'], ['/sss', 'SSS']];
+function shell({ title, desc, image, active, body, origin }) {
+  const nav = PAGE_NAV.map(([h, l]) => `<a${h === active ? ' class="on"' : ''} href="${h}">${l}</a>`).join('');
+  return new Response(`<!doctype html>
 <html lang="tr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Haftanın Kuşları · DrawBird</title>
-<meta name="description" content="DrawBird'de bu hafta en çok beğenilen kuş çizimleri.">
-<meta property="og:title" content="Haftanın kuşları · DrawBird">
-<meta property="og:description" content="Bu hafta ortak gökyüzünde en çok beğenilen kuş çizimleri.">
-<meta property="og:image" content="${first ? `${url.origin}/api/img/${first.id}` : `${url.origin}/og-card.png`}">
+<title>${esc(title)} · DrawBird</title>
+<meta name="description" content="${esc(desc)}">
+<meta property="og:title" content="${esc(title)} · DrawBird">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:image" content="${image || `${origin}/og-card.png`}">
 <link rel="icon" href="/icons/icon-192.png" type="image/png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
+<style>.weeks { display: grid; gap: 8px; padding: 0; list-style: none; } .weeks a { display: flex; justify-content: space-between; gap: 10px; background: var(--chip); border-radius: 12px; padding: 10px 14px; text-decoration: none; } .pager { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 16px; }</style>
 </head>
 <body>
 <main>
-<nav class="top">
-  <a href="/#ciz">Çiz</a><a href="/nasil-oynanir.html">Nasıl oynanır</a><a class="on" href="/haftanin-kuslari">Haftanın kuşları</a><a href="/kosullar.html">Koşullar</a><a href="/gizlilik.html">Gizlilik</a>
-</nav>
+<nav class="top">${nav}</nav>
 <article>
-  <h1>Haftanın kuşları</h1>
-  <p>${intro} Bir kuşa dokunursan gökyüzünde onu bulur, oy verebilirsin.</p>
-  ${birds.length ? `<div class="grid">${cards}</div>` : '<p class="muted">Gökyüzü henüz boş. İlk kuşu sen çiz!</p>'}
-  <p><a class="cta" href="/#ciz">Sen de bir kuş çiz</a></p>
-  <p class="muted">Liste beş dakikada bir yenilenir. Sıralama, kuşların aldığı ▲ ve ▼ oyların farkına göre yapılır.</p>
+${body}
 </article>
-<footer>DrawBird · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></footer>
+<footer>DrawBird · <a href="/hakkinda">Hakkında</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/kosullar">Koşullar</a> · <a href="/gizlilik">Gizlilik</a> · <a href="/kvkk">KVKK</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></footer>
 </main>
 </body>
-</html>`;
-  return new Response(html, { headers: { 'content-type': 'text/html; charset=utf-8' } });
+</html>`, { headers: { 'content-type': 'text/html; charset=utf-8' } });
+}
+
+async function birdsBetween(env, from, to, limit = 24) {
+  const { results } = await env.DB.prepare(`SELECT b.id, b.uid, b.name, b.created, u.name AS author,
+      COALESCE(SUM(v.v), 0) AS score, COALESCE(SUM(v.v = 1), 0) AS up
+    FROM birds b LEFT JOIN votes v ON v.bird_id = b.id LEFT JOIN users u ON u.uid = b.uid
+    WHERE b.created >= ? AND b.created < ? AND b.status = 'live' AND b.uid NOT IN (SELECT uid FROM bans)
+      AND NOT ${hiddenSql('b')}
+    GROUP BY b.id ORDER BY score DESC, b.created DESC LIMIT ?`).bind(from, to, limit).all();
+  return results;
+}
+async function weekStats(env, from, to) {
+  return env.DB.prepare(`SELECT COUNT(*) AS birds, COUNT(DISTINCT uid) AS artists FROM birds
+    WHERE created >= ? AND created < ? AND status = 'live' AND uid NOT IN (SELECT uid FROM bans)`).bind(from, to).first();
+}
+const birdCards = birds => `<div class="grid">${birds.map((b, i) => `
+    <a class="bird" href="/k/${b.id}">
+      <div class="art"><img src="/api/img/${b.id}" alt="${esc(b.name)}" loading="lazy" width="140" height="88"></div>
+      <b>${esc(b.name)}</b>
+      <span>#${i + 1} · ${esc(b.author || 'Bir kuşçu')} · ${b.up} beğeni</span>
+    </a>`).join('')}</div>`;
+
+async function weeklyPage(env, url) {
+  const now = Date.now(), from = now - 7 * 864e5;
+  let birds = await birdsBetween(env, from, now + 1);
+  const st = await weekStats(env, from, now + 1);
+  const allTime = birds.length < 6;
+  if (allTime) birds = await birdsBetween(env, 0, now + 1);
+  const intro = allTime
+    ? 'Bu hafta henüz yeterince kuş uçmadı; şimdilik tüm zamanların en sevilen kuşları burada.'
+    : `${trDate(from)} ile bugün arasında gökyüzüne ${st.birds} kuş katıldı, ${st.artists} kuşçu çizdi. İşte en çok beğenilenler.`;
+  return shell({
+    origin: url.origin, active: '/haftanin-kuslari', title: 'Haftanın kuşları',
+    desc: 'DrawBird\'de son yedi günde en çok beğenilen kuş çizimleri.',
+    image: birds[0] && `${url.origin}/api/img/${birds[0].id}`,
+    body: `  <h1>Haftanın kuşları</h1>
+  <p>${intro} Bir kuşa dokunursan gökyüzünde onu bulur, oy verebilirsin.</p>
+  ${birds.length ? birdCards(birds) : '<p class="muted">Gökyüzü henüz boş. İlk kuşu sen çiz!</p>'}
+  <p><a class="cta" href="/#ciz">Sen de bir kuş çiz</a></p>
+  <p class="muted">Liste beş dakikada bir yenilenir. Sıralama, kuşların aldığı ▲ ve ▼ oyların farkına göre yapılır. Geçmiş haftalar için <a href="/hafta/">hafta arşivine</a> bak.</p>`,
+  });
+}
+
+async function weekArchive(env, url) {
+  const { results } = await env.DB.prepare(`SELECT created FROM birds WHERE status = 'live' AND uid NOT IN (SELECT uid FROM bans)`).all();
+  const counts = new Map();
+  for (const r of results) { const k = weekKey(isoWeek(r.created)); counts.set(k, (counts.get(k) || 0) + 1); }
+  const weeks = [...counts.entries()].sort((a, b) => b[0].localeCompare(a[0]));
+  const rows = weeks.map(([k, n]) => {
+    const [y, w] = k.split('-W').map(Number), s = weekStart(y, w);
+    return `<li><a href="/hafta/${k}"><span><b>${y}, ${w}. hafta</b> · ${trDate(s)} – ${trDate(s + 6 * 864e5)}</span><span>${n} kuş</span></a></li>`;
+  }).join('');
+  return shell({
+    origin: url.origin, active: '/haftanin-kuslari', title: 'Hafta arşivi',
+    desc: 'DrawBird\'ün geçmiş haftaları: her hafta gökyüzüne katılan kuşlar ve en çok beğenilenler.',
+    body: `  <h1>Hafta arşivi</h1>
+  <p>Her hafta gökyüzüne katılan kuşlar burada saklanır. Bir haftaya girince o hafta en çok beğenilen kuşları görürsün.</p>
+  ${rows ? `<ul class="weeks">${rows}</ul>` : '<p class="muted">Henüz arşivde hafta yok.</p>'}`,
+  });
+}
+
+async function weekPage(env, url, year, week) {
+  if (week < 1 || week > 53 || year < 2026 || year > 2100) return null;
+  const from = weekStart(year, week), to = from + 7 * 864e5;
+  if (from > Date.now()) return null;
+  const [birds, st] = await Promise.all([birdsBetween(env, from, to), weekStats(env, from, to)]);
+  const prev = weekKey(isoWeek(from - 864e5)), next = weekKey(isoWeek(to + 864e5));
+  const best = birds[0];
+  const summary = st.birds
+    ? `${trDate(from)} – ${trDate(to - 864e5)} arasında gökyüzüne ${st.birds} kuş katıldı ve ${st.artists} kuşçu çizdi.${best ? ` Haftanın en sevilen kuşu “${esc(best.name)}” oldu (çizen: ${esc(best.author || 'bir kuşçu')}); ${best.up} beğeni aldı.` : ''}`
+    : `${trDate(from)} – ${trDate(to - 864e5)} arasında gökyüzüne kuş katılmadı.`;
+  return shell({
+    origin: url.origin, active: '/haftanin-kuslari', title: `${year}, ${week}. haftanın kuşları`,
+    desc: `DrawBird ${year} yılı ${week}. hafta: ${st.birds} kuş, ${st.artists} kuşçu.`,
+    image: best && `${url.origin}/api/img/${best.id}`,
+    body: `  <h1>${year}, ${week}. haftanın kuşları</h1>
+  <p>${summary}</p>
+  ${birds.length ? birdCards(birds) : ''}
+  <div class="pager"><a href="/hafta/${prev}">← Önceki hafta</a><a href="/hafta/">Arşiv</a>${to < Date.now() ? `<a href="/hafta/${next}">Sonraki hafta →</a>` : ''}</div>
+  <p><a class="cta" href="/#ciz">Sen de bir kuş çiz</a></p>`,
+  });
 }
 
 async function sitemap(env, url) {
@@ -527,11 +599,12 @@ async function sitemap(env, url) {
     AND NOT ${hiddenSql('birds')} ORDER BY created DESC LIMIT 1000`).all();
   const day = ts => new Date(ts).toISOString().slice(0, 10);
   const today = day(Date.now());
-  const pages = [['/', today], ['/haftanin-kuslari', today], ['/nasil-oynanir'], ['/kosullar'], ['/gizlilik'], ['/kvkk'],
-    ['/dersler/'], ['/dersler/serce'], ['/dersler/marti'], ['/dersler/baykus'],
-    ['/kuslar/'], ['/kuslar/kumru'], ['/kuslar/leylek'],
-    ['/en/how-to-play'], ['/en/terms'], ['/en/privacy'],
-    ...results.map(b => [`/k/${b.id}`, day(b.created)])];
+  const weeks = [...new Set(results.map(b => weekKey(isoWeek(b.created))))];
+  const pages = [
+    ...STATIC_PAGES.map(([p, d]) => [p, p === '/' || p === '/haftanin-kuslari' ? today : d]),
+    ...weeks.map(w => [`/hafta/${w}`]),
+    ...results.map(b => [`/k/${b.id}`, day(b.created)]),
+  ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages.map(([p, d]) => `  <url><loc>${url.origin}${p}</loc>${d ? `<lastmod>${d}</lastmod>` : ''}</url>`).join('\n')}
@@ -579,6 +652,12 @@ export default {
     const share = /^\/k\/([a-z0-9]{16})$/.exec(url.pathname);
     if (share && req.method === 'GET') return secure(await sharePage(req, env, url, share[1]));
     if (url.pathname === '/haftanin-kuslari') return secure(await cached(req, () => weeklyPage(env, url), 300));
+    if (url.pathname === '/hafta/' || url.pathname === '/hafta') return secure(await cached(req, () => weekArchive(env, url), 3600));
+    const wk = /^\/hafta\/(\d{4})-W(\d{2})$/.exec(url.pathname);
+    if (wk) {
+      const res = await cached(req, async () => (await weekPage(env, url, +wk[1], +wk[2])) || new Response('Bu hafta bulunamadı', { status: 404, headers: { 'content-type': 'text/plain; charset=utf-8' } }), 1800);
+      return secure(res);
+    }
     if (url.pathname === '/sitemap.xml') return secure(await cached(req, () => sitemap(env, url), 3600));
     if (url.pathname === '/robots.txt') {
       return secure(new Response(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${url.origin}/sitemap.xml\n`, { headers: { 'content-type': 'text/plain; charset=utf-8' } }));
