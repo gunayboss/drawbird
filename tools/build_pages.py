@@ -15,6 +15,15 @@ from content_birds import BIRDS as BIRD_META
 HERE = os.path.dirname(__file__)
 # Full site address for share cards and canonical links. Change it when the site moves to its own domain, then rebuild.
 ORIGIN = 'https://drawbird.the-pit.workers.dev'
+# AdSense. Empty = no ads anywhere (no script, no slots, no ads.txt, strict CSP). After approval fill in the
+# publisher id ('ca-pub-…') and the two display ad unit ids, then rebuild and deploy.
+# Keep Auto ads OFF in the AdSense account: these hand-placed slots are the only ad spots (none on the game).
+ADSENSE_CLIENT = ''
+AD_SLOTS = {'top': '', 'end': ''}
+AD_LABEL = {'tr': 'Reklam', 'en': 'Advertisement', 'es': 'Publicidad', 'pt': 'Publicidade', 'fr': 'Publicité', 'de': 'Anzeige',
+            'ru': 'Реклама', 'ar': 'إعلان', 'zh': '广告', 'ja': '広告', 'id': 'Iklan'}
+# Text pages that carry ads (language-neutral path prefixes). Game, legal, profile and list pages never do.
+AD_PATHS = ['/dersler/', '/kuslar/', '/blog/', '/sss', '/ogretmenler', '/hakkinda']
 ROOT = os.path.join(HERE, '..')
 PUBLIC = os.path.join(ROOT, 'public')
 ALL_LANGS = ['tr', 'en', 'es', 'pt', 'fr', 'de', 'ru', 'ar', 'zh', 'ja', 'id']
@@ -63,6 +72,8 @@ def svg(steps, upto, full=False, label=''):
     return ''.join(out)
 
 EXTRA_CSS = '''<style>
+  .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
+  .ad-label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
   .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
   .step svg, .list svg { width: 100%; height: auto; background: #ffffff; border-radius: 12px; }
@@ -89,9 +100,34 @@ EXTRA_CSS = '''<style>
 
 written = []  # (url, lastmod)
 
+def ad(lang, kind):
+    """One labelled display ad unit, or '' while AdSense is not set up."""
+    if not ADSENSE_CLIENT or not AD_SLOTS.get(kind):
+        return ''
+    return (f'<aside class="ad" aria-label="{AD_LABEL[lang]}"><span class="ad-label">{AD_LABEL[lang]}</span>'
+            f'<ins class="adsbygoogle" style="display:block" data-ad-client="{ADSENSE_CLIENT}" data-ad-slot="{AD_SLOTS[kind]}" '
+            f'data-ad-format="auto" data-full-width-responsive="true"></ins>'
+            f'<script>(adsbygoogle = window.adsbygoogle || []).push({{}});</script></aside>')
+
+def with_ads(lang, body):
+    """Free-text pages: one unit before the second heading (if any), one at the end."""
+    top, end = ad(lang, 'top'), ad(lang, 'end')
+    if not top and not end:
+        return body
+    first = body.find('<h2')
+    second = body.find('<h2', first + 1) if first >= 0 else -1
+    if second >= 0 and top:
+        body = body[:second] + top + '\n' + body[second:]
+    return body + '\n' + end
+
 def page(lang, U, path, title, desc, body, active=None, jsonld=None):
     """path is the language-neutral path, e.g. '/dersler/serce'."""
     p = pre(lang)
+    ads = ''
+    if ADSENSE_CLIENT and any(path.startswith(a) and path != a or path == a and not a.endswith('/') for a in AD_PATHS):
+        # Children use DrawBird, so every ad request asks for non-personalised ads.
+        ads = (f'\n<script>(adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;</script>'
+               f'\n<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>')
     nav_items = [(f'/?lang={lang}#ciz' if lang != 'tr' else '/#ciz', U['nav_draw'], None), (f'{p}/dersler/', U['nav_lessons'], 'dersler'),
                  (f'{p}/kuslar/', U['nav_birds'], 'kuslar'), (f'{p}/haftanin-kuslari', U['nav_week'], 'hafta'),
                  (f'{p}/blog/', U['nav_blog'], 'blog'), (f'{p}/sss', U['nav_faq'], 'sss')]
@@ -121,7 +157,7 @@ def page(lang, U, path, title, desc, body, active=None, jsonld=None):
 <link rel="icon" href="/icons/icon-192.png" type="image/png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
-{EXTRA_CSS}{ld}
+{EXTRA_CSS}{ld}{ads}
 </head>
 <body>
 <main>
@@ -167,10 +203,10 @@ for lang in LANGS:
             f'<li><a href="/kuslar/{b["slug"]}"><b>{esc(BIR[b["slug"]]["name"])}</b><br><span class="muted">{esc(BIR[b["slug"]]["lead"][:90])}…</span></a></li>'
             for b in related) + '</ul>') if related else ''
         body = (f'  <h1>{esc(t["title"])}</h1>\n  <p><span class="badge">{esc(levels[L["level"]])}</span></p>\n  <p>{esc(t["intro"])}</p>\n'
-                f'  <p class="muted">{esc(U["wing_note"])}</p>\n  <h2>{esc(U["step_by_step"])}</h2>\n  <div class="steps-grid">{steps}</div>\n'
+                f'  <p class="muted">{esc(U["wing_note"])}</p>\n  {ad(lang, "top")}\n  <h2>{esc(U["step_by_step"])}</h2>\n  <div class="steps-grid">{steps}</div>\n'
                 f'  <h2>{esc(U["mistakes"])}</h2>\n  <ul>{"".join(f"<li>{esc(x)}</li>" for x in t["mistakes"])}</ul>\n'
                 f'  <h2>{esc(U["about_bird"].format(bird=t["bird"]))}</h2>\n  <ul class="facts">{"".join(f"<li>{esc(x)}</li>" for x in t["facts"])}</ul>\n'
-                f'  {rel}\n  <p><a class="cta" href="/#ciz">{esc(t["cta"])}</a></p>')
+                f'  {rel}\n  <p><a class="cta" href="/#ciz">{esc(t["cta"])}</a></p>\n  {ad(lang, "end")}')
         page(lang, U, f'/dersler/{L["slug"]}', t['title'], t['intro'][:155], body, 'dersler')
         written.append((f'{p}/dersler/{L["slug"]}', None))
     groups = ''.join(
@@ -191,10 +227,10 @@ for lang in LANGS:
         lesson = LES.get(B['lesson'])
         others = [BIRD_META[(i + k) % len(BIRD_META)] for k in (1, 2, 3)]
         more = ''.join(f'<li><a href="/kuslar/{o["slug"]}"><b>{esc(BIR[o["slug"]]["name"])}</b><br><span class="muted">{esc(BIR[o["slug"]]["lead"][:90])}…</span></a></li>' for o in others)
-        body = (f'  <h1>{esc(t["name"])}</h1>\n  <p class="muted"><i>{esc(B["latin"])}</i></p>\n  <p>{esc(t["lead"])}</p>\n  <table class="card">{rows}</table>\n'
+        body = (f'  <h1>{esc(t["name"])}</h1>\n  <p class="muted"><i>{esc(B["latin"])}</i></p>\n  <p>{esc(t["lead"])}</p>\n  <table class="card">{rows}</table>\n  {ad(lang, "top")}\n'
                 f'  {"".join(f"<p>{esc(x)}</p>" for x in t["body"])}\n  {own}\n  <h2>{esc(U["draw_it"])}</h2>\n  <p>{esc(t["draw"])}</p>\n'
                 + (f'  <p><a href="/dersler/{B["lesson"]}">{esc(U["lesson_link"].format(title=lesson["title"]))}</a></p>\n' if lesson else '')
-                + f'  <p><a class="cta" href="/#ciz">{esc(t["cta"])}</a></p>\n  <h2>{esc(U["other_birds"])}</h2>\n  <ul class="list">{more}</ul>')
+                + f'  <p><a class="cta" href="/#ciz">{esc(t["cta"])}</a></p>\n  <h2>{esc(U["other_birds"])}</h2>\n  <ul class="list">{more}</ul>\n  {ad(lang, "end")}')
         page(lang, U, f'/kuslar/{B["slug"]}', U['bird_title'].format(name=t['name']), t['lead'][:155], body, 'kuslar')
         written.append((f'{p}/kuslar/{B["slug"]}', None))
     items = ''.join(f'<li><a href="/kuslar/{B["slug"]}"><b>{esc(BIR[B["slug"]]["name"])}</b> <i class="muted">{esc(B["latin"])}</i><br><span class="muted">{esc(BIR[B["slug"]]["lead"][:110])}…</span></a></li>'
@@ -206,14 +242,14 @@ for lang in LANGS:
 
     # teachers, faq, about
     T = PAG['ogretmenler']
-    page(lang, U, '/ogretmenler', T['title'], T['desc'], f'  <h1>{esc(T["title"])}</h1>\n{T["html"]}\n  <p><a class="cta" href="/#ciz">{esc(U["open_drawbird"])}</a></p>')
+    page(lang, U, '/ogretmenler', T['title'], T['desc'], f'  <h1>{esc(T["title"])}</h1>\n{with_ads(lang, T["html"])}\n  <p><a class="cta" href="/#ciz">{esc(U["open_drawbird"])}</a></p>')
     F = PAG['sss']
     faq_ld = {'@context': 'https://schema.org', '@type': 'FAQPage', 'inLanguage': lang, 'mainEntity': [
         {'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': localize(a, lang)}} for q, a in F['items']]}
     page(lang, U, '/sss', F['title'], F['desc'],
-         f'  <h1>{esc(F["title"])}</h1>\n  {"".join(f"<details><summary>{esc(q)}</summary><p>{a}</p></details>" for q, a in F["items"])}\n  <p>{U["faq_more"]}</p>', 'sss', faq_ld)
+         f'  <h1>{esc(F["title"])}</h1>\n  {"".join(f"<details><summary>{esc(q)}</summary><p>{a}</p></details>" for q, a in F["items"])}\n  <p>{U["faq_more"]}</p>\n  {ad(lang, "end")}', 'sss', faq_ld)
     A = PAG['hakkinda']
-    page(lang, U, '/hakkinda', A['title'], A['desc'], f'  <h1>{esc(A["title"])}</h1>\n{A["html"]}')
+    page(lang, U, '/hakkinda', A['title'], A['desc'], f'  <h1>{esc(A["title"])}</h1>\n{with_ads(lang, A["html"])}')
     written += [(f'{p}/ogretmenler', None), (f'{p}/sss', None), (f'{p}/hakkinda', None)]
 
     # legal and how-to
@@ -226,7 +262,7 @@ for lang in LANGS:
         d = POST_DATES[slug]
         ld = {'@context': 'https://schema.org', '@type': 'BlogPosting', 'headline': P['title'], 'datePublished': d, 'description': P['desc'], 'inLanguage': lang}
         page(lang, U, f'/blog/{slug}', P['title'], P['desc'],
-             f'  <h1>{esc(P["title"])}</h1>\n  <p class="post-meta">{fmt_date(U, d)}</p>\n{P["html"]}\n  <p><a href="/blog/">{esc(U["all_posts"])}</a></p>', 'blog', ld)
+             f'  <h1>{esc(P["title"])}</h1>\n  <p class="post-meta">{fmt_date(U, d)}</p>\n{with_ads(lang, P["html"])}\n  <p><a href="/blog/">{esc(U["all_posts"])}</a></p>', 'blog', ld)
         written.append((f'{p}/blog/{slug}', d))
     posts = ''.join(f'<li><a href="/blog/{s}"><b>{esc(P["title"])}</b><br><span class="post-meta">{fmt_date(U, POST_DATES[s])}</span><br><span class="muted">{esc(P["desc"])}</span></a></li>'
                     for s, P in sorted(POS.items(), key=lambda kv: POST_DATES[kv[0]], reverse=True))
@@ -252,4 +288,19 @@ gs = io.open(g, encoding='utf-8').read()
 gs = re.sub(r'<meta property="og:image" content="[^"]*">', f'<meta property="og:image" content="{ORIGIN}/og-card.png">', gs)
 gs = re.sub(r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{ORIGIN}/">', gs)
 io.open(g, 'w', encoding='utf-8', newline='\n').write(gs)
+ads_txt = os.path.join(PUBLIC, 'ads.txt')
+if ADSENSE_CLIENT:
+    io.open(ads_txt, 'w', encoding='utf-8', newline='\n').write(f'google.com, {ADSENSE_CLIENT.replace("ca-", "")}, DIRECT, f08c47fec0942fa0\n')
+elif os.path.exists(ads_txt):
+    os.remove(ads_txt)
+# Ad pages need Google's ad hosts in their CSP; every other page keeps the strict policy from the top of _headers.
+hp = os.path.join(PUBLIC, '_headers')
+hs = re.sub(r'\n# ads:start.*?# ads:end\n', '\n', io.open(hp, encoding='utf-8').read(), flags=re.S)
+if ADSENSE_CLIENT:
+    csp = ("default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline'; font-src 'self'; "
+           "img-src 'self' data: blob: https:; connect-src 'self' https:; frame-src https:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'")
+    # _headers allows 100 rules in all, so one rule per path covers every language prefix through :lang.
+    rules = [f'{lp}{a}*' if a.endswith('/') else f'{lp}{a}' for a in AD_PATHS for lp in ('', '/:lang')]
+    hs = hs.rstrip('\n') + '\n# ads:start\n' + ''.join(f'{r}\n  ! Content-Security-Policy\n  Content-Security-Policy: {csp}\n' for r in rules) + '# ads:end\n'
+io.open(hp, 'w', encoding='utf-8', newline='\n').write(hs)
 print(len(LANGS), 'dil,', len(written), 'sayfa:', ', '.join(LANGS))
