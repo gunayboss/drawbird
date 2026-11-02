@@ -144,11 +144,13 @@ for i, B in enumerate(BIRDS):
     others = [BIRDS[(i + k) % len(BIRDS)] for k in (1, 2, 3)]
     more = ''.join(f'<li><a href="/kuslar/{o["slug"]}"><b>{esc(o["name"])}</b><br><span class="muted">{esc(o["lead"][:90])}…</span></a></li>' for o in others)
     lesson_link = f'<p><a href="/dersler/{L["slug"]}">Çizim dersi: {esc(L["title"])} →</a></p>' if L else ''
+    own_html = f'<h2>Benim notum</h2><p>{esc(B["own"])}</p>' if B.get('own') else ''
     body = f'''  <h1>{esc(B['name'])}</h1>
   <p class="muted"><i>{esc(B['latin'])}</i></p>
   <p>{esc(B['lead'])}</p>
   <table class="card">{rows}</table>
   {paras}
+  {own_html}
   <h2>DrawBird'de çizmek için</h2>
   <p>{esc(B['draw'])}</p>
   {lesson_link}
