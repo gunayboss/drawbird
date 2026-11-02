@@ -15,10 +15,10 @@ from content_birds import BIRDS as BIRD_META
 HERE = os.path.dirname(__file__)
 # Full site address for share cards and canonical links. Change it when the site moves to its own domain, then rebuild.
 ORIGIN = 'https://drawbird.app'
-# AdSense. Empty = no ads anywhere (no script, no slots, no ads.txt, strict CSP). After approval fill in the
-# publisher id ('ca-pub-…') and the two display ad unit ids, then rebuild and deploy.
+# AdSense. The publisher id alone only adds the site-ownership meta tag and ads.txt. The ad script, the slots and the
+# looser CSP on ad pages come once the two display ad unit ids are filled in (after approval); then rebuild and deploy.
 # Keep Auto ads OFF in the AdSense account: these hand-placed slots are the only ad spots (none on the game).
-ADSENSE_CLIENT = ''
+ADSENSE_CLIENT = 'ca-pub-5448096630528045'
 AD_SLOTS = {'top': '', 'end': ''}
 AD_LABEL = {'tr': 'Reklam', 'en': 'Advertisement', 'es': 'Publicidad', 'pt': 'Publicidade', 'fr': 'Publicité', 'de': 'Anzeige',
             'ru': 'Реклама', 'ar': 'إعلان', 'zh': '广告', 'ja': '広告', 'id': 'Iklan'}
@@ -100,6 +100,8 @@ EXTRA_CSS = '''<style>
 
 written = []  # (url, lastmod)
 
+ADSENSE_META = f'\n<meta name="google-adsense-account" content="{ADSENSE_CLIENT}">' if ADSENSE_CLIENT else ''
+
 def ad(lang, kind):
     """One labelled display ad unit, or '' while AdSense is not set up."""
     if not ADSENSE_CLIENT or not AD_SLOTS.get(kind):
@@ -124,7 +126,7 @@ def page(lang, U, path, title, desc, body, active=None, jsonld=None):
     """path is the language-neutral path, e.g. '/dersler/serce'."""
     p = pre(lang)
     ads = ''
-    if ADSENSE_CLIENT and any(path.startswith(a) and path != a or path == a and not a.endswith('/') for a in AD_PATHS):
+    if ADSENSE_CLIENT and any(AD_SLOTS.values()) and any(path.startswith(a) and path != a or path == a and not a.endswith('/') for a in AD_PATHS):
         # Children use DrawBird, so every ad request asks for non-personalised ads.
         ads = (f'\n<script>(adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;</script>'
                f'\n<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>')
@@ -159,7 +161,7 @@ def page(lang, U, path, title, desc, body, active=None, jsonld=None):
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
-{EXTRA_CSS}{ld}{ads}
+{EXTRA_CSS}{ld}{ads}{ADSENSE_META}
 </head>
 <body>
 <main>
@@ -289,6 +291,9 @@ g = os.path.join(PUBLIC, 'index.html')
 gs = io.open(g, encoding='utf-8').read()
 gs = re.sub(r'<meta property="og:image" content="[^"]*">', f'<meta property="og:image" content="{ORIGIN}/og-card.png">', gs)
 gs = re.sub(r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{ORIGIN}/">', gs)
+gs = re.sub(r'<meta name="google-adsense-account" content="[^"]*">\n', '', gs)
+if ADSENSE_CLIENT:
+    gs = gs.replace('<meta property="og:url"', f'<meta name="google-adsense-account" content="{ADSENSE_CLIENT}">\n<meta property="og:url"', 1)
 io.open(g, 'w', encoding='utf-8', newline='\n').write(gs)
 ads_txt = os.path.join(PUBLIC, 'ads.txt')
 if ADSENSE_CLIENT:
@@ -298,7 +303,7 @@ elif os.path.exists(ads_txt):
 # Ad pages need Google's ad hosts in their CSP; every other page keeps the strict policy from the top of _headers.
 hp = os.path.join(PUBLIC, '_headers')
 hs = re.sub(r'\n# ads:start.*?# ads:end\n', '\n', io.open(hp, encoding='utf-8').read(), flags=re.S)
-if ADSENSE_CLIENT:
+if ADSENSE_CLIENT and any(AD_SLOTS.values()):
     csp = ("default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline'; font-src 'self'; "
            "img-src 'self' data: blob: https:; connect-src 'self' https:; frame-src https:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'")
     # _headers allows 100 rules in all, so one rule per path covers every language prefix through :lang.
