@@ -1,0 +1,264 @@
+// DrawBird API: anonymous device tokens, birds, votes, flags, flocks, moderation on D1.
+const MAX_BIRDS = 8;
+const MAX_FLOCKS = 12;
+const MAX_IMG = 90_000; // data URL characters (~65 KB image)
+const HIDE_FLAGS = 3;
+const PUBLIC_TTL = 10; // seconds the shared part of /api/state is cached at the edge
+
+const json = (data, status = 200, headers = {}) =>
+  new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', ...headers } });
+const fail = (status, error) => json({ error }, status);
+const clean = (s, n) => String(s ?? '').replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, n);
+const newId = () => crypto.randomUUID().replace(/-/g, '').slice(0, 16);
+const ID = /^[a-z0-9]{16}$/;
+
+async function sha256(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// Device token -> user row (created on first write). The token itself is never stored.
+async function auth(req, env, create) {
+  const m = /^Bearer ([A-Za-z0-9_-]{32,128})$/.exec(req.headers.get('authorization') || '');
+  if (!m) return null;
+  const hash = await sha256(m[1]);
+  let row = await env.DB.prepare('SELECT uid, name FROM users WHERE token_hash = ?').bind(hash).first();
+  if (!row && create) {
+    row = { uid: hash.slice(0, 16), name: '' };
+    await env.DB.prepare('INSERT OR IGNORE INTO users (uid, token_hash, name, created) VALUES (?, ?, ?, ?)')
+      .bind(row.uid, hash, '', Date.now()).run();
+  }
+  return row;
+}
+const isAdmin = (req, env) => !!env.ADMIN_KEY && req.headers.get('x-admin-key') === env.ADMIN_KEY;
+const isBanned = (env, uid) => env.DB.prepare('SELECT 1 FROM bans WHERE uid = ?').bind(uid).first();
+
+// The shared part of the sky: same for every viewer, so it is cached briefly at the edge.
+async function publicState(env, url, fresh) {
+  const cache = caches.default;
+  const key = new Request(new URL('/api/__public', url).toString());
+  if (!fresh) {
+    const hit = await cache.match(key);
+    if (hit) return hit.json();
+  }
+  const [birds, users, flocks] = await env.DB.batch([
+    env.DB.prepare(`SELECT b.id, b.uid, b.name, b.created,
+        COALESCE(SUM(v.v = 1), 0) AS up, COALESCE(SUM(v.v = -1), 0) AS down,
+        (SELECT COUNT(*) FROM flags f WHERE f.bird_id = b.id) AS flags
+      FROM birds b LEFT JOIN votes v ON v.bird_id = b.id
+      WHERE b.uid NOT IN (SELECT uid FROM bans)
+      GROUP BY b.id ORDER BY b.created DESC LIMIT 2000`),
+    env.DB.prepare('SELECT uid, name FROM users WHERE uid IN (SELECT DISTINCT uid FROM birds UNION SELECT DISTINCT uid FROM flocks)'),
+    env.DB.prepare('SELECT id, uid, name, birds, created, public FROM flocks WHERE public = 1 ORDER BY created'),
+  ]);
+  const data = {
+    birds: birds.results,
+    names: Object.fromEntries(users.results.map(u => [u.uid, u.name])),
+    flocks: flocks.results.map(f => ({ ...f, public: true, birds: JSON.parse(f.birds) })),
+  };
+  await cache.put(key, new Response(JSON.stringify(data), { headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${PUBLIC_TTL}` } }));
+  return data;
+}
+
+async function state(req, env, url) {
+  const me = await auth(req, env, false);
+  const pub = await publicState(env, url, url.searchParams.has('fresh'));
+  const mine = { v: {}, f: {} };
+  let flocks = pub.flocks;
+  if (me) {
+    const [mv, mf, priv] = await env.DB.batch([
+      env.DB.prepare('SELECT bird_id, v FROM votes WHERE uid = ?').bind(me.uid),
+      env.DB.prepare('SELECT bird_id FROM flags WHERE uid = ?').bind(me.uid),
+      env.DB.prepare('SELECT id, uid, name, birds, created, public FROM flocks WHERE uid = ? AND public = 0').bind(me.uid),
+    ]);
+    mv.results.forEach(r => { mine.v[r.bird_id] = r.v; });
+    mf.results.forEach(r => { mine.f[r.bird_id] = true; });
+    flocks = [...flocks, ...priv.results.map(f => ({ ...f, public: false, birds: JSON.parse(f.birds) }))];
+  }
+  return json({
+    me: me ? { uid: me.uid, name: me.name, banned: !!(await isBanned(env, me.uid)) } : null,
+    admin: isAdmin(req, env),
+    hideFlags: HIDE_FLAGS, maxBirds: MAX_BIRDS,
+    birds: pub.birds, names: pub.names, flocks, mine,
+  });
+}
+
+async function image(id, env) {
+  const row = await env.DB.prepare('SELECT img FROM birds WHERE id = ?').bind(id).first();
+  if (!row) return new Response('not found', { status: 404 });
+  const m = /^data:(image\/(?:png|webp));base64,([A-Za-z0-9+/=]+)$/.exec(row.img);
+  if (!m) return new Response('bad image', { status: 500 });
+  const bytes = Uint8Array.from(atob(m[2]), c => c.charCodeAt(0));
+  return new Response(bytes, { headers: { 'content-type': m[1], 'cache-control': 'public, max-age=31536000, immutable' } });
+}
+
+async function readBody(req, limit = 120_000) {
+  const len = +(req.headers.get('content-length') || 0);
+  if (len > limit) throw new Error('too_large');
+  const text = await req.text();
+  if (text.length > limit) throw new Error('too_large');
+  return text ? JSON.parse(text) : {};
+}
+
+async function adminApi(req, env, path, method, body) {
+  if (!isAdmin(req, env)) return fail(403, 'not_admin');
+  if (method === 'GET' && path === '/admin/reports') {
+    const [reported, bans] = await env.DB.batch([
+      env.DB.prepare(`SELECT b.id, b.uid, b.name, b.created, COUNT(f.uid) AS flags,
+          (SELECT name FROM users u WHERE u.uid = b.uid) AS author
+        FROM birds b JOIN flags f ON f.bird_id = b.id GROUP BY b.id ORDER BY flags DESC, b.created DESC LIMIT 200`),
+      env.DB.prepare('SELECT bans.uid, bans.created, users.name FROM bans LEFT JOIN users ON users.uid = bans.uid ORDER BY bans.created DESC'),
+    ]);
+    const stats = await env.DB.prepare('SELECT (SELECT COUNT(*) FROM birds) AS birds, (SELECT COUNT(*) FROM users) AS users, (SELECT COUNT(*) FROM votes) AS votes').first();
+    return json({ reported: reported.results, bans: bans.results, stats });
+  }
+  if (method === 'POST' && path === '/admin/clear') {
+    if (!ID.test(String(body.bird))) return fail(400, 'bad_bird');
+    await env.DB.prepare('DELETE FROM flags WHERE bird_id = ?').bind(body.bird).run();
+    return json({ ok: true });
+  }
+  if (method === 'POST' && path === '/admin/ban') {
+    const uid = String(body.uid || '');
+    if (!ID.test(uid)) return fail(400, 'bad_uid');
+    if (body.on) await env.DB.prepare('INSERT OR IGNORE INTO bans (uid, created) VALUES (?, ?)').bind(uid, Date.now()).run();
+    else await env.DB.prepare('DELETE FROM bans WHERE uid = ?').bind(uid).run();
+    return json({ ok: true });
+  }
+  return fail(404, 'not_found');
+}
+
+async function handleApi(req, env, url) {
+  const path = url.pathname.slice(4); // strip "/api"
+  const method = req.method;
+
+  if (method === 'GET' && path === '/state') return state(req, env, url);
+  const img = /^\/img\/([a-z0-9]{16})$/.exec(path);
+  if (method === 'GET' && img) return image(img[1], env);
+
+  let body = {};
+  if (method === 'POST') { try { body = await readBody(req); } catch { return fail(413, 'too_large'); } }
+  if (path.startsWith('/admin/')) return adminApi(req, env, path, method, body);
+  if (method === 'GET') return fail(404, 'not_found');
+
+  const me = await auth(req, env, true);
+  if (!me) return fail(401, 'no_token');
+  const admin = isAdmin(req, env);
+
+  if (method === 'POST' && path === '/me') {
+    await env.DB.prepare('UPDATE users SET name = ? WHERE uid = ?').bind(clean(body.name, 24), me.uid).run();
+    return json({ ok: true });
+  }
+
+  if (method === 'POST' && path === '/birds') {
+    if (await isBanned(env, me.uid)) return fail(403, 'banned');
+    const data = String(body.img || '');
+    if (!/^data:image\/(png|webp);base64,[A-Za-z0-9+/=]+$/.test(data) || data.length > MAX_IMG) return fail(400, 'bad_image');
+    const count = await env.DB.prepare('SELECT COUNT(*) AS n FROM birds WHERE uid = ?').bind(me.uid).first('n');
+    if (count >= MAX_BIRDS) return fail(409, 'too_many_birds');
+    const id = newId();
+    await env.DB.prepare('INSERT INTO birds (id, uid, name, img, created) VALUES (?, ?, ?, ?, ?)')
+      .bind(id, me.uid, clean(body.name, 24) || 'İsimsiz kuş', data, Date.now()).run();
+    return json({ id });
+  }
+
+  const del = /^\/birds\/([a-z0-9]{16})$/.exec(path);
+  if (method === 'DELETE' && del) {
+    const row = await env.DB.prepare('SELECT uid FROM birds WHERE id = ?').bind(del[1]).first();
+    if (!row) return fail(404, 'not_found');
+    if (row.uid !== me.uid && !admin) return fail(403, 'not_yours');
+    await env.DB.batch([
+      env.DB.prepare('DELETE FROM birds WHERE id = ?').bind(del[1]),
+      env.DB.prepare('DELETE FROM votes WHERE bird_id = ?').bind(del[1]),
+      env.DB.prepare('DELETE FROM flags WHERE bird_id = ?').bind(del[1]),
+    ]);
+    return json({ ok: true });
+  }
+
+  if (method === 'POST' && path === '/vote') {
+    const bird = String(body.bird || ''), v = Number(body.v);
+    if (!ID.test(bird) || ![-1, 0, 1].includes(v)) return fail(400, 'bad_vote');
+    if (v === 0) await env.DB.prepare('DELETE FROM votes WHERE uid = ? AND bird_id = ?').bind(me.uid, bird).run();
+    else await env.DB.prepare('INSERT INTO votes (uid, bird_id, v) SELECT ?, ?, ? WHERE EXISTS (SELECT 1 FROM birds WHERE id = ?) ON CONFLICT(uid, bird_id) DO UPDATE SET v = excluded.v')
+      .bind(me.uid, bird, v, bird).run();
+    return json({ ok: true });
+  }
+
+  if (method === 'POST' && path === '/flag') {
+    const bird = String(body.bird || '');
+    if (!ID.test(bird)) return fail(400, 'bad_flag');
+    if (body.on) await env.DB.prepare('INSERT OR IGNORE INTO flags (uid, bird_id) SELECT ?, ? WHERE EXISTS (SELECT 1 FROM birds WHERE id = ? AND uid != ?)')
+      .bind(me.uid, bird, bird, me.uid).run();
+    else await env.DB.prepare('DELETE FROM flags WHERE uid = ? AND bird_id = ?').bind(me.uid, bird).run();
+    return json({ ok: true });
+  }
+
+  if (method === 'POST' && path === '/flocks') {
+    const name = clean(body.name, 24);
+    if (!name) return fail(400, 'no_name');
+    const n = await env.DB.prepare('SELECT COUNT(*) AS n FROM flocks WHERE uid = ?').bind(me.uid).first('n');
+    if (n >= MAX_FLOCKS) return fail(409, 'too_many_flocks');
+    const id = newId();
+    await env.DB.prepare('INSERT INTO flocks (id, uid, name, birds, created, public) VALUES (?, ?, ?, ?, ?, ?)')
+      .bind(id, me.uid, name, '[]', Date.now(), body.public === false ? 0 : 1).run();
+    return json({ id });
+  }
+  const fl = /^\/flocks\/([a-z0-9]{16})(\/toggle)?$/.exec(path);
+  if (fl) {
+    const row = await env.DB.prepare('SELECT uid, birds FROM flocks WHERE id = ?').bind(fl[1]).first();
+    if (!row) return fail(404, 'not_found');
+    if (row.uid !== me.uid) return fail(403, 'not_yours');
+    if (method === 'DELETE' && !fl[2]) {
+      await env.DB.prepare('DELETE FROM flocks WHERE id = ?').bind(fl[1]).run();
+      return json({ ok: true });
+    }
+    if (method === 'POST' && fl[2]) {
+      const bird = String(body.bird || '');
+      if (!ID.test(bird)) return fail(400, 'bad_bird');
+      const list = JSON.parse(row.birds);
+      const had = list.includes(bird);
+      const next = had ? list.filter(b => b !== bird) : [...list, bird].slice(-100);
+      await env.DB.prepare('UPDATE flocks SET birds = ? WHERE id = ?').bind(JSON.stringify(next), fl[1]).run();
+      return json({ ok: true, added: !had });
+    }
+    if (method === 'POST') {
+      const name = body.name == null ? null : clean(body.name, 24);
+      await env.DB.prepare('UPDATE flocks SET name = COALESCE(?, name), public = COALESCE(?, public) WHERE id = ?')
+        .bind(name || null, typeof body.public === 'boolean' ? (body.public ? 1 : 0) : null, fl[1]).run();
+      return json({ ok: true });
+    }
+  }
+  return fail(404, 'not_found');
+}
+
+// Share links (/k/<bird>) get their own preview card for chat apps and social sites.
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+async function sharePage(req, env, url, birdId) {
+  const page = await env.ASSETS.fetch(new Request(new URL('/', url)));
+  const bird = await env.DB.prepare('SELECT b.name, u.name AS author FROM birds b LEFT JOIN users u ON u.uid = b.uid WHERE b.id = ?').bind(birdId).first();
+  if (!bird) return page;
+  const title = `${bird.name} · DrawBird`;
+  const desc = `${bird.author || 'Bir kuşçu'} bu kuşu çizdi. Sen de bir kuş çiz, ortak gökyüzünde uçsun.`;
+  const image = new URL('/api/img/' + birdId, url).toString();
+  return new HTMLRewriter()
+    .on('title', { element(e) { e.setInnerContent(title); } })
+    .on('meta[property="og:title"]', { element(e) { e.setAttribute('content', title); } })
+    .on('meta[property="og:description"]', { element(e) { e.setAttribute('content', desc); } })
+    .on('meta[property="og:image"]', { element(e) { e.setAttribute('content', image); } })
+    .on('meta[property="og:url"]', { element(e) { e.setAttribute('content', url.toString()); } })
+    .on('meta[name="twitter:card"]', { element(e) { e.setAttribute('content', 'summary'); } })
+    .on('head', { element(e) { e.append(`<meta name="drawbird:share" content="${esc(birdId)}">`, { html: true }); } })
+    .transform(page);
+}
+
+export default {
+  async fetch(req, env) {
+    const url = new URL(req.url);
+    if (url.pathname.startsWith('/api/')) {
+      try { return await handleApi(req, env, url); }
+      catch (e) { console.error(e); return fail(500, 'server_error'); }
+    }
+    const share = /^\/k\/([a-z0-9]{16})$/.exec(url.pathname);
+    if (share && req.method === 'GET') return sharePage(req, env, url, share[1]);
+    return env.ASSETS.fetch(req);
+  },
+};

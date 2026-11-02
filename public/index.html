@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>DrawBird</title>
+<meta name="description" content="Bir kuş çiz, herkesin kuşlarıyla aynı gökyüzünde uçsun.">
+<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#7cc3ee">
+<meta property="og:type" content="website">
+<meta property="og:title" content="DrawBird">
+<meta property="og:description" content="Bir kuş çiz, herkesin kuşlarıyla aynı gökyüzünde uçsun.">
+<meta property="og:image" content="/og-card.png">
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Rubik:wght@400;500;700&display=swap">
+<style>
+  /* Layout: full-bleed sky scene; floating nav pill; content panels float over the sky like paper notes. */
+  :root {
+    --bg: #cfe9fb;
+    --sky-top: #7cc3ee;
+    --sky-bottom: #e4f4ff;
+    --hill: #8fcf8a;
+    --paper: #ffffff;
+    --ink: #1b2740;
+    --muted: #5d6b83;
+    --line: rgba(27, 39, 64, .14);
+    --chip: #edf2f8;
+    --beak: #f2b705;
+    --beak-ink: #2b2100;
+    --good: #2f9e44;
+    --bad: #d6336c;
+    --shadow: 0 10px 34px rgba(27, 39, 64, .14);
+    --font-display: "Caveat", "Comic Sans MS", cursive;
+    --font-body: "Rubik", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0d1630; --sky-top: #0b1533; --sky-bottom: #2b3a67; --hill: #16263f;
+      --paper: #18233d; --ink: #e8eefb; --muted: #9aa8c4; --line: rgba(232, 238, 251, .16);
+      --chip: #22304f; --beak: #f7c948; --beak-ink: #221a00; --good: #69db7c; --bad: #f783ac;
+      --shadow: 0 10px 34px rgba(0, 0, 0, .45); color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d1630; --sky-top: #0b1533; --sky-bottom: #2b3a67; --hill: #16263f;
+    --paper: #18233d; --ink: #e8eefb; --muted: #9aa8c4; --line: rgba(232, 238, 251, .16);
+    --chip: #22304f; --beak: #f7c948; --beak-ink: #221a00; --good: #69db7c; --bad: #f783ac;
+    --shadow: 0 10px 34px rgba(0, 0, 0, .45); color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  img { max-width: 100%; }
+  html, body { height: 100%; }
+  :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  body {
+    margin: 0; font-size: 14px; font-family: var(--font-body); color: var(--ink);
+    background: linear-gradient(var(--sky-top), var(--sky-bottom)) fixed, var(--bg);
+    overflow-x: hidden;
+  }
+  button, input, select { font: inherit; color: inherit; }
+  :focus-visible { outline: 3px solid var(--beak); outline-offset: 2px; }
+
+  nav.top {
+    position: fixed; z-index: 20; left: 50%; transform: translateX(-50%);
+    top: calc(env(safe-area-inset-top, 0px) + 10px);
+    display: flex; gap: 4px; padding: 5px; border-radius: 999px;
+    background: var(--paper); box-shadow: var(--shadow); max-width: calc(100% - 32px); overflow-x: auto;
+  }
+  nav.top a {
+    padding: 8px 14px; border-radius: 999px; text-decoration: none; color: var(--ink);
+    font-weight: 500; white-space: nowrap;
+  }
+  nav.top a.on { background: var(--ink); color: var(--paper); }
+  .view[hidden] { display: none !important; }
+  .page {
+    padding-block: 76px 40px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .banner {
+    max-width: 960px; margin: 0 auto 14px; padding: 10px 14px; border-radius: 12px;
+    background: var(--chip); color: var(--muted); font-size: 14px;
+  }
+  h1.hand { font-family: var(--font-display); font-weight: 700; font-size: 44px; line-height: 1; margin: 0; text-wrap: balance; }
+  .sub { color: var(--muted); margin: 4px 0 0; font-size: 15px; }
+
+  .btn {
+    border: 0; border-radius: 10px; padding: 8px 12px; font-weight: 500; cursor: pointer;
+    background: var(--chip); color: var(--ink); display: inline-flex; gap: 6px; align-items: center;
+  }
+  .btn:hover { filter: brightness(.96); }
+  .btn.on { background: var(--ink); color: var(--paper); }
+  .btn.beak { background: var(--beak); color: var(--beak-ink); font-weight: 700; }
+  .btn.big { font-size: 19px; padding: 12px 24px; border-radius: 14px; }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+  .btn.small { padding: 5px 9px; font-size: 13px; border-radius: 8px; }
+  .btn.up.on { background: var(--good); color: var(--paper); }
+  .btn.down.on { background: var(--bad); color: var(--paper); }
+  input[type=text], select {
+    padding: 9px 11px; border-radius: 10px; border: 2px solid var(--line); background: var(--paper);
+  }
+
+  /* ---- Çiz ---- */
+  .studio {
+    max-width: 580px; margin: 0 auto; background: var(--paper); border-radius: 22px;
+    padding: 20px; box-shadow: var(--shadow); display: grid; gap: 14px; justify-items: center; text-align: center;
+  }
+  .tools { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; }
+  .swatch { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line); cursor: pointer; padding: 0; }
+  .swatch.on { outline: 3px solid var(--beak); outline-offset: 2px; }
+  .size { display: inline-flex; gap: 6px; align-items: center; color: var(--muted); font-size: 14px; }
+  #pad {
+    width: 100%; max-width: 500px; aspect-ratio: 4 / 3; touch-action: none; cursor: crosshair;
+    border-radius: 14px; border: 2px dashed var(--line);
+    background: #ffffff; /* drawing paper stays white in both themes so colors read true */
+  }
+  .guide { font-size: 13px; color: var(--muted); }
+  .row { display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; }
+  .verdict {
+    width: 100%; border-radius: 12px; padding: 12px; background: var(--chip); text-align: left;
+    display: grid; gap: 8px; font-size: 15px;
+  }
+  .verdict .meter { height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; }
+  .verdict .meter span { display: block; height: 100%; background: var(--beak); }
+
+  /* ---- Gökyüzü ---- */
+  #sky { position: fixed; inset: 0; }
+  #skyCanvas { width: 100%; height: 100%; display: block; touch-action: manipulation; }
+  .skybar {
+    position: fixed; z-index: 5; left: 50%; transform: translateX(-50%);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+    width: min(760px, calc(100% - 24px));
+    background: var(--paper); padding: 8px 12px; border-radius: 16px; box-shadow: var(--shadow);
+    display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: center; font-size: 14px;
+  }
+  .skybar label { display: inline-flex; gap: 6px; align-items: center; }
+  .skybar input[type=range] { width: 110px; }
+  .skyhint { color: var(--muted); font-size: 12px; width: 100%; text-align: center; }
+  .skyempty {
+    position: fixed; top: 38%; left: 50%; transform: translate(-50%, -50%); text-align: center;
+    background: var(--paper); padding: 18px 22px; border-radius: 18px; box-shadow: var(--shadow); max-width: calc(100% - 32px);
+  }
+  #tip {
+    position: fixed; z-index: 15; background: var(--paper); border-radius: 14px; padding: 12px;
+    box-shadow: var(--shadow); font-size: 14px; width: 220px; display: grid; gap: 8px;
+  }
+  #tip .who { color: var(--muted); font-size: 13px; }
+
+  /* ---- Sıralama / Profil ---- */
+  .head { max-width: 1000px; margin: 0 auto 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: end; justify-content: space-between; }
+  .sorts { display: flex; gap: 6px; flex-wrap: wrap; }
+  .grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
+  .card {
+    background: var(--paper); border-radius: 16px; padding: 12px; box-shadow: var(--shadow);
+    display: grid; gap: 6px; align-content: start; min-width: 0;
+  }
+  .card .art { height: 112px; display: grid; place-items: center; background: #ffffff; border-radius: 10px; }
+  .card .art img { max-height: 100px; object-fit: contain; }
+  .card .name { font-family: var(--font-display); font-size: 26px; line-height: 1; overflow-wrap: anywhere; }
+  .card .meta { font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
+  .card .meta a { color: inherit; }
+  .card .acts { display: flex; gap: 6px; flex-wrap: wrap; }
+  .card.flagged { opacity: .55; }
+  .score { font-variant-numeric: tabular-nums; font-weight: 700; }
+  .empty { max-width: 520px; margin: 30px auto; text-align: center; color: var(--muted); background: var(--paper); border-radius: 16px; padding: 22px; }
+  .section-title { max-width: 1000px; margin: 28px auto 10px; font-family: var(--font-display); font-size: 32px; }
+  .flocks { max-width: 1000px; margin: 0 auto; display: grid; gap: 10px; }
+  .flock { background: var(--paper); border-radius: 14px; padding: 10px 12px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; box-shadow: var(--shadow); }
+  .flock .thumbs { display: flex; gap: 4px; flex: 1; min-width: 0; overflow-x: auto; }
+  .flock .thumbs img { height: 36px; background: #ffffff; border-radius: 6px; }
+
+  .foot { text-align: center; color: var(--muted); font-size: 13px; margin: 18px 0 0; }
+  .foot a { color: inherit; }
+  .code { font-family: ui-monospace, Consolas, monospace; font-size: 12px; background: var(--chip); padding: 6px 8px; border-radius: 8px; overflow-wrap: anywhere; min-width: 0; flex: 1; }
+  .stats { max-width: 1000px; margin: 0 auto 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .stats div { background: var(--paper); border-radius: 12px; padding: 10px 14px; box-shadow: var(--shadow); }
+  .stats b { font-size: 22px; font-variant-numeric: tabular-nums; display: block; }
+  #toasts {
+    position: fixed; z-index: 30; right: max(12px, env(safe-area-inset-right, 0px));
+    top: calc(env(safe-area-inset-top, 0px) + 64px); display: grid; gap: 8px; max-width: calc(100% - 24px);
+  }
+  .toast { background: var(--ink); color: var(--paper); padding: 10px 14px; border-radius: 12px; box-shadow: var(--shadow); font-size: 14px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<nav class="top">
+  <a href="#ciz" data-v="ciz">Çiz</a>
+  <a href="#gok" data-v="gok">Gökyüzü</a>
+  <a href="#sira" data-v="sira">Sıralama</a>
+  <a href="#profil" data-v="profil">Profil</a>
+  <a href="#yonetim" data-v="yonetim" id="navAdmin" hidden>Yönetim</a>
+</nav>
+<div id="toasts" aria-live="polite"></div>
+
+<section id="ciz" class="view page">
+  <div class="banner" id="modeBanner" hidden></div>
+  <div class="studio">
+    <div>
+      <h1 class="hand">Bir kuş çiz, gökyüzüne sal</h1>
+      <p class="sub">Gagası sağa baksın. Kanatlar üst yarıda olursa çırparak uçar.</p>
+    </div>
+    <div class="tools" id="palette"></div>
+    <div class="tools">
+      <button class="btn" id="eraser" type="button">Silgi</button>
+      <label class="size" for="size">Kalınlık <input type="range" id="size" min="1" max="24" value="6"></label>
+      <button class="btn" id="undo" type="button">Geri al</button>
+      <button class="btn" id="clear" type="button">Temizle</button>
+      <button class="btn" id="flip" type="button">Çevir</button>
+    </div>
+    <canvas id="pad" width="500" height="375" aria-label="Kuş çizim alanı"></canvas>
+    <div class="guide">Kesik çizgi = kanat çizgisi. Üstü çırpar, altı gövde olarak kalır.</div>
+    <div class="row">
+      <input type="text" id="birdName" maxlength="24" placeholder="Kuşunun adı" aria-label="Kuşunun adı">
+      <button class="btn beak big" id="fly" type="button">uçur!</button>
+    </div>
+    <div class="verdict" id="verdict" hidden></div>
+  </div>
+  <p class="foot">Kuşlar herkese açıktır; uygunsuz çizimi Bildir ile işaretle. <a href="/gizlilik.html">Gizlilik ve kurallar</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></p>
+</section>
+
+<section id="gok" class="view" hidden>
+  <div id="sky"><canvas id="skyCanvas" aria-label="Kuşların uçtuğu ortak gökyüzü"></canvas></div>
+  <div class="skyempty" id="skyEmpty" hidden>
+    <h1 class="hand">Gökyüzü daha boş</h1>
+    <p class="sub">İlk kuşu sen çiz; buradaki herkes onu görecek.</p>
+    <p><a class="btn beak" href="#ciz">Kuş çiz</a></p>
+  </div>
+  <div class="skybar">
+    <label for="skyMode">Göster
+      <select id="skyMode">
+        <option value="new">En yeniler</option>
+        <option value="pop">En sevilenler</option>
+        <option value="rand">Rastgele</option>
+      </select>
+    </label>
+    <label for="skyCount">Kuş sayısı <input type="range" id="skyCount" min="1" max="100" value="30"> <span id="skyCountVal" class="score">30</span></label>
+    <label for="skySpeed">Hız <input type="range" id="skySpeed" min="0.3" max="2" step="0.1" value="1"></label>
+    <button class="btn small" id="skyShuffle" type="button">Yenile</button>
+    <button class="btn small" id="feedBtn" type="button">Yem modu</button>
+    <label for="notify"><input type="checkbox" id="notify" checked> Yeni kuş bildirimi</label>
+    <button class="btn small" id="nightBtn" type="button">Gece</button>
+    <div class="skyhint">Kuşa dokun: oy ver. Yem atmak için Shift+tıkla, sağ tıkla ya da Yem modunu aç.</div>
+  </div>
+  <div id="tip" hidden></div>
+</section>
+
+<section id="sira" class="view page" hidden>
+  <div class="head">
+    <div>
+      <h1 class="hand">Sürünün yıldızları</h1>
+      <p class="sub" id="rankSub"></p>
+    </div>
+    <div class="sorts" role="group" aria-label="Sıralama">
+      <button class="btn small on" data-sort="hot" type="button">Yükselen</button>
+      <button class="btn small" data-sort="score" type="button">Puan</button>
+      <button class="btn small" data-sort="date" type="button">Tarih</button>
+      <button class="btn small" data-sort="rand" type="button">Rastgele</button>
+    </div>
+  </div>
+  <div class="grid" id="rankGrid"></div>
+  <div class="row" style="margin-top:16px"><button class="btn" id="rankMore" type="button" hidden>Daha fazla göster</button></div>
+</section>
+
+<section id="yonetim" class="view page" hidden>
+  <div class="head">
+    <div>
+      <h1 class="hand">Yönetim</h1>
+      <p class="sub">Bildirilen kuşlar ve engellenen kuşçular. Yalnız yönetici anahtarıyla görünür.</p>
+    </div>
+    <button class="btn small" id="admRefresh" type="button">Yenile</button>
+  </div>
+  <div class="stats" id="admStats"></div>
+  <div class="grid" id="admGrid"></div>
+  <h2 class="section-title">Engellenenler</h2>
+  <div class="flocks" id="admBans"></div>
+</section>
+
+<section id="profil" class="view page" hidden>
+  <div class="head">
+    <div>
+      <h1 class="hand" id="profTitle">Kuşların</h1>
+      <p class="sub" id="profSub"></p>
+    </div>
+    <div class="row"><button class="btn small" id="profShare" type="button">Profil linkini kopyala</button><button class="btn small" id="profMine" type="button" hidden>Kendi profilime dön</button></div>
+  </div>
+  <div class="grid" id="profGrid"></div>
+  <div id="meArea" class="flocks">
+    <div class="flock">
+      <label for="nick"><b>Kuşçu adın</b></label>
+      <input type="text" id="nick" maxlength="24" placeholder="Herkes bu adı görür">
+      <button class="btn small" id="nickSave" type="button">Kaydet</button>
+    </div>
+    <div class="flock">
+      <b>Kurtarma kodu</b>
+      <span class="code" id="recCode">••••••••••••</span>
+      <button class="btn small" id="recShow" type="button">Göster ve kopyala</button>
+      <span class="meta">Başka cihazda kuşlarına ulaşmak için bu kodu sakla. Kimseyle paylaşma.</span>
+    </div>
+    <div class="flock">
+      <label for="recInput"><b>Kodla giriş</b></label>
+      <input type="text" id="recInput" autocomplete="off" placeholder="Kurtarma kodunu yapıştır">
+      <button class="btn small" id="recUse" type="button">Bu cihazda kullan</button>
+    </div>
+    <div class="flock">
+      <label for="adminKey"><b>Yönetici anahtarı</b></label>
+      <input type="text" id="adminKey" autocomplete="off" placeholder="Yalnız site sahibi için">
+      <button class="btn small" id="adminSave" type="button">Kaydet</button>
+      <span class="meta" id="adminState"></span>
+    </div>
+  </div>
+  <h2 class="section-title" id="otherFlocksTitle" hidden>Sürüleri</h2>
+  <div class="flocks" id="otherFlocks"></div>
+  <div id="flockArea">
+    <h2 class="section-title">Sürülerin</h2>
+    <div class="flocks" id="flockList"></div>
+    <div class="row" style="margin-top:12px">
+      <input type="text" id="flockName" maxlength="24" placeholder="Yeni sürü adı" aria-label="Yeni sürü adı">
+      <button class="btn" id="flockAdd" type="button">Sürü kur</button>
+    </div>
+  </div>
+</section>
+
+<script>
+(() => {
+  // ================= data layer =================
+  // Cloudflare Worker + D1. Each browser holds an anonymous device token; the server knows it only as a hash.
+  const MAX_BIRDS = 8;
+  let HIDE_FLAGS = 3;
+  const S = {
+    mode: 'loading', me: null, isOwner: false, banned: false,
+    list: [], names: {}, flockRows: [], mine: { v: {}, f: {} },
+    known: new Set(), firstLoad: true, birdsLoaded: false,
+  };
+  const subs = [];
+  const onChange = fn => subs.push(fn);
+  const emit = () => subs.forEach(fn => { try { fn(); } catch (e) { console.error(e); } });
+
+  const lsGet = (k, d) => { try { return localStorage.getItem(k) ?? d; } catch { return d; } };
+  const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch { /* private mode: token lives for this visit only */ } };
+  let token = lsGet('drawbird.token', '');
+  if (!/^[A-Za-z0-9_-]{32,128}$/.test(token)) {
+    token = [...crypto.getRandomValues(new Uint8Array(24))].map(b => b.toString(16).padStart(2, '0')).join('');
+    lsSet('drawbird.token', token);
+  }
+  let adminKey = lsGet('drawbird.admin', '');
+
+  let nextFresh = false;
+  async function api(path, opts = {}) {
+    const headers = { authorization: 'Bearer ' + token };
+    if (adminKey) headers['x-admin-key'] = adminKey;
+    if (opts.body) headers['content-type'] = 'application/json';
+    const res = await fetch('/api' + path, { method: opts.method || (opts.body ? 'POST' : 'GET'), headers, body: opts.body ? JSON.stringify(opts.body) : undefined });
+    const data = await res.json().catch(() => ({}));
+    if ((opts.method || (opts.body ? 'POST' : 'GET')) !== 'GET') nextFresh = true;
+    if (!res.ok) throw { code: data.error || 'server_error', status: res.status };
+    return data;
+  }
+
+  let refreshing = null;
+  function refresh() {
+    if (refreshing) return refreshing;
+    const fresh = nextFresh; nextFresh = false;
+    refreshing = api('/state' + (fresh ? '?fresh=1' : '')).then(d => {
+      S.mode = 'remote'; S.birdsLoaded = true;
+      S.me = d.me?.uid || 'anon'; S.myName = d.me?.name || '';
+      S.isOwner = !!d.admin; S.banned = !!d.me?.banned; HIDE_FLAGS = d.hideFlags || 3;
+      S.list = d.birds; S.names = d.names; S.flockRows = d.flocks; S.mine = d.mine;
+      emit();
+    }, () => {
+      if (S.mode === 'loading') { const b = document.getElementById('modeBanner'); b.textContent = 'Gökyüzüne bağlanılamadı. Biraz sonra tekrar dene.'; b.hidden = false; }
+    }).finally(() => { refreshing = null; });
+    return refreshing;
+  }
+  // Light polling keeps the sky live; pauses while the tab is hidden.
+  setInterval(() => { if (!document.hidden) refresh(); }, 30000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+
+  // ---- derived view of every bird ----
+  function allBirds() {
+    return S.list.map(b => {
+      const score = b.up - b.down;
+      const hours = Math.max(0, (Date.now() - b.created) / 36e5);
+      return { ...b, key: b.id, author: b.uid, img: '/api/img/' + b.id, score,
+               hot: (score + 1) / Math.pow(hours + 2, 1.3), hidden: b.flags >= HIDE_FLAGS };
+    });
+  }
+  const myVotes = () => S.mine;
+  // Flocks keyed by owner like before: { uid: { list: [...] } }
+  const flocksByOwner = () => {
+    const out = {};
+    for (const f of S.flockRows) (out[f.uid] || (out[f.uid] = { list: [] })).list.push(f);
+    return out;
+  };
+  async function vote(key, val) {
+    const cur = S.mine.v[key];
+    await api('/vote', { body: { bird: key, v: cur === val ? 0 : val } }).catch(writeFailed);
+    await refresh();
+  }
+  async function flag(key) {
+    const on = !S.mine.f[key];
+    await api('/flag', { body: { bird: key, on } }).catch(writeFailed);
+    await refresh();
+    toast(on ? 'Bildirildi. Üç bildirimde kuş gökyüzünden iner.' : 'Bildirim geri alındı.');
+  }
+  async function removeBird(b) {
+    await api('/birds/' + b.id, { method: 'DELETE' }).catch(writeFailed);
+    await refresh();
+  }
+  function writeFailed(e) {
+    const code = e?.code;
+    if (code === 'too_many_birds') toast(`En fazla ${MAX_BIRDS} kuşun olabilir. Profilinden birini sil.`);
+    else if (code === 'too_many_flocks') toast('En fazla 12 sürü kurabilirsin.');
+    else if (code === 'not_yours') toast('Bu senin kuşun değil.');
+    else if (code === 'banned') toast('Bu cihazdan kuş gönderimi kapatıldı.');
+    else if (code === 'too_large' || code === 'bad_image') toast('Çizim çok büyük. Biraz sadeleştirip tekrar dene.');
+    else toast('Kaydedilemedi, birazdan tekrar dene.');
+    throw e;
+  }
+  async function resolveNames(ids) {
+    const out = {};
+    for (const id of ids) out[id] = id === S.me ? 'Sen' : (S.names[id] || 'Bir kuşçu');
+    return out;
+  }
+
+  // ================= ui helpers =================
+  const $ = id => document.getElementById(id);
+  function toast(msg) {
+    const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
+    $('toasts').appendChild(t); setTimeout(() => t.remove(), 4200);
+  }
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const fmtDate = ts => new Date(ts).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short', year: 'numeric' });
+
+  // ================= router =================
+  const VIEWS = ['ciz', 'gok', 'sira', 'profil', 'yonetim'];
+  let view = 'ciz', profileOf = null;
+  function route() {
+    view = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'ciz';
+    VIEWS.forEach(v => { $(v).hidden = v !== view; });
+    document.querySelectorAll('nav.top a').forEach(a => a.classList.toggle('on', a.dataset.v === view));
+    if (view === 'gok') startSky(); else stopSky();
+    if (view === 'sira') renderRank();
+    if (view === 'profil') renderProfile();
+    if (view === 'yonetim') renderAdmin();
+  }
+  addEventListener('hashchange', route);
+  onChange(() => {
+    if (view === 'sira') renderRank();
+    if (view === 'profil') renderProfile();
+    if (view === 'gok') syncFlock();
+    notifyNewcomers();
+  });
+
+  function notifyNewcomers() {
+    const birds = allBirds();
+    const fresh = birds.filter(b => !S.known.has(b.key));
+    fresh.forEach(b => S.known.add(b.key));
+    // The first birds delivery is the existing sky, not news.
+    if (S.firstLoad) { if (S.birdsLoaded) S.firstLoad = false; return; }
+    const others = fresh.filter(b => b.author !== S.me && !b.hidden);
+    if (others.length && $('notify').checked) {
+      resolveNames(others.map(b => b.author)).then(n => others.slice(0, 3).forEach(b => toast(`${n[b.author] || 'Biri'} yeni bir kuş saldı: ${b.name}`)));
+    }
+  }
+
+  // ================= drawing =================
+  const pad = $('pad');
+  const pg = pad.getContext('2d', { willReadFrequently: true });
+  const colors = ['#1b2740', '#e03131', '#f08c00', '#f2b705', '#2f9e44', '#1c7ed6', '#7048e8', '#8d5524', '#ffffff'];
+  let color = colors[0], erasing = false, drawing = false, last = null;
+  const history = [];
+  const palette = $('palette');
+  colors.forEach((c, i) => {
+    const b = el('button', 'swatch' + (i === 0 ? ' on' : ''));
+    b.type = 'button'; b.style.background = c; b.title = c; b.setAttribute('aria-label', 'Renk ' + c);
+    b.onclick = () => { color = c; setEraser(false); palette.querySelectorAll('.swatch').forEach(s => s.classList.toggle('on', s === b)); };
+    palette.appendChild(b);
+  });
+  const custom = el('input'); custom.type = 'color'; custom.value = '#ff6b9d'; custom.title = 'Özel renk'; custom.setAttribute('aria-label', 'Özel renk');
+  custom.oninput = () => { color = custom.value; setEraser(false); palette.querySelectorAll('.swatch').forEach(s => s.classList.remove('on')); };
+  palette.appendChild(custom);
+  function setEraser(on) { erasing = on; $('eraser').classList.toggle('on', on); }
+  $('eraser').onclick = () => setEraser(!erasing);
+
+  function drawGuide() {
+    // Dashed midline lives on the CSS layer, not in the drawing, so it never gets saved.
+    pad.style.backgroundImage = 'linear-gradient(to right, rgba(27,39,64,.18) 50%, transparent 50%)';
+    pad.style.backgroundSize = '14px 2px';
+    pad.style.backgroundRepeat = 'repeat-x';
+    pad.style.backgroundPosition = '0 50%';
+  }
+  drawGuide();
+  const snapshot = () => { history.push(pg.getImageData(0, 0, pad.width, pad.height)); if (history.length > 40) history.shift(); };
+  const toPad = e => { const r = pad.getBoundingClientRect(); return { x: (e.clientX - r.left) * pad.width / r.width, y: (e.clientY - r.top) * pad.height / r.height }; };
+  function stroke(a, b) {
+    pg.globalCompositeOperation = erasing ? 'destination-out' : 'source-over';
+    pg.strokeStyle = color; pg.lineWidth = +$('size').value * (erasing ? 2.2 : 1);
+    pg.lineCap = pg.lineJoin = 'round';
+    pg.beginPath(); pg.moveTo(a.x, a.y); pg.lineTo(b.x, b.y); pg.stroke();
+  }
+  pad.addEventListener('pointerdown', e => { snapshot(); drawing = true; last = toPad(e); pad.setPointerCapture(e.pointerId); stroke(last, { x: last.x + .01, y: last.y }); });
+  pad.addEventListener('pointermove', e => { if (!drawing) return; const p = toPad(e); stroke(last, p); last = p; });
+  const endStroke = () => { drawing = false; };
+  pad.addEventListener('pointerup', endStroke); pad.addEventListener('pointercancel', endStroke);
+  $('undo').onclick = () => { const s = history.pop(); if (s) pg.putImageData(s, 0, 0); };
+  $('clear').onclick = () => { snapshot(); pg.clearRect(0, 0, pad.width, pad.height); };
+  $('flip').onclick = () => {
+    snapshot();
+    const tmp = el('canvas'); tmp.width = pad.width; tmp.height = pad.height; tmp.getContext('2d').drawImage(pad, 0, 0);
+    pg.globalCompositeOperation = 'source-over'; pg.clearRect(0, 0, pad.width, pad.height);
+    pg.save(); pg.translate(pad.width, 0); pg.scale(-1, 1); pg.drawImage(tmp, 0, 0); pg.restore();
+  };
+
+  // Crop to drawn pixels; keep the wing line at the vertical middle of the result.
+  function cropDrawing() {
+    const { data, width, height } = pg.getImageData(0, 0, pad.width, pad.height);
+    let x0 = width, y0 = height, x1 = -1, y1 = -1, ink = 0;
+    for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
+      if (data[(y * width + x) * 4 + 3] > 20) { ink++; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    }
+    if (ink < 300 || x1 - x0 < 30 || y1 - y0 < 20) return null;
+    const mid = height / 2, half = Math.max(mid - y0, y1 - mid, 10);
+    const top = Math.max(0, Math.floor(mid - half)), h = Math.min(height, Math.ceil(mid + half)) - top, w = x1 - x0 + 1;
+    const k = Math.min(1, 150 / Math.max(w, h));
+    const out = el('canvas'); out.width = Math.max(1, Math.round(w * k)); out.height = Math.max(1, Math.round(h * k));
+    out.getContext('2d').drawImage(pad, x0, top, w, h, 0, 0, out.width, out.height);
+    let url = out.toDataURL('image/webp', .9);
+    if (!url.startsWith('data:image/webp')) url = out.toDataURL('image/png');
+    return { url, canvas: out };
+  }
+
+  $('fly').onclick = () => {
+    const v = $('verdict');
+    const crop = cropDrawing();
+    if (!crop) { v.hidden = false; v.replaceChildren(el('div', null, 'Bu kuş biraz küçük kaldı. Biraz daha çiz.')); return; }
+    if (S.mode === 'loading') { toast('Gökyüzü hâlâ yükleniyor, bir saniye.'); return; }
+    if (S.banned) { v.hidden = false; v.replaceChildren(el('div', null, 'Bu cihazdan kuş gönderimi kapatıldı.')); return; }
+    const mine = S.list.filter(b => b.uid === S.me);
+    if (mine.length >= MAX_BIRDS) { v.hidden = false; v.replaceChildren(el('div', null, `En fazla ${MAX_BIRDS} kuşun olabilir. Profilinden birini sil.`)); return; }
+    v.hidden = true;
+    commit({ name: $('birdName').value.trim().slice(0, 24) || 'İsimsiz kuş', img: crop.url });
+  };
+  async function commit(bird) {
+    const v = $('verdict');
+    $('fly').disabled = true;
+    let id;
+    try { ({ id } = await api('/birds', { body: { name: bird.name, img: bird.img } })); }
+    catch (e) { $('fly').disabled = false; try { writeFailed(e); } catch { /* shown */ } return; }
+    $('fly').disabled = false;
+    pg.clearRect(0, 0, pad.width, pad.height); history.length = 0; $('birdName').value = '';
+    v.hidden = true;
+    toast('Kuşun yolda! Linkini paylaşmak için kuşa dokun.');
+    newcomerKey = id;
+    S.known.add(id);
+    await refresh();
+    location.hash = 'gok';
+  }
+
+  // ================= sky =================
+  const sky = $('skyCanvas'), sg = sky.getContext('2d'), tip = $('tip');
+  let ents = new Map(), clouds = [], seeds = [], distant = [], raf = 0, W = 0, H = 0, lastT = 0, newcomerKey = null;
+  let leaving = [], speedK = 1, focusKey = null;
+  let night = matchMedia('(prefers-color-scheme: dark)').matches, feedMode = false, randSeed = Math.random();
+  const imgCache = new Map();
+  const imgFor = b => { let i = imgCache.get(b.key); if (!i) { i = new Image(); i.src = b.img; imgCache.set(b.key, i); } return i; };
+  $('nightBtn').textContent = night ? 'Gündüz' : 'Gece';
+
+  function resize() {
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    W = innerWidth; H = innerHeight; sky.width = W * dpr; sky.height = H * dpr; sg.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  const hash01 = s => { let h = 2166136261 ^ Math.floor(randSeed * 1e9); for (const c of s) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return ((h >>> 0) % 1e6) / 1e6; };
+  function pickBirds() {
+    const list = allBirds().filter(b => !b.hidden);
+    const mode = $('skyMode').value, n = +$('skyCount').value;
+    let pool;
+    if (mode.startsWith('flock:')) {
+      const [, owner, fid] = mode.split(':');
+      const fl = S.flockRows.find(f => f.id === fid);
+      const keys = new Set(fl?.birds || []);
+      pool = list.filter(b => keys.has(b.key));
+    } else if (mode === 'pop') pool = list.sort((a, b) => b.score - a.score || b.created - a.created);
+    else if (mode === 'rand') pool = list.sort((a, b) => hash01(a.key) - hash01(b.key));
+    else pool = list.sort((a, b) => b.created - a.created);
+    return pool.slice(0, n);
+  }
+  const altitude = () => 90 + Math.random() * Math.max(60, H - 260);
+  function syncFlock() {
+    if (!raf) return;
+    const chosen = pickBirds(), keep = new Map();
+    for (const b of chosen) {
+      let f = ents.get(b.key);
+      if (!f) {
+        const isNew = b.key === newcomerKey;
+        f = { x: isNew ? -80 : Math.random() * W, y: isNew ? H * .4 : altitude(), dir: 1, turn: 1,
+              speed: 45 + Math.random() * 55, phase: Math.random() * 6.28, flapRate: 5 + Math.random() * 4,
+              scale: .6 + Math.random() * .4, targetY: altitude(), peck: 0 };
+        if (!isNew && Math.random() < .5) f.dir = -1;
+      }
+      f.b = b; f.img = imgFor(b); keep.set(b.key, f);
+    }
+    newcomerKey = null;
+    for (const [k, f] of ents) if (!keep.has(k)) { f.leave = 1; leaving.push(f); }
+    ents = keep;
+    document.title = `DrawBird · ${ents.size} kuş uçuyor`;
+    if (focusKey && ents.has(focusKey)) {
+      const f = ents.get(focusKey); focusKey = null;
+      setTimeout(() => showTip(f.b.key, Math.min(W - 240, Math.max(20, f.x)), Math.max(80, f.y)), 600);
+    }
+    $('skyEmpty').hidden = S.mode === 'loading' || allBirds().some(b => !b.hidden);
+    refreshFlockOptions();
+  }
+  function refreshFlockOptions() {
+    const sel = $('skyMode'), cur = sel.value;
+    [...sel.querySelectorAll('option[data-flock]')].forEach(o => o.remove());
+    for (const [owner, doc] of Object.entries(flocksByOwner())) for (const f of (doc?.list || [])) {
+      const o = el('option', null, (owner === S.me ? 'Sürüm: ' : 'Sürü: ') + f.name);
+      o.value = `flock:${owner}:${f.id}`; o.dataset.flock = '1'; sel.appendChild(o);
+    }
+    sel.value = [...sel.options].some(o => o.value === cur) ? cur : 'new';
+  }
+  function drawCloud(c) {
+    sg.fillStyle = night ? 'rgba(200,210,240,.14)' : 'rgba(255,255,255,.88)';
+    sg.beginPath();
+    for (const [dx, dy, r] of [[0, 0, 26], [28, -10, 32], [58, 0, 26], [30, 8, 24]]) sg.arc(c.x + dx * c.s, c.y + dy * c.s, r * c.s, 0, Math.PI * 2);
+    sg.fill();
+  }
+  function drawBird(f) {
+    const img = f.img;
+    if (!img.complete || !img.naturalWidth) return;
+    const w = img.naturalWidth * f.scale, h = img.naturalHeight * f.scale, split = img.naturalHeight / 2;
+    const flap = f.peck > 0 ? .9 : Math.cos(f.phase);
+    sg.save();
+    sg.translate(f.x, f.y + (f.peck > 0 ? 0 : Math.sin(f.phase) * 4));
+    sg.scale(f.dir * f.turn, 1);
+    sg.rotate(f.peck > 0 ? .28 * Math.abs(Math.sin(f.phase * 2)) : Math.max(-.22, Math.min(.22, (f.targetY - f.y) / 420)));
+    sg.drawImage(img, 0, split, img.naturalWidth, img.naturalHeight - split, -w / 2, 0, w, h / 2);
+    sg.save(); sg.scale(1, .25 + .75 * flap);
+    sg.drawImage(img, 0, 0, img.naturalWidth, split, -w / 2, -h / 2, w, h / 2);
+    sg.restore(); sg.restore();
+  }
+  function frame(t) {
+    const rdt = Math.min(.05, (t - (lastT || t)) / 1000); lastT = t;
+    const dt = rdt * speedK;
+    const grd = sg.createLinearGradient(0, 0, 0, H);
+    if (night) { grd.addColorStop(0, '#0b1533'); grd.addColorStop(1, '#2b3a67'); } else { grd.addColorStop(0, '#7cc3ee'); grd.addColorStop(1, '#e4f4ff'); }
+    sg.fillStyle = grd; sg.fillRect(0, 0, W, H);
+    if (night) {
+      sg.fillStyle = '#fff';
+      for (let i = 0; i < 90; i++) { sg.globalAlpha = .3 + .7 * Math.abs(Math.sin(t / 900 + i)); sg.fillRect((i * 997) % W, (i * 571) % (H * .7), 2, 2); }
+      sg.globalAlpha = 1; sg.fillStyle = '#fdf6d8'; sg.beginPath(); sg.arc(W - 110, 110, 38, 0, Math.PI * 2); sg.fill();
+    } else { sg.fillStyle = '#fff3b0'; sg.beginPath(); sg.arc(W - 110, 110, 44, 0, Math.PI * 2); sg.fill(); }
+    // far-off silhouettes: atmosphere only, not anyone's drawing
+    sg.strokeStyle = night ? 'rgba(200,210,240,.35)' : 'rgba(27,39,64,.35)'; sg.lineWidth = 1.5;
+    for (const d of distant) {
+      d.x += d.v * dt; if (d.x > W + 30) d.x = -30;
+      const wy = Math.sin(t / 160 + d.p) * 3;
+      sg.beginPath(); sg.moveTo(d.x - 6, d.y - wy); sg.lineTo(d.x, d.y); sg.lineTo(d.x + 6, d.y - wy); sg.stroke();
+    }
+    for (const c of clouds) { c.x += c.v * dt; if (c.x > W + 90) c.x = -170; drawCloud(c); }
+
+    // seeds fall to the hills
+    sg.fillStyle = night ? '#f7c948' : '#a5671f';
+    for (const s of seeds) {
+      if (s.y < H - 50) s.y += 60 * dt;
+      sg.beginPath(); sg.ellipse(s.x, s.y, 3, 2, 0, 0, Math.PI * 2); sg.fill();
+    }
+    for (const f of ents.values()) {
+      f.phase += f.flapRate * dt;
+      let seed = null, best = 420 * 420;
+      for (const s of seeds) { const d = (s.x - f.x) ** 2 + (s.y - f.y) ** 2; if (d < best) { best = d; seed = s; } }
+      if (seed) {
+        const want = Math.sign(seed.x - f.x) || f.dir;
+        if (want !== f.dir && Math.abs(seed.x - f.x) > 12) { f.dir = want; f.turn = -1; }
+        f.targetY = seed.y - 6;
+        if (best < 22 * 22) { f.peck = .4; seed.bites -= dt; }
+        else { f.peck = 0; f.x += f.dir * f.speed * 1.7 * dt; }
+        f.y += (f.targetY - f.y) * 1.6 * dt;
+      } else {
+        f.peck = 0;
+        f.x += f.dir * f.speed * dt;
+        f.y += (f.targetY - f.y) * .4 * dt;
+        if (Math.random() < .004) f.targetY = altitude();
+        if (Math.random() < .0008) { f.dir *= -1; f.turn = -1; }
+      }
+      if (f.turn < 1) f.turn = Math.min(1, f.turn + dt * 3);
+      if (f.x > W + 120) f.x = -120;
+      if (f.x < -120) f.x = W + 120;
+      drawBird(f);
+    }
+    // removed birds fly up and fade out
+    for (const f of leaving) {
+      f.leave -= rdt * .8; f.y -= 120 * rdt; f.x += f.dir * f.speed * 1.5 * rdt; f.phase += f.flapRate * 1.6 * rdt;
+      sg.globalAlpha = Math.max(0, f.leave); drawBird(f); sg.globalAlpha = 1;
+    }
+    leaving = leaving.filter(f => f.leave > 0);
+    seeds = seeds.filter(s => s.bites > 0);
+    sg.fillStyle = night ? '#16263f' : '#8fcf8a';
+    sg.beginPath(); sg.moveTo(0, H);
+    for (let x = 0; x <= W; x += 20) sg.lineTo(x, H - 40 - Math.sin(x / 140) * 18);
+    sg.lineTo(W, H); sg.fill();
+    raf = requestAnimationFrame(frame);
+  }
+  function startSky() {
+    resize();
+    clouds = Array.from({ length: 7 }, () => ({ x: Math.random() * W, y: 40 + Math.random() * H * .6, s: .6 + Math.random() * 1.2, v: 6 + Math.random() * 12 }));
+    distant = Array.from({ length: 9 }, (_, i) => ({ x: Math.random() * W, y: 60 + (i % 3) * 14 + Math.random() * 30, v: 14 + Math.random() * 6, p: i }));
+    cancelAnimationFrame(raf); lastT = 0; raf = requestAnimationFrame(frame);
+    syncFlock();
+  }
+  function stopSky() { cancelAnimationFrame(raf); raf = 0; tip.hidden = true; document.title = 'DrawBird'; }
+  addEventListener('resize', () => { if (raf) resize(); });
+  $('nightBtn').onclick = e => { night = !night; e.currentTarget.textContent = night ? 'Gündüz' : 'Gece'; };
+  $('skyMode').onchange = syncFlock;
+  $('skySpeed').oninput = () => { speedK = +$('skySpeed').value; };
+  $('skyCount').oninput = () => { $('skyCountVal').textContent = $('skyCount').value; syncFlock(); };
+  $('skyShuffle').onclick = () => { randSeed = Math.random(); ents = new Map(); syncFlock(); };
+  $('feedBtn').onclick = e => { feedMode = !feedMode; e.currentTarget.classList.toggle('on', feedMode); tip.hidden = true; };
+  const dropSeeds = (x, y) => { for (let i = 0; i < 5; i++) seeds.push({ x: x + (Math.random() - .5) * 24, y: y + (Math.random() - .5) * 10, bites: 1.2 }); };
+  sky.addEventListener('contextmenu', e => { e.preventDefault(); dropSeeds(e.clientX, e.clientY); });
+  sky.addEventListener('click', e => {
+    if (e.shiftKey || feedMode) { dropSeeds(e.clientX, e.clientY); return; }
+    const hit = [...ents.values()].reverse().find(f => {
+      const w = (f.img.naturalWidth || 0) * f.scale, h = (f.img.naturalHeight || 0) * f.scale;
+      return Math.abs(e.clientX - f.x) < w / 2 + 6 && Math.abs(e.clientY - f.y) < h / 2 + 6;
+    });
+    if (!hit) { tip.hidden = true; return; }
+    showTip(hit.b.key, e.clientX, e.clientY);
+  });
+  async function showTip(key, x, y) {
+    const b = allBirds().find(z => z.key === key); if (!b) { tip.hidden = true; return; }
+    const names = await resolveNames([b.author]);
+    const who = el('div', 'who');
+    const a = el('a', null, names[b.author]); a.href = '#profil'; a.onclick = () => { profileOf = b.author; };
+    who.append('çizen: ', a);
+    const share = el('button', 'btn small', 'Linkini kopyala'); share.type = 'button'; share.onclick = () => copyLink('/k/' + b.id);
+    tip.replaceChildren(el('b', null, b.name), who, voteRow(b, () => showTip(key, x, y)), share);
+    tip.style.left = Math.max(8, Math.min(x + 12, innerWidth - 232)) + 'px';
+    tip.style.top = Math.max(8, Math.min(y + 12, innerHeight - 170)) + 'px';
+    tip.hidden = false;
+  }
+
+  // ================= rank / profile =================
+  let sortBy = 'hot', rankLimit = 48;
+  document.querySelectorAll('[data-sort]').forEach(b => b.onclick = () => {
+    sortBy = b.dataset.sort; if (sortBy === 'rand') randSeed = Math.random();
+    document.querySelectorAll('[data-sort]').forEach(x => x.classList.toggle('on', x === b));
+    renderRank();
+  });
+  function voteRow(b, after) {
+    const mv = myVotes(), row = el('div', 'acts');
+    const up = el('button', 'btn small up' + (mv.v?.[b.key] === 1 ? ' on' : ''), `▲ ${b.up}`); up.type = 'button'; up.title = 'Beğen';
+    const down = el('button', 'btn small down' + (mv.v?.[b.key] === -1 ? ' on' : ''), `▼ ${b.down}`); down.type = 'button'; down.title = 'Beğenme';
+    const fl = el('button', 'btn small' + (mv.f?.[b.key] ? ' on' : ''), mv.f?.[b.key] ? 'Bildirildi' : 'Bildir'); fl.type = 'button'; fl.title = 'Uygunsuz çizimi bildir';
+    up.onclick = () => vote(b.key, 1).then(after, () => {});
+    down.onclick = () => vote(b.key, -1).then(after, () => {});
+    fl.onclick = () => flag(b.key).then(after, () => {});
+    row.append(up, down);
+    if (b.author !== S.me) row.append(fl);
+    return row;
+  }
+  function birdCard(b, names, opts = {}) {
+    const card = el('div', 'card' + (b.hidden ? ' flagged' : ''));
+    const art = el('div', 'art'); const img = el('img'); img.src = b.img; img.alt = b.name; art.appendChild(img);
+    const meta = el('div', 'meta');
+    const by = el('a', null, names[b.author] || 'Bir kuşçu'); by.href = '#profil'; by.onclick = () => { profileOf = b.author; };
+    meta.append(by, el('span', null, fmtDate(b.created)));
+    const stats = el('div', 'meta');
+    stats.append(el('span', 'score', `Puan ${b.score > 0 ? '+' : ''}${b.score}`), el('span', null, ''));
+    if (opts.rank) card.append(el('div', 'meta', `#${opts.rank}`));
+    card.append(art, el('div', 'name', b.name), meta, stats, voteRow(b, () => {}));
+    if (b.hidden) card.append(el('div', 'meta', `${b.flags} bildirim aldı, gökyüzünde gizli`));
+    const acts = el('div', 'acts');
+    const myFlocks = S.flockRows.filter(f => f.uid === S.me);
+    if (myFlocks.length && S.mode !== 'loading') {
+      const sel = el('select'); sel.setAttribute('aria-label', 'Sürüye ekle');
+      sel.append(new Option('Sürüye ekle…', ''));
+      myFlocks.forEach(f => sel.append(new Option((f.birds || []).includes(b.key) ? `✓ ${f.name}` : f.name, f.id)));
+      sel.onchange = () => { if (sel.value) toggleInFlock(sel.value, b.key); };
+      acts.append(sel);
+    }
+    const sh = el('button', 'btn small', 'Paylaş'); sh.type = 'button'; sh.onclick = () => copyLink('/k/' + b.id); acts.append(sh);
+    if (b.author === S.me || S.isOwner) {
+      const del = el('button', 'btn small', 'Sil'); del.type = 'button';
+      del.onclick = () => {
+        if (del.dataset.armed) { removeBird(b).catch(() => {}); return; }
+        del.dataset.armed = '1'; del.textContent = 'Emin misin?';
+        setTimeout(() => { delete del.dataset.armed; del.textContent = 'Sil'; }, 3000);
+      };
+      acts.append(del);
+    }
+    if (acts.childElementCount) card.append(acts);
+    return card;
+  }
+  async function renderRank() {
+    const grid = $('rankGrid');
+    if (S.mode === 'loading') { grid.replaceChildren(el('div', 'empty', 'Kuşlar yükleniyor…')); return; }
+    let list = allBirds().filter(b => !b.hidden || S.isOwner);
+    $('rankSub').textContent = `${list.length} kuş, ${new Set(list.map(b => b.author)).size} kuşçu`;
+    if (!list.length) {
+      const e = el('div', 'empty'); const a = el('a', 'btn beak', 'Kuş çiz'); a.href = '#ciz';
+      e.append(el('p', null, 'Henüz kimse kuş salmadı. Sıralamanın ilk kuşu seninki olabilir.'), a);
+      grid.replaceChildren(e); return;
+    }
+    const sorters = {
+      hot: (a, b) => b.hot - a.hot, score: (a, b) => b.score - a.score || b.created - a.created,
+      date: (a, b) => b.created - a.created, rand: (a, b) => hash01(a.key) - hash01(b.key),
+    };
+    list.sort(sorters[sortBy]);
+    const names = await resolveNames(list.map(b => b.author));
+    grid.replaceChildren(...list.slice(0, rankLimit).map((b, i) => birdCard(b, names, { rank: i + 1 })));
+    $('rankMore').hidden = list.length <= rankLimit;
+  }
+  $('rankMore').onclick = () => { rankLimit += 48; renderRank(); };
+  async function renderProfile() {
+    const who = profileOf || S.me;
+    const mine = who === S.me;
+    $('profMine').hidden = mine;
+    $('flockArea').hidden = !mine || S.mode === 'loading';
+    $('meArea').hidden = !mine;
+    const grid = $('profGrid');
+    if (S.mode === 'loading') { grid.replaceChildren(el('div', 'empty', 'Yükleniyor…')); return; }
+    const list = allBirds().filter(b => b.author === who).sort((a, b) => b.created - a.created);
+    const names = await resolveNames([who]);
+    $('profTitle').textContent = mine ? 'Kuşların' : `${names[who]} adlı kuşçunun kuşları`;
+    const total = list.reduce((s, b) => s + b.score, 0);
+    $('profSub').textContent = `${list.length} kuş · toplam puan ${total > 0 ? '+' : ''}${total}` + (mine ? ` · en fazla ${MAX_BIRDS} kuş saklanır` : '');
+    if (!list.length) {
+      const e = el('div', 'empty', mine ? 'Henüz kuşun yok. Çiz sekmesinden ilkini sal.' : 'Bu kuşçunun uçan kuşu yok.');
+      grid.replaceChildren(e);
+    } else grid.replaceChildren(...list.map(b => birdCard(b, names)));
+    if (mine) renderFlocks();
+    renderOtherFlocks(who, mine, names[who]);
+  }
+  $('profShare').onclick = () => copyLink('/u/' + (profileOf || S.me));
+  $('profMine').onclick = () => { profileOf = null; renderProfile(); };
+  addEventListener('hashchange', () => { if (location.hash !== '#profil') profileOf = null; });
+
+  // ---- flocks (personal collections shown as their own sky) ----
+  const myFlockList = () => S.flockRows.filter(f => f.uid === S.me);
+  function renderFlocks() {
+    const box = $('flockList'), birds = new Map(allBirds().map(b => [b.key, b]));
+    const list = myFlockList();
+    if (!list.length) { box.replaceChildren(el('div', 'empty', 'Sürü yok. Bir sürü kur, sıralamadan kuş ekle, gökyüzünde yalnız onları izle.')); return; }
+    box.replaceChildren(...list.map(f => {
+      const row = el('div', 'flock');
+      const thumbs = el('div', 'thumbs');
+      f.birds.forEach(k => { const b = birds.get(k); if (b) { const i = el('img'); i.src = b.img; i.alt = b.name; thumbs.append(i); } });
+      if (!thumbs.childElementCount) thumbs.append(el('span', 'meta', 'Boş. Sıralamadan kuş ekle.'));
+      const watch = el('button', 'btn small beak', 'Gökyüzünde izle'); watch.type = 'button';
+      watch.onclick = () => { location.hash = 'gok'; setTimeout(() => { $('skyMode').value = `flock:${S.me}:${f.id}`; syncFlock(); }, 0); };
+      const del = el('button', 'btn small', 'Sürüyü dağıt'); del.type = 'button';
+      del.onclick = () => api('/flocks/' + f.id, { method: 'DELETE' }).then(refresh, writeFailed).catch(() => {});
+      const pub = el('button', 'btn small', f.public ? 'Herkese açık' : 'Yalnız ben'); pub.type = 'button'; pub.title = 'Görünürlüğü değiştir';
+      pub.onclick = () => api('/flocks/' + f.id, { body: { public: !f.public } }).then(() => refresh(), writeFailed).catch(() => {});
+      const sh = el('button', 'btn small', 'Linkini kopyala'); sh.type = 'button'; sh.onclick = () => copyLink('/s/' + f.id);
+      row.append(el('b', null, f.name), thumbs, watch, pub);
+      if (f.public) row.append(sh);
+      row.append(del);
+      return row;
+    }));
+  }
+  $('flockAdd').onclick = () => {
+    const name = $('flockName').value.trim().slice(0, 24);
+    if (!name) { $('flockName').focus(); return; }
+    api('/flocks', { body: { name } }).then(async () => { $('flockName').value = ''; await refresh(); toast(`"${name}" sürüsü kuruldu.`); }, writeFailed).catch(() => {});
+  };
+  function toggleInFlock(fid, key) {
+    const f = myFlockList().find(x => x.id === fid); if (!f) return;
+    api(`/flocks/${fid}/toggle`, { body: { bird: key } })
+      .then(async r => { await refresh(); toast(r.added ? `${f.name} sürüsüne eklendi.` : `${f.name} sürüsünden çıkarıldı.`); }, writeFailed).catch(() => {});
+  }
+
+  // ---- nickname + site-owner key ----
+  $('nickSave').onclick = () => {
+    const name = $('nick').value.trim().slice(0, 24);
+    api('/me', { body: { name } }).then(async () => { await refresh(); toast(name ? `Artık "${name}" olarak görünüyorsun.` : 'Adın kaldırıldı.'); }, writeFailed).catch(() => {});
+  };
+  $('adminSave').onclick = () => {
+    adminKey = $('adminKey').value.trim(); lsSet('drawbird.admin', adminKey);
+    refresh().then(() => { toast(S.isOwner ? 'Yönetici modu açık: her kuşu silebilirsin.' : (adminKey ? 'Anahtar tutmadı.' : 'Yönetici anahtarı kaldırıldı.')); });
+  };
+  onChange(() => {
+    if (document.activeElement !== $('nick')) $('nick').value = S.myName || '';
+    $('adminState').textContent = S.isOwner ? 'Yönetici modu açık' : '';
+  });
+
+  function renderOtherFlocks(who, mine, name) {
+    const box = $('otherFlocks'), birds = new Map(allBirds().map(b => [b.key, b]));
+    const list = mine ? [] : S.flockRows.filter(f => f.uid === who && f.public);
+    $('otherFlocksTitle').hidden = !list.length;
+    $('otherFlocksTitle').textContent = `${name} adlı kuşçunun sürüleri`;
+    box.replaceChildren(...list.map(f => {
+      const row = el('div', 'flock'), thumbs = el('div', 'thumbs');
+      f.birds.forEach(k => { const b = birds.get(k); if (b) { const i = el('img'); i.src = b.img; i.alt = b.name; thumbs.append(i); } });
+      const watch = el('button', 'btn small beak', 'Gökyüzünde izle'); watch.type = 'button';
+      watch.onclick = () => watchFlock(f);
+      row.append(el('b', null, f.name), thumbs, watch);
+      return row;
+    }));
+  }
+  function watchFlock(f) {
+    location.hash = 'gok';
+    setTimeout(() => { $('skyMode').value = `flock:${f.uid}:${f.id}`; syncFlock(); }, 0);
+  }
+
+  // ---- links ----
+  function copyLink(path) {
+    const url = location.origin + path;
+    const done = () => toast('Link kopyalandı: ' + url);
+    if (navigator.clipboard?.writeText) navigator.clipboard.writeText(url).then(done, () => toast(url));
+    else toast(url);
+  }
+
+  // ---- recovery code: the device token, carried to another device by hand ----
+  $('recShow').onclick = () => {
+    $('recCode').textContent = token;
+    navigator.clipboard?.writeText(token).then(() => toast('Kurtarma kodu kopyalandı. Güvenli bir yerde sakla.'), () => {});
+  };
+  $('recUse').onclick = () => {
+    const code = $('recInput').value.trim();
+    if (!/^[A-Za-z0-9_-]{32,128}$/.test(code)) { toast('Bu bir kurtarma kodu gibi görünmüyor.'); return; }
+    token = code; lsSet('drawbird.token', code); $('recInput').value = '';
+    $('recCode').textContent = '••••••••••••';
+    nextFresh = true;
+    refresh().then(() => toast('Bu cihaz artık o hesapla çalışıyor.'));
+  };
+
+  // ---- moderation ----
+  async function renderAdmin() {
+    if (!S.isOwner) {
+      $('admGrid').replaceChildren(el('div', 'empty', 'Yönetici anahtarı gerekli. Profil sayfasından gir.'));
+      $('admStats').replaceChildren(); $('admBans').replaceChildren(); return;
+    }
+    let d;
+    try { d = await api('/admin/reports'); } catch { $('admGrid').replaceChildren(el('div', 'empty', 'Yüklenemedi.')); return; }
+    const stat = (n, label) => { const x = el('div'); x.append(el('b', null, String(n)), el('span', 'meta', label)); return x; };
+    $('admStats').replaceChildren(stat(d.stats.birds, 'kuş'), stat(d.stats.users, 'kuşçu'), stat(d.stats.votes, 'oy'), stat(d.reported.length, 'bildirilen kuş'));
+    const banned = new Set(d.bans.map(x => x.uid));
+    const after = () => { renderAdmin(); refresh(); };
+    $('admGrid').replaceChildren(...(d.reported.length ? d.reported.map(r => {
+      const card = el('div', 'card');
+      const art = el('div', 'art'); const img = el('img'); img.src = '/api/img/' + r.id; img.alt = r.name; art.append(img);
+      const acts = el('div', 'acts');
+      const clear = el('button', 'btn small', 'Bildirimleri temizle'); clear.type = 'button';
+      clear.onclick = () => api('/admin/clear', { body: { bird: r.id } }).then(after, writeFailed).catch(() => {});
+      const del = el('button', 'btn small', 'Kuşu sil'); del.type = 'button';
+      del.onclick = () => api('/birds/' + r.id, { method: 'DELETE' }).then(after, writeFailed).catch(() => {});
+      const ban = el('button', 'btn small', banned.has(r.uid) ? 'Engeli kaldır' : 'Kuşçuyu engelle'); ban.type = 'button';
+      ban.onclick = () => api('/admin/ban', { body: { uid: r.uid, on: !banned.has(r.uid) } }).then(after, writeFailed).catch(() => {});
+      acts.append(clear, del, ban);
+      card.append(art, el('div', 'name', r.name), el('div', 'meta', `${r.author || 'İsimsiz kuşçu'} · ${r.flags} bildirim · ${fmtDate(r.created)}`), acts);
+      return card;
+    }) : [el('div', 'empty', 'Bildirilen kuş yok.')]));
+    $('admBans').replaceChildren(...(d.bans.length ? d.bans.map(x => {
+      const row = el('div', 'flock');
+      const un = el('button', 'btn small', 'Engeli kaldır'); un.type = 'button';
+      un.onclick = () => api('/admin/ban', { body: { uid: x.uid, on: false } }).then(after, writeFailed).catch(() => {});
+      row.append(el('b', null, x.name || 'İsimsiz kuşçu'), el('span', 'meta', fmtDate(x.created)), un);
+      return row;
+    }) : [el('div', 'empty', 'Engellenen kuşçu yok.')]));
+  }
+  $('admRefresh').onclick = renderAdmin;
+  onChange(() => { $('navAdmin').hidden = !S.isOwner; });
+
+  // ---- welcome back, once per visit ----
+  let greeted = false;
+  onChange(() => {
+    if (greeted || S.mode !== 'remote') return;
+    greeted = true;
+    const mine = allBirds().filter(b => b.author === S.me);
+    if (mine.length) toast(`Tekrar hoş geldin! ${mine.length} kuşun toplam ${mine.reduce((n, b) => n + b.up, 0)} beğeni aldı.`);
+  });
+
+  // ---- share links: /k/<kuş>, /u/<kuşçu>, /s/<sürü> ----
+  const linkMatch = /^\/([kus])\/([a-z0-9]{16})$/.exec(location.pathname);
+  if (linkMatch) {
+    const [, kind, id] = linkMatch;
+    window.history.replaceState(null, '', '/' + (kind === 'u' ? '#profil' : '#gok'));
+    if (kind === 'u') profileOf = id;
+    if (kind === 'k') focusKey = id;
+    if (kind === 's') onChange(function once() {
+      const f = S.flockRows.find(x => x.id === id);
+      if (f && view === 'gok') { $('skyMode').value = `flock:${f.uid}:${f.id}`; syncFlock(); subs.splice(subs.indexOf(once), 1); }
+    });
+  }
+
+  // ================= boot =================
+  route();
+  refresh();
+})();
+</script>
+</body>
+</html>

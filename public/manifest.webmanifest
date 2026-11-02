@@ -1,0 +1,14 @@
+{
+  "name": "DrawBird",
+  "short_name": "DrawBird",
+  "description": "Bir kuş çiz, herkesin kuşlarıyla aynı gökyüzünde uçsun.",
+  "lang": "tr",
+  "start_url": "/#ciz",
+  "display": "standalone",
+  "background_color": "#cfe9fb",
+  "theme_color": "#7cc3ee",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "drawbird",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./public", "binding": "ASSETS", "not_found_handling": "single-page-application", "run_worker_first": ["/api/*", "/k/*"] },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "drawbird", "database_id": "f8f26ac2-12df-4c4a-bc7d-83eecc2f4787", "migrations_dir": "migrations" }
+  ],
+  "observability": { "enabled": true }
+}
