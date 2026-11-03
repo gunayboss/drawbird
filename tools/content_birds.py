@@ -55,7 +55,7 @@ BIRDS = [
         'draw': 'Martı dersini izle. Kanatları uzun ve açık gri yap, uçlarını siyaha boya. Bacaklar sarı, gagadaki nokta kırmızı olsun.',
     },
     {
-        'slug': 'karga', 'name': 'Leş kargası', 'acc': 'kargayı', 'latin': 'Corvus cornix', 'lesson': 'serce', 'own': '',
+        'slug': 'karga', 'name': 'Leş kargası', 'acc': 'kargayı', 'latin': 'Corvus cornix', 'lesson': 'karga', 'own': '',
         'lead': 'Gri yelek giymiş siyah bir karga görürsen o leş kargası, yani kül rengi karga. Ve şehrin en zeki sakinlerinden biri.',
         'table': [('Boy', '44–51 cm'), ('Kanat açıklığı', '84–100 cm'), ('Ağırlık', '400–600 g'), ('Beslenme', 'Her şey: böcek, tohum, yumurta, artık yiyecek'), ('Yumurta', '4–6'), ('Görüldüğü yer', 'Şehirler, tarlalar, kıyılar; yıl boyu')],
         'body': [
@@ -64,7 +64,7 @@ BIRDS = [
             'Çiftler çoğu zaman ömür boyu birlikte. Yuvayı yüksek bir ağacın tepesine kalın dallardan yapıyorlar, içini yünle, yumuşak şeylerle döşüyorlar.',
             '"Gaak" sesleri kimine itici gelebilir ama kargalar şehrin temizlikçisi. Dökülen yiyecekleri, ölü hayvanları temizleyip hastalıkların yayılmasını azaltıyorlar.',
         ],
-        'draw': 'Serçe dersini temel al ama kuşu daha iri ve uzun çiz. Baş, kanat ve kuyruk siyah, gövdenin ortası gri. Gagayı kalın, düz ve siyah yap.',
+        'draw': 'Karga dersini izle. Gövde gri, baş, kanat ve kuyruk siyah. Gagayı kalın yap, kanat ucunu parmak gibi ayrık tüylerle bitir.',
     },
     {
         'slug': 'saksagan', 'name': 'Saksağan', 'acc': 'saksağanı', 'latin': 'Pica pica', 'lesson': 'serce', 'own': '',
@@ -79,7 +79,7 @@ BIRDS = [
         'draw': 'Serçe dersindeki gibi başla, ama arkaya gövde kadar uzun ince bir kuyruk ekle. Baş ve sırt siyah olsun, karın ve kanadın omzu beyaz.',
     },
     {
-        'slug': 'guvercin', 'name': 'Güvercin', 'acc': 'güvercini', 'latin': 'Columba livia', 'lesson': 'serce', 'own': '',
+        'slug': 'guvercin', 'name': 'Güvercin', 'acc': 'güvercini', 'latin': 'Columba livia', 'lesson': 'guvercin', 'own': '',
         'lead': 'Meydanda yem bekleyen güvercinlerin atası kaya güvercini. O hâlâ sarp kayalıklarda vahşi olarak yaşıyor.',
         'table': [('Boy', '29–37 cm'), ('Kanat açıklığı', '62–72 cm'), ('Ağırlık', '240–380 g'), ('Beslenme', 'Tohum, tahıl, ekmek'), ('Yumurta', '2'), ('Görüldüğü yer', 'Şehirler, kayalıklar, köyler; yıl boyu')],
         'body': [
@@ -88,7 +88,7 @@ BIRDS = [
             'Kumru gibi onlar da yavrularını kursak sütüyle besliyor. Bunu hem anne hem baba yapabiliyor.',
             'Bir de su içişlerine dikkat et. Çoğu kuş suyu gagasına alıp başını kaldırarak yutuyor. Güvercin ise gagasını pipet gibi kullanıyor, başını kaldırmadan içiyor.',
         ],
-        'draw': 'Serçe dersini izle ama başı küçült, gövdeyi tombullaştır. Gövdeyi mavi-gri yap, boyuna yeşil-mor bir parıltı, kanada iki koyu çizgi ekle.',
+        'draw': 'Güvercin dersini adım adım izle. Başı küçük, gövdeyi tombul tut. Boyna yeşil ve mor bir parıltı, kanada iki koyu çizgi ekle.',
     },
     {
         'slug': 'kirlangic', 'name': 'Kırlangıç', 'acc': 'kırlangıcı', 'latin': 'Hirundo rustica', 'lesson': 'kirlangic', 'own': '',
@@ -187,7 +187,7 @@ BIRDS = [
         'draw': 'Baykuş dersini izle. Başı yuvarlak ve iri, gözleri sarı çiz. Gözlerin üstüne beyaz kaşlar ekle. Kahverengi gövdeye beyaz benekler serpiştir.',
     },
     {
-        'slug': 'agackakan', 'name': 'Alaca ağaçkakan', 'acc': 'ağaçkakanı', 'latin': 'Dendrocopos syriacus', 'lesson': 'serce', 'own': '',
+        'slug': 'agackakan', 'name': 'Alaca ağaçkakan', 'acc': 'ağaçkakanı', 'latin': 'Dendrocopos syriacus', 'lesson': 'agackakan', 'own': '',
         'lead': 'Parkta bir ağaçtan "tak-tak-tak" diye hızlı bir ses geliyorsa yukarı bak. Siyah beyaz, kuyruğunun altı kırmızı bir kuş göreceksin.',
         'table': [('Boy', '22–23 cm'), ('Kanat açıklığı', '34–39 cm'), ('Ağırlık', '60–80 g'), ('Beslenme', 'Ağaç içindeki böcek larvaları, tohum, ceviz'), ('Yumurta', '4–6'), ('Görüldüğü yer', 'Parklar, bahçeler, meyve bahçeleri; yıl boyu')],
         'body': [
@@ -196,7 +196,7 @@ BIRDS = [
             'Dili inanılmaz uzun, kafatasının etrafına sarılı duruyor. Ucu dikenli ve yapışkan. Tahtanın içindeki tünellerden larvaları bu dille çekip çıkarıyor.',
             'O tak-tak sesinin hepsi yemek aramak değil. Baharda kuru dallara hızlı hızlı vurup davul çalıyorlar. "Burası benim" demenin ağaçkakanca yolu.',
         ],
-        'draw': 'Serçe dersindeki gövdeyi dik çiz, sanki bir ağaç gövdesine tutunuyormuş gibi. Gagayı uzun ve keskin yap. Sırt siyah, omuzda büyük beyaz leke, kuyruğun altı kırmızı olsun.',
+        'draw': 'Ağaçkakan dersini izle. Sırt ve kanat siyah, kanatta büyük beyaz bir leke ve benekler olsun. Gagayı uzun ve keskin yap, kuyruğun altına kırmızı koy.',
     },
     {
         'slug': 'arikusu', 'name': 'Arıkuşu', 'acc': 'arıkuşunu', 'latin': 'Merops apiaster', 'lesson': 'papagan', 'own': '',

@@ -93,6 +93,8 @@
   }
   h1.hand { font-family: var(--font-display); font-weight: 700; font-size: 44px; line-height: 1; margin: 0; text-wrap: balance; }
   .sub { color: var(--muted); margin: 4px 0 0; font-size: 15px; }
+  .theme-chip { display: inline-block; margin-top: 8px; padding: 5px 12px; border-radius: 999px; background: var(--chip, #eef2f7); color: inherit; font-size: 14px; font-weight: 600; text-decoration: none; }
+  .theme-chip[hidden] { display: none; }
 
   .btn {
     border: 0; border-radius: 10px; padding: 8px 12px; font-weight: 500; cursor: pointer;
@@ -258,6 +260,7 @@
     <div>
       <h1 class="hand">Bir kuş çiz, gökyüzüne sal</h1>
       <p class="sub">Gagası sağa baksın. Kanatlar üst yarıda olursa çırparak uçar.</p>
+      <a class="theme-chip" id="themeChip" hidden></a>
     </div>
     <div class="tools" id="palette"></div>
     <div class="tools">
@@ -1427,6 +1430,11 @@
   }
 
   // Cookieless visit count: one ping per browser session.
+  // This week's drawing theme from the Worker; the chip stays hidden if the request fails.
+  fetch('/api/theme?lang=' + LANG).then(r => r.ok ? r.json() : null).then(t => {
+    if (!t) return;
+    const chip = $('themeChip'); chip.textContent = t.text + ' →'; chip.href = t.url; chip.hidden = false;
+  }).catch(() => {});
   try { if (!sessionStorage.getItem('drawbird.hit')) { sessionStorage.setItem('drawbird.hit', '1'); fetch('/api/hit', { method: 'POST' }).catch(() => {}); } } catch { /* storage blocked: skip counting */ }
 
   // ---- contact form ----

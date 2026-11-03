@@ -345,6 +345,10 @@ async function handleApi(req, env, url, ctx) {
 
   if (method === 'GET' && path === '/state') return state(req, env, url);
   if (method === 'GET' && path === '/sky') return sky(req, env, url);
+  if (method === 'GET' && path === '/theme') {
+    const lang = LANGS.includes(url.searchParams.get('lang')) ? url.searchParams.get('lang') : 'tr', U = WEEK_UI[lang];
+    return json({ text: fill(U.theme_head, { title: U.themes[themeIndex(Date.now())][0] }), url: `${pre(lang)}/haftanin-kuslari` }, 200, { 'cache-control': 'public, max-age=600' });
+  }
   if (method !== 'GET' && !path.startsWith('/admin/') && await limited(env.RL_WRITE, 'w:' + clientIp(req))) return fail(429, 'slow_down');
   if (method !== 'GET' && !path.startsWith('/admin/') && path !== '/telegram' && path !== '/hit' && (await setting(env, 'readonly')) === '1') return fail(503, 'readonly');
   if (method === 'POST' && path === '/hit') {
@@ -536,6 +540,16 @@ function weekStart(year, week) {
   return jan4.getTime() - ((jan4.getUTCDay() + 6) % 7) * 864e5 + (week - 1) * 7 * 864e5;
 }
 const weekKey = ({ year, week }) => `${year}-W${String(week).padStart(2, '0')}`;
+// Weekly drawing theme: WEEK_UI[lang].themes rotate one per ISO week, starting with 2026-W45. Same order as the themes.
+const THEME_LESSONS = [['leylek', 'kirlangic'], ['guvercin', 'karga', 'serce'], ['baykus'], ['ordek', 'flamingo', 'marti'],
+  ['papagan', 'tavuskusu', 'kolibri'], ['kartal', 'baykus'], ['agackakan', 'ibibik'], ['penguen']];
+const THEME_EPOCH = weekStart(2026, 45);
+const themeIndex = ts => { const n = THEME_LESSONS.length, k = Math.floor((ts - THEME_EPOCH) / (7 * 864e5)); return ((k % n) + n) % n; };
+function themeBlock(U, lang) {
+  const i = themeIndex(Date.now()), [title, text] = U.themes[i];
+  const links = THEME_LESSONS[i].filter(s => U.lessons[s]).map(s => `<a href="${pre(lang)}/dersler/${s}">${esc(U.lessons[s])}</a>`).join(' · ');
+  return `<div class="theme"><h2>${esc(fill(U.theme_head, { title }))}</h2><p>${esc(text)}</p>${links ? `<p>${esc(U.theme_lessons)} ${links}</p>` : ''}</div>`;
+}
 const NATIVE = { tr: 'Türkçe', en: 'English', es: 'Español', pt: 'Português', fr: 'Français', de: 'Deutsch', ru: 'Русский', ar: 'العربية', zh: '中文', ja: '日本語', id: 'Bahasa Indonesia' };
 
 function shell({ lang, path, title, desc, image, body, origin }) {
@@ -564,7 +578,7 @@ ${alt}
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
-<style>.weeks { display: grid; gap: 8px; padding: 0; list-style: none; } .weeks a { display: flex; justify-content: space-between; gap: 10px; background: var(--chip); border-radius: 12px; padding: 10px 14px; text-decoration: none; } .pager { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 16px; } .langs { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; } .langs a[aria-current] { font-weight: 700; text-decoration: none; }</style>
+<style>.weeks { display: grid; gap: 8px; padding: 0; list-style: none; } .weeks a { display: flex; justify-content: space-between; gap: 10px; background: var(--chip); border-radius: 12px; padding: 10px 14px; text-decoration: none; } .pager { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 16px; } .langs { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; } .langs a[aria-current] { font-weight: 700; text-decoration: none; } .theme { background: var(--chip); border-radius: 14px; padding: 4px 16px; margin: 12px 0; }</style>
 </head>
 <body>
 <main>
@@ -609,6 +623,7 @@ async function weeklyPage(env, url, lang) {
     lang, origin: url.origin, path: '/haftanin-kuslari', title: U.week_title, desc: U.week_desc,
     image: birds[0] && `${url.origin}/api/img/${birds[0].id}`,
     body: `  <h1>${esc(U.week_title)}</h1>
+  ${themeBlock(U, lang)}
   <p>${esc(intro)} ${esc(U.week_tap)}</p>
   ${birds.length ? birdCards(U, birds) : `<p class="muted">${esc(U.week_empty)}</p>`}
   <p><a class="cta" href="${lang === 'tr' ? '/#ciz' : `/?lang=${lang}#ciz`}">${esc(U.week_cta)}</a></p>

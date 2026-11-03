@@ -322,8 +322,9 @@ for lang in LANGS:
 
 # ---- for the Worker: sitemap list and week-page strings ----
 WEEK_KEYS = ['nav_draw', 'nav_lessons', 'nav_birds', 'nav_week', 'nav_blog', 'nav_faq', 'foot_about', 'foot_teachers', 'foot_terms',
-             'foot_privacy', 'foot_kvkk', 'foot_source', 'foot_contact', 'months', 'date_format'] + [k for k in load('tr').UI if k.startswith(('week', 'archive', 'weekpage', 'card_', 'prev_', 'next_', 'share_'))] + ['an_artist']
+             'foot_privacy', 'foot_kvkk', 'foot_source', 'foot_contact', 'months', 'date_format'] + [k for k in load('tr').UI if k.startswith(('week', 'archive', 'weekpage', 'card_', 'prev_', 'next_', 'share_', 'theme'))] + ['an_artist']
 week_ui = {l: {k: load(l).UI[k] for k in WEEK_KEYS} for l in LANGS}
+for l in LANGS: week_ui[l]['lessons'] = {s: v['title'] for s, v in load(l).LESSONS.items()}
 fixed = []
 for l in LANGS:
     fixed += [[f'{pre(l)}/haftanin-kuslari', 'today'], [f'{pre(l)}/hafta/', None]]

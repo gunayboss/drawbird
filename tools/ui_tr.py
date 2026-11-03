@@ -50,6 +50,18 @@ UI = {
     'weekpage_best': 'Haftanın en sevilen kuşu “{name}” oldu (çizen: {author}). {up} beğeni aldı.',
     'weekpage_none': '{from} – {to} arasında gökyüzüne kuş katılmadı.',
     'prev_week': '← Önceki hafta', 'next_week': 'Sonraki hafta →', 'archive_link': 'Arşiv', 'week_not_found': 'Bu hafta bulunamadı',
+    # weekly theme (Worker: /haftanin-kuslari and /api/theme); order matches THEME_LESSONS in src/worker.js
+    'theme_head': 'Bu haftanın teması: {title}', 'theme_lessons': 'Bu temaya uyan dersler:',
+    'themes': [
+        ['Göçmen kuşlar', 'Sonbaharda gökyüzü uzun yola çıkan kuşlarla dolu. Bu hafta bir yolcu kuş çiz.'],
+        ['Şehir kuşları', 'Balkonuna, parka, çatılara bak. Bu hafta her gün gördüğün bir kuşu çiz.'],
+        ['Gece kuşları', 'Bu hafta karanlıkta avlanan kuşlar var. Büyük gözleri unutma.'],
+        ['Su kuşları', 'Göl, deniz, kıyı. Bu hafta suyun başında yaşayan bir kuş çiz.'],
+        ['Renk cümbüşü', 'Bu hafta kutudaki bütün renkleri kullan. En renkli kuşu sen çiz.'],
+        ['Yırtıcılar', 'Keskin gaga, güçlü pençe, geniş kanat. Bu hafta gökyüzünün avcılarını çiz.'],
+        ['Ağaçların kuşları', 'Bu hafta ağaçlarda yaşayan kuşlar var. Davul çalan ağaçkakanla başlayabilirsin.'],
+        ['Soğuk diyarlar', 'Buzun ve karın kuşları. Bu hafta soğuğa dayanıklı bir kuş çiz.'],
+    ],
     # share preview (/k/<bird>)
     'share_desc': '{author} bu kuşu çizdi. Sen de bir kuş çiz, ortak gökyüzünde uçsun.',
 }
