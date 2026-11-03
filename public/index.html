@@ -146,6 +146,14 @@
   .skybar label { display: inline-flex; gap: 6px; align-items: center; }
   .skybar input[type=range] { width: 110px; }
   .skyhint { color: var(--muted); font-size: 12px; width: 100%; text-align: center; }
+  /* The settings panel folds down to one small button so the sky stays clear on phones. */
+  .skytoggle { order: -1; width: 100%; display: flex; justify-content: center; align-items: center; gap: 6px; border: 0; background: none; color: var(--muted); font: inherit; font-size: 13px; font-weight: 600; padding: 0 0 2px; cursor: pointer; }
+  .skytoggle .chev { transition: transform .2s ease; }
+  .skybar.min { width: auto; padding: 6px 14px; }
+  .skybar.min > :not(.skytoggle) { display: none; }
+  .skybar.min .skytoggle { width: auto; padding: 0; color: var(--ink); }
+  .skybar.min .skytoggle .chev { transform: rotate(180deg); }
+  @media (prefers-reduced-motion: reduce) { .skytoggle .chev { transition: none; } }
   .skyempty {
     position: fixed; top: 38%; left: 50%; transform: translate(-50%, -50%); text-align: center;
     background: var(--paper); padding: 18px 22px; border-radius: 18px; box-shadow: var(--shadow); max-width: calc(100% - 32px);
@@ -280,7 +288,8 @@
     <p class="sub">İlk kuşu sen çiz; buradaki herkes onu görecek.</p>
     <p><a class="btn beak" href="#ciz">Kuş çiz</a></p>
   </div>
-  <div class="skybar">
+  <div class="skybar" id="skyBar">
+    <button class="skytoggle" id="skyToggle" type="button" aria-controls="skyBar" aria-expanded="true"><span class="chev" aria-hidden="true">▾</span><span id="skyToggleTxt">Gizle</span></button>
     <label for="skyMode">Göster
       <select id="skyMode">
         <option value="new">En yeniler</option>
@@ -983,6 +992,19 @@
   function stopSky() { cancelAnimationFrame(raf); raf = 0; tip.hidden = true; document.title = 'DrawBird'; }
   addEventListener('resize', () => { if (raf) resize(); });
   let glow = false;
+  // Sky settings fold away; phones start folded. The choice is remembered in this browser.
+  const setSkyBar = open => {
+    $('skyBar').classList.toggle('min', !open);
+    $('skyToggle').setAttribute('aria-expanded', String(open));
+    $('skyToggleTxt').textContent = open ? 'Gizle' : 'Ayarlar';
+  };
+  let skyOpen = matchMedia('(min-width: 700px)').matches;
+  try { const v = localStorage.getItem('drawbird.skybar'); if (v) skyOpen = v === '1'; } catch { /* storage blocked */ }
+  setSkyBar(skyOpen);
+  $('skyToggle').onclick = () => {
+    skyOpen = !skyOpen; setSkyBar(skyOpen);
+    try { localStorage.setItem('drawbird.skybar', skyOpen ? '1' : '0'); } catch { /* storage blocked */ }
+  };
   $('nightBtn').textContent = THEME_NEXT[theme];
   $('nightBtn').onclick = e => {
     theme = { day: 'night', night: 'neon', neon: 'day' }[theme]; night = theme !== 'day';
