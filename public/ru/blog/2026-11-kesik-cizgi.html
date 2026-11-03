@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Зачем нужна пунктирная линия? Как твоя птица машет крыльями · DrawBird</title>
+<meta name="description" content="Пунктирная линия посреди области рисования определяет, как машет крыльями твоя птица. Я объяснил, как она работает и как этим пользоваться.">
+<meta property="og:title" content="Зачем нужна пунктирная линия? Как твоя птица машет крыльями">
+<meta property="og:description" content="Пунктирная линия посреди области рисования определяет, как машет крыльями твоя птица. Я объяснил, как она работает и как этим пользоваться.">
+<meta property="og:image" content="https://drawbird.app/og-card.png">
+<meta property="og:url" content="https://drawbird.app/ru/blog/2026-11-kesik-cizgi">
+<link rel="canonical" href="https://drawbird.app/ru/blog/2026-11-kesik-cizgi">
+<link rel="alternate" hreflang="tr" href="https://drawbird.app/blog/2026-11-kesik-cizgi">
+<link rel="alternate" hreflang="en" href="https://drawbird.app/en/blog/2026-11-kesik-cizgi">
+<link rel="alternate" hreflang="es" href="https://drawbird.app/es/blog/2026-11-kesik-cizgi">
+<link rel="alternate" hreflang="pt" href="https://drawbird.app/pt/blog/2026-11-kesik-cizgi">
+<link rel="alternate" hreflang="fr" href="https://drawbird.app/fr/blog/2026-11-kesik-cizgi">
+<link rel="alternate" hreflang="de" href="https://drawbird.app/de/blog/2026-11-kesik-cizgi">
+<link rel="alternate" hreflang="ru" href="https://drawbird.app/ru/blog/2026-11-kesik-cizgi">
+<link rel="alternate" hreflang="ar" href="https://drawbird.app/ar/blog/2026-11-kesik-cizgi">
+<link rel="alternate" hreflang="zh" href="https://drawbird.app/zh/blog/2026-11-kesik-cizgi">
+<link rel="alternate" hreflang="ja" href="https://drawbird.app/ja/blog/2026-11-kesik-cizgi">
+<link rel="alternate" hreflang="id" href="https://drawbird.app/id/blog/2026-11-kesik-cizgi">
+<link rel="alternate" hreflang="x-default" href="https://drawbird.app/blog/2026-11-kesik-cizgi">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/sayfa.css">
+<style>
+  .ad { display: none; }
+  .ads-ok .ad { display: block; }
+  .consent { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); width: min(560px, calc(100% - 24px)); background: var(--paper); color: var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, .22); display: grid; gap: 10px; font-size: 14px; }
+  .consent p { margin: 0; max-width: none; }
+  .consent div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .consent button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 9px 16px; background: var(--beak); color: var(--beak-ink); cursor: pointer; }
+  .consent button.ghost { background: var(--chip); color: var(--ink); }
+  .ads-ok .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
+  .ad-label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
+  .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
+  .step svg, .list svg { width: 100%; height: auto; background: #ffffff; border-radius: 12px; }
+  .list svg { margin-top: 8px; }
+  .step h3 { margin: 0 0 4px; font-size: 18px; }
+  .step p { margin: 0; }
+  @media (max-width: 560px) { .step { grid-template-columns: 1fr; } }
+  .facts { background: var(--chip); border-radius: 16px; padding: 4px 18px 4px 34px; }
+  [dir="rtl"] .facts { padding: 4px 34px 4px 18px; }
+  table.card { border-collapse: collapse; width: 100%; margin: 10px 0; }
+  table.card th, table.card td { text-align: start; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.card th { width: 40%; color: var(--muted); font-weight: 500; }
+  .list { display: grid; gap: 10px; padding: 0; list-style: none; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+  .list a { display: block; background: var(--chip); border-radius: 14px; padding: 12px 16px; text-decoration: none; height: 100%; }
+  .list b { font-size: 18px; }
+  .badge { display: inline-block; font-size: 12px; padding: 2px 9px; border-radius: 99px; background: var(--beak); color: var(--beak-ink); font-weight: 700; }
+  details { background: var(--chip); border-radius: 14px; padding: 10px 14px; margin-bottom: 8px; }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { margin: 8px 0 2px; }
+  .post-meta { color: var(--muted); font-size: 14px; }
+  .langs { margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
+  .langs a[aria-current] { font-weight: 700; text-decoration: none; }
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Зачем нужна пунктирная линия? Как твоя птица машет крыльями", "datePublished": "2026-11-03", "description": "Пунктирная линия посреди области рисования определяет, как машет крыльями твоя птица. Я объяснил, как она работает и как этим пользоваться.", "inLanguage": "ru"}</script>
+<meta name="google-adsense-account" content="ca-pub-5448096630528045">
+</head>
+<body>
+<main>
+<nav class="top"><a class="brand" href="/?lang=ru" aria-label="DrawBird"><picture><source srcset="/logo/sembol-koyu.svg" media="(prefers-color-scheme: dark)"><img src="/logo/sembol.svg" alt="" width="40" height="40"></picture><picture><source srcset="/logo/yazi-koyu.svg" media="(prefers-color-scheme: dark)"><img src="/logo/yazi-acik.svg" alt="" width="99" height="30"></picture></a><a href="/?lang=ru#ciz">Рисовать</a><a href="/ru/dersler/">Уроки</a><a href="/ru/kuslar/">Птицы</a><a href="/ru/haftanin-kuslari">Птицы недели</a><a class="on" href="/ru/blog/">Блог</a><a href="/ru/sss">Вопросы</a></nav>
+<article>
+  <h1>Зачем нужна пунктирная линия? Как твоя птица машет крыльями</h1>
+  <p class="post-meta">3 ноября 2026 г.</p>
+<p>Посреди области рисования проходит пунктирная линия. Многие не замечают её, когда рисуют первую птицу, а потом спрашивают, почему птица не машет крыльями. В этой статье я расскажу, что делает эта линия.</p>
+
+<h2>Рисунок делится на две части</h2>
+<p>Когда ты отправляешь птицу в полёт, DrawBird разрезает твой рисунок по пунктирной линии. Нижняя половина остаётся как есть, это туловище птицы. Верхняя половина всё время сжимается и растягивается. Её прижимает к линии, потом она снова раскрывается, а на миг даже опускается ниже линии. То есть верхняя половина становится крылом.</p>
+<p>Поэтому правило простое. Крыло рисуй над линией, туловище под ней. Если нарисуешь всю птицу под линией, она полетит, но махать не будет. Если нарисуешь всю птицу над линией, то в этот раз будет махать вся птица целиком, немного как аккордеон.</p>
+
+<h2>Всё над линией машет</h2>
+<p>DrawBird не знает, что у тебя крыло. Он смотрит только на то, где оно относительно линии. Если вынесешь голову или хохол над линию, они будут подниматься и опускаться вместе с крылом. Поэтому в <a href="/ru/dersler/ibibik">уроке про удода</a> мы держим хохол под линией.</p>
+<p>Конечно, этим можно пользоваться нарочно. Нарисуешь зайца с ушами над линией, и он полетит, махая ушами. Птицей быть не обязательно, летит всё, у чего есть крыло.</p>
+
+<h2>Несколько маленьких советов</h2>
+<ul>
+  <li><b>Рисуй крыло большим.</b> Когда птица машет, крыло укорачивается. Нарисуешь побольше, и движение будет заметнее.</li>
+  <li><b>Бери толстую кисть.</b> В небе птица становится маленькой, и тонкие линии там пропадают.</li>
+  <li><b>Направление не важно.</b> Птицу можно рисовать смотрящей вправо или влево. В небе она сама поворачивается в ту сторону, куда летит.</li>
+  <li><b>Пустоты не летают.</b> Места, которые ты не закрасил, остаются прозрачными. В небе видно ровно то, что ты нарисовал.</li>
+</ul>
+
+<p>Хочешь попробовать шаг за шагом, загляни в <a href="/ru/dersler/">уроки рисования</a>. В каждом уроке отдельно показано, где должно быть крыло.</p>
+  <p><a href="/ru/blog/">← Все записи</a></p>
+</article>
+<footer>DrawBird · <a href="/ru/hakkinda">О проекте</a> · <a href="/ru/ogretmenler">Учителям</a> · <a href="/ru/nasil-oynanir">Как играть</a> · <a href="/ru/kosullar">Условия</a> · <a href="/ru/gizlilik">Конфиденциальность</a> · <a href="/ru/kvkk">KVKK</a> · <a href="/?lang=ru#iletisim">Напиши нам</a> · <a href="https://github.com/gunayboss/drawbird">Исходный код</a><div class="langs" aria-label="Язык"><a href="/blog/2026-11-kesik-cizgi" hreflang="tr" lang="tr">Türkçe</a><a href="/en/blog/2026-11-kesik-cizgi" hreflang="en" lang="en">English</a><a href="/es/blog/2026-11-kesik-cizgi" hreflang="es" lang="es">Español</a><a href="/pt/blog/2026-11-kesik-cizgi" hreflang="pt" lang="pt">Português</a><a href="/fr/blog/2026-11-kesik-cizgi" hreflang="fr" lang="fr">Français</a><a href="/de/blog/2026-11-kesik-cizgi" hreflang="de" lang="de">Deutsch</a><a href="/ru/blog/2026-11-kesik-cizgi" hreflang="ru" lang="ru" aria-current="page">Русский</a><a href="/ar/blog/2026-11-kesik-cizgi" hreflang="ar" lang="ar">العربية</a><a href="/zh/blog/2026-11-kesik-cizgi" hreflang="zh" lang="zh">中文</a><a href="/ja/blog/2026-11-kesik-cizgi" hreflang="ja" lang="ja">日本語</a><a href="/id/blog/2026-11-kesik-cizgi" hreflang="id" lang="id">Bahasa Indonesia</a></div></footer>
+</main>
+</body>
+</html>

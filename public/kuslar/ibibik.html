@@ -28,7 +28,14 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
 <style>
-  .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
+  .ad { display: none; }
+  .ads-ok .ad { display: block; }
+  .consent { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); width: min(560px, calc(100% - 24px)); background: var(--paper); color: var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, .22); display: grid; gap: 10px; font-size: 14px; }
+  .consent p { margin: 0; max-width: none; }
+  .consent div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .consent button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 9px 16px; background: var(--beak); color: var(--beak-ink); cursor: pointer; }
+  .consent button.ghost { background: var(--chip); color: var(--ink); }
+  .ads-ok .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
   .ad-label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
   .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
@@ -67,8 +74,8 @@
   <p>Gövdesi somon pembesi, kanat ve kuyruğu siyah beyaz bantlı. Heyecanlanınca ya da yere konunca başındaki siyah uçlu tepeliği yelpaze gibi açıyor. Bunu bir kere görsen unutmazsın.</p><p>Uzun, ince, hafif aşağı kıvrık gagasını toprağa sokup larva arıyor. Çimenlikte yürürken sık sık gagasını yere batırdığını görürsün.</p><p>İbibik bizim kültürümüzde çok eski. Kuran&#x27;da Hz. Süleyman&#x27;a haber getiren Hüdhüd o. Feridüddin Attar&#x27;ın Mantıku&#x27;t-Tayr&#x27;ında da kuşlara yol gösteren kuş yine o.</p><p>Yuvada yavrular tehlike sezince kötü kokulu bir sıvı salgılıyor. Bu koku yırtıcıları uzak tutuyor. Pek hoş değil ama işe yarıyor.</p>
   
   <h2>DrawBird&#x27;de çizmek için</h2>
-  <p>Serçe dersini temel al. Başa yelpaze gibi açılan, uçları siyah bir tepelik, uzun ve aşağı kıvrık bir gaga ekle. Gövde somon pembesi, kanat siyah-beyaz çizgili olsun.</p>
-  <p><a href="/dersler/serce">Çizim dersi: Serçe nasıl çizilir? →</a></p>
+  <p>İbibik dersini izle. Tepeliği yelpaze gibi aç ama kesik çizginin altında tut. Gaga uzun ve aşağı kıvrık, gövde somon pembesi, kanat siyah beyaz çizgili.</p>
+  <p><a href="/dersler/ibibik">Çizim dersi: İbibik nasıl çizilir? →</a></p>
   <p><a class="cta" href="/#ciz">Kendi ibibiği çiz</a></p>
   <h2>Diğer kuşlar</h2>
   <ul class="list"><li><a href="/kuslar/kelaynak"><b>Kelaynak</b><br><span class="muted">Kel kırmızı başlı, ensesi dağınık tüylü, gagası uzun ve kırmızı bir kuş. Birecik&#x27;te koruma…</span></a></li><li><a href="/kuslar/yesilbas"><b>Yeşilbaş</b><br><span class="muted">Göl kenarında ekmek bekleyen ördeklerin çoğu yeşilbaş. Evcil ördeklerin neredeyse hepsinin…</span></a></li><li><a href="/kuslar/kumru"><b>Kumru</b><br><span class="muted">Sabah pencerenin önünden &quot;gu-guuu-gu&quot; diye bir ses geliyorsa büyük ihtimalle kumrudur.…</span></a></li></ul>

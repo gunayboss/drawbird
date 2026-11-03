@@ -28,7 +28,14 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
 <style>
-  .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
+  .ad { display: none; }
+  .ads-ok .ad { display: block; }
+  .consent { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); width: min(560px, calc(100% - 24px)); background: var(--paper); color: var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, .22); display: grid; gap: 10px; font-size: 14px; }
+  .consent p { margin: 0; max-width: none; }
+  .consent div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .consent button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 9px 16px; background: var(--beak); color: var(--beak-ink); cursor: pointer; }
+  .consent button.ghost { background: var(--chip); color: var(--ink); }
+  .ads-ok .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
   .ad-label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
   .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
@@ -67,8 +74,8 @@
   <p>El vencejo se parece a la golondrina, pero no es pariente suyo. Es marrón oscuro, casi negro. Tiene las alas largas y curvas como una hoz. Sus patas son tan cortas que le cuesta despegar del suelo, por eso casi nunca se posa.</p><p>Come en el aire, bebe en el aire, duerme en el aire. No es broma. Las investigaciones han mostrado que algunos vencejos vuelan diez meses seguidos sin posarse en sus cuarteles de invierno en África.</p><p>Hacen sus nidos en los huecos de los tejados de edificios antiguos, mezquitas y torres. Incluso recogen el material de plumas y basura que flota en el aire y lo pegan con su saliva.</p><p>Cuando en las restauraciones se tapan los huecos de los tejados, los vencejos pierden su casa. En algunas ciudades se colocan cajas especiales para vencejos en los edificios. Una buena idea.</p>
   
   <h2>Para dibujarlo en DrawBird</h2>
-  <p>Dibuja el ala de la lección de la gaviota fina y curva como una hoz. Cuerpo pequeño, cola corta y en horquilla. Pinta todo el pájaro de marrón oscuro y pon una pequeña mancha clara en la garganta.</p>
-  <p><a href="/es/dersler/marti">Lección de dibujo: ¿Cómo dibujar una gaviota? →</a></p>
+  <p>Toma como base el pájaro de la lección de la golondrina, pero dibuja el ala más larga y curvada como una hoz. Que la cola sea corta y algo en horquilla. Pinta todo el pájaro de marrón oscuro y pon una pequeña mancha clara en la garganta.</p>
+  <p><a href="/es/dersler/kirlangic">Lección de dibujo: ¿Cómo dibujar una golondrina? →</a></p>
   <p><a class="cta" href="/?lang=es#ciz">Dibuja tu propio vencejo</a></p>
   <h2>Otros pájaros</h2>
   <ul class="list"><li><a href="/es/kuslar/flamingo"><b>Flamenco común</b><br><span class="muted">Rosa, de patas larguísimas y con el pico del revés. El flamenco común es el ave que más ll…</span></a></li><li><a href="/es/kuslar/kizilgerdan"><b>Petirrojo</b><br><span class="muted">El pajarillo de pecho naranja que, mientras cavas en el jardín, se acerca a un par de paso…</span></a></li><li><a href="/es/kuslar/saka"><b>Jilguero</b><br><span class="muted">Un pajarillo diminuto y piador, de cara roja y una banda amarilla brillante en el ala. Par…</span></a></li></ul>

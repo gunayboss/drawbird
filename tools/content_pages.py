@@ -119,4 +119,50 @@ POSTS = [
 <p>Yeni kuş sayfaları, yeni dersler ve derslerin öteki dillere çevrilmesi. Bir önerin varsa <a href="https://github.com/gunayboss/drawbird/issues">GitHub'dan</a> yaz. Hepsini okuyorum.</p>
 ''',
     },
+    {
+        'slug': '2026-11-kesik-cizgi', 'date': '2026-11-03', 'title': 'Kesik çizgi ne işe yarıyor? Kuşun nasıl kanat çırpıyor',
+        'desc': 'Çizim alanının ortasındaki kesik çizgi kuşunun kanadını belirliyor. Nasıl çalıştığını ve ondan nasıl faydalanacağını anlattım.',
+        'html': '''
+<p>Çizim alanının ortasında bir kesik çizgi var. Çoğu kişi ilk kuşunu çizerken onu fark etmiyor, sonra kuşu neden kanat çırpmıyor diye soruyor. Bu yazıda o çizginin ne yaptığını anlatıyorum.</p>
+
+<h2>Çizim ikiye bölünüyor</h2>
+<p>Kuşunu uçurduğunda DrawBird çizimini kesik çizginin hizasından ikiye ayırıyor. Alt yarı olduğu gibi duruyor, bu kuşun gövdesi. Üst yarı ise sürekli kısalıp uzuyor. Çizgiye doğru basılıyor, sonra geri açılıyor, hatta bir an çizginin altına kadar iniyor. Yani üst yarı kanat oluyor.</p>
+<p>Bu yüzden kural basit. Kanadı çizginin üstüne, gövdeyi altına çiz. Bütün kuşu çizginin altına çizersen kuşun uçar ama kanat çırpmaz. Bütün kuşu üstüne çizersen de bu sefer kuşun tamamı çırpar, biraz akordeon gibi.</p>
+
+<h2>Çizginin üstündeki her şey çırpar</h2>
+<p>DrawBird neyin kanat olduğunu bilmiyor. Sadece çizginin neresinde olduğuna bakıyor. Başı ya da tepeliği çizginin üstüne taşırırsan onlar da kanatla beraber inip kalkar. <a href="/dersler/ibibik">İbibik dersinde</a> tepeliği bu yüzden çizginin altında tutuyoruz.</p>
+<p>Tabii bunu bilerek de kullanabilirsin. Kulakları çizginin üstünde kalan bir tavşan çizersen kulaklarıyla uçar. Kuş olmak zorunda değil yani, kanadı olan her şey uçar.</p>
+
+<h2>Birkaç küçük ipucu</h2>
+<ul>
+  <li><b>Kanadı büyük çiz.</b> Çırparken kanat kısalıyor. Büyük çizersen hareket daha belirgin oluyor.</li>
+  <li><b>Kalın kalem kullan.</b> Kuşun gökyüzünde küçülüyor, ince çizgiler orada kayboluyor.</li>
+  <li><b>Yön dert değil.</b> Kuşunu sağa ya da sola bakar çizebilirsin. Gökyüzünde gittiği yöne göre kendiliğinden dönüyor.</li>
+  <li><b>Boşluklar uçmaz.</b> Çizmediğin yerler şeffaf kalıyor. Kuşun gökyüzünde sadece çizdiğin kadar görünüyor.</li>
+</ul>
+
+<p>Adım adım denemek istersen <a href="/dersler/">çizim derslerine</a> bak. Her derste kanadın nereye geleceği ayrıca gösteriliyor.</p>
+''',
+    },
+    {
+        'slug': '2026-11-leylek-gocu', 'date': '2026-11-03', 'title': "Sonbahar göçü: leylekler neden İstanbul Boğazı'ndan geçiyor?",
+        'desc': "Her yıl on binlerce leylek Afrika'ya giderken İstanbul'un üstünden geçiyor. Neden denizi değil de Boğaz'ı seçtiklerini anlattım.",
+        'html': '''
+<p>Ağustosun sonundan eylülün sonuna kadar İstanbul'da başını kaldırırsan büyük ihtimalle bir leylek sürüsü görürsün. Bazen yüzlercesi aynı anda gökyüzünde daire çiziyor. Bunun bir sebebi var ve sebebi rüzgârla ilgili.</p>
+
+<h2>Leylekler kanat çırpmayı sevmiyor</h2>
+<p><a href="/kuslar/leylek">Ak leylek</a> büyük bir kuş. Kanat açıklığı iki metreyi bulabiliyor. Bu kadar büyük kanatları saatlerce çırpmak çok enerji harcatıyor. O yüzden leylekler başka bir yol bulmuş. Güneş yeri ısıtınca yerden yukarı sıcak hava yükseliyor. Leylek bu sıcak havanın içine girip daire çizerek yükseliyor, sonra kanadını hiç çırpmadan bir sonraki sıcak hava akımına kadar süzülüyor.</p>
+
+<h2>Denizin üstünde sıcak hava yok</h2>
+<p>Sorun şu ki deniz kara kadar ısınmıyor. Denizin üstünde bu sıcak hava akımları pek oluşmuyor. Leylek açık denize çıkarsa kanat çırpmak zorunda kalıyor ve uzun bir geçişi kaldıramayabiliyor. Bu yüzden leylekler denizi en dar yerinden geçiyor.</p>
+<p>Avrupa'dan Afrika'ya giden leyleklerin iki büyük yolu var. Batıdakiler Cebelitarık Boğazı'ndan, doğudakiler İstanbul Boğazı'ndan geçiyor. Sonra Anadolu'yu aşıp Orta Doğu üzerinden Afrika'ya iniyorlar. Kartallar, şahinler, arı şahinleri gibi süzülerek uçan başka kuşlar da aynı yolu kullanıyor.</p>
+
+<h2>Ne zaman, nereden izlenir?</h2>
+<p>En yoğun zaman ağustosun son haftası ile eylülün ilk yarısı. Öğle saatleri en iyisi, çünkü sıcak hava akımları güneş yükselince güçleniyor. İstanbul'da Çamlıca Tepesi gibi yüksek yerler göçü izlemek için bilinen noktalar. Yanına bir dürbün alırsan çok daha keyifli olur.</p>
+<p>Bu yılın göçü bitti, leylekler şu an Afrika'da. Mart ve nisanda aynı yoldan geri dönecekler. Yani bahar göçünü izlemek için çok beklemen gerekmiyor.</p>
+
+<h2>Gökyüzüne bir leylek sürüsü</h2>
+<p>Bu hafta DrawBird gökyüzünü leyleklerle doldurmaya ne dersin? <a href="/dersler/leylek">Leylek dersi</a> uçan bir leyleği adım adım gösteriyor. Birkaç tane çizip hepsini bir sürüde toplayabilirsin. Kışı yine Afrika'da geçiren <a href="/kuslar/kirlangic">kırlangıcı</a> da unutma, onun da <a href="/dersler/kirlangic">bir dersi</a> var artık.</p>
+''',
+    },
 ]

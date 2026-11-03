@@ -241,7 +241,60 @@ LESSONS = {'serce': {'title': 'Serçe nasıl çizilir?',
              'facts': ['Kolibriler saniyede 50–80 kez kanat çırpıp havada asılı kalabiliyor.',
                        'Geri geri uçabilen tek kuş grubu onlar.',
                        "En küçük kuş Küba'daki arı sinekkuşu, sadece 5–6 cm.",
-                       "Kolibriler sadece Amerika kıtasında yaşıyor, Türkiye'de yok."]}}
+                       "Kolibriler sadece Amerika kıtasında yaşıyor, Türkiye'de yok."]},
+ 'kirlangic': {'title': 'Kırlangıç nasıl çizilir?',
+               'bird': 'Kırlangıç',
+               'cta': 'Şimdi kendi kırlangıcını çiz',
+               'intro': 'Kırlangıcı tanımak için tek bir şey yeter, o da çatal kuyruk. Gerisi küçük bir gövde ve sivri kanatlar. Beş adımda bitiyor.',
+               'steps': [['İnce gövde', 'Kesik çizginin altına küçük, ince bir gövde çiz ve lacivert boya. Kırlangıç tombul değil, öne doğru uzanan bir kurşun kalem gibi.'],
+                         ['Baş ve gaga', 'Gövdenin sağına küçük bir baş ekle. Gagayı minicik bir üçgen yap. Kırlangıç böceği ağzını açarak havada yakalıyor, büyük gagaya ihtiyacı yok.'],
+                         ['Sivri kanat', 'Kesik çizginin ÜSTÜNE uzun, ince, ucu sivri bir kanat çiz. Hafif geriye doğru kıvır. Yuvarlak kanat çizersen kuşun serçeye benzer.'],
+                         ['Çatal kuyruk', 'Gövdenin soluna iki sivri uçlu bir kuyruk çiz. Dış uçlar uzun olsun, ortası içeri girsin. Kırlangıcın imzası bu.'],
+                         ['Renkler', 'Boğaza kiremit kırmızısı bir leke, karnın altına da krem bir şerit koy. Bu iki renk olunca lacivert sırt daha da parlıyor.']],
+               'mistakes': ['Kuyruğu düz bitirmek. Çatal olmazsa kırlangıç olmuyor.',
+                            'Gövdeyi tombul çizmek. Kırlangıç ince ve hafif bir kuş.',
+                            'Kanadı kısa ve yuvarlak yapmak. Kanat uzun ve sivri olmalı.'],
+               'facts': ['Kır kırlangıcı kuyruk uçlarıyla 17–19 cm, ağırlığı 16–22 g.',
+                         'Yemeğini havada yakalıyor. Suyu da su yüzeyine alçaktan uçarak içiyor.',
+                         'Yuvasını gagasıyla taşıdığı yüzlerce çamur topağından yapıyor.',
+                         "Kışı Afrika'da geçiriyor, baharda çoğu zaman doğduğu yere geri dönüyor."]},
+ 'leylek': {'title': 'Leylek nasıl çizilir?',
+            'bird': 'Leylek',
+            'cta': 'Şimdi kendi leyleğini çiz',
+            'intro': 'Leylek uçarken boynunu ve bacaklarını dümdüz uzatıyor. Bu derste o uzun, düz siluetini çizeceğiz. Kırmızı gaga ve kırmızı bacaklar da işin süsü.',
+            'steps': [['Gövde', 'Kesik çizginin altına uzun, yatay bir yumurta çiz. Leylek beyaz, o yüzden önce koyu bir kenar çiz, içini beyaz bırak.'],
+                      ['Uzun boyun ve baş', 'Gövdenin sağından ileri doğru uzun bir boyun çıkar ve ucuna küçük bir baş koy. Boyun neredeyse düz olsun, leylek uçarken boynunu bükmüyor.'],
+                      ['Kırmızı gaga', 'Başın önüne uzun, sivri, kırmızı bir gaga çiz. Gaga neredeyse başın üç katı uzunluğunda olabilir.'],
+                      ['Kanat', 'Kesik çizginin ÜSTÜNE geniş, uzun bir kanat çiz. Kanadın ön kısmı beyaz, dış kısmı siyah. Leyleğin kanadı gövdesinden çok daha büyük, cömert davran.'],
+                      ['Kuyruk ve bacaklar',
+                       'Gövdenin soluna kısa bir kuyruk ekle. Sonra iki ince kırmızı bacağı kuyruğun da gerisine kadar uzat. Leylek uçarken bacaklarını sarkıtmıyor, arkaya doğru uzatıyor.']],
+            'mistakes': ['Boynu kısa ya da kıvrık çizmek. Uçan leyleğin boynu uzun ve düz.',
+                         'Bacakları aşağı sarkıtmak. Uçarken arkaya doğru dümdüz uzanıyorlar.',
+                         'Beyaz kuşu kenar çizmeden bırakmak. Gökyüzünde kayboluyor.'],
+            'facts': ['Ak leyleğin boyu 100–115 cm, kanat açıklığı 155–215 cm.',
+                      "Ağustos sonunda on binlercesi Afrika'ya göç ediyor ve yolları İstanbul Boğazı'ndan geçiyor.",
+                      'Kanat çırpmayı pek sevmiyorlar. Sıcak hava akımlarıyla yükselip kilometrelerce süzülüyorlar.',
+                      'Sesleri yok sayılır. Bunun yerine gagalarını takırdatıyorlar.']},
+ 'ibibik': {'title': 'İbibik nasıl çizilir?',
+            'bird': 'İbibik',
+            'cta': 'Şimdi kendi ibibiğini çiz',
+            'intro': 'İbibiğin başında yelpaze gibi açılan bir tepelik var. Bu derste onu çizerken bir de kesik çizgiyle ilgili küçük bir püf noktası öğreneceksin.',
+            'steps': [['Gövde', 'Kesik çizginin epey altına yatay bir yumurta çiz ve somon pembesi boya. Gövdeyi biraz aşağıda tutuyoruz, çünkü tepeliğe yer lazım.'],
+                      ['Baş', 'Gövdenin sağ üstüne yuvarlak bir baş ekle. Gözü başın ortasına yakın bir nokta olarak koy.'],
+                      ['Tepelik',
+                       'Başın üstüne yelpaze gibi açılan bir tepelik çiz, uçlarını siyah yap. Püf noktası şu. Tepeliği kesik çizginin ALTINDA tut. Çizginin üstüne çıkarsa kanat gibi çırpmaya '
+                       'başlar.'],
+                      ['Uzun kıvrık gaga', 'Başın önüne uzun, ince ve hafif aşağı kıvrılan bir gaga çiz. İbibik bu gagayı toprağa sokup larva arıyor.'],
+                      ['Çizgili kanat ve kuyruk',
+                       'Kesik çizginin ÜSTÜNE siyah bir kanat çiz, üstüne iki beyaz çizgi koy. Gövdenin soluna da siyah bir kuyruk ekle, ortasından beyaz bir bant geçsin. Uçarken bu siyah beyaz '
+                       'desen kelebek gibi görünüyor.']],
+            'mistakes': ['Tepeliği kesik çizginin üstüne taşırmak. Çizginin üstünde kalan her şey çırpıyor.',
+                         'Gagayı kısa ve düz çizmek. İbibiğin gagası uzun ve aşağı kıvrık.',
+                         'Kanadı tek renk bırakmak. Siyah beyaz çizgiler olmadan ibibik tanınmıyor.'],
+            'facts': ['İbibiğin boyu 25–32 cm, kanat açıklığı 44–48 cm.',
+                      'Tepeliğini heyecanlanınca ya da yere konunca açıyor.',
+                      'Kimi yerde hüthüt, kimi yerde çavuşkuşu deniyor. Adı "hüt hüt hüt" diye ötmesinden geliyor.',
+                      'Yavrular tehlike sezince kötü kokulu bir sıvı salgılıyor. Yırtıcılar bundan hiç hoşlanmıyor.']}}
 
 BIRDS = {'kumru': {'name': 'Kumru',
            'cta': 'Kendi kumrunu çiz',
@@ -267,8 +320,7 @@ BIRDS = {'kumru': {'name': 'Kumru',
                      'Sesleri de yok sayılır. Bunun yerine gagalarını takırdatıyorlar. Eşi yuvaya dönünce leylek başını arkaya atıp uzun uzun takırdıyor. Bir kere duyan unutmuyor.',
                      'Aynı yuvayı yıllarca kullanıyorlar ve her yıl biraz daha büyütüyorlar. Bazı yuvalar bir metreden geniş, yüzlerce kilo ağırlığında oluyor. Bacanın sahibi ne düşünüyor '
                      'bilmiyoruz.'],
-            'draw': 'Martı dersindeki gibi uzun bir gövde ve uzun kanat çiz. Gövde beyaz, kanat ucu siyah. Gagayı uzun ve kırmızı yap, boynu uzat. Bacakları da kırmızı çiz, gövdenin arkasından '
-                    'dışarı uzansın.',
+            'draw': 'Leylek dersini adım adım izle. Boynu ve bacakları uzun tut, uçarken ikisi de dümdüz uzanıyor. Gaga ve bacaklar kırmızı, kanat ucu siyah.',
             'own': ''},
  'serce': {'name': 'Serçe',
            'cta': 'Kendi serçeni çiz',
@@ -338,7 +390,7 @@ BIRDS = {'kumru': {'name': 'Kumru',
                         'alçaktan uçuyorsa yağmur yağacak" sözü buradan.',
                         'Yuvayı gagasıyla taşıdığı yüzlerce çamur topağından yapıyor. Aynı çift yıllarca aynı yuvaya dönüp onu tamir ediyor.',
                         "Kışı Afrika'da geçiriyorlar. Her yıl binlerce kilometre gidip geliyorlar ve çoğu zaman baharda doğdukları köye dönüyorlar. Ciddi ciddi adres biliyorlar."],
-               'draw': 'Martı dersindeki uzun kanat fikrini kullan ama kuşu küçük ve ince çiz. Kuyruğu iki sivri uçlu çatal yap. Sırt lacivert, boğaz kırmızı, karın beyaz.',
+               'draw': 'Kırlangıç dersini izle. Kuşu küçük ve ince çiz, kuyruğu iki sivri uçlu çatal yap. Sırt lacivert, boğaz kırmızı, karın beyaz.',
                'own': ''},
  'ebabil': {'name': 'Ebabil',
             'cta': 'Kendi ebabili çiz',
@@ -349,7 +401,8 @@ BIRDS = {'kumru': {'name': 'Kumru',
                      "Havada yiyor, havada içiyor, havada uyuyor. Şaka değil. Araştırmalar bazı ebabillerin Afrika'daki kışlakta on ay boyunca hiç konmadan uçtuğunu gösterdi.",
                      'Yuvalarını eski binaların, camilerin, kulelerin çatı aralıklarına yapıyorlar. Malzemeyi bile havada uçuşan tüylerden, çöplerden topluyorlar ve tükürükleriyle yapıştırıyorlar.',
                      'Restorasyonlarda çatı aralıkları kapatılınca ebabillerin evi gidiyor. Bazı şehirlerde binalara özel ebabil kutuları takılıyor. Güzel bir şey.'],
-            'draw': 'Martı dersindeki kanadı ince ve orak gibi kıvrık çiz. Gövde küçük, kuyruk kısa ve çatallı olsun. Bütün kuşu koyu kahverengi yap, boğaza küçük açık bir leke koy.',
+            'draw': 'Kırlangıç dersindeki kuşu temel al ama kanadı daha uzun ve orak gibi kıvrık çiz. Kuyruk kısa ve hafif çatallı olsun. Bütün kuşu koyu kahverengi yap, boğaza küçük açık bir leke '
+                    'koy.',
             'own': ''},
  'flamingo': {'name': 'Flamingo',
               'cta': 'Kendi flamingonu çiz',
@@ -441,7 +494,7 @@ BIRDS = {'kumru': {'name': 'Kumru',
                      'Uzun, ince, hafif aşağı kıvrık gagasını toprağa sokup larva arıyor. Çimenlikte yürürken sık sık gagasını yere batırdığını görürsün.',
                      "İbibik bizim kültürümüzde çok eski. Kuran'da Hz. Süleyman'a haber getiren Hüdhüd o. Feridüddin Attar'ın Mantıku't-Tayr'ında da kuşlara yol gösteren kuş yine o.",
                      'Yuvada yavrular tehlike sezince kötü kokulu bir sıvı salgılıyor. Bu koku yırtıcıları uzak tutuyor. Pek hoş değil ama işe yarıyor.'],
-            'draw': 'Serçe dersini temel al. Başa yelpaze gibi açılan, uçları siyah bir tepelik, uzun ve aşağı kıvrık bir gaga ekle. Gövde somon pembesi, kanat siyah-beyaz çizgili olsun.',
+            'draw': 'İbibik dersini izle. Tepeliği yelpaze gibi aç ama kesik çizginin altında tut. Gaga uzun ve aşağı kıvrık, gövde somon pembesi, kanat siyah beyaz çizgili.',
             'own': ''},
  'kelaynak': {'name': 'Kelaynak',
               'cta': 'Kendi kelaynağı çiz',
@@ -647,7 +700,9 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                       'adı ve logosu bu lisansla verilmez.</p>\n'
                       '\n'
                       '  <h2>7. Reklam</h2>\n'
-                      '  <p>DrawBird ücretsiz kalabilmek için ileride reklam gösterebilir. Reklam eklendiğinde gizlilik sayfası güncellenir ve gerekli yerlerde çerez onayı istenir.</p>\n'
+                      '  <!--noads--><p>DrawBird ücretsiz kalabilmek için ileride reklam gösterebilir. Reklam eklendiğinde gizlilik sayfası güncellenir ve gerekli yerlerde çerez onayı '
+                      'istenir.</p><!--/noads--><!--ads--><p>DrawBird ücretsiz kalabilmek için bazı yazı sayfalarında Google reklamları gösterir. Reklamlar yalnız iznin varsa yüklenir, oyun '
+                      'ekranında reklam yoktur. Reklamların içeriğinden reklam veren sorumludur. Ayrıntılar <a href="/gizlilik">gizlilik sayfasında</a>.</p><!--/ads-->\n'
                       '\n'
                       '  <h2>8. Sorumluluk</h2>\n'
                       '  <p>Kullanıcıların çizimlerinden çizen kişi sorumludur. DrawBird, hizmetin kesilmesinden veya verilerin kaybolmasından doğan zararlardan, yürürlükteki hukukun izin verdiği '
@@ -680,8 +735,19 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                       'önce onaya alınabilir; o sırada kuş yalnız çizen kişiye görünür.</p>\n'
                       '\n'
                       '  <h2>Ne toplamıyoruz</h2>\n'
-                      '  <p>Şu an reklam, reklam çerezi, konum, kişi listesi veya üçüncü taraf analiz aracı kullanmıyoruz. Reklam eklenirse bu sayfa güncellenir ve gerekli yerlerde önce onayın '
-                      'istenir. Yazı tipleri kendi sunucumuzdan yüklenir; sayfa açılırken başka bir şirkete istek gitmez.</p>\n'
+                      '  <!--noads--><p>Şu an reklam, reklam çerezi, konum, kişi listesi veya üçüncü taraf analiz aracı kullanmıyoruz. Reklam eklenirse bu sayfa güncellenir ve gerekli yerlerde önce '
+                      'onayın istenir. Yazı tipleri kendi sunucumuzdan yüklenir; sayfa açılırken başka bir şirkete istek gitmez.</p><!--/noads--><!--ads--><p>Konum, kişi listesi veya üçüncü taraf '
+                      'analiz aracı kullanmıyoruz. Yazı tipleri kendi sunucumuzdan yüklenir.</p>\n'
+                      '\n'
+                      '  <h2>Reklamlar ve çerezler</h2>\n'
+                      '  <p>DrawBird ücretsiz kalsın diye bazı yazı sayfalarında (dersler, kuş sayfaları, blog, SSS) Google AdSense reklamları var. Çizim ekranında, gökyüzünde ve bu yasal sayfalarda '
+                      'reklam yok.</p>\n'
+                      '  <p>Reklamlar ancak izin verirsen yüklenir. Reklamlı bir sayfayı ilk açtığında küçük bir pencere sorar. <b>Kabul</b> dersen Google reklam göstermek, sahte tıklamayı önlemek '
+                      've reklamları ölçmek için cihazına çerez koyabilir ve IP adresini işleyebilir. <b>Hayır</b> dersen reklam hiç yüklenmez, site aynı şekilde çalışır.</p>\n'
+                      "  <p>DrawBird'ü çocuklar da kullandığı için Google'dan yalnız kişiselleştirilmemiş reklam istiyoruz. Yani reklamlar senin ilgi alanlarına göre değil, sayfanın konusuna göre "
+                      'seçilir.</p>\n'
+                      "  <p>Kararını sayfanın altındaki <b>Çerez ayarları</b> bağlantısından istediğin an değiştirebilirsin. Google'ın bu verileri nasıl kullandığını <a "
+                      'href="https://policies.google.com/technologies/partner-sites">Google\'ın sayfasında</a> okuyabilirsin.</p><!--/ads-->\n'
                       '\n'
                       '  <h2>Ziyaret sayımı</h2>\n'
                       '  <p>Kaç kişinin geldiğini görmek için her ziyarette günlük bir sayaç bir artar. Bu sayaç çerez kullanmaz, kim olduğunu ya da IP adresini kaydetmez; yalnız "bugün kaç ziyaret" '
@@ -723,7 +789,8 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                   '    <li><b>Güvenlik verisi:</b> IP adresinin gizli bir anahtarla karıştırılmış, geri çevrilemeyen özeti. IP adresinin kendisi veritabanına yazılmaz.</li>\n'
                   '    <li><b>Sunucu kayıtları:</b> Barındırma sağlayıcımızın (Cloudflare) teknik kayıtları; istek adresi, saat, ülke ve tarayıcı bilgisi içerebilir.</li>\n'
                   '  </ul>\n'
-                  '  <p>Günlük ziyaret sayacı kişisel veri içermez; yalnız günün toplam sayısını tutar. Çerez kullanmıyoruz. Tarayıcında yalnız cihaz kodun ve tercihlerin saklanır.</p>\n'
+                  '  <p>Günlük ziyaret sayacı kişisel veri içermez; yalnız günün toplam sayısını tutar. <!--noads-->Çerez kullanmıyoruz.<!--/noads--><!--ads-->Kendi çerezimiz yok. Reklamlı '
+                  'sayfalarda izin verirsen Google çerez kullanır (3. ve 4. bölüm).<!--/ads--> Tarayıcında yalnız cihaz kodun ve tercihlerin saklanır.</p>\n'
                   '\n'
                   '  <h2>3. Amaçlar ve hukuki sebepler</h2>\n'
                   '  <ul>\n'
@@ -731,15 +798,20 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                   'koşulları</a>).</li>\n'
                   '    <li>Spam, sahte oy, uygunsuz içerik ve saldırıları önlemek, kuralları çiğneyenleri engellemek, yeni ve bildirilen çizimleri incelemek: <b>meşru menfaat</b> (KVKK '
                   'm.5/2-f).</li>\n'
-                  '    <li>Yetkili kurumların talepleri ve yasal saklama yükümlülükleri: <b>hukuki yükümlülük</b> (KVKK m.5/2-ç).</li>\n'
+                  '    <li>Yetkili kurumların talepleri ve yasal saklama yükümlülükleri: <b>hukuki yükümlülük</b> (KVKK m.5/2-ç).</li><!--ads-->\n'
+                  '    <li>Reklamlı yazı sayfalarında Google reklamlarını göstermek: <b>açık rıza</b> (KVKK m.5/1). İzni sayfadaki pencereden verirsin, <b>Çerez ayarları</b> bağlantısından istediğin '
+                  'an geri alırsın.</li><!--/ads-->\n'
                   '  </ul>\n'
-                  '  <p>Açık rızaya dayalı bir işleme, pazarlama iletisi veya profilleme yapmıyoruz.</p>\n'
+                  '  <!--noads--><p>Açık rızaya dayalı bir işleme, pazarlama iletisi veya profilleme yapmıyoruz.</p><!--/noads--><!--ads--><p>Reklam izni dışında açık rızaya dayalı bir işleme '
+                  'yapmıyoruz. Pazarlama iletisi göndermiyor, profil çıkarmıyoruz.</p><!--/ads-->\n'
                   '\n'
                   '  <h2>4. Aktarım</h2>\n'
                   '  <ul>\n'
                   '    <li><b>Cloudflare, Inc.</b> (barındırma ve veritabanı): Tüm veriler Cloudflare sunucularında tutulur; veritabanı Doğu Avrupa bölgesindedir, sayfalar dünya genelindeki '
                   'sunuculardan sunulur.</li>\n'
-                  '    <li><b>Telegram</b> (moderasyon): Yeni, onay bekleyen veya bildirilen kuşların resmi, adı ve kuşçu adı yöneticinin Telegram hesabına iletilir.</li>\n'
+                  '    <li><b>Telegram</b> (moderasyon): Yeni, onay bekleyen veya bildirilen kuşların resmi, adı ve kuşçu adı yöneticinin Telegram hesabına iletilir.</li><!--ads-->\n'
+                  "    <li><b>Google</b> (reklam): İzin verirsen reklamlı sayfalarda Google çerez ve IP adresi gibi verileri işler. Bu veriler Google'ın yurt dışındaki sunucularına aktarılır. İzin "
+                  "vermezsen Google'a hiçbir veri gitmez.</li><!--/ads-->\n"
                   '  </ul>\n'
                   '  <p>Bu sağlayıcıların sunucuları yurt dışındadır; aktarım KVKK m.9 kapsamında yapılır. Verilerini başka kimseye satmayız veya devretmeyiz.</p>\n'
                   '\n'
@@ -748,7 +820,8 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                   '    <li>Kuşlar, oylar, sürüler ve kuşçu adı: sen silene kadar.</li>\n'
                   '    <li>Gönderim sınırı kayıtları: en fazla 1 saat. Yeni hesap sayımı: en fazla 2 gün.</li>\n'
                   '    <li>Engelleme kayıtları: kötüye kullanımı önlemek için engel kaldırılana kadar; ağ engeli 24 saat.</li>\n'
-                  "    <li>Sunucu kayıtları: Cloudflare'in kayıt süresi kadar (birkaç gün).</li>\n"
+                  "    <li>Sunucu kayıtları: Cloudflare'in kayıt süresi kadar (birkaç gün).</li><!--ads-->\n"
+                  "    <li>Reklam izni tercihin: tarayıcında, sen değiştirene kadar. Google çerezlerinin süresi Google'ın kendi politikasına göre.</li><!--/ads-->\n"
                   '  </ul>\n'
                   '  <p>Bize yaz formuna yazdıkların ve istersen bıraktığın iletişim bilgisi, talebin sonuçlanana kadar, en fazla bir yıl saklanır.</p>\n'
                   '\n'
@@ -796,5 +869,56 @@ POSTS = {'2026-11-drawbird-yayinda': {'title': 'DrawBird yayında: ilk ayın not
                                       '\n'
                                       '<h2>Sırada ne var?</h2>\n'
                                       '<p>Yeni kuş sayfaları, yeni dersler ve derslerin öteki dillere çevrilmesi. Bir önerin varsa <a '
-                                      'href="https://github.com/gunayboss/drawbird/issues">GitHub\'dan</a> yaz. Hepsini okuyorum.</p>'}}
+                                      'href="https://github.com/gunayboss/drawbird/issues">GitHub\'dan</a> yaz. Hepsini okuyorum.</p>'},
+ '2026-11-kesik-cizgi': {'title': 'Kesik çizgi ne işe yarıyor? Kuşun nasıl kanat çırpıyor',
+                         'desc': 'Çizim alanının ortasındaki kesik çizgi kuşunun kanadını belirliyor. Nasıl çalıştığını ve ondan nasıl faydalanacağını anlattım.',
+                         'html': '<p>Çizim alanının ortasında bir kesik çizgi var. Çoğu kişi ilk kuşunu çizerken onu fark etmiyor, sonra kuşu neden kanat çırpmıyor diye soruyor. Bu yazıda o çizginin '
+                                 'ne yaptığını anlatıyorum.</p>\n'
+                                 '\n'
+                                 '<h2>Çizim ikiye bölünüyor</h2>\n'
+                                 '<p>Kuşunu uçurduğunda DrawBird çizimini kesik çizginin hizasından ikiye ayırıyor. Alt yarı olduğu gibi duruyor, bu kuşun gövdesi. Üst yarı ise sürekli kısalıp '
+                                 'uzuyor. Çizgiye doğru basılıyor, sonra geri açılıyor, hatta bir an çizginin altına kadar iniyor. Yani üst yarı kanat oluyor.</p>\n'
+                                 '<p>Bu yüzden kural basit. Kanadı çizginin üstüne, gövdeyi altına çiz. Bütün kuşu çizginin altına çizersen kuşun uçar ama kanat çırpmaz. Bütün kuşu üstüne çizersen '
+                                 'de bu sefer kuşun tamamı çırpar, biraz akordeon gibi.</p>\n'
+                                 '\n'
+                                 '<h2>Çizginin üstündeki her şey çırpar</h2>\n'
+                                 '<p>DrawBird neyin kanat olduğunu bilmiyor. Sadece çizginin neresinde olduğuna bakıyor. Başı ya da tepeliği çizginin üstüne taşırırsan onlar da kanatla beraber inip '
+                                 'kalkar. <a href="/dersler/ibibik">İbibik dersinde</a> tepeliği bu yüzden çizginin altında tutuyoruz.</p>\n'
+                                 '<p>Tabii bunu bilerek de kullanabilirsin. Kulakları çizginin üstünde kalan bir tavşan çizersen kulaklarıyla uçar. Kuş olmak zorunda değil yani, kanadı olan her şey '
+                                 'uçar.</p>\n'
+                                 '\n'
+                                 '<h2>Birkaç küçük ipucu</h2>\n'
+                                 '<ul>\n'
+                                 '  <li><b>Kanadı büyük çiz.</b> Çırparken kanat kısalıyor. Büyük çizersen hareket daha belirgin oluyor.</li>\n'
+                                 '  <li><b>Kalın kalem kullan.</b> Kuşun gökyüzünde küçülüyor, ince çizgiler orada kayboluyor.</li>\n'
+                                 '  <li><b>Yön dert değil.</b> Kuşunu sağa ya da sola bakar çizebilirsin. Gökyüzünde gittiği yöne göre kendiliğinden dönüyor.</li>\n'
+                                 '  <li><b>Boşluklar uçmaz.</b> Çizmediğin yerler şeffaf kalıyor. Kuşun gökyüzünde sadece çizdiğin kadar görünüyor.</li>\n'
+                                 '</ul>\n'
+                                 '\n'
+                                 '<p>Adım adım denemek istersen <a href="/dersler/">çizim derslerine</a> bak. Her derste kanadın nereye geleceği ayrıca gösteriliyor.</p>'},
+ '2026-11-leylek-gocu': {'title': "Sonbahar göçü: leylekler neden İstanbul Boğazı'ndan geçiyor?",
+                         'desc': "Her yıl on binlerce leylek Afrika'ya giderken İstanbul'un üstünden geçiyor. Neden denizi değil de Boğaz'ı seçtiklerini anlattım.",
+                         'html': "<p>Ağustosun sonundan eylülün sonuna kadar İstanbul'da başını kaldırırsan büyük ihtimalle bir leylek sürüsü görürsün. Bazen yüzlercesi aynı anda gökyüzünde daire "
+                                 'çiziyor. Bunun bir sebebi var ve sebebi rüzgârla ilgili.</p>\n'
+                                 '\n'
+                                 '<h2>Leylekler kanat çırpmayı sevmiyor</h2>\n'
+                                 '<p><a href="/kuslar/leylek">Ak leylek</a> büyük bir kuş. Kanat açıklığı iki metreyi bulabiliyor. Bu kadar büyük kanatları saatlerce çırpmak çok enerji harcatıyor. O '
+                                 'yüzden leylekler başka bir yol bulmuş. Güneş yeri ısıtınca yerden yukarı sıcak hava yükseliyor. Leylek bu sıcak havanın içine girip daire çizerek yükseliyor, sonra '
+                                 'kanadını hiç çırpmadan bir sonraki sıcak hava akımına kadar süzülüyor.</p>\n'
+                                 '\n'
+                                 '<h2>Denizin üstünde sıcak hava yok</h2>\n'
+                                 '<p>Sorun şu ki deniz kara kadar ısınmıyor. Denizin üstünde bu sıcak hava akımları pek oluşmuyor. Leylek açık denize çıkarsa kanat çırpmak zorunda kalıyor ve uzun '
+                                 'bir geçişi kaldıramayabiliyor. Bu yüzden leylekler denizi en dar yerinden geçiyor.</p>\n'
+                                 "<p>Avrupa'dan Afrika'ya giden leyleklerin iki büyük yolu var. Batıdakiler Cebelitarık Boğazı'ndan, doğudakiler İstanbul Boğazı'ndan geçiyor. Sonra Anadolu'yu aşıp "
+                                 "Orta Doğu üzerinden Afrika'ya iniyorlar. Kartallar, şahinler, arı şahinleri gibi süzülerek uçan başka kuşlar da aynı yolu kullanıyor.</p>\n"
+                                 '\n'
+                                 '<h2>Ne zaman, nereden izlenir?</h2>\n'
+                                 "<p>En yoğun zaman ağustosun son haftası ile eylülün ilk yarısı. Öğle saatleri en iyisi, çünkü sıcak hava akımları güneş yükselince güçleniyor. İstanbul'da Çamlıca "
+                                 'Tepesi gibi yüksek yerler göçü izlemek için bilinen noktalar. Yanına bir dürbün alırsan çok daha keyifli olur.</p>\n'
+                                 "<p>Bu yılın göçü bitti, leylekler şu an Afrika'da. Mart ve nisanda aynı yoldan geri dönecekler. Yani bahar göçünü izlemek için çok beklemen gerekmiyor.</p>\n"
+                                 '\n'
+                                 '<h2>Gökyüzüne bir leylek sürüsü</h2>\n'
+                                 '<p>Bu hafta DrawBird gökyüzünü leyleklerle doldurmaya ne dersin? <a href="/dersler/leylek">Leylek dersi</a> uçan bir leyleği adım adım gösteriyor. Birkaç tane çizip '
+                                 'hepsini bir sürüde toplayabilirsin. Kışı yine Afrika\'da geçiren <a href="/kuslar/kirlangic">kırlangıcı</a> da unutma, onun da <a href="/dersler/kirlangic">bir '
+                                 'dersi</a> var artık.</p>'}}
 

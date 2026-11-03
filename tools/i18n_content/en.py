@@ -248,7 +248,65 @@ LESSONS = {'serce': {'title': 'How to draw a sparrow',
              'facts': ['Hummingbirds flap their wings 50–80 times a second and can hover in the air.',
                        'They are the only group of birds that can fly backward.',
                        'The smallest bird is the bee hummingbird in Cuba, only 5–6 cm.',
-                       'Hummingbirds live only in the Americas, not in Türkiye.']}}
+                       'Hummingbirds live only in the Americas, not in Türkiye.']},
+ 'kirlangic': {'title': 'How to draw a barn swallow',
+               'bird': 'Barn swallow',
+               'cta': 'Now draw your own swallow',
+               'intro': 'One thing is enough to recognize a swallow: the forked tail. The rest is a small body and pointed wings. It takes five steps.',
+               'steps': [['Body first', "Under the dashed line, draw a small, slim body and color it navy. A swallow isn't plump. Think of a pencil stretching forward."],
+                         ['Head and beak',
+                          "Add a small head on the right of the body. Make the beak a tiny triangle. A swallow catches insects in the air with its mouth open, so it doesn't need a big beak."],
+                         ['Pointed wing',
+                          'ABOVE the dashed line, draw a long, thin wing with a pointed tip. Curve it back a little. If you draw a round wing, your bird starts to look like a sparrow.'],
+                         ['Forked tail', "On the left of the body, draw a tail with two pointed tips. Make the outer tips long and let the middle dip inward. This is the swallow's signature."],
+                         ['Colors', 'Put a brick-red patch on the throat and a cream stripe under the belly. With these two colors, the navy back shines even more.']],
+               'mistakes': ["Ending the tail flat. Without the fork, it's not a swallow.",
+                            'Drawing a plump body. A swallow is a slim, light bird.',
+                            'Making the wing short and round. The wing should be long and pointed.'],
+               'facts': ['The barn swallow is 17–19 cm with its tail streamers and weighs 16–22 g.',
+                         'It catches its food in the air. It also drinks by flying low over the water.',
+                         'It builds its nest from hundreds of mud pellets that it carries in its beak.',
+                         'It spends the winter in Africa and often comes back to the place where it was born in spring.']},
+ 'leylek': {'title': 'How to draw a stork',
+            'bird': 'Stork',
+            'cta': 'Now draw your own stork',
+            'intro': 'A flying stork stretches its neck and legs out straight. In this lesson we will draw that long, straight silhouette. The red beak and red legs are the best part.',
+            'steps': [['Body', 'Under the dashed line, draw a long, horizontal egg. A stork is white, so draw a dark outline first and leave the inside white.'],
+                      ['Long neck and head',
+                       "From the right of the body, draw a long neck going forward and put a small head on the end. Keep the neck almost straight. A flying stork doesn't bend its neck."],
+                      ['Red beak', 'In front of the head, draw a long, pointed, red beak. The beak can be almost three times as long as the head.'],
+                      ['Wing',
+                       "ABOVE the dashed line, draw a wide, long wing. The front part of the wing is white and the outer part is black. A stork's wing is much bigger than its body, so be generous."],
+                      ['Tail and legs',
+                       "Add a short tail on the left of the body. Then draw two thin red legs reaching even behind the tail. A flying stork doesn't let its legs dangle. It stretches them out "
+                       'behind.']],
+            'mistakes': ["Drawing the neck short or bent. A flying stork's neck is long and straight.",
+                         'Letting the legs hang down. In flight they stretch straight out behind.',
+                         'Leaving the white bird without an outline. It disappears in the sky.'],
+            'facts': ['The white stork is 100–115 cm long, with a wingspan of 155–215 cm.',
+                      'At the end of August, tens of thousands of them migrate to Africa, and their route passes over the Bosphorus.',
+                      "They don't like flapping much. They rise on warm air currents and glide for kilometers.",
+                      'They have almost no voice. Instead, they clatter their beaks.']},
+ 'ibibik': {'title': 'How to draw a hoopoe',
+            'bird': 'Hoopoe',
+            'cta': 'Now draw your own hoopoe',
+            'intro': 'A hoopoe has a crest on its head that opens like a fan. While drawing it in this lesson, you will also learn a small trick about the dashed line.',
+            'steps': [['Body', 'Well below the dashed line, draw a horizontal egg and color it salmon pink. We keep the body a bit low, because the crest needs room.'],
+                      ['Head', 'Add a round head on the upper right of the body. Put the eye as a dot near the middle of the head.'],
+                      ['Crest',
+                       'On top of the head, draw a crest that opens like a fan and make its tips black. Here is the trick. Keep the crest BELOW the dashed line. If it goes above the line, it starts '
+                       'flapping like a wing.'],
+                      ['Long curved beak', 'In front of the head, draw a long, thin beak that curves slightly down. The hoopoe pokes this beak into the soil to look for larvae.'],
+                      ['Striped wing and tail',
+                       'ABOVE the dashed line, draw a black wing and put two white stripes on it. Add a black tail on the left of the body, with a white band across the middle. In flight, this black '
+                       'and white pattern looks like a butterfly.']],
+            'mistakes': ['Moving the crest above the dashed line. Everything above the line flaps.',
+                         "Drawing a short, straight beak. A hoopoe's beak is long and curved down.",
+                         'Leaving the wing one color. Without the black and white stripes, nobody recognizes a hoopoe.'],
+            'facts': ['The hoopoe is 25–32 cm long, with a wingspan of 44–48 cm.',
+                      'It opens its crest when it gets excited or lands on the ground.',
+                      'Its name comes from its call, which sounds like "hoop-hoop-hoop".',
+                      "Chicks spray a bad-smelling liquid when they sense danger. Predators don't like it at all."]}}
 
 BIRDS = {'kumru': {'name': 'Eurasian collared dove',
            'cta': 'Draw your own collared dove',
@@ -276,8 +334,7 @@ BIRDS = {'kumru': {'name': 'Eurasian collared dove',
                      "you don't forget it.",
                      "They use the same nest for years and make it a bit bigger every year. Some nests are wider than a meter and weigh hundreds of kilos. We don't know what the chimney's owner "
                      'thinks.'],
-            'draw': 'Draw a long body and long wings like in the gull lesson. White body, black wing tips. Make the beak long and red, and stretch the neck. Draw the legs red too, reaching out '
-                    'behind the body.',
+            'draw': 'Follow the stork lesson step by step. Keep the neck and legs long, because in flight both stretch out straight. The beak and legs are red, and the wing tips are black.',
             'own': ''},
  'serce': {'name': 'Sparrow',
            'cta': 'Draw your own sparrow',
@@ -351,7 +408,7 @@ BIRDS = {'kumru': {'name': 'Eurasian collared dove',
                         'It builds its nest from hundreds of mud pellets it carries in its beak. The same pair returns to the same nest for years and repairs it.',
                         'They spend the winter in Africa. Every year they travel thousands of kilometers there and back, and often return in spring to the village where they were born. They really '
                         'do know the address.'],
-               'draw': 'Use the long wing idea from the gull lesson, but draw the bird small and slim. Make the tail a fork with two pointed tips. Back navy, throat red, belly white.',
+               'draw': 'Follow the swallow lesson. Draw the bird small and slim, and make the tail a fork with two pointed tips. The back is navy, the throat is red and the belly is white.',
                'own': ''},
  'ebabil': {'name': 'Common swift',
             'cta': 'Draw your own swift',
@@ -363,8 +420,8 @@ BIRDS = {'kumru': {'name': 'Eurasian collared dove',
                      'They build their nests in gaps under the roofs of old buildings, mosques and towers. They even collect the material from feathers and trash drifting in the air, and glue it '
                      'together with their saliva.',
                      'When the gaps under roofs are closed during restorations, the swifts lose their homes. In some cities, special swift boxes are fixed to buildings. A nice thing.'],
-            'draw': 'Draw the wing from the gull lesson thin and curved like a sickle. Make the body small and the tail short and forked. Make the whole bird dark brown and put a small light patch '
-                    'on the throat.',
+            'draw': 'Use the bird from the swallow lesson as a base, but draw the wing longer and curved like a sickle. Make the tail short and slightly forked. Make the whole bird dark brown and '
+                    'put a small light patch on the throat.',
             'own': ''},
  'flamingo': {'name': 'Greater flamingo',
               'cta': 'Draw your own flamingo',
@@ -469,8 +526,8 @@ BIRDS = {'kumru': {'name': 'Eurasian collared dove',
                      "The hoopoe is very old in our culture. In the Quran it is the Hudhud that brings news to Solomon. In Attar's Conference of the Birds, it is again the bird that guides the other "
                      'birds.',
                      'In the nest, chicks that sense danger release a foul-smelling liquid. The smell keeps predators away. Not very pleasant, but it works.'],
-            'draw': 'Use the sparrow lesson as a base. Add a crest on the head that fans out with black tips, and a long, downcurved beak. Make the body salmon pink and the wing striped black and '
-                    'white.',
+            'draw': 'Follow the hoopoe lesson. Open the crest like a fan, but keep it below the dashed line. The beak is long and curved down, the body is salmon pink and the wing has black and '
+                    'white stripes.',
             'own': ''},
  'kelaynak': {'name': 'Northern bald ibis',
               'cta': 'Draw your own bald ibis',
@@ -686,7 +743,9 @@ LEGAL = {'nasil-oynanir': {'title': 'How to play',
                       'The "DrawBird" name and logo are not granted by this license.</p>\n'
                       '\n'
                       '  <h2>7. Ads</h2>\n'
-                      '  <p>To stay free, DrawBird may show ads in the future. When ads are added, the privacy page will be updated and cookie consent will be asked for where required.</p>\n'
+                      '  <!--noads--><p>To stay free, DrawBird may show ads in the future. When ads are added, the privacy page will be updated and cookie consent will be asked for where '
+                      'required.</p><!--/noads--><!--ads--><p>To stay free, DrawBird shows Google ads on some reading pages. Ads load only if you allow it, and there are no ads on the game screen. '
+                      'The advertiser is responsible for the content of the ads. You can find the details on the <a href="/gizlilik">privacy page</a>.</p><!--/ads-->\n'
                       '\n'
                       '  <h2>8. Liability</h2>\n'
                       "  <p>The person who draws is responsible for users' drawings. To the extent permitted by applicable law, DrawBird is not liable for damages arising from interruption of the "
@@ -720,8 +779,18 @@ LEGAL = {'nasil-oynanir': {'title': 'How to play',
                       'put on approval before publishing; in that case the bird is visible only to the person who drew it.</p>\n'
                       '\n'
                       "  <h2>What we don't collect</h2>\n"
-                      "  <p>Right now we don't use ads, ad cookies, location, contact lists or third-party analytics tools. If ads are added, this page will be updated and your consent will be asked "
-                      'for first where required. Fonts are loaded from our own server; no request goes to another company when the page opens.</p>\n'
+                      "  <!--noads--><p>Right now we don't use ads, ad cookies, location, contact lists or third-party analytics tools. If ads are added, this page will be updated and your consent "
+                      "will be asked for first where required. Fonts are loaded from our own server; no request goes to another company when the page opens.</p><!--/noads--><!--ads--><p>We don't use "
+                      'location, contact lists or third-party analytics tools. Fonts are loaded from our own server.</p>\n'
+                      '\n'
+                      '  <h2>Ads and cookies</h2>\n'
+                      '  <p>To keep DrawBird free, some of the reading pages (lessons, bird pages, blog, FAQ) have Google AdSense ads. There are no ads on the drawing screen, in the sky or on these '
+                      'legal pages.</p>\n'
+                      '  <p>Ads load only if you allow it. The first time you open a page with ads, a small window asks you. If you say <b>Accept</b>, Google may put cookies on your device and '
+                      'process your IP address to show ads, prevent fake clicks and measure ads. If you say <b>No</b>, no ad loads at all, and the site works the same way.</p>\n'
+                      '  <p>Because children use DrawBird too, we ask Google only for non-personalized ads. That means ads are chosen by the topic of the page, not by your interests.</p>\n'
+                      '  <p>You can change your choice at any time from the <b>Cookie settings</b> link at the bottom of the page. You can read how Google uses this data on <a '
+                      'href="https://policies.google.com/technologies/partner-sites">Google\'s page</a>.</p><!--/ads-->\n'
                       '\n'
                       '  <h2>Visit count</h2>\n'
                       '  <p>To see how many people come, a daily counter goes up by one on every visit. This counter does not use cookies and does not record who you are or your IP address; it keeps '
@@ -764,8 +833,8 @@ LEGAL = {'nasil-oynanir': {'title': 'How to play',
                   '    <li><b>Security data:</b> An irreversible hash of your IP address mixed with a secret key. The IP address itself is not written to the database.</li>\n'
                   '    <li><b>Server logs:</b> Technical logs of our hosting provider (Cloudflare); they may include the request address, time, country and browser information.</li>\n'
                   '  </ul>\n'
-                  "  <p>The daily visit counter contains no personal data; it keeps only the total for the day. We don't use cookies. Only your device code and preferences are stored in your "
-                  'browser.</p>\n'
+                  "  <p>The daily visit counter contains no personal data; it keeps only the total for the day. <!--noads-->We don't use cookies.<!--/noads--><!--ads-->We have no cookies of our own. "
+                  'On pages with ads, Google uses cookies if you allow it (sections 3 and 4).<!--/ads--> Only your device code and preferences are stored in your browser.</p>\n'
                   '\n'
                   '  <h2>3. Purposes and legal grounds</h2>\n'
                   '  <ul>\n'
@@ -773,15 +842,21 @@ LEGAL = {'nasil-oynanir': {'title': 'How to play',
                   'of use</a>).</li>\n'
                   '    <li>Preventing spam, fake votes, inappropriate content and attacks, blocking those who break the rules, reviewing new and reported drawings: <b>legitimate interest</b> (KVKK '
                   'Art. 5/2-f).</li>\n'
-                  '    <li>Requests from authorized institutions and legal retention obligations: <b>legal obligation</b> (KVKK Art. 5/2-ç).</li>\n'
+                  '    <li>Requests from authorized institutions and legal retention obligations: <b>legal obligation</b> (KVKK Art. 5/2-ç).</li><!--ads-->\n'
+                  '    <li>Showing Google ads on reading pages with ads: <b>explicit consent</b> (KVKK Art. 5/1). You give the consent in the window on the page, and you can take it back at any time '
+                  'from the <b>Cookie settings</b> link.</li><!--/ads-->\n'
                   '  </ul>\n'
-                  '  <p>We do not carry out any processing based on explicit consent, marketing messages or profiling.</p>\n'
+                  '  <!--noads--><p>We do not carry out any processing based on explicit consent, marketing messages or profiling.</p><!--/noads--><!--ads--><p>Apart from the ad consent, we do not '
+                  "carry out any processing based on explicit consent. We don't send marketing messages and we don't build profiles.</p><!--/ads-->\n"
                   '\n'
                   '  <h2>4. Transfers</h2>\n'
                   '  <ul>\n'
                   '    <li><b>Cloudflare, Inc.</b> (hosting and database): All data is kept on Cloudflare servers; the database is in the Eastern Europe region, and pages are served from servers '
                   'around the world.</li>\n'
-                  "    <li><b>Telegram</b> (moderation): The picture, name and artist name of new birds, birds awaiting approval and reported birds are sent to the admin's Telegram account.</li>\n"
+                  "    <li><b>Telegram</b> (moderation): The picture, name and artist name of new birds, birds awaiting approval and reported birds are sent to the admin's Telegram "
+                  'account.</li><!--ads-->\n'
+                  "    <li><b>Google</b> (ads): If you allow it, Google processes data such as cookies and your IP address on pages with ads. This data is transferred to Google's servers abroad. If "
+                  "you don't allow it, no data goes to Google.</li><!--/ads-->\n"
                   '  </ul>\n'
                   "  <p>These providers' servers are abroad; the transfer is made under KVKK Art. 9. We do not sell or hand over your data to anyone else.</p>\n"
                   '\n'
@@ -790,7 +865,8 @@ LEGAL = {'nasil-oynanir': {'title': 'How to play',
                   '    <li>Birds, votes, flocks and artist name: until you delete them.</li>\n'
                   '    <li>Submission limit records: at most 1 hour. New account counting: at most 2 days.</li>\n'
                   '    <li>Block records: until the block is lifted, to prevent abuse; network block 24 hours.</li>\n'
-                  "    <li>Server logs: as long as Cloudflare's log retention (a few days).</li>\n"
+                  "    <li>Server logs: as long as Cloudflare's log retention (a few days).</li><!--ads-->\n"
+                  "    <li>Your ad consent choice: in your browser, until you change it. The lifetime of Google cookies follows Google's own policy.</li><!--/ads-->\n"
                   '  </ul>\n'
                   '  <p>What you write in the contact form, and any contact details you choose to leave, are kept until your request is handled, for at most one year.</p>\n'
                   '\n'
@@ -839,5 +915,58 @@ POSTS = {'2026-11-drawbird-yayinda': {'title': 'DrawBird is live: notes from the
                                       '\n'
                                       "<h2>What's next?</h2>\n"
                                       '<p>New bird pages, new lessons and translating the lessons into other languages. If you have a suggestion, write <a '
-                                      'href="https://github.com/gunayboss/drawbird/issues">on GitHub</a>. I read them all.</p>'}}
+                                      'href="https://github.com/gunayboss/drawbird/issues">on GitHub</a>. I read them all.</p>'},
+ '2026-11-kesik-cizgi': {'title': 'What is the dashed line for? How your bird flaps its wings',
+                         'desc': "The dashed line in the middle of the canvas decides your bird's wing. I explain how it works and how to use it.",
+                         'html': "<p>There is a dashed line in the middle of the canvas. Most people don't notice it when they draw their first bird, and then they ask why the bird doesn't flap. In "
+                                 'this post I explain what that line does.</p>\n'
+                                 '\n'
+                                 '<h2>The drawing is split in two</h2>\n'
+                                 "<p>When you send your bird flying, DrawBird cuts your drawing in two at the dashed line. The lower half stays as it is. This is the bird's body. The upper half "
+                                 'keeps getting shorter and longer. It gets pressed toward the line, then opens back up, and for a moment it even goes below the line. So the upper half becomes the '
+                                 'wing.</p>\n'
+                                 "<p>That makes the rule simple. Draw the wing above the line and the body below it. If you draw the whole bird below the line, your bird flies but doesn't flap. If "
+                                 'you draw the whole bird above it, this time the whole bird flaps, a bit like an accordion.</p>\n'
+                                 '\n'
+                                 '<h2>Everything above the line flaps</h2>\n'
+                                 "<p>DrawBird doesn't know what a wing is. It only looks at where something is relative to the line. If you move the head or the crest above the line, they go up and "
+                                 'down with the wing. That\'s why, in the <a href="/dersler/ibibik">hoopoe lesson</a>, we keep the crest below the line.</p>\n'
+                                 "<p>Of course, you can also use this on purpose. If you draw a rabbit with its ears above the line, it flies with its ears. It doesn't have to be a bird. Anything "
+                                 'with a wing flies.</p>\n'
+                                 '\n'
+                                 '<h2>A few small tips</h2>\n'
+                                 '<ul>\n'
+                                 '  <li><b>Draw the wing big.</b> The wing gets shorter as it flaps. If you draw it big, the movement is easier to see.</li>\n'
+                                 '  <li><b>Use a thick pen.</b> Your bird gets small in the sky, and thin lines disappear there.</li>\n'
+                                 "  <li><b>Direction doesn't matter.</b> You can draw your bird facing right or left. It turns by itself in the sky, depending on where it flies.</li>\n"
+                                 "  <li><b>Empty spots don't fly.</b> The places you didn't draw stay transparent. Your bird only shows as much as you drew.</li>\n"
+                                 '</ul>\n'
+                                 '\n'
+                                 '<p>If you want to try it step by step, check out the <a href="/dersler/">drawing lessons</a>. Each lesson also shows where the wing goes.</p>'},
+ '2026-11-leylek-gocu': {'title': 'Autumn migration: why do storks fly over the Bosphorus?',
+                         'desc': 'Every year, tens of thousands of storks pass over Istanbul on their way to Africa. I explain why they choose the Bosphorus and not the sea.',
+                         'html': '<p>From the end of August to the end of September, if you look up in Istanbul, you will most likely see a flock of storks. Sometimes hundreds of them circle in the '
+                                 'sky at the same time. There is a reason for it, and the reason has to do with the wind.</p>\n'
+                                 '\n'
+                                 "<h2>Storks don't like flapping</h2>\n"
+                                 '<p>The <a href="/kuslar/leylek">white stork</a> is a big bird. Its wingspan can reach two meters. Flapping wings this big for hours takes a lot of energy. So storks '
+                                 'found another way. When the sun heats the ground, warm air rises from it. A stork enters this warm air, circles upward, and then glides without flapping at all '
+                                 'until the next warm air current.</p>\n'
+                                 '\n'
+                                 '<h2>There is no warm air over the sea</h2>\n'
+                                 "<p>The problem is that the sea doesn't heat up like land. These warm air currents hardly form over the sea. If a stork goes out over the open sea, it has to flap, "
+                                 "and it may not be able to survive a long crossing. That's why storks cross the sea at its narrowest point.</p>\n"
+                                 '<p>Storks going from Europe to Africa have two big routes. The western ones cross the Strait of Gibraltar and the eastern ones cross the Bosphorus. Then they cross '
+                                 'Anatolia and go down to Africa through the Middle East. Other birds that glide, like eagles, buzzards and honey buzzards, use the same route.</p>\n'
+                                 '\n'
+                                 '<h2>When and where to watch</h2>\n'
+                                 '<p>The busiest time is the last week of August and the first half of September. Midday is best, because the warm air currents get stronger when the sun climbs. In '
+                                 "Istanbul, high places like Çamlıca Hill are known spots for watching the migration. If you bring binoculars, it's much more fun.</p>\n"
+                                 "<p>This year's migration is over, and the storks are in Africa right now. They will come back along the same route in March and April. So you don't have to wait "
+                                 'long to watch the spring migration.</p>\n'
+                                 '\n'
+                                 '<h2>A flock of storks in the sky</h2>\n'
+                                 '<p>How about filling the DrawBird sky with storks this week? The <a href="/dersler/leylek">stork lesson</a> shows a stork step by step. You can draw a few and '
+                                 'gather them into a flock. And don\'t forget the <a href="/kuslar/kirlangic">swallow</a>, which also spends the winter in Africa. It has <a '
+                                 'href="/dersler/kirlangic">a lesson</a> now too.</p>'}}
 

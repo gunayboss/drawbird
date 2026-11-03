@@ -262,7 +262,71 @@ LESSONS = {'serce': {'title': '¿Cómo dibujar un gorrión?',
              'facts': ['Los colibríes baten las alas 50–80 veces por segundo y pueden quedarse suspendidos en el aire.',
                        'Son el único grupo de aves que puede volar hacia atrás.',
                        'El pájaro más pequeño es el zunzuncito de Cuba, de solo 5–6 cm.',
-                       'Los colibríes solo viven en el continente americano, no hay en Türkiye.']}}
+                       'Los colibríes solo viven en el continente americano, no hay en Türkiye.']},
+ 'kirlangic': {'title': '¿Cómo dibujar una golondrina?',
+               'bird': 'Golondrina',
+               'cta': 'Dibuja ya tu propia golondrina',
+               'intro': 'Para reconocer a una golondrina basta una cosa: la cola en horquilla. Lo demás es un cuerpo pequeño y alas puntiagudas. Se hace en cinco pasos.',
+               'steps': [['Cuerpo fino',
+                          'Dibuja debajo de la línea de puntos un cuerpo pequeño y fino, y píntalo de azul marino. La golondrina no es regordeta: parece un lápiz que apunta hacia delante.'],
+                         ['Cabeza y pico',
+                          'Añade una cabeza pequeña a la derecha del cuerpo. Haz el pico como un triángulo diminuto. La golondrina caza los insectos al vuelo con la boca abierta, no necesita un pico '
+                          'grande.'],
+                         ['Ala puntiaguda',
+                          'Dibuja POR ENCIMA de la línea de puntos un ala larga, fina y de punta afilada. Cúrvala un poco hacia atrás. Si la dibujas redonda, tu pájaro se parecerá a un gorrión.'],
+                         ['Cola en horquilla',
+                          'A la izquierda del cuerpo dibuja una cola con dos puntas afiladas. Que las puntas de fuera sean largas y que el centro entre hacia dentro. Esa es la firma de la '
+                          'golondrina.'],
+                         ['Colores', 'Pon una mancha rojo teja en la garganta y una franja crema bajo el vientre. Con estos dos colores, el lomo azul marino brilla todavía más.']],
+               'mistakes': ['Terminar la cola recta. Sin horquilla no hay golondrina.',
+                            'Dibujar el cuerpo regordete. La golondrina es un pájaro fino y ligero.',
+                            'Hacer el ala corta y redonda. El ala tiene que ser larga y puntiaguda.'],
+               'facts': ['La golondrina común mide 17–19 cm con las puntas de la cola y pesa 16–22 g.',
+                         'Atrapa su comida al vuelo. También bebe volando bajo, rozando la superficie del agua.',
+                         'Hace su nido con cientos de bolitas de barro que va llevando en el pico.',
+                         'Pasa el invierno en África y, en primavera, muchas veces vuelve al lugar donde nació.']},
+ 'leylek': {'title': '¿Cómo dibujar una cigüeña?',
+            'bird': 'Cigüeña',
+            'cta': 'Dibuja ya tu propia cigüeña',
+            'intro': 'Cuando vuela, la cigüeña estira el cuello y las patas totalmente rectos. En esta lección dibujaremos esa silueta larga y recta. El pico rojo y las patas rojas son el adorno.',
+            'steps': [['Cuerpo', 'Dibuja debajo de la línea de puntos un huevo largo y horizontal. La cigüeña es blanca, así que primero traza un borde oscuro y deja el interior en blanco.'],
+                      ['Cuello largo y cabeza',
+                       'Saca de la derecha del cuerpo un cuello largo hacia delante y ponle una cabeza pequeña en la punta. Que el cuello sea casi recto: al volar, la cigüeña no lo dobla.'],
+                      ['Pico rojo', 'Dibuja delante de la cabeza un pico largo, afilado y rojo. Puede medir casi tres veces lo que mide la cabeza.'],
+                      ['Ala',
+                       'Dibuja POR ENCIMA de la línea de puntos un ala ancha y larga. La parte de delante del ala es blanca y la de fuera, negra. El ala de la cigüeña es mucho más grande que su '
+                       'cuerpo: sé generoso.'],
+                      ['Cola y patas',
+                       'A la izquierda del cuerpo añade una cola corta. Luego estira las dos patas rojas y finas hasta más allá de la cola. Al volar, la cigüeña no deja colgar las patas: las estira '
+                       'hacia atrás.']],
+            'mistakes': ['Dibujar el cuello corto o curvo. El de una cigüeña en vuelo es largo y recto.',
+                         'Dejar las patas colgando hacia abajo. En vuelo se estiran rectas hacia atrás.',
+                         'Dejar el pájaro blanco sin borde. En el cielo se pierde.'],
+            'facts': ['La cigüeña blanca mide 100–115 cm y tiene una envergadura de 155–215 cm.',
+                      'A finales de agosto decenas de miles migran a África y su ruta pasa por el Bósforo de Estambul.',
+                      'No les gusta batir las alas. Suben con las corrientes de aire caliente y planean durante kilómetros.',
+                      'Casi no tienen voz. En su lugar, hacen castañetear el pico.']},
+ 'ibibik': {'title': '¿Cómo dibujar una abubilla?',
+            'bird': 'Abubilla',
+            'cta': 'Dibuja ya tu propia abubilla',
+            'intro': 'La abubilla tiene en la cabeza una cresta que se abre como un abanico. En esta lección, mientras la dibujas, aprenderás también un truquito sobre la línea de puntos.',
+            'steps': [['Cuerpo',
+                       'Dibuja un huevo horizontal bastante por debajo de la línea de puntos y píntalo de rosa salmón. Dejamos el cuerpo algo más abajo porque hace falta sitio para la cresta.'],
+                      ['Cabeza', 'Añade una cabeza redonda arriba a la derecha del cuerpo. Pon el ojo como un punto cerca del centro de la cabeza.'],
+                      ['Cresta',
+                       'Dibuja encima de la cabeza una cresta que se abre como un abanico y pon las puntas en negro. Aquí va el truco: mantén la cresta POR DEBAJO de la línea de puntos. Si sube por '
+                       'encima de la línea, empieza a batir como un ala.'],
+                      ['Pico largo y curvo', 'Dibuja delante de la cabeza un pico largo, fino y algo curvado hacia abajo. La abubilla lo clava en la tierra para buscar larvas.'],
+                      ['Ala rayada y cola',
+                       'Dibuja POR ENCIMA de la línea de puntos un ala negra y ponle dos rayas blancas encima. A la izquierda del cuerpo añade una cola negra con una banda blanca por el medio. En '
+                       'vuelo, este dibujo en blanco y negro parece una mariposa.']],
+            'mistakes': ['Pasar la cresta por encima de la línea de puntos. Todo lo que queda por encima de la línea bate.',
+                         'Dibujar el pico corto y recto. El pico de la abubilla es largo y curvado hacia abajo.',
+                         'Dejar el ala de un solo color. Sin las rayas blancas y negras no se reconoce a la abubilla.'],
+            'facts': ['La abubilla mide 25–32 cm y tiene una envergadura de 44–48 cm.',
+                      'Abre la cresta cuando se emociona o cuando se posa en el suelo.',
+                      'En unos sitios la llaman hüthüt y en otros çavuşkuşu. El nombre viene de que canta "hüt hüt hüt".',
+                      'Las crías, cuando notan peligro, sueltan un líquido de mal olor. A los depredadores no les gusta nada.']}}
 
 BIRDS = {'kumru': {'name': 'Tórtola turca',
            'cta': 'Dibuja tu propia tórtola turca',
@@ -292,8 +356,7 @@ BIRDS = {'kumru': {'name': 'Tórtola turca',
                      'lo olvida.',
                      'Usan el mismo nido durante años y cada año lo hacen un poco más grande. Algunos nidos miden más de un metro de ancho y pesan cientos de kilos. Qué piensa el dueño de la '
                      'chimenea, no lo sabemos.'],
-            'draw': 'Dibuja un cuerpo largo y un ala larga, como en la lección de la gaviota. Cuerpo blanco, punta del ala negra. Haz el pico largo y rojo, y estira el cuello. Pinta también las '
-                    'patas de rojo, que salgan por detrás del cuerpo.',
+            'draw': 'Sigue la lección de la cigüeña paso a paso. Mantén el cuello y las patas largos: al volar, los dos se estiran rectos. Pico y patas rojos, punta del ala negra.',
             'own': ''},
  'serce': {'name': 'Gorrión común',
            'cta': 'Dibuja tu propio gorrión',
@@ -369,8 +432,7 @@ BIRDS = {'kumru': {'name': 'Tórtola turca',
                         'también. De ahí el dicho de que si la golondrina vuela bajo, va a llover.',
                         'El nido lo construye con cientos de bolitas de barro que lleva en el pico. La misma pareja vuelve durante años al mismo nido y lo repara.',
                         'Pasan el invierno en África. Cada año van y vienen miles de kilómetros y muchas veces vuelven en primavera al pueblo donde nacieron. Se saben la dirección, en serio.'],
-               'draw': 'Usa la idea del ala larga de la lección de la gaviota, pero dibuja el pájaro pequeño y fino. Haz la cola en horquilla, con dos puntas afiladas. Espalda azul marino, garganta '
-                       'roja, vientre blanco.',
+               'draw': 'Sigue la lección de la golondrina. Dibuja el pájaro pequeño y fino, y haz la cola en horquilla con dos puntas afiladas. Lomo azul marino, garganta roja, vientre blanco.',
                'own': ''},
  'ebabil': {'name': 'Vencejo común',
             'cta': 'Dibuja tu propio vencejo',
@@ -384,8 +446,8 @@ BIRDS = {'kumru': {'name': 'Tórtola turca',
                      'saliva.',
                      'Cuando en las restauraciones se tapan los huecos de los tejados, los vencejos pierden su casa. En algunas ciudades se colocan cajas especiales para vencejos en los edificios. '
                      'Una buena idea.'],
-            'draw': 'Dibuja el ala de la lección de la gaviota fina y curva como una hoz. Cuerpo pequeño, cola corta y en horquilla. Pinta todo el pájaro de marrón oscuro y pon una pequeña mancha '
-                    'clara en la garganta.',
+            'draw': 'Toma como base el pájaro de la lección de la golondrina, pero dibuja el ala más larga y curvada como una hoz. Que la cola sea corta y algo en horquilla. Pinta todo el pájaro de '
+                    'marrón oscuro y pon una pequeña mancha clara en la garganta.',
             'own': ''},
  'flamingo': {'name': 'Flamenco común',
               'cta': 'Dibuja tu propio flamenco',
@@ -498,8 +560,8 @@ BIRDS = {'kumru': {'name': 'Tórtola turca',
                      'La abubilla es muy antigua en nuestra cultura. En el Corán es el Hudhud que trae noticias al profeta Salomón. Y en el Mantiq al-Tayr de Farid ud-Din Attar, es de nuevo el ave '
                      'que guía a los demás pájaros.',
                      'En el nido, cuando las crías sienten peligro, sueltan un líquido de mal olor. Ese olor mantiene lejos a los depredadores. No es muy agradable, pero funciona.'],
-            'draw': 'Toma como base la lección del gorrión. Añade en la cabeza una cresta en abanico con las puntas negras y un pico largo y curvado hacia abajo. Cuerpo rosa salmón, ala con rayas '
-                    'blancas y negras.',
+            'draw': 'Sigue la lección de la abubilla. Abre la cresta como un abanico, pero mantenla por debajo de la línea de puntos. Pico largo y curvado hacia abajo, cuerpo rosa salmón, ala con '
+                    'rayas blancas y negras.',
             'own': ''},
  'kelaynak': {'name': 'Ibis eremita',
               'cta': 'Dibuja tu propio ibis eremita',
@@ -720,8 +782,10 @@ LEGAL = {'nasil-oynanir': {'title': '¿Cómo se juega?',
                       'usuarios. El nombre y el logotipo de “DrawBird” no se ceden con esta licencia.</p>\n'
                       '\n'
                       '  <h2>7. Publicidad</h2>\n'
-                      '  <p>Para poder seguir siendo gratuito, DrawBird puede mostrar publicidad en el futuro. Cuando se añada publicidad, se actualizará la página de privacidad y se pedirá el '
-                      'consentimiento de cookies donde haga falta.</p>\n'
+                      '  <!--noads--><p>Para poder seguir siendo gratuito, DrawBird puede mostrar publicidad en el futuro. Cuando se añada publicidad, se actualizará la página de privacidad y se '
+                      'pedirá el consentimiento de cookies donde haga falta.</p><!--/noads--><!--ads--><p>Para poder seguir siendo gratuito, DrawBird muestra anuncios de Google en algunas páginas de '
+                      'texto. Los anuncios solo se cargan si das tu permiso; en la pantalla de juego no hay anuncios. Del contenido de los anuncios responde el anunciante. Los detalles están <a '
+                      'href="/gizlilik">en la página de privacidad</a>.</p><!--/ads-->\n'
                       '\n'
                       '  <h2>8. Responsabilidad</h2>\n'
                       '  <p>Del dibujo de cada usuario responde quien lo dibuja. DrawBird no se hace responsable de los daños derivados de la interrupción del servicio o de la pérdida de datos, en '
@@ -755,9 +819,21 @@ LEGAL = {'nasil-oynanir': {'title': '¿Cómo se juega?',
                       'haga falta, los pájaros de los artistas nuevos pueden pasar por aprobación antes de publicarse; mientras tanto, el pájaro solo lo ve quien lo dibujó.</p>\n'
                       '\n'
                       '  <h2>Qué no recogemos</h2>\n'
-                      '  <p>Ahora mismo no usamos publicidad, cookies publicitarias, ubicación, listas de contactos ni herramientas de análisis de terceros. Si se añade publicidad, esta página se '
-                      'actualizará y, donde haga falta, se pedirá antes tu consentimiento. Las fuentes se cargan desde nuestro propio servidor; al abrir la página no se envía ninguna petición a otra '
-                      'empresa.</p>\n'
+                      '  <!--noads--><p>Ahora mismo no usamos publicidad, cookies publicitarias, ubicación, listas de contactos ni herramientas de análisis de terceros. Si se añade publicidad, esta '
+                      'página se actualizará y, donde haga falta, se pedirá antes tu consentimiento. Las fuentes se cargan desde nuestro propio servidor; al abrir la página no se envía ninguna '
+                      'petición a otra empresa.</p><!--/noads--><!--ads--><p>No usamos ubicación, listas de contactos ni herramientas de análisis de terceros. Las fuentes se cargan desde nuestro '
+                      'propio servidor.</p>\n'
+                      '\n'
+                      '  <h2>Publicidad y cookies</h2>\n'
+                      '  <p>Para que DrawBird siga siendo gratis, algunas páginas de texto (lecciones, páginas de pájaros, blog, preguntas frecuentes) llevan anuncios de Google AdSense. En la '
+                      'pantalla de dibujo, en el cielo y en estas páginas legales no hay anuncios.</p>\n'
+                      '  <p>Los anuncios solo se cargan si das tu permiso. Al abrir por primera vez una página con anuncios, te sale una ventanita que te lo pregunta. Si pulsas <b>Aceptar</b>, '
+                      'Google puede poner cookies en tu dispositivo y tratar tu dirección IP para mostrar anuncios, evitar clics falsos y medir los anuncios. Si pulsas <b>No</b>, los anuncios no se '
+                      'cargan para nada y el sitio funciona igual.</p>\n'
+                      '  <p>Como DrawBird también lo usan niños, a Google solo le pedimos anuncios no personalizados. Es decir, los anuncios se eligen según el tema de la página, no según tus '
+                      'intereses.</p>\n'
+                      '  <p>Puedes cambiar tu decisión cuando quieras desde el enlace <b>Ajustes de cookies</b> que está al final de la página. Puedes leer cómo usa Google estos datos <a '
+                      'href="https://policies.google.com/technologies/partner-sites">en la página de Google</a>.</p><!--/ads-->\n'
                       '\n'
                       '  <h2>Recuento de visitas</h2>\n'
                       '  <p>Para ver cuánta gente viene, un contador diario sube una unidad en cada visita. Este contador no usa cookies, no registra quién eres ni tu dirección IP; solo guarda el '
@@ -803,8 +879,8 @@ LEGAL = {'nasil-oynanir': {'title': '¿Cómo se juega?',
                   '    <li><b>Registros del servidor:</b> Registros técnicos de nuestro proveedor de alojamiento (Cloudflare); pueden incluir la dirección solicitada, la hora, el país y datos del '
                   'navegador.</li>\n'
                   '  </ul>\n'
-                  '  <p>El contador diario de visitas no contiene datos personales; solo guarda el total del día. No usamos cookies. En tu navegador solo se guardan tu código de dispositivo y tus '
-                  'preferencias.</p>\n'
+                  '  <p>El contador diario de visitas no contiene datos personales; solo guarda el total del día. <!--noads-->No usamos cookies.<!--/noads--><!--ads-->No tenemos cookies propias. En '
+                  'las páginas con anuncios, Google usa cookies si das tu permiso (secciones 3 y 4).<!--/ads--> En tu navegador solo se guardan tu código de dispositivo y tus preferencias.</p>\n'
                   '\n'
                   '  <h2>3. Finalidades y bases jurídicas</h2>\n'
                   '  <ul>\n'
@@ -812,16 +888,21 @@ LEGAL = {'nasil-oynanir': {'title': '¿Cómo se juega?',
                   'de uso</a>).</li>\n'
                   '    <li>Prevenir el spam, los votos falsos, los contenidos inapropiados y los ataques, bloquear a quienes incumplen las reglas y revisar los dibujos nuevos y denunciados: '
                   '<b>interés legítimo</b> (KVKK art. 5/2-f).</li>\n'
-                  '    <li>Solicitudes de las autoridades competentes y obligaciones legales de conservación: <b>obligación legal</b> (KVKK art. 5/2-ç).</li>\n'
+                  '    <li>Solicitudes de las autoridades competentes y obligaciones legales de conservación: <b>obligación legal</b> (KVKK art. 5/2-ç).</li><!--ads-->\n'
+                  '    <li>Mostrar anuncios de Google en las páginas de texto con publicidad: <b>consentimiento explícito</b> (KVKK art. 5/1). Das el permiso en la ventana de la página y lo retiras '
+                  'cuando quieras desde el enlace <b>Ajustes de cookies</b>.</li><!--/ads-->\n'
                   '  </ul>\n'
-                  '  <p>No realizamos tratamientos basados en el consentimiento explícito, comunicaciones de marketing ni elaboración de perfiles.</p>\n'
+                  '  <!--noads--><p>No realizamos tratamientos basados en el consentimiento explícito, comunicaciones de marketing ni elaboración de perfiles.</p><!--/noads--><!--ads--><p>Aparte del '
+                  'permiso para los anuncios, no realizamos ningún tratamiento basado en el consentimiento explícito. No enviamos comunicaciones de marketing ni elaboramos perfiles.</p><!--/ads-->\n'
                   '\n'
                   '  <h2>4. Transferencia</h2>\n'
                   '  <ul>\n'
                   '    <li><b>Cloudflare, Inc.</b> (alojamiento y base de datos): Todos los datos se conservan en servidores de Cloudflare; la base de datos está en la región de Europa del Este y '
                   'las páginas se sirven desde servidores de todo el mundo.</li>\n'
                   '    <li><b>Telegram</b> (moderación): La imagen, el nombre y el nombre de artista de los pájaros nuevos, pendientes de aprobación o denunciados se envían a la cuenta de Telegram '
-                  'del administrador.</li>\n'
+                  'del administrador.</li><!--ads-->\n'
+                  '    <li><b>Google</b> (publicidad): Si das tu permiso, en las páginas con anuncios Google trata datos como las cookies y la dirección IP. Estos datos se transfieren a los '
+                  'servidores de Google en el extranjero. Si no das tu permiso, no se envía ningún dato a Google.</li><!--/ads-->\n'
                   '  </ul>\n'
                   '  <p>Los servidores de estos proveedores están en el extranjero; la transferencia se realiza en el marco del art. 9 de la KVKK. No vendemos ni cedemos tus datos a nadie más.</p>\n'
                   '\n'
@@ -830,7 +911,8 @@ LEGAL = {'nasil-oynanir': {'title': '¿Cómo se juega?',
                   '    <li>Pájaros, votos, bandadas y nombre de artista: hasta que los borres.</li>\n'
                   '    <li>Registros de límites de envío: como máximo 1 hora. Recuento de cuentas nuevas: como máximo 2 días.</li>\n'
                   '    <li>Registros de bloqueo: hasta que se levante el bloqueo, para evitar el abuso; bloqueo de red: 24 horas.</li>\n'
-                  '    <li>Registros del servidor: lo que dure el registro de Cloudflare (unos días).</li>\n'
+                  '    <li>Registros del servidor: lo que dure el registro de Cloudflare (unos días).</li><!--ads-->\n'
+                  '    <li>Tu preferencia sobre el permiso de anuncios: en tu navegador, hasta que la cambies. La duración de las cookies de Google depende de la política de Google.</li><!--/ads-->\n'
                   '  </ul>\n'
                   '  <p>Lo que escribes en el formulario de contacto y los datos de contacto que decidas dejar se guardan hasta resolver tu petición, como máximo un año.</p>\n'
                   '\n'
@@ -881,5 +963,60 @@ POSTS = {'2026-11-drawbird-yayinda': {'title': 'DrawBird ya está en línea: not
                                       '\n'
                                       '<h2>¿Qué viene después?</h2>\n'
                                       '<p>Nuevas páginas de pájaros, nuevas lecciones y la traducción de las lecciones a otros idiomas. Si tienes una sugerencia, escríbela <a '
-                                      'href="https://github.com/gunayboss/drawbird/issues">en GitHub</a>. Las leo todas.</p>'}}
+                                      'href="https://github.com/gunayboss/drawbird/issues">en GitHub</a>. Las leo todas.</p>'},
+ '2026-11-kesik-cizgi': {'title': '¿Para qué sirve la línea de puntos? Así bate las alas tu pájaro',
+                         'desc': 'La línea de puntos en medio del área de dibujo decide el ala de tu pájaro. Te cuento cómo funciona y cómo sacarle partido.',
+                         'html': '<p>En medio del área de dibujo hay una línea de puntos. Mucha gente no la ve al dibujar su primer pájaro y luego pregunta por qué no bate las alas. En este texto te '
+                                 'cuento qué hace esa línea.</p>\n'
+                                 '\n'
+                                 '<h2>El dibujo se divide en dos</h2>\n'
+                                 '<p>Cuando haces volar a tu pájaro, DrawBird parte tu dibujo a la altura de la línea de puntos. La mitad de abajo se queda tal cual: es el cuerpo del pájaro. La '
+                                 'mitad de arriba se encoge y se estira sin parar. Se aplasta hacia la línea, luego se abre otra vez, y por un momento baja incluso por debajo de la línea. Es decir, '
+                                 'la mitad de arriba es el ala.</p>\n'
+                                 '<p>Por eso la regla es sencilla. Dibuja el ala por encima de la línea y el cuerpo por debajo. Si dibujas todo el pájaro por debajo de la línea, tu pájaro vuela, '
+                                 'pero no bate las alas. Y si lo dibujas todo por encima, esta vez bate el pájaro entero, un poco como un acordeón.</p>\n'
+                                 '\n'
+                                 '<h2>Todo lo que está por encima de la línea bate</h2>\n'
+                                 '<p>DrawBird no sabe qué es un ala. Solo mira en qué parte de la línea está cada cosa. Si pasas la cabeza o la cresta por encima de la línea, también suben y bajan '
+                                 'junto con el ala. Por eso, en <a href="/dersler/ibibik">la lección de la abubilla</a> mantenemos la cresta por debajo de la línea.</p>\n'
+                                 '<p>Claro que también puedes usarlo a propósito. Si dibujas un conejo con las orejas por encima de la línea, vuela con las orejas. O sea, no hace falta que sea un '
+                                 'pájaro: todo lo que tenga alas vuela.</p>\n'
+                                 '\n'
+                                 '<h2>Unos cuantos trucos pequeños</h2>\n'
+                                 '<ul>\n'
+                                 '  <li><b>Dibuja el ala grande.</b> Al batir, el ala se encoge. Si la dibujas grande, el movimiento se nota más.</li>\n'
+                                 '  <li><b>Usa un lápiz grueso.</b> Tu pájaro se hace pequeño en el cielo y las líneas finas desaparecen allí.</li>\n'
+                                 '  <li><b>La dirección no importa.</b> Puedes dibujar tu pájaro mirando a la derecha o a la izquierda. En el cielo gira solo según hacia dónde vaya.</li>\n'
+                                 '  <li><b>Los huecos no vuelan.</b> Lo que no dibujas queda transparente. En el cielo tu pájaro se ve solo hasta donde lo has dibujado.</li>\n'
+                                 '</ul>\n'
+                                 '\n'
+                                 '<p>Si quieres probarlo paso a paso, echa un vistazo a <a href="/dersler/">las lecciones de dibujo</a>. En cada lección se muestra además dónde va el ala.</p>'},
+ '2026-11-leylek-gocu': {'title': 'Migración de otoño: ¿por qué las cigüeñas cruzan el Bósforo de Estambul?',
+                         'desc': 'Cada año decenas de miles de cigüeñas pasan por encima de Estambul rumbo a África. Te cuento por qué eligen el Bósforo y no el mar.',
+                         'html': '<p>Desde finales de agosto hasta finales de septiembre, si levantas la cabeza en Estambul, lo más probable es que veas una bandada de cigüeñas. A veces cientos de '
+                                 'ellas dan vueltas a la vez en el cielo. Tiene una razón, y la razón tiene que ver con el viento.</p>\n'
+                                 '\n'
+                                 '<h2>A las cigüeñas no les gusta batir las alas</h2>\n'
+                                 '<p>La <a href="/kuslar/leylek">cigüeña blanca</a> es un pájaro grande. Su envergadura puede llegar a los dos metros. Batir unas alas tan grandes durante horas gasta '
+                                 'mucha energía. Por eso las cigüeñas han encontrado otro camino. Cuando el sol calienta el suelo, el aire caliente sube desde la tierra. La cigüeña entra en ese aire '
+                                 'caliente, sube dando vueltas y luego planea sin batir las alas hasta la siguiente corriente de aire caliente.</p>\n'
+                                 '\n'
+                                 '<h2>Sobre el mar no hay aire caliente</h2>\n'
+                                 '<p>El problema es que el mar no se calienta tanto como la tierra. Sobre el mar, estas corrientes de aire caliente casi no se forman. Si la cigüeña sale a mar '
+                                 'abierto, tiene que batir las alas y puede que no aguante una travesía larga. Por eso las cigüeñas cruzan el mar por su parte más estrecha.</p>\n'
+                                 '<p>Las cigüeñas que van de Europa a África tienen dos grandes rutas. Las del oeste pasan por el estrecho de Gibraltar y las del este, por el Bósforo de Estambul. '
+                                 'Después cruzan Anatolia y bajan a África por Oriente Medio. Otras aves que vuelan planeando, como las águilas, los gavilanes y los abejeros, usan el mismo '
+                                 'camino.</p>\n'
+                                 '\n'
+                                 '<h2>¿Cuándo y desde dónde verlas?</h2>\n'
+                                 '<p>El momento de más movimiento es la última semana de agosto y la primera quincena de septiembre. Las horas del mediodía son las mejores, porque las corrientes de '
+                                 'aire caliente se hacen más fuertes cuando el sol sube. En Estambul, sitios altos como la colina de Çamlıca son puntos conocidos para ver la migración. Si te llevas '
+                                 'unos prismáticos, lo disfrutarás mucho más.</p>\n'
+                                 '<p>La migración de este año ya terminó y las cigüeñas están ahora en África. Volverán por el mismo camino en marzo y abril. O sea, no tienes que esperar mucho para '
+                                 'ver la migración de primavera.</p>\n'
+                                 '\n'
+                                 '<h2>Una bandada de cigüeñas en el cielo</h2>\n'
+                                 '<p>¿Qué tal si esta semana llenas el cielo de DrawBird de cigüeñas? <a href="/dersler/leylek">La lección de la cigüeña</a> te enseña paso a paso una cigüeña en '
+                                 'vuelo. Puedes dibujar unas cuantas y juntarlas en una bandada. Y no te olvides de <a href="/kuslar/kirlangic">la golondrina</a>, que también pasa el invierno en '
+                                 'África: ahora tiene <a href="/dersler/kirlangic">su propia lección</a>.</p>'}}
 

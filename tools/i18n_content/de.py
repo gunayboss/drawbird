@@ -268,7 +268,73 @@ LESSONS = {'serce': {'title': 'Wie zeichnet man einen Spatz?',
              'facts': ['Kolibris schlagen 50–80 Mal pro Sekunde mit den Flügeln und können in der Luft stehen.',
                        'Sie sind die einzige Vogelgruppe, die rückwärts fliegen kann.',
                        'Der kleinste Vogel ist die Bienenelfe auf Kuba mit nur 5–6 cm.',
-                       'Kolibris leben nur auf dem amerikanischen Kontinent, in der Türkei gibt es sie nicht.']}}
+                       'Kolibris leben nur auf dem amerikanischen Kontinent, in der Türkei gibt es sie nicht.']},
+ 'kirlangic': {'title': 'Wie zeichnet man eine Rauchschwalbe?',
+               'bird': 'Rauchschwalbe',
+               'cta': 'Zeichne jetzt deine eigene Rauchschwalbe',
+               'intro': 'Um eine Rauchschwalbe zu erkennen, reicht eine einzige Sache: der gegabelte Schwanz. Der Rest ist ein kleiner Körper und spitze Flügel. In fünf Schritten bist du fertig.',
+               'steps': [['Zuerst der Körper',
+                          'Zeichne unter die gestrichelte Linie einen kleinen, schlanken Körper und mal ihn dunkelblau an. Die Rauchschwalbe ist nicht pummelig, sie ist wie ein Bleistift, der nach '
+                          'vorn zeigt.'],
+                         ['Kopf und Schnabel',
+                          'Setz rechts an den Körper einen kleinen Kopf. Mach den Schnabel zu einem winzigen Dreieck. Die Schwalbe fängt Insekten mit offenem Schnabel in der Luft, einen großen '
+                          'Schnabel braucht sie nicht.'],
+                         ['Spitzer Flügel',
+                          'Zeichne ÜBER die gestrichelte Linie einen langen, schmalen Flügel mit spitzem Ende. Biege ihn leicht nach hinten. Mit einem runden Flügel sieht dein Vogel aus wie ein '
+                          'Spatz.'],
+                         ['Gegabelter Schwanz',
+                          'Zeichne links am Körper einen Schwanz mit zwei spitzen Enden. Die äußeren Spitzen sind lang, die Mitte geht nach innen. Das ist das Markenzeichen der Rauchschwalbe.'],
+                         ['Farben', 'Setz an die Kehle einen ziegelroten Fleck und unter den Bauch einen cremefarbenen Streifen. Mit diesen zwei Farben leuchtet der dunkelblaue Rücken noch mehr.']],
+               'mistakes': ['Den Schwanz gerade enden lassen. Ohne Gabel wird es keine Rauchschwalbe.',
+                            'Den Körper pummelig zeichnen. Die Rauchschwalbe ist ein schlanker, leichter Vogel.',
+                            'Den Flügel kurz und rund machen. Der Flügel muss lang und spitz sein.'],
+               'facts': ['Die Rauchschwalbe ist mit den Schwanzspitzen 17–19 cm lang und wiegt 16–22 g.',
+                         'Sie fängt ihr Futter in der Luft. Auch das Wasser trinkt sie im tiefen Flug über der Wasseroberfläche.',
+                         'Ihr Nest baut sie aus Hunderten Lehmkügelchen, die sie mit dem Schnabel herbeiträgt.',
+                         'Den Winter verbringt sie in Afrika. Im Frühling kehrt sie oft dorthin zurück, wo sie geboren wurde.']},
+ 'leylek': {'title': 'Wie zeichnet man einen Weißstorch?',
+            'bird': 'Weißstorch',
+            'cta': 'Zeichne jetzt deinen eigenen Weißstorch',
+            'intro': 'Im Flug streckt der Storch Hals und Beine ganz gerade aus. In dieser Lektion zeichnen wir seine lange, gerade Silhouette. Der rote Schnabel und die roten Beine sind das '
+                     'Tüpfelchen auf dem i.',
+            'steps': [['Körper', 'Zeichne unter die gestrichelte Linie ein langes, liegendes Ei. Der Storch ist weiß, also zeichne zuerst einen dunklen Rand und lass das Innere weiß.'],
+                      ['Langer Hals und Kopf',
+                       'Zieh rechts vom Körper einen langen Hals nach vorn und setz einen kleinen Kopf an das Ende. Der Hals ist fast gerade, denn beim Fliegen knickt der Storch ihn nicht ein.'],
+                      ['Roter Schnabel', 'Zeichne vor den Kopf einen langen, spitzen, roten Schnabel. Er darf fast dreimal so lang sein wie der Kopf.'],
+                      ['Flügel',
+                       'Zeichne ÜBER die gestrichelte Linie einen breiten, langen Flügel. Vorn ist er weiß, hinten schwarz. Der Flügel des Storchs ist viel größer als sein Körper, also sei '
+                       'großzügig.'],
+                      ['Schwanz und Beine',
+                       'Setz links an den Körper einen kurzen Schwanz. Dann zieh zwei dünne rote Beine bis hinter den Schwanz. Beim Fliegen lässt der Storch die Beine nicht hängen, er streckt sie '
+                       'nach hinten.']],
+            'mistakes': ['Den Hals kurz oder krumm zeichnen. Beim fliegenden Storch ist der Hals lang und gerade.',
+                         'Die Beine nach unten hängen lassen. Beim Fliegen sind sie gerade nach hinten gestreckt.',
+                         'Den weißen Vogel ohne Rand lassen. Er verschwindet am Himmel.'],
+            'facts': ['Der Weißstorch ist 100–115 cm groß, seine Flügelspannweite beträgt 155–215 cm.',
+                      'Ende August ziehen Zehntausende nach Afrika, und ihr Weg führt über den Bosporus in Istanbul.',
+                      'Mit dem Flügelschlagen haben sie es nicht so. Sie steigen in warmen Aufwinden und gleiten dann kilometerweit.',
+                      'Eine Stimme haben sie so gut wie keine. Stattdessen klappern sie mit dem Schnabel.']},
+ 'ibibik': {'title': 'Wie zeichnet man einen Wiedehopf?',
+            'bird': 'Wiedehopf',
+            'cta': 'Zeichne jetzt deinen eigenen Wiedehopf',
+            'intro': 'Der Wiedehopf trägt auf dem Kopf eine Haube, die sich wie ein Fächer öffnet. Beim Zeichnen lernst du in dieser Lektion auch einen kleinen Trick mit der gestrichelten Linie.',
+            'steps': [['Körper', 'Zeichne ein gutes Stück unter die gestrichelte Linie ein liegendes Ei und mal es lachsrosa an. Wir halten den Körper etwas tiefer, denn die Haube braucht Platz.'],
+                      ['Kopf', 'Setz rechts oben an den Körper einen runden Kopf. Das Auge ist ein Punkt nahe der Mitte des Kopfes.'],
+                      ['Haube',
+                       'Zeichne auf den Kopf eine Haube, die sich wie ein Fächer öffnet, und mach ihre Spitzen schwarz. Hier kommt der Trick: Halte die Haube UNTER der gestrichelten Linie. Ragt sie '
+                       'darüber, fängt sie an zu schlagen wie ein Flügel.'],
+                      ['Langer, gebogener Schnabel',
+                       'Zeichne vor den Kopf einen langen, dünnen Schnabel, der sich leicht nach unten biegt. Mit diesem Schnabel stochert der Wiedehopf im Boden nach Larven.'],
+                      ['Gestreifter Flügel und Schwanz',
+                       'Zeichne ÜBER die gestrichelte Linie einen schwarzen Flügel und setz zwei weiße Streifen darauf. Links am Körper kommt ein schwarzer Schwanz dazu, durch dessen Mitte ein '
+                       'weißes Band läuft. Im Flug sieht dieses Schwarz-Weiß-Muster aus wie ein Schmetterling.']],
+            'mistakes': ['Die Haube über die gestrichelte Linie schieben. Alles, was über der Linie liegt, schlägt mit.',
+                         'Den Schnabel kurz und gerade zeichnen. Der Schnabel des Wiedehopfs ist lang und nach unten gebogen.',
+                         'Den Flügel einfarbig lassen. Ohne die schwarz-weißen Streifen erkennt man den Wiedehopf nicht.'],
+            'facts': ['Der Wiedehopf ist 25–32 cm groß, seine Flügelspannweite beträgt 44–48 cm.',
+                      'Die Haube öffnet er, wenn er aufgeregt ist oder landet.',
+                      'Mancherorts heißt er hüthüt, mancherorts çavuşkuşu. Der Name kommt von seinem Ruf „hüt hüt hüt“.',
+                      'Die Jungen sondern bei Gefahr eine übel riechende Flüssigkeit ab. Raubtiere mögen das gar nicht.']}}
 
 BIRDS = {'kumru': {'name': 'Türkentaube',
            'cta': 'Zeichne deine eigene Türkentaube',
@@ -297,8 +363,8 @@ BIRDS = {'kumru': {'name': 'Türkentaube',
                      'Wer das einmal gehört hat, vergisst es nicht.',
                      'Sie nutzen jahrelang dasselbe Nest und bauen es jedes Jahr ein Stück weiter aus. Manche Nester sind über einen Meter breit und wiegen Hunderte von Kilo. Was der Besitzer des '
                      'Schornsteins davon hält, wissen wir nicht.'],
-            'draw': 'Zeichne wie in der Möwen-Lektion einen langen Körper und lange Flügel. Der Körper ist weiß, die Flügelspitzen schwarz. Mach den Schnabel lang und rot und den Hals lang. Auch die '
-                    'Beine malst du rot, sie ragen hinter dem Körper heraus.',
+            'draw': 'Folge der Storch-Lektion Schritt für Schritt. Halte Hals und Beine lang, beim Fliegen sind beide ganz gerade ausgestreckt. Schnabel und Beine sind rot, die Flügelspitzen '
+                    'schwarz.',
             'own': ''},
  'serce': {'name': 'Spatz',
            'cta': 'Zeichne deinen eigenen Spatz',
@@ -378,8 +444,8 @@ BIRDS = {'kumru': {'name': 'Türkentaube',
                         'Das Nest baut sie aus Hunderten Lehmkügelchen, die sie mit dem Schnabel herbeiträgt. Dasselbe Paar kehrt jahrelang zum selben Nest zurück und bessert es aus.',
                         'Den Winter verbringen sie in Afrika. Jedes Jahr fliegen sie Tausende Kilometer hin und zurück und kehren im Frühling oft in das Dorf zurück, in dem sie geboren wurden. Sie '
                         'kennen die Adresse wirklich.'],
-               'draw': 'Nimm die Idee mit den langen Flügeln aus der Möwen-Lektion, zeichne den Vogel aber klein und schlank. Der Schwanz wird eine Gabel mit zwei spitzen Enden. Rücken dunkelblau, '
-                       'Kehle rot, Bauch weiß.',
+               'draw': 'Folge der Rauchschwalben-Lektion. Zeichne den Vogel klein und schlank und mach den Schwanz zu einer Gabel mit zwei spitzen Enden. Der Rücken ist dunkelblau, die Kehle rot, '
+                       'der Bauch weiß.',
                'own': ''},
  'ebabil': {'name': 'Mauersegler',
             'cta': 'Zeichne deinen eigenen Mauersegler',
@@ -393,8 +459,8 @@ BIRDS = {'kumru': {'name': 'Türkentaube',
                      'kleben es mit Speichel zusammen.',
                      'Werden bei Restaurierungen die Dachspalten verschlossen, verlieren die Mauersegler ihr Zuhause. In manchen Städten werden spezielle Mauerseglerkästen an die Gebäude gehängt. '
                      'Eine schöne Sache.'],
-            'draw': 'Zeichne den Flügel aus der Möwen-Lektion dünn und wie eine Sichel gebogen. Der Körper ist klein, der Schwanz kurz und gegabelt. Mal den ganzen Vogel dunkelbraun und setz an die '
-                    'Kehle einen kleinen hellen Fleck.',
+            'draw': 'Nimm den Vogel aus der Rauchschwalben-Lektion als Grundlage, zeichne den Flügel aber länger und sichelförmig gebogen. Der Schwanz ist kurz und leicht gegabelt. Mal den ganzen '
+                    'Vogel dunkelbraun und setz einen kleinen hellen Fleck an die Kehle.',
             'own': ''},
  'flamingo': {'name': 'Rosaflamingo',
               'cta': 'Zeichne deinen eigenen Flamingo',
@@ -510,8 +576,8 @@ BIRDS = {'kumru': {'name': 'Türkentaube',
                      'In unserer Kultur ist der Wiedehopf sehr alt. Im Koran überbringt der Wiedehopf (Hudhud) Salomo Nachrichten. Auch in Attars „Konferenz der Vögel“ (Mantiq at-Tair) ist er wieder '
                      'der Vogel, der den anderen Vögeln den Weg zeigt.',
                      'Spüren die Jungen im Nest Gefahr, sondern sie eine übel riechende Flüssigkeit ab. Der Gestank hält Raubtiere fern. Nicht sehr angenehm, aber es wirkt.'],
-            'draw': 'Nimm die Spatzen-Lektion als Grundlage. Setz auf den Kopf eine fächerförmige Haube mit schwarzen Spitzen und gib ihm einen langen, nach unten gebogenen Schnabel. Der Körper ist '
-                    'lachsrosa, der Flügel schwarz-weiß gestreift.',
+            'draw': 'Folge der Wiedehopf-Lektion. Öffne die Haube wie einen Fächer, halte sie aber unter der gestrichelten Linie. Der Schnabel ist lang und nach unten gebogen, der Körper lachsrosa, '
+                    'der Flügel schwarz-weiß gestreift.',
             'own': ''},
  'kelaynak': {'name': 'Waldrapp',
               'cta': 'Zeichne deinen eigenen Waldrapp',
@@ -743,8 +809,10 @@ LEGAL = {'nasil-oynanir': {'title': 'So spielt man',
                       'Zeichnungen der Nutzerinnen und Nutzer. Der Name „DrawBird“ und das Logo werden mit dieser Lizenz nicht vergeben.</p>\n'
                       '\n'
                       '  <h2>7. Werbung</h2>\n'
-                      '  <p>Damit DrawBird kostenlos bleiben kann, kann künftig Werbung gezeigt werden. Wird Werbung eingebaut, wird die Datenschutzseite aktualisiert und, wo nötig, eine '
-                      'Cookie-Einwilligung eingeholt.</p>\n'
+                      '  <!--noads--><p>Damit DrawBird kostenlos bleiben kann, kann künftig Werbung gezeigt werden. Wird Werbung eingebaut, wird die Datenschutzseite aktualisiert und, wo nötig, eine '
+                      'Cookie-Einwilligung eingeholt.</p><!--/noads--><!--ads--><p>Damit DrawBird kostenlos bleiben kann, zeigt es auf einigen Textseiten Google-Werbung. Werbung wird nur geladen, '
+                      'wenn du es erlaubst, und auf dem Spielbildschirm gibt es keine Werbung. Für den Inhalt der Werbung ist der Werbetreibende verantwortlich. Details stehen <a '
+                      'href="/gizlilik">auf der Datenschutzseite</a>.</p><!--/ads-->\n'
                       '\n'
                       '  <h2>8. Haftung</h2>\n'
                       '  <p>Für die Zeichnungen der Nutzerinnen und Nutzer ist die zeichnende Person verantwortlich. DrawBird haftet im gesetzlich zulässigen Umfang nicht für Schäden, die durch eine '
@@ -779,9 +847,21 @@ LEGAL = {'nasil-oynanir': {'title': 'So spielt man',
                       'vor der Veröffentlichung zur Freigabe vorgelegt werden; dann ist der Vogel nur für die zeichnende Person sichtbar.</p>\n'
                       '\n'
                       '  <h2>Was wir nicht erheben</h2>\n'
-                      '  <p>Derzeit nutzen wir keine Werbung, keine Werbe-Cookies, keinen Standort, keine Kontaktliste und keine Analyse-Tools von Dritten. Wird Werbung eingebaut, wird diese Seite '
-                      'aktualisiert und, wo nötig, vorher deine Einwilligung eingeholt. Schriftarten werden von unserem eigenen Server geladen; beim Öffnen der Seite geht keine Anfrage an ein '
-                      'anderes Unternehmen.</p>\n'
+                      '  <!--noads--><p>Derzeit nutzen wir keine Werbung, keine Werbe-Cookies, keinen Standort, keine Kontaktliste und keine Analyse-Tools von Dritten. Wird Werbung eingebaut, wird '
+                      'diese Seite aktualisiert und, wo nötig, vorher deine Einwilligung eingeholt. Schriftarten werden von unserem eigenen Server geladen; beim Öffnen der Seite geht keine Anfrage '
+                      'an ein anderes Unternehmen.</p><!--/noads--><!--ads--><p>Wir nutzen keinen Standort, keine Kontaktliste und keine Analyse-Tools von Dritten. Schriftarten werden von unserem '
+                      'eigenen Server geladen.</p>\n'
+                      '\n'
+                      '  <h2>Werbung und Cookies</h2>\n'
+                      '  <p>Damit DrawBird kostenlos bleibt, gibt es auf einigen Textseiten (Lektionen, Vogelseiten, Blog, FAQ) Google-AdSense-Werbung. Auf dem Zeichenbildschirm, am Himmel und auf '
+                      'diesen rechtlichen Seiten gibt es keine Werbung.</p>\n'
+                      '  <p>Werbung wird nur geladen, wenn du es erlaubst. Wenn du eine Seite mit Werbung zum ersten Mal öffnest, fragt dich ein kleines Fenster. Sagst du <b>Akzeptieren</b>, darf '
+                      'Google Cookies auf deinem Gerät setzen und deine IP-Adresse verarbeiten, um Werbung zu zeigen, Klickbetrug zu verhindern und Werbung zu messen. Sagst du <b>Nein</b>, wird gar '
+                      'keine Werbung geladen, und die Seite funktioniert genauso.</p>\n'
+                      '  <p>Weil auch Kinder DrawBird nutzen, fordern wir von Google nur nicht personalisierte Werbung an. Das heißt, die Werbung wird nach dem Thema der Seite ausgewählt und nicht '
+                      'nach deinen Interessen.</p>\n'
+                      '  <p>Du kannst deine Entscheidung jederzeit über den Link <b>Cookie-Einstellungen</b> unten auf der Seite ändern. Wie Google diese Daten verwendet, kannst du <a '
+                      'href="https://policies.google.com/technologies/partner-sites">auf der Seite von Google</a> nachlesen.</p><!--/ads-->\n'
                       '\n'
                       '  <h2>Besucherzählung</h2>\n'
                       '  <p>Damit wir sehen, wie viele Leute kommen, wird bei jedem Besuch ein Tageszähler um eins erhöht. Dieser Zähler benutzt keine Cookies und speichert weder, wer du bist, noch '
@@ -827,8 +907,9 @@ LEGAL = {'nasil-oynanir': {'title': 'So spielt man',
                   'geschrieben.</li>\n'
                   '    <li><b>Server-Protokolle:</b> Technische Protokolle unseres Hosting-Anbieters (Cloudflare); sie können Anfrageadresse, Uhrzeit, Land und Browserangaben enthalten.</li>\n'
                   '  </ul>\n'
-                  '  <p>Der tägliche Besucherzähler enthält keine personenbezogenen Daten; er hält nur die Gesamtzahl des Tages fest. Wir verwenden keine Cookies. In deinem Browser werden nur dein '
-                  'Gerätecode und deine Einstellungen gespeichert.</p>\n'
+                  '  <p>Der tägliche Besucherzähler enthält keine personenbezogenen Daten; er hält nur die Gesamtzahl des Tages fest. <!--noads-->Wir verwenden keine '
+                  'Cookies.<!--/noads--><!--ads-->Wir haben keine eigenen Cookies. Wenn du auf Seiten mit Werbung zustimmst, setzt Google Cookies (Abschnitt 3 und 4).<!--/ads--> In deinem Browser '
+                  'werden nur dein Gerätecode und deine Einstellungen gespeichert.</p>\n'
                   '\n'
                   '  <h2>3. Zwecke und Rechtsgrundlagen</h2>\n'
                   '  <ul>\n'
@@ -836,16 +917,22 @@ LEGAL = {'nasil-oynanir': {'title': 'So spielt man',
                   'href="/kosullar">Nutzungsbedingungen</a>).</li>\n'
                   '    <li>Spam, falsche Stimmen, unpassende Inhalte und Angriffe verhindern, Regelverletzer sperren, neue und gemeldete Zeichnungen prüfen: <b>berechtigtes Interesse</b> (KVKK Art. '
                   '5/2-f).</li>\n'
-                  '    <li>Anfragen zuständiger Behörden und gesetzliche Aufbewahrungspflichten: <b>rechtliche Verpflichtung</b> (KVKK Art. 5/2-ç).</li>\n'
+                  '    <li>Anfragen zuständiger Behörden und gesetzliche Aufbewahrungspflichten: <b>rechtliche Verpflichtung</b> (KVKK Art. 5/2-ç).</li><!--ads-->\n'
+                  '    <li>Google-Werbung auf Textseiten mit Werbung anzeigen: <b>ausdrückliche Einwilligung</b> (KVKK Art. 5/1). Die Erlaubnis gibst du im Fenster auf der Seite und nimmst sie '
+                  'jederzeit über den Link <b>Cookie-Einstellungen</b> zurück.</li><!--/ads-->\n'
                   '  </ul>\n'
-                  '  <p>Wir führen keine Verarbeitung auf Grundlage einer ausdrücklichen Einwilligung, keine Marketingmitteilungen und kein Profiling durch.</p>\n'
+                  '  <!--noads--><p>Wir führen keine Verarbeitung auf Grundlage einer ausdrücklichen Einwilligung, keine Marketingmitteilungen und kein Profiling '
+                  'durch.</p><!--/noads--><!--ads--><p>Außer der Werbeerlaubnis führen wir keine Verarbeitung auf Grundlage einer ausdrücklichen Einwilligung durch. Wir senden keine '
+                  'Marketingmitteilungen und erstellen keine Profile.</p><!--/ads-->\n'
                   '\n'
                   '  <h2>4. Übermittlung</h2>\n'
                   '  <ul>\n'
                   '    <li><b>Cloudflare, Inc.</b> (Hosting und Datenbank): Alle Daten werden auf Servern von Cloudflare gehalten; die Datenbank liegt in der Region Osteuropa, die Seiten werden von '
                   'Servern weltweit ausgeliefert.</li>\n'
                   '    <li><b>Telegram</b> (Moderation): Bild, Name und Vogelfan-Name neuer Vögel sowie von Vögeln, die auf Freigabe warten oder gemeldet wurden, werden an das Telegram-Konto des '
-                  'Admins übermittelt.</li>\n'
+                  'Admins übermittelt.</li><!--ads-->\n'
+                  '    <li><b>Google</b> (Werbung): Wenn du es erlaubst, verarbeitet Google auf Seiten mit Werbung Daten wie Cookies und IP-Adresse. Diese Daten werden auf Server von Google im '
+                  'Ausland übermittelt. Erlaubst du es nicht, gehen keine Daten an Google.</li><!--/ads-->\n'
                   '  </ul>\n'
                   '  <p>Die Server dieser Anbieter stehen im Ausland; die Übermittlung erfolgt gemäß KVKK Art. 9. Wir verkaufen oder übergeben deine Daten an niemanden sonst.</p>\n'
                   '\n'
@@ -854,7 +941,9 @@ LEGAL = {'nasil-oynanir': {'title': 'So spielt man',
                   '    <li>Vögel, Stimmen, Schwärme und Vogelfan-Name: bis du sie löschst.</li>\n'
                   '    <li>Einträge zu Sendelimits: höchstens 1 Stunde. Zählung neuer Konten: höchstens 2 Tage.</li>\n'
                   '    <li>Sperreinträge: zur Verhinderung von Missbrauch bis zur Aufhebung der Sperre; die Netzsperre 24 Stunden.</li>\n'
-                  '    <li>Server-Protokolle: so lange, wie Cloudflare sie aufbewahrt (einige Tage).</li>\n'
+                  '    <li>Server-Protokolle: so lange, wie Cloudflare sie aufbewahrt (einige Tage).</li><!--ads-->\n'
+                  '    <li>Deine Entscheidung zur Werbeerlaubnis: in deinem Browser, bis du sie änderst. Die Dauer der Google-Cookies richtet sich nach der eigenen Richtlinie von '
+                  'Google.</li><!--/ads-->\n'
                   '  </ul>\n'
                   '  <p>Was du ins Kontaktformular schreibst und freiwillig angegebene Kontaktdaten werden bis zur Bearbeitung deiner Anfrage gespeichert, höchstens ein Jahr.</p>\n'
                   '\n'
@@ -908,5 +997,62 @@ POSTS = {'2026-11-drawbird-yayinda': {'title': 'DrawBird ist online: Notizen vom
                                       '\n'
                                       '<h2>Was kommt als Nächstes?</h2>\n'
                                       '<p>Neue Vogelseiten, neue Lektionen und die Übersetzung der Lektionen in die anderen Sprachen. Wenn du einen Vorschlag hast, schreib ihn <a '
-                                      'href="https://github.com/gunayboss/drawbird/issues">auf GitHub</a>. Ich lese alles.</p>'}}
+                                      'href="https://github.com/gunayboss/drawbird/issues">auf GitHub</a>. Ich lese alles.</p>'},
+ '2026-11-kesik-cizgi': {'title': 'Wozu ist die gestrichelte Linie da? So schlägt dein Vogel mit den Flügeln',
+                         'desc': 'Die gestrichelte Linie in der Mitte der Zeichenfläche bestimmt den Flügel deines Vogels. Ich erkläre, wie sie funktioniert und wie du sie nutzen kannst.',
+                         'html': '<p>In der Mitte der Zeichenfläche liegt eine gestrichelte Linie. Die meisten bemerken sie bei ihrem ersten Vogel gar nicht und fragen dann, warum der Vogel nicht '
+                                 'mit den Flügeln schlägt. In diesem Beitrag erkläre ich, was die Linie macht.</p>\n'
+                                 '\n'
+                                 '<h2>Die Zeichnung wird in zwei geteilt</h2>\n'
+                                 '<p>Wenn du deinen Vogel losfliegen lässt, schneidet DrawBird deine Zeichnung an der gestrichelten Linie in zwei Hälften. Die untere Hälfte bleibt, wie sie ist, das '
+                                 'ist der Körper des Vogels. Die obere Hälfte wird ständig kürzer und wieder länger. Sie wird zur Linie hin zusammengedrückt und dann wieder aufgeklappt, für einen '
+                                 'Moment geht sie sogar bis unter die Linie. Die obere Hälfte wird also zum Flügel.</p>\n'
+                                 '<p>Darum ist die Regel einfach. Zeichne den Flügel über die Linie und den Körper darunter. Zeichnest du den ganzen Vogel unter die Linie, fliegt er zwar, schlägt '
+                                 'aber nicht mit den Flügeln. Zeichnest du ihn ganz darüber, schlägt diesmal der ganze Vogel, ein bisschen wie eine Ziehharmonika.</p>\n'
+                                 '\n'
+                                 '<h2>Alles über der Linie schlägt mit</h2>\n'
+                                 '<p>DrawBird weiß nicht, was ein Flügel ist. Es schaut nur, wo etwas relativ zur Linie liegt. Wenn du den Kopf oder die Haube über die Linie schiebst, gehen sie mit '
+                                 'dem Flügel hoch und runter. In der <a href="/dersler/ibibik">Wiedehopf-Lektion</a> halten wir die Haube deshalb unter der Linie.</p>\n'
+                                 '<p>Du kannst das natürlich auch mit Absicht nutzen. Zeichnest du einen Hasen, dessen Ohren über der Linie liegen, fliegt er mit den Ohren. Es muss also kein Vogel '
+                                 'sein, alles mit Flügeln fliegt.</p>\n'
+                                 '\n'
+                                 '<h2>Ein paar kleine Tipps</h2>\n'
+                                 '<ul>\n'
+                                 '  <li><b>Zeichne den Flügel groß.</b> Beim Schlagen wird der Flügel kürzer. Zeichnest du ihn groß, sieht man die Bewegung besser.</li>\n'
+                                 '  <li><b>Nimm einen dicken Stift.</b> Dein Vogel wird am Himmel klein, und dünne Linien verschwinden dort.</li>\n'
+                                 '  <li><b>Die Richtung ist egal.</b> Du kannst deinen Vogel nach rechts oder nach links schauen lassen. Am Himmel dreht er sich von selbst in die Richtung, in die er '
+                                 'fliegt.</li>\n'
+                                 '  <li><b>Leere Stellen fliegen nicht mit.</b> Was du nicht gezeichnet hast, bleibt durchsichtig. Am Himmel sieht man deinen Vogel nur so weit, wie du gezeichnet '
+                                 'hast.</li>\n'
+                                 '</ul>\n'
+                                 '\n'
+                                 '<p>Wenn du es Schritt für Schritt probieren willst, schau dir die <a href="/dersler/">Zeichenlektionen</a> an. In jeder Lektion wird extra gezeigt, wohin der Flügel '
+                                 'kommt.</p>'},
+ '2026-11-leylek-gocu': {'title': 'Herbstzug: Warum ziehen die Störche über den Bosporus in Istanbul?',
+                         'desc': 'Jedes Jahr ziehen Zehntausende Störche auf dem Weg nach Afrika über Istanbul. Ich erkläre, warum sie den Bosporus nehmen und nicht das Meer.',
+                         'html': '<p>Von Ende August bis Ende September siehst du in Istanbul mit hoher Wahrscheinlichkeit einen Storchenschwarm, wenn du den Kopf hebst. Manchmal kreisen Hunderte '
+                                 'gleichzeitig am Himmel. Dafür gibt es einen Grund, und der hat mit dem Wind zu tun.</p>\n'
+                                 '\n'
+                                 '<h2>Störche mögen kein Flügelschlagen</h2>\n'
+                                 '<p>Der <a href="/kuslar/leylek">Weißstorch</a> ist ein großer Vogel. Seine Flügelspannweite kann zwei Meter erreichen. Solche großen Flügel stundenlang zu schlagen, '
+                                 'kostet sehr viel Energie. Darum haben die Störche einen anderen Weg gefunden. Wenn die Sonne den Boden erwärmt, steigt warme Luft nach oben. Der Storch geht in '
+                                 'diese warme Luft, steigt kreisend auf und gleitet dann ohne einen einzigen Flügelschlag bis zum nächsten Aufwind.</p>\n'
+                                 '\n'
+                                 '<h2>Über dem Meer gibt es keine warme Luft</h2>\n'
+                                 '<p>Das Problem ist, dass sich das Meer nicht so stark erwärmt wie das Land. Über dem Wasser entstehen diese Aufwinde kaum. Fliegt ein Storch aufs offene Meer, muss '
+                                 'er mit den Flügeln schlagen und hält einen langen Flug vielleicht nicht durch. Darum überqueren die Störche das Meer an der schmalsten Stelle.</p>\n'
+                                 '<p>Für die Störche, die von Europa nach Afrika ziehen, gibt es zwei große Wege. Die westlichen fliegen über die Straße von Gibraltar, die östlichen über den '
+                                 'Bosporus in Istanbul. Dann queren sie Anatolien und erreichen Afrika über den Nahen Osten. Auch andere Vögel, die gleitend fliegen, nehmen denselben Weg, zum '
+                                 'Beispiel Adler, Bussarde und Wespenbussarde.</p>\n'
+                                 '\n'
+                                 '<h2>Wann und wo kannst du zuschauen?</h2>\n'
+                                 '<p>Am meisten ist in der letzten Augustwoche und in der ersten Septemberhälfte los. Am besten ist die Mittagszeit, denn die Aufwinde werden stärker, wenn die Sonne '
+                                 'höher steht. In Istanbul sind hohe Stellen wie der Çamlıca-Hügel bekannte Punkte, um den Zug zu beobachten. Mit einem Fernglas macht es viel mehr Spaß.</p>\n'
+                                 '<p>Der Zug dieses Jahres ist vorbei, die Störche sind jetzt in Afrika. Im März und April kommen sie auf demselben Weg zurück. Auf den Frühjahrszug musst du also '
+                                 'nicht lange warten.</p>\n'
+                                 '\n'
+                                 '<h2>Ein Storchenschwarm für den Himmel</h2>\n'
+                                 '<p>Wie wäre es, wenn du diese Woche den Himmel von DrawBird mit Störchen füllst? Die <a href="/dersler/leylek">Storch-Lektion</a> zeigt dir jetzt Schritt für '
+                                 'Schritt, wie du einen Storch zeichnest. Zeichne ein paar und bring sie zu einem Schwarm zusammen. Vergiss auch die <a href="/kuslar/kirlangic">Rauchschwalbe</a> '
+                                 'nicht, die den Winter ebenfalls in Afrika verbringt. Für sie gibt es jetzt auch <a href="/dersler/kirlangic">eine Lektion</a>.</p>'}}
 

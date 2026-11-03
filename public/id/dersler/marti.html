@@ -28,7 +28,14 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
 <style>
-  .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
+  .ad { display: none; }
+  .ads-ok .ad { display: block; }
+  .consent { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); width: min(560px, calc(100% - 24px)); background: var(--paper); color: var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, .22); display: grid; gap: 10px; font-size: 14px; }
+  .consent p { margin: 0; max-width: none; }
+  .consent div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .consent button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 9px 16px; background: var(--beak); color: var(--beak-ink); cursor: pointer; }
+  .consent button.ghost { background: var(--chip); color: var(--ink); }
+  .ads-ok .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
   .ad-label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
   .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
@@ -70,7 +77,7 @@
   <ul><li>Membiarkan burung putih tanpa garis tepi. Gambar dulu garis tepi yang gelap, lalu biarkan dalamnya putih.</li><li>Membuat sayap terlalu pendek. Sayap camar lebih panjang dari badannya.</li><li>Menggambar paruh mungil seperti paruh burung gereja. Paruh camar panjang dan tebal.</li></ul>
   <h2>Hal yang perlu kamu tahu tentang Camar</h2>
   <ul class="facts"><li>Kebanyakan camar di İstanbul adalah camar kaki kuning. Panjangnya 52–68 cm, rentang sayapnya 1,2–1,5 meter.</li><li>Mereka bisa minum air tawar maupun air asin. Kelenjar di atas mata membuang kelebihan garam.</li><li>Anak camar berbintik cokelat. Butuh sampai empat tahun untuk jadi dewasa.</li><li>Titik merah di paruh itu seperti tombol. Kalau anaknya menekan, makanan keluar.</li></ul>
-  <h2>Burung yang bisa kamu gambar dengan pelajaran ini</h2><ul class="list"><li><a href="/id/kuslar/leylek"><b>Bangau putih</b><br><span class="muted">Kalau di desa kamu melihat tumpukan ranting besar di atas cerobong, kemungkinan besar itu …</span></a></li><li><a href="/id/kuslar/marti"><b>Camar</b><br><span class="muted">Camar yang mengikuti kapal feri dan mencoba menyambar simit kemungkinan besar adalah camar…</span></a></li><li><a href="/id/kuslar/kirlangic"><b>Layang-layang rumah</b><br><span class="muted">Tamu musim panas berekor bercabang yang membuat sarang lumpur di atap kandang dan teras. L…</span></a></li><li><a href="/id/kuslar/ebabil"><b>Kapinis</b><br><span class="muted">Burung bersayap sabit yang berputar-putar sambil menjerit di sekitar menara masjid pada so…</span></a></li><li><a href="/id/kuslar/kelaynak"><b>Ibis botak utara</b><br><span class="muted">Burung berkepala merah gundul, tengkuk berbulu acak-acakan, paruh panjang dan merah. Hidup…</span></a></li></ul>
+  <h2>Burung yang bisa kamu gambar dengan pelajaran ini</h2><ul class="list"><li><a href="/id/kuslar/marti"><b>Camar</b><br><span class="muted">Camar yang mengikuti kapal feri dan mencoba menyambar simit kemungkinan besar adalah camar…</span></a></li><li><a href="/id/kuslar/kelaynak"><b>Ibis botak utara</b><br><span class="muted">Burung berkepala merah gundul, tengkuk berbulu acak-acakan, paruh panjang dan merah. Hidup…</span></a></li></ul>
   <p><a class="cta" href="/?lang=id#ciz">Sekarang gambar camarmu sendiri</a></p>
   
 </article>

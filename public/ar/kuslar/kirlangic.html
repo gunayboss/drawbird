@@ -28,7 +28,14 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
 <style>
-  .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
+  .ad { display: none; }
+  .ads-ok .ad { display: block; }
+  .consent { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); width: min(560px, calc(100% - 24px)); background: var(--paper); color: var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, .22); display: grid; gap: 10px; font-size: 14px; }
+  .consent p { margin: 0; max-width: none; }
+  .consent div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .consent button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 9px 16px; background: var(--beak); color: var(--beak-ink); cursor: pointer; }
+  .consent button.ghost { background: var(--chip); color: var(--ink); }
+  .ads-ok .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
   .ad-label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
   .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
@@ -67,8 +74,8 @@
   <p>ظهره أزرق داكن لامع، وبطنه كريمي، وجبهته وحلقه بلون القرميد الأحمر. وفي ذيله ريشتان خارجيتان رفيعتان طويلتان. ذيل الذكور أطول، والإناث تختار الذكور ذوي الذيل الطويل.</p><p>يصطاد طعامه في الجو. ويشرب في الجو أيضًا، وهو يطير منخفضًا جدًا فوق سطح الماء. وقبل المطر تنخفض الحشرات فينخفض السنونو معها. ومن هنا جاءت عبارة «إذا طار السنونو منخفضًا فسيمطر».</p><p>يبني العش من مئات كتل الطين التي ينقلها بمنقاره. ويعود الزوج نفسه سنوات إلى العش نفسه ويصلحه.</p><p>يقضي الشتاء في أفريقيا. يقطع آلاف الكيلومترات ذهابًا وإيابًا كل عام، وغالبًا يعود في الربيع إلى القرية التي وُلد فيها. يعرفون العنوان بجدّ.</p>
   
   <h2>لترسمه في DrawBird</h2>
-  <p>استخدم فكرة الجناح الطويل من درس النورس، لكن ارسم الطائر صغيرًا ونحيلًا. اجعل الذيل مشقوقًا بطرفين مدبّبين. الظهر أزرق داكن والحلق أحمر والبطن أبيض.</p>
-  <p><a href="/ar/dersler/marti">درس الرسم: كيف ترسم نورسًا؟ ←</a></p>
+  <p>اتبع درس السنونو. ارسم الطائر صغيرًا ونحيلًا، واجعل الذيل شقًّا بطرفين مدبّبين. الظهر أزرق داكن والحلق أحمر والبطن أبيض.</p>
+  <p><a href="/ar/dersler/kirlangic">درس الرسم: كيف ترسم سنونو؟ ←</a></p>
   <p><a class="cta" href="/?lang=ar#ciz">ارسم سنونوك</a></p>
   <h2>طيور أخرى</h2>
   <ul class="list"><li><a href="/ar/kuslar/ebabil"><b>السمامة</b><br><span class="muted">طيور بأجنحة منجلية تدور صارخة حول المآذن في أمسيات الصيف. وتقضي تقريبًا كل حياتها في الجو.…</span></a></li><li><a href="/ar/kuslar/flamingo"><b>الفلامنجو</b><br><span class="muted">وردي، بساقين طويلتين جدًا ومنقار منحنٍ إلى الأسفل. الفلامنجو الكبير أبرز طيور بحيرات تركيا…</span></a></li><li><a href="/ar/kuslar/kizilgerdan"><b>أبو الحناء</b><br><span class="muted">طائر صغير بصدر برتقالي، يأتي إلى خطوتين منك وأنت تحفر التراب في الحديقة وينتظر الديدان. ست…</span></a></li></ul>

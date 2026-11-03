@@ -18,7 +18,7 @@ BIRDS = [
         'draw': 'Serçe dersindeki gibi başla. Gövdeyi biraz uzat, rengini açık kahve-gri yap. Başı küçük tut, ensesine ince siyah bir yarım çizgi çek. Gaga ince ve koyu olsun.',
     },
     {
-        'slug': 'leylek', 'name': 'Leylek', 'acc': 'leyleğini', 'latin': 'Ciconia ciconia', 'lesson': 'marti', 'own': '',
+        'slug': 'leylek', 'name': 'Leylek', 'acc': 'leyleğini', 'latin': 'Ciconia ciconia', 'lesson': 'leylek', 'own': '',
         'lead': 'Köyde bir bacanın tepesinde kocaman bir çalı yığını görürsen, orası büyük ihtimalle bir leylek yuvasıdır.',
         'table': [('Boy', '100–115 cm'), ('Kanat açıklığı', '155–215 cm'), ('Ağırlık', '2,3–4,4 kg'), ('Beslenme', 'Kurbağa, böcek, solucan, küçük memeliler'), ('Yumurta', '3–5'), ('Görüldüğü yer', 'Mart–Ağustos arası Türkiye\'de, kışın Afrika\'da')],
         'body': [
@@ -27,7 +27,7 @@ BIRDS = [
             'Sesleri de yok sayılır. Bunun yerine gagalarını takırdatıyorlar. Eşi yuvaya dönünce leylek başını arkaya atıp uzun uzun takırdıyor. Bir kere duyan unutmuyor.',
             'Aynı yuvayı yıllarca kullanıyorlar ve her yıl biraz daha büyütüyorlar. Bazı yuvalar bir metreden geniş, yüzlerce kilo ağırlığında oluyor. Bacanın sahibi ne düşünüyor bilmiyoruz.',
         ],
-        'draw': 'Martı dersindeki gibi uzun bir gövde ve uzun kanat çiz. Gövde beyaz, kanat ucu siyah. Gagayı uzun ve kırmızı yap, boynu uzat. Bacakları da kırmızı çiz, gövdenin arkasından dışarı uzansın.',
+        'draw': 'Leylek dersini adım adım izle. Boynu ve bacakları uzun tut, uçarken ikisi de dümdüz uzanıyor. Gaga ve bacaklar kırmızı, kanat ucu siyah.',
     },
     {
         'slug': 'serce', 'name': 'Serçe', 'acc': 'serçeni', 'latin': 'Passer domesticus', 'lesson': 'serce', 'own': '',
@@ -91,7 +91,7 @@ BIRDS = [
         'draw': 'Serçe dersini izle ama başı küçült, gövdeyi tombullaştır. Gövdeyi mavi-gri yap, boyuna yeşil-mor bir parıltı, kanada iki koyu çizgi ekle.',
     },
     {
-        'slug': 'kirlangic', 'name': 'Kırlangıç', 'acc': 'kırlangıcı', 'latin': 'Hirundo rustica', 'lesson': 'marti', 'own': '',
+        'slug': 'kirlangic', 'name': 'Kırlangıç', 'acc': 'kırlangıcı', 'latin': 'Hirundo rustica', 'lesson': 'kirlangic', 'own': '',
         'lead': 'Ahırın, sundurmanın saçağına çamurdan yuva yapan, çatal kuyruklu yaz misafiri. Kır kırlangıcı.',
         'table': [('Boy', '17–19 cm (kuyruk uçlarıyla)'), ('Kanat açıklığı', '32–35 cm'), ('Ağırlık', '16–22 g'), ('Beslenme', 'Uçan böcekler'), ('Yumurta', '4–5'), ('Görüldüğü yer', 'Köyler, çiftlikler, su kenarları; Mart–Ekim')],
         'body': [
@@ -100,10 +100,10 @@ BIRDS = [
             'Yuvayı gagasıyla taşıdığı yüzlerce çamur topağından yapıyor. Aynı çift yıllarca aynı yuvaya dönüp onu tamir ediyor.',
             'Kışı Afrika\'da geçiriyorlar. Her yıl binlerce kilometre gidip geliyorlar ve çoğu zaman baharda doğdukları köye dönüyorlar. Ciddi ciddi adres biliyorlar.',
         ],
-        'draw': 'Martı dersindeki uzun kanat fikrini kullan ama kuşu küçük ve ince çiz. Kuyruğu iki sivri uçlu çatal yap. Sırt lacivert, boğaz kırmızı, karın beyaz.',
+        'draw': 'Kırlangıç dersini izle. Kuşu küçük ve ince çiz, kuyruğu iki sivri uçlu çatal yap. Sırt lacivert, boğaz kırmızı, karın beyaz.',
     },
     {
-        'slug': 'ebabil', 'name': 'Ebabil', 'acc': 'ebabili', 'latin': 'Apus apus', 'lesson': 'marti', 'own': '',
+        'slug': 'ebabil', 'name': 'Ebabil', 'acc': 'ebabili', 'latin': 'Apus apus', 'lesson': 'kirlangic', 'own': '',
         'lead': 'Yaz akşamları minarelerin etrafında çığlık çığlığa dönüp duran orak kanatlı kuşlar. Hayatlarının neredeyse tamamı havada geçiyor.',
         'table': [('Boy', '16–17 cm'), ('Kanat açıklığı', '38–40 cm'), ('Ağırlık', '35–50 g'), ('Beslenme', 'Havada yakaladığı böcekler'), ('Yumurta', '2–3'), ('Görüldüğü yer', 'Şehirler, eski binalar; Nisan–Ağustos')],
         'body': [
@@ -112,7 +112,7 @@ BIRDS = [
             'Yuvalarını eski binaların, camilerin, kulelerin çatı aralıklarına yapıyorlar. Malzemeyi bile havada uçuşan tüylerden, çöplerden topluyorlar ve tükürükleriyle yapıştırıyorlar.',
             'Restorasyonlarda çatı aralıkları kapatılınca ebabillerin evi gidiyor. Bazı şehirlerde binalara özel ebabil kutuları takılıyor. Güzel bir şey.',
         ],
-        'draw': 'Martı dersindeki kanadı ince ve orak gibi kıvrık çiz. Gövde küçük, kuyruk kısa ve çatallı olsun. Bütün kuşu koyu kahverengi yap, boğaza küçük açık bir leke koy.',
+        'draw': 'Kırlangıç dersindeki kuşu temel al ama kanadı daha uzun ve orak gibi kıvrık çiz. Kuyruk kısa ve hafif çatallı olsun. Bütün kuşu koyu kahverengi yap, boğaza küçük açık bir leke koy.',
     },
     {
         'slug': 'flamingo', 'name': 'Flamingo', 'acc': 'flamingonu', 'latin': 'Phoenicopterus roseus', 'lesson': 'flamingo', 'own': '',
@@ -211,7 +211,7 @@ BIRDS = [
         'draw': 'Papağan dersindeki renkli kuş fikrini kullan ama gagayı uzun, ince ve hafif kıvrık yap. Kuyruğun ortasına iki uzun tüy ekle. Boğaz sarı, göğüs turkuaz, sırt kestane.',
     },
     {
-        'slug': 'ibibik', 'name': 'İbibik', 'acc': 'ibibiği', 'latin': 'Upupa epops', 'lesson': 'serce', 'own': '',
+        'slug': 'ibibik', 'name': 'İbibik', 'acc': 'ibibiği', 'latin': 'Upupa epops', 'lesson': 'ibibik', 'own': '',
         'lead': 'Başındaki tepeliği yelpaze gibi açan, "hüt hüt hüt" diye öten kuş. Kimi hüthüt der, kimi çavuşkuşu.',
         'table': [('Boy', '25–32 cm'), ('Kanat açıklığı', '44–48 cm'), ('Ağırlık', '45–90 g'), ('Beslenme', 'Toprak altındaki böcek larvaları'), ('Yumurta', '5–8'), ('Görüldüğü yer', 'Bahçeler, zeytinlikler, açık arazi; Mart–Eylül')],
         'body': [
@@ -220,7 +220,7 @@ BIRDS = [
             'İbibik bizim kültürümüzde çok eski. Kuran\'da Hz. Süleyman\'a haber getiren Hüdhüd o. Feridüddin Attar\'ın Mantıku\'t-Tayr\'ında da kuşlara yol gösteren kuş yine o.',
             'Yuvada yavrular tehlike sezince kötü kokulu bir sıvı salgılıyor. Bu koku yırtıcıları uzak tutuyor. Pek hoş değil ama işe yarıyor.',
         ],
-        'draw': 'Serçe dersini temel al. Başa yelpaze gibi açılan, uçları siyah bir tepelik, uzun ve aşağı kıvrık bir gaga ekle. Gövde somon pembesi, kanat siyah-beyaz çizgili olsun.',
+        'draw': 'İbibik dersini izle. Tepeliği yelpaze gibi aç ama kesik çizginin altında tut. Gaga uzun ve aşağı kıvrık, gövde somon pembesi, kanat siyah beyaz çizgili.',
     },
     {
         'slug': 'kelaynak', 'name': 'Kelaynak', 'acc': 'kelaynağı', 'latin': 'Geronticus eremita', 'lesson': 'marti', 'own': '',

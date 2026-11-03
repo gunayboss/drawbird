@@ -28,7 +28,14 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
 <style>
-  .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
+  .ad { display: none; }
+  .ads-ok .ad { display: block; }
+  .consent { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); width: min(560px, calc(100% - 24px)); background: var(--paper); color: var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, .22); display: grid; gap: 10px; font-size: 14px; }
+  .consent p { margin: 0; max-width: none; }
+  .consent div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .consent button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 9px 16px; background: var(--beak); color: var(--beak-ink); cursor: pointer; }
+  .consent button.ghost { background: var(--chip); color: var(--ink); }
+  .ads-ok .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
   .ad-label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
   .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
@@ -67,8 +74,8 @@
   <p>Der Mauersegler sieht aus wie eine Schwalbe, ist aber nicht mit ihr verwandt. Er ist dunkelbraun, fast schwarz. Seine Flügel sind lang und wie eine Sichel gebogen. Seine Füße sind so kurz, dass er sich vom Boden nur schwer erhebt, darum landet er kaum.</p><p>In der Luft fressen, in der Luft trinken, in der Luft schlafen. Kein Scherz. Studien haben gezeigt, dass manche Mauersegler im Winterquartier in Afrika zehn Monate lang nie landen.</p><p>Ihre Nester bauen sie in Spalten unter den Dächern alter Gebäude, Moscheen und Türme. Das Material sammeln sie sogar in der Luft aus herumfliegenden Federn und Abfällen und kleben es mit Speichel zusammen.</p><p>Werden bei Restaurierungen die Dachspalten verschlossen, verlieren die Mauersegler ihr Zuhause. In manchen Städten werden spezielle Mauerseglerkästen an die Gebäude gehängt. Eine schöne Sache.</p>
   
   <h2>So zeichnest du ihn in DrawBird</h2>
-  <p>Zeichne den Flügel aus der Möwen-Lektion dünn und wie eine Sichel gebogen. Der Körper ist klein, der Schwanz kurz und gegabelt. Mal den ganzen Vogel dunkelbraun und setz an die Kehle einen kleinen hellen Fleck.</p>
-  <p><a href="/de/dersler/marti">Zeichenlektion: Wie zeichnet man eine Möwe? →</a></p>
+  <p>Nimm den Vogel aus der Rauchschwalben-Lektion als Grundlage, zeichne den Flügel aber länger und sichelförmig gebogen. Der Schwanz ist kurz und leicht gegabelt. Mal den ganzen Vogel dunkelbraun und setz einen kleinen hellen Fleck an die Kehle.</p>
+  <p><a href="/de/dersler/kirlangic">Zeichenlektion: Wie zeichnet man eine Rauchschwalbe? →</a></p>
   <p><a class="cta" href="/?lang=de#ciz">Zeichne deinen eigenen Mauersegler</a></p>
   <h2>Weitere Vögel</h2>
   <ul class="list"><li><a href="/de/kuslar/flamingo"><b>Rosaflamingo</b><br><span class="muted">Rosa, mit ganz langen Beinen und einem Schnabel, der verkehrt herum steht. Der Rosaflaming…</span></a></li><li><a href="/de/kuslar/kizilgerdan"><b>Rotkehlchen</b><br><span class="muted">Der kleine Vogel mit der orangen Brust, der kommt, wenn du im Garten gräbst, und ein, zwei…</span></a></li><li><a href="/de/kuslar/saka"><b>Stieglitz</b><br><span class="muted">Rotes Gesicht, ein leuchtend gelbes Band im Flügel, winzig und immer am Zwitschern. Für mi…</span></a></li></ul>

@@ -28,7 +28,14 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
 <style>
-  .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
+  .ad { display: none; }
+  .ads-ok .ad { display: block; }
+  .consent { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); width: min(560px, calc(100% - 24px)); background: var(--paper); color: var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, .22); display: grid; gap: 10px; font-size: 14px; }
+  .consent p { margin: 0; max-width: none; }
+  .consent div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .consent button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 9px 16px; background: var(--beak); color: var(--beak-ink); cursor: pointer; }
+  .consent button.ghost { background: var(--chip); color: var(--ink); }
+  .ads-ok .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
   .ad-label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
   .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
@@ -67,8 +74,8 @@
   <p>体はサーモンピンク、翼と尾は黒と白の帯模様。興奮したときや地面に降りたときに、頭の黒い先の冠を扇のように広げます。一度見たら忘れられません。</p><p>長くて細くて少し下にまがったくちばしを土にさして、幼虫をさがします。芝生を歩きながら、何度もくちばしを地面に刺しているのが見られます。</p><p>ヤツガシラは、わたしたちの文化にとても古くから登場します。クルアーンで、スレイマン(ソロモン)に知らせを運んだフドフドが、この鳥です。ファリードゥッディーン・アッタールの『鳥の言葉』でも、鳥たちに道を教えるのはやはりこの鳥です。</p><p>巣の中のヒナは、危険を感じると、においの強い液体を出します。このにおいが、敵を遠ざけます。あまりいいにおいではないけれど、ちゃんと役に立ちます。</p>
   
   <h2>DrawBirdで描くには</h2>
-  <p>スズメのレッスンをもとにします。頭に、扇のように開く黒い先の冠、長くて下にまがったくちばしを足しましょう。体はサーモンピンク、翼は黒と白のしま模様に。</p>
-  <p><a href="/ja/dersler/serce">描き方レッスン:スズメの描き方 →</a></p>
+  <p>ヤツガシラのレッスンを見てください。冠は扇のように開きますが、点線の下におさめます。くちばしは長く下に曲げて、体はサーモンピンク、翼は白黒のしま模様です。</p>
+  <p><a href="/ja/dersler/ibibik">描き方レッスン:ヤツガシラの描き方 →</a></p>
   <p><a class="cta" href="/?lang=ja#ciz">自分のヤツガシラを描こう</a></p>
   <h2>ほかの鳥</h2>
   <ul class="list"><li><a href="/ja/kuslar/kelaynak"><b>ホオアカトキ</b><br><span class="muted">頭は赤くてはげていて、うなじの羽はぼさぼさ、くちばしは長くて赤い鳥。ビレジクで保護されていて、絶滅の危機にあります。…</span></a></li><li><a href="/ja/kuslar/yesilbas"><b>マガモ</b><br><span class="muted">湖のほとりでパンを待っているカモの多くは、マガモ。家で飼われているカモのほとんどの先祖でもあります。…</span></a></li><li><a href="/ja/kuslar/kumru"><b>シラコバト</b><br><span class="muted">朝、窓の外から「ぐっ、ぐーぐー」と声が聞こえたら、たぶんシラコバトです。…</span></a></li></ul>

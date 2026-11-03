@@ -257,7 +257,70 @@ LESSONS = {'serce': {'title': 'Como desenhar um pardal',
              'facts': ['Os beija-flores batem as asas 50–80 vezes por segundo e conseguem ficar parados no ar.',
                        'Eles são o único grupo de aves que consegue voar de ré.',
                        'A menor ave é o colibri-abelha de Cuba, com só 5–6 cm.',
-                       'Os beija-flores vivem só nas Américas, não existem na Turquia.']}}
+                       'Os beija-flores vivem só nas Américas, não existem na Turquia.']},
+ 'kirlangic': {'title': 'Como desenhar uma andorinha',
+               'bird': 'Andorinha-das-chaminés',
+               'cta': 'Desenhe agora a sua andorinha',
+               'intro': 'Para reconhecer uma andorinha basta uma coisa: a cauda bifurcada. O resto é um corpo pequeno e asas pontudas. Em cinco passos está pronta.',
+               'steps': [['Primeiro o corpo',
+                          'Desenhe um corpo pequeno e fino logo abaixo da linha tracejada e pinte de azul-marinho. A andorinha não é gordinha, parece um lápis apontando para a frente.'],
+                         ['Cabeça e bico',
+                          'Adicione uma cabeça pequena à direita do corpo. Faça o bico um triângulo minúsculo. A andorinha pega os insetos no ar com a boca aberta, ela não precisa de um bico '
+                          'grande.'],
+                         ['Asa pontuda',
+                          'Desenhe ACIMA da linha tracejada uma asa longa, fina e de ponta afiada. Curve um pouco para trás. Se você desenhar uma asa redonda, o pássaro vira um pardal.'],
+                         ['Cauda bifurcada',
+                          'À esquerda do corpo, desenhe uma cauda com duas pontas afiadas. As pontas de fora devem ser compridas e o meio entra para dentro. Essa é a assinatura da andorinha.'],
+                         ['Cores', 'Coloque uma mancha vermelho-tijolo na garganta e uma faixa creme embaixo da barriga. Com essas duas cores, as costas azul-marinho brilham ainda mais.']],
+               'mistakes': ['Terminar a cauda reta. Sem a bifurcação, não é andorinha.',
+                            'Desenhar o corpo gordinho. A andorinha é uma ave fina e leve.',
+                            'Fazer a asa curta e redonda. A asa tem que ser longa e pontuda.'],
+               'facts': ['A andorinha-das-chaminés mede 17–19 cm com as penas da cauda e pesa 16–22 g.',
+                         'Ela pega a comida no ar. A água ela bebe voando bem baixo sobre a superfície.',
+                         'Ela faz o ninho com centenas de bolinhas de barro que carrega no bico.',
+                         'Passa o inverno na África e, na primavera, quase sempre volta ao lugar onde nasceu.']},
+ 'leylek': {'title': 'Como desenhar uma cegonha',
+            'bird': 'Cegonha-branca',
+            'cta': 'Desenhe agora a sua cegonha',
+            'intro': 'Quando voa, a cegonha estica o pescoço e as pernas bem retos. Nesta aula vamos desenhar essa silhueta longa e reta. O bico vermelho e as pernas vermelhas são o charme do '
+                     'desenho.',
+            'steps': [['Corpo', 'Desenhe um ovo comprido e deitado logo abaixo da linha tracejada. A cegonha é branca, então desenhe primeiro um contorno escuro e deixe o meio branco.'],
+                      ['Pescoço longo e cabeça',
+                       'Da direita do corpo, faça sair um pescoço longo para a frente e coloque uma cabeça pequena na ponta. Deixe o pescoço quase reto, a cegonha não dobra o pescoço quando voa.'],
+                      ['Bico vermelho', 'Na frente da cabeça, desenhe um bico longo, pontudo e vermelho. O bico pode ter quase três vezes o tamanho da cabeça.'],
+                      ['Asa',
+                       'ACIMA da linha tracejada, desenhe uma asa larga e comprida. A parte da frente da asa é branca e a parte de fora é preta. A asa da cegonha é bem maior que o corpo, seja '
+                       'generoso.'],
+                      ['Cauda e pernas',
+                       'À esquerda do corpo, adicione uma cauda curta. Depois estique duas pernas vermelhas e finas até passar da cauda. A cegonha não deixa as pernas penduradas quando voa, ela as '
+                       'estica para trás.']],
+            'mistakes': ['Desenhar o pescoço curto ou torto. O pescoço da cegonha em voo é longo e reto.',
+                         'Deixar as pernas penduradas para baixo. Em voo, elas ficam esticadas para trás.',
+                         'Deixar a ave branca sem contorno. Ela some no céu.'],
+            'facts': ['A cegonha-branca mede 100–115 cm e tem 155–215 cm de envergadura.',
+                      'No fim de agosto, dezenas de milhares migram para a África e passam pelo Bósforo, em Istambul.',
+                      'Elas não gostam de bater as asas. Sobem nas correntes de ar quente e planam por quilômetros.',
+                      'Quase não têm voz. Em vez disso, batem o bico fazendo barulho.']},
+ 'ibibik': {'title': 'Como desenhar uma poupa',
+            'bird': 'Poupa',
+            'cta': 'Desenhe agora a sua poupa',
+            'intro': 'A poupa tem na cabeça um topete que abre como um leque. Nesta aula você vai desenhá-lo e ainda aprender um truque sobre a linha tracejada.',
+            'steps': [['Corpo', 'Desenhe um ovo deitado bem abaixo da linha tracejada e pinte de rosa-salmão. Deixamos o corpo mais embaixo porque o topete precisa de espaço.'],
+                      ['Cabeça', 'Adicione uma cabeça redonda na parte de cima à direita do corpo. Coloque o olho como um ponto perto do meio da cabeça.'],
+                      ['Topete',
+                       'Desenhe na cabeça um topete que abre como um leque, com as pontas pretas. Aqui está o truque. Mantenha o topete ABAIXO da linha tracejada. Se ele passar para cima da linha, '
+                       'começa a bater como uma asa.'],
+                      ['Bico longo e curvo', 'Na frente da cabeça, desenhe um bico longo, fino e levemente curvado para baixo. A poupa enfia esse bico na terra para procurar larvas.'],
+                      ['Asa listrada e cauda',
+                       'ACIMA da linha tracejada, desenhe uma asa preta e coloque duas listras brancas em cima. À esquerda do corpo, adicione uma cauda preta com uma faixa branca no meio. Em voo, '
+                       'esse padrão preto e branco parece uma borboleta.']],
+            'mistakes': ['Levar o topete para cima da linha tracejada. Tudo o que fica acima da linha bate.',
+                         'Desenhar o bico curto e reto. O bico da poupa é longo e curvado para baixo.',
+                         'Deixar a asa de uma cor só. Sem as listras pretas e brancas, ninguém reconhece a poupa.'],
+            'facts': ['A poupa mede 25–32 cm e tem 44–48 cm de envergadura.',
+                      'Ela abre o topete quando fica animada ou quando pousa no chão.',
+                      'Em alguns lugares é chamada de hüthüt, em outros de çavuşkuşu. O nome vem do canto dela, que soa como “hut hut hut”.',
+                      'Os filhotes soltam um líquido de cheiro ruim quando sentem perigo. Os predadores não gostam nada disso.']}}
 
 BIRDS = {'kumru': {'name': 'Rola-turca',
            'cta': 'Desenhe a sua rola-turca',
@@ -286,8 +349,7 @@ BIRDS = {'kumru': {'name': 'Rola-turca',
                      'bom tempo. Quem ouve uma vez não esquece.',
                      'Elas usam o mesmo ninho por anos e o aumentam um pouco a cada ano. Alguns ninhos passam de um metro de largura e pesam centenas de quilos. O que o dono da chaminé acha disso, a '
                      'gente não sabe.'],
-            'draw': 'Desenhe um corpo comprido e asas longas, como na aula da gaivota. Corpo branco, pontas das asas pretas. Faça o bico longo e vermelho e estique o pescoço. Desenhe também as '
-                    'pernas vermelhas, saindo para fora por trás do corpo.',
+            'draw': 'Siga a aula da cegonha passo a passo. Mantenha o pescoço e as pernas longos, os dois ficam bem esticados quando ela voa. Bico e pernas vermelhos, pontas das asas pretas.',
             'own': ''},
  'serce': {'name': 'Pardal',
            'cta': 'Desenhe o seu pardal',
@@ -362,8 +424,7 @@ BIRDS = {'kumru': {'name': 'Rola-turca',
                         'O ninho é feito com centenas de bolinhas de barro, carregadas no bico. O mesmo casal volta por anos ao mesmo ninho e o conserta.',
                         'Elas passam o inverno na África. Todo ano vão e voltam milhares de quilômetros e, muitas vezes, voltam na primavera para a vila onde nasceram. Elas sabem o endereço, é '
                         'sério.'],
-               'draw': 'Use a ideia da asa longa da aula da gaivota, mas desenhe a ave pequena e fina. Faça a cauda bifurcada, com duas pontas finas. Costas azul-marinho, garganta vermelha, barriga '
-                       'branca.',
+               'draw': 'Siga a aula da andorinha. Desenhe a ave pequena e fina e faça a cauda bifurcada, com duas pontas afiadas. Costas azul-marinho, garganta vermelha, barriga branca.',
                'own': ''},
  'ebabil': {'name': 'Andorinhão',
             'cta': 'Desenhe o seu andorinhão',
@@ -375,8 +436,8 @@ BIRDS = {'kumru': {'name': 'Rola-turca',
                      'Fazem o ninho nas frestas do telhado de prédios antigos, mesquitas e torres. Até o material eles pegam no ar, penas e lixinhos que voam por aí, e colam com a saliva.',
                      'Quando as frestas do telhado são fechadas em restaurações, os andorinhões perdem a casa. Em algumas cidades, instalam caixas especiais para andorinhões nos prédios. É uma coisa '
                      'bonita.'],
-            'draw': 'Desenhe a asa da aula da gaivota fina e curva como uma foice. Corpo pequeno, cauda curta e bifurcada. Pinte a ave toda de marrom-escuro e coloque uma mancha clara pequena na '
-                    'garganta.',
+            'draw': 'Use como base a ave da aula da andorinha, mas desenhe a asa mais longa e curvada como uma foice. A cauda deve ser curta e levemente bifurcada. Pinte a ave toda de marrom-escuro '
+                    'e coloque uma pequena mancha clara na garganta.',
             'own': ''},
  'flamingo': {'name': 'Flamingo',
               'cta': 'Desenhe o seu flamingo',
@@ -481,8 +542,7 @@ BIRDS = {'kumru': {'name': 'Rola-turca',
                      'A poupa é muito antiga na nossa cultura. No Alcorão, o Hudhud que leva notícias ao profeta Salomão é ela. No Mantiq al-Tayr, de Farid ud-Din Attar, a ave que guia as outras '
                      'aves também é ela.',
                      'No ninho, quando os filhotes sentem perigo, soltam um líquido de cheiro ruim. Esse cheiro afasta os predadores. Não é muito agradável, mas funciona.'],
-            'draw': 'Use a aula do pardal como base. Coloque na cabeça um topete que abre como leque, com pontas pretas, e um bico longo e curvado para baixo. Corpo rosa-salmão e asa listrada de '
-                    'preto e branco.',
+            'draw': 'Siga a aula da poupa. Abra o topete como um leque, mas mantenha-o abaixo da linha tracejada. Bico longo e curvado para baixo, corpo rosa-salmão, asa listrada de preto e branco.',
             'own': ''},
  'kelaynak': {'name': 'Íbis-eremita',
               'cta': 'Desenhe o seu íbis-eremita',
@@ -704,8 +764,10 @@ LEGAL = {'nasil-oynanir': {'title': 'Como jogar',
                       'usuários. O nome “DrawBird” e o logotipo não são concedidos por essa licença.</p>\n'
                       '\n'
                       '  <h2>7. Anúncios</h2>\n'
-                      '  <p>Para continuar gratuito, o DrawBird pode exibir anúncios no futuro. Quando houver anúncios, a página de privacidade será atualizada e, onde necessário, será pedido o '
-                      'consentimento para cookies.</p>\n'
+                      '  <!--noads--><p>Para continuar gratuito, o DrawBird pode exibir anúncios no futuro. Quando houver anúncios, a página de privacidade será atualizada e, onde necessário, será '
+                      'pedido o consentimento para cookies.</p><!--/noads--><!--ads--><p>Para continuar gratuito, o DrawBird mostra anúncios do Google em algumas páginas de texto. Os anúncios só são '
+                      'carregados se você permitir, e não há anúncios na tela do jogo. Quem anuncia é responsável pelo conteúdo dos anúncios. Os detalhes estão na <a href="/gizlilik">página de '
+                      'privacidade</a>.</p><!--/ads-->\n'
                       '\n'
                       '  <h2>8. Responsabilidade</h2>\n'
                       '  <p>Quem desenhou é responsável pelos desenhos dos usuários. O DrawBird não se responsabiliza, na medida permitida pela lei em vigor, por danos causados por interrupção do '
@@ -739,9 +801,21 @@ LEGAL = {'nasil-oynanir': {'title': 'Como jogar',
                       'preciso, os pássaros de passarinheiros novos podem passar por aprovação antes de serem publicados; nesse caso, o pássaro só aparece para quem desenhou.</p>\n'
                       '\n'
                       '  <h2>O que não coletamos</h2>\n'
-                      '  <p>No momento, não usamos anúncios, cookies de publicidade, localização, lista de contatos nem ferramentas de análise de terceiros. Se anúncios forem adicionados, esta '
-                      'página será atualizada e, onde necessário, pediremos seu consentimento antes. As fontes são carregadas do nosso próprio servidor; ao abrir a página, nenhuma requisição vai '
-                      'para outra empresa.</p>\n'
+                      '  <!--noads--><p>No momento, não usamos anúncios, cookies de publicidade, localização, lista de contatos nem ferramentas de análise de terceiros. Se anúncios forem '
+                      'adicionados, esta página será atualizada e, onde necessário, pediremos seu consentimento antes. As fontes são carregadas do nosso próprio servidor; ao abrir a página, nenhuma '
+                      'requisição vai para outra empresa.</p><!--/noads--><!--ads--><p>Não usamos localização, lista de contatos nem ferramentas de análise de terceiros. As fontes são carregadas do '
+                      'nosso próprio servidor.</p>\n'
+                      '\n'
+                      '  <h2>Anúncios e cookies</h2>\n'
+                      '  <p>Para o DrawBird continuar gratuito, algumas páginas de texto (aulas, páginas de pássaros, blog, perguntas frequentes) têm anúncios do Google AdSense. Não há anúncios na '
+                      'tela de desenho, no céu nem nestas páginas legais.</p>\n'
+                      '  <p>Os anúncios só são carregados se você permitir. Quando você abre uma página com anúncios pela primeira vez, uma janelinha pergunta. Se você disser <b>Aceitar</b>, o '
+                      'Google pode colocar cookies no seu dispositivo e tratar o seu endereço IP para exibir anúncios, evitar cliques falsos e medir os anúncios. Se disser <b>Não</b>, nenhum anúncio '
+                      'é carregado e o site funciona do mesmo jeito.</p>\n'
+                      '  <p>Como crianças também usam o DrawBird, pedimos ao Google só anúncios não personalizados. Ou seja, os anúncios são escolhidos pelo assunto da página, não pelos seus '
+                      'interesses.</p>\n'
+                      '  <p>Você pode mudar a sua decisão quando quiser pelo link <b>Configurações de cookies</b> no fim da página. Para saber como o Google usa esses dados, leia <a '
+                      'href="https://policies.google.com/technologies/partner-sites">a página do Google</a>.</p><!--/ads-->\n'
                       '\n'
                       '  <h2>Contagem de visitas</h2>\n'
                       '  <p>Para saber quantas pessoas vêm, um contador diário aumenta em um a cada visita. Esse contador não usa cookies e não registra quem você é nem o seu endereço IP; guarda só '
@@ -787,8 +861,9 @@ LEGAL = {'nasil-oynanir': {'title': 'Como jogar',
                   '    <li><b>Registros do servidor:</b> registros técnicos do nosso provedor de hospedagem (Cloudflare); podem conter o endereço da requisição, a hora, o país e dados do '
                   'navegador.</li>\n'
                   '  </ul>\n'
-                  '  <p>O contador diário de visitas não contém dados pessoais; guarda só o total do dia. Não usamos cookies. No seu navegador ficam guardados só o código do seu dispositivo e as '
-                  'suas preferências.</p>\n'
+                  '  <p>O contador diário de visitas não contém dados pessoais; guarda só o total do dia. <!--noads-->Não usamos cookies.<!--/noads--><!--ads-->Não temos cookies próprios. Nas '
+                  'páginas com anúncios, se você permitir, o Google usa cookies (seções 3 e 4).<!--/ads--> No seu navegador ficam guardados só o código do seu dispositivo e as suas '
+                  'preferências.</p>\n'
                   '\n'
                   '  <h2>3. Finalidades e bases legais</h2>\n'
                   '  <ul>\n'
@@ -796,16 +871,21 @@ LEGAL = {'nasil-oynanir': {'title': 'Como jogar',
                   'uso</a>).</li>\n'
                   '    <li>Evitar spam, votos falsos, conteúdo impróprio e ataques, bloquear quem viola as regras, revisar os desenhos novos e denunciados: <b>interesse legítimo</b> (KVKK '
                   'm.5/2-f).</li>\n'
-                  '    <li>Pedidos de autoridades competentes e obrigações legais de guarda: <b>obrigação legal</b> (KVKK m.5/2-ç).</li>\n'
+                  '    <li>Pedidos de autoridades competentes e obrigações legais de guarda: <b>obrigação legal</b> (KVKK m.5/2-ç).</li><!--ads-->\n'
+                  '    <li>Mostrar anúncios do Google nas páginas de texto com anúncios: <b>consentimento explícito</b> (KVKK m.5/1). Você dá a permissão na janelinha da página e a retira quando '
+                  'quiser pelo link <b>Configurações de cookies</b>.</li><!--/ads-->\n'
                   '  </ul>\n'
-                  '  <p>Não fazemos tratamento baseado em consentimento explícito, mensagens de marketing nem perfilamento.</p>\n'
+                  '  <!--noads--><p>Não fazemos tratamento baseado em consentimento explícito, mensagens de marketing nem perfilamento.</p><!--/noads--><!--ads--><p>Fora a permissão para anúncios, '
+                  'não fazemos tratamento baseado em consentimento explícito. Não enviamos mensagens de marketing nem fazemos perfilamento.</p><!--/ads-->\n'
                   '\n'
                   '  <h2>4. Transferência</h2>\n'
                   '  <ul>\n'
                   '    <li><b>Cloudflare, Inc.</b> (hospedagem e banco de dados): todos os dados ficam nos servidores da Cloudflare; o banco de dados fica na região da Europa Oriental e as páginas '
                   'são entregues por servidores do mundo todo.</li>\n'
                   '    <li><b>Telegram</b> (moderação): a imagem, o nome e o nome de passarinheiro de pássaros novos, que aguardam aprovação ou foram denunciados, são enviados à conta do '
-                  'administrador no Telegram.</li>\n'
+                  'administrador no Telegram.</li><!--ads-->\n'
+                  '    <li><b>Google</b> (anúncios): se você permitir, nas páginas com anúncios o Google trata dados como cookies e endereço IP. Esses dados são transferidos para servidores do '
+                  'Google no exterior. Se você não permitir, nenhum dado vai para o Google.</li><!--/ads-->\n'
                   '  </ul>\n'
                   '  <p>Os servidores desses provedores ficam no exterior; a transferência é feita nos termos da KVKK m.9. Não vendemos nem repassamos os seus dados a mais ninguém.</p>\n'
                   '\n'
@@ -814,7 +894,8 @@ LEGAL = {'nasil-oynanir': {'title': 'Como jogar',
                   '    <li>Pássaros, votos, bandos e nome de passarinheiro: até você apagar.</li>\n'
                   '    <li>Registros de limite de envio: no máximo 1 hora. Contagem de contas novas: no máximo 2 dias.</li>\n'
                   '    <li>Registros de bloqueio: até o bloqueio ser removido, para evitar abusos; bloqueio de rede: 24 horas.</li>\n'
-                  '    <li>Registros do servidor: pelo tempo de guarda de registros da Cloudflare (alguns dias).</li>\n'
+                  '    <li>Registros do servidor: pelo tempo de guarda de registros da Cloudflare (alguns dias).</li><!--ads-->\n'
+                  '    <li>Sua escolha sobre os anúncios: no seu navegador, até você mudar. Os cookies do Google têm o prazo da política do próprio Google.</li><!--/ads-->\n'
                   '  </ul>\n'
                   '  <p>O que você escreve no formulário de contato e os dados de contato que decidir deixar ficam guardados até o pedido ser resolvido, por no máximo um ano.</p>\n'
                   '\n'
@@ -864,5 +945,60 @@ POSTS = {'2026-11-drawbird-yayinda': {'title': 'DrawBird no ar: notas do primeir
                                       '\n'
                                       '<h2>O que vem por aí?</h2>\n'
                                       '<p>Páginas de aves novas, aulas novas e a tradução das aulas para os outros idiomas. Se tiver uma sugestão, escreva <a '
-                                      'href="https://github.com/gunayboss/drawbird/issues">no GitHub</a>. Leio todas.</p>'}}
+                                      'href="https://github.com/gunayboss/drawbird/issues">no GitHub</a>. Leio todas.</p>'},
+ '2026-11-kesik-cizgi': {'title': 'Para que serve a linha tracejada? Como o seu pássaro bate as asas',
+                         'desc': 'A linha tracejada no meio da área de desenho decide a asa do seu pássaro. Expliquei como ela funciona e como tirar proveito dela.',
+                         'html': '<p>Tem uma linha tracejada no meio da área de desenho. Muita gente não repara nela ao desenhar o primeiro pássaro e depois pergunta por que o pássaro não bate as '
+                                 'asas. Neste texto eu explico o que essa linha faz.</p>\n'
+                                 '\n'
+                                 '<h2>O desenho é dividido em dois</h2>\n'
+                                 '<p>Quando você solta o seu pássaro, o DrawBird divide o desenho na altura da linha tracejada. A metade de baixo fica como está, é o corpo do pássaro. A metade de '
+                                 'cima encolhe e estica o tempo todo. Ela é espremida em direção à linha, depois abre de novo, e por um instante chega a descer até abaixo da linha. Ou seja, a metade '
+                                 'de cima vira a asa.</p>\n'
+                                 '<p>Por isso a regra é simples. Desenhe a asa ACIMA da linha e o corpo ABAIXO. Se você desenhar o pássaro inteiro abaixo da linha, ele voa, mas não bate as asas. Se '
+                                 'desenhar o pássaro inteiro acima, aí o pássaro todo vai bater, meio como um acordeão.</p>\n'
+                                 '\n'
+                                 '<h2>Tudo o que fica acima da linha bate</h2>\n'
+                                 '<p>O DrawBird não sabe o que é asa. Ele só olha em que lugar da linha cada pedaço está. Se você levar a cabeça ou o topete para cima da linha, eles sobem e descem '
+                                 'junto com a asa. É por isso que, na <a href="/dersler/ibibik">aula da poupa</a>, mantemos o topete abaixo da linha.</p>\n'
+                                 '<p>Claro que dá para usar isso de propósito. Se você desenhar um coelho com as orelhas acima da linha, ele voa com as orelhas. Nem precisa ser pássaro, tudo o que '
+                                 'tem asa voa.</p>\n'
+                                 '\n'
+                                 '<h2>Algumas dicas pequenas</h2>\n'
+                                 '<ul>\n'
+                                 '  <li><b>Desenhe a asa grande.</b> Quando bate, a asa encolhe. Se você desenhar grande, o movimento fica mais visível.</li>\n'
+                                 '  <li><b>Use um lápis grosso.</b> O seu pássaro fica pequeno no céu e as linhas finas somem lá.</li>\n'
+                                 '  <li><b>A direção não importa.</b> Você pode desenhar o pássaro olhando para a direita ou para a esquerda. No céu ele vira sozinho, conforme a direção em que '
+                                 'vai.</li>\n'
+                                 '  <li><b>Os espaços vazios não voam.</b> Onde você não desenhou fica transparente. No céu, o pássaro aparece só no que você desenhou.</li>\n'
+                                 '</ul>\n'
+                                 '\n'
+                                 '<p>Se quiser tentar passo a passo, veja as <a href="/dersler/">aulas de desenho</a>. Cada aula mostra também onde a asa deve ficar.</p>'},
+ '2026-11-leylek-gocu': {'title': 'Migração de outono: por que as cegonhas passam pelo Bósforo, em Istambul?',
+                         'desc': 'Todo ano, dezenas de milhares de cegonhas passam por cima de Istambul a caminho da África. Expliquei por que elas escolhem o Bósforo e não o mar.',
+                         'html': '<p>Do fim de agosto ao fim de setembro, se você olhar para cima em Istambul, provavelmente vai ver um bando de cegonhas. Às vezes centenas delas dão voltas no céu '
+                                 'ao mesmo tempo. Isso tem um motivo, e o motivo é o vento.</p>\n'
+                                 '\n'
+                                 '<h2>As cegonhas não gostam de bater as asas</h2>\n'
+                                 '<p>A <a href="/kuslar/leylek">cegonha-branca</a> é uma ave grande. A envergadura chega a dois metros. Bater asas tão grandes por horas gasta muita energia. Por isso '
+                                 'as cegonhas acharam outro jeito. Quando o sol esquenta o chão, o ar quente sobe. A cegonha entra nesse ar quente, dá voltas para subir e depois plana, sem bater as '
+                                 'asas, até a próxima corrente de ar quente.</p>\n'
+                                 '\n'
+                                 '<h2>Sobre o mar não há ar quente</h2>\n'
+                                 '<p>O problema é que o mar não esquenta como a terra. Sobre o mar, essas correntes de ar quente quase não se formam. Se a cegonha vai para o mar aberto, ela precisa '
+                                 'bater as asas e pode não aguentar uma travessia longa. Por isso as cegonhas atravessam o mar no ponto mais estreito.</p>\n'
+                                 '<p>As cegonhas que vão da Europa para a África têm dois grandes caminhos. As do oeste passam pelo Estreito de Gibraltar e as do leste, pelo Bósforo, em Istambul. '
+                                 'Depois cruzam a Anatólia e descem para a África pelo Oriente Médio. Outras aves que voam planando, como águias, falcões e gaviões, usam o mesmo caminho.</p>\n'
+                                 '\n'
+                                 '<h2>Quando e de onde observar?</h2>\n'
+                                 '<p>O período mais cheio vai da última semana de agosto à primeira metade de setembro. O melhor horário é o meio-dia, porque as correntes de ar quente ficam mais '
+                                 'fortes quando o sol sobe. Em Istambul, lugares altos como a colina Çamlıca são pontos conhecidos para ver a migração. Se levar um binóculo, fica muito mais '
+                                 'divertido.</p>\n'
+                                 '<p>A migração deste ano acabou e as cegonhas estão agora na África. Em março e abril elas voltam pelo mesmo caminho. Ou seja, você não precisa esperar muito para '
+                                 'ver a migração de primavera.</p>\n'
+                                 '\n'
+                                 '<h2>Um bando de cegonhas no céu</h2>\n'
+                                 '<p>Que tal encher o céu do DrawBird de cegonhas esta semana? A <a href="/dersler/leylek">aula da cegonha</a> agora mostra uma cegonha passo a passo. Você pode '
+                                 'desenhar algumas e juntar todas num bando. E não esqueça da <a href="/kuslar/kirlangic">andorinha</a>, que também passa o inverno na África: ela agora tem <a '
+                                 'href="/dersler/kirlangic">uma aula</a> também.</p>'}}
 

@@ -262,7 +262,74 @@ LESSONS = {'serce': {'title': 'Comment dessiner un moineau ?',
              'facts': ['Les colibris battent des ailes 50 à 80 fois par seconde et peuvent faire du sur-place.',
                        'Ce sont les seuls oiseaux capables de voler en marche arrière.',
                        'Le plus petit oiseau est le colibri d’Elena de Cuba, avec seulement 5 à 6 cm.',
-                       'Les colibris ne vivent que sur le continent américain, pas en Türkiye.']}}
+                       'Les colibris ne vivent que sur le continent américain, pas en Türkiye.']},
+ 'kirlangic': {'title': 'Comment dessiner une hirondelle ?',
+               'bird': 'Hirondelle',
+               'cta': 'Dessine maintenant ta propre hirondelle',
+               'intro': 'Pour reconnaître une hirondelle, une seule chose suffit : la queue fourchue. Le reste, c’est un petit corps et des ailes pointues. Ça se fait en cinq étapes.',
+               'steps': [['Un corps fin',
+                          'Sous la ligne en pointillés, dessine un petit corps tout fin et colorie-le en bleu marine. L’hirondelle n’est pas ronde, elle ressemble plutôt à un crayon qui file vers '
+                          'l’avant.'],
+                         ['La tête et le bec',
+                          'Ajoute une petite tête à droite du corps. Fais un bec minuscule, tout juste un triangle. L’hirondelle attrape les insectes en ouvrant la bouche en plein vol, elle n’a pas '
+                          'besoin d’un gros bec.'],
+                         ['Une aile pointue',
+                          'Dessine AU-DESSUS de la ligne en pointillés une aile longue, fine, à la pointe aiguë. Courbe-la légèrement vers l’arrière. Si tu dessines une aile ronde, ton oiseau '
+                          'ressemblera à un moineau.'],
+                         ['La queue fourchue',
+                          'À gauche du corps, dessine une queue avec deux pointes aiguës. Les pointes extérieures sont longues et le milieu rentre vers l’intérieur. C’est la signature de '
+                          'l’hirondelle.'],
+                         ['Les couleurs', 'Mets une tache rouge brique sur la gorge et une bande crème sous le ventre. Avec ces deux couleurs, le dos bleu marine ressort encore mieux.']],
+               'mistakes': ['Finir la queue tout droit. Sans fourche, ce n’est plus une hirondelle.',
+                            'Dessiner un corps rond. L’hirondelle est un oiseau fin et léger.',
+                            'Faire une aile courte et ronde. L’aile doit être longue et pointue.'],
+               'facts': ['L’hirondelle rustique mesure 17–19 cm avec les filets de la queue et pèse 16–22 g.',
+                         'Elle attrape sa nourriture en vol. Elle boit aussi en volant bas au-dessus de l’eau.',
+                         'Elle construit son nid avec des centaines de boulettes de boue qu’elle transporte dans son bec.',
+                         'Elle passe l’hiver en Afrique et revient souvent au printemps là où elle est née.']},
+ 'leylek': {'title': 'Comment dessiner une cigogne ?',
+            'bird': 'Cigogne',
+            'cta': 'Dessine maintenant ta propre cigogne',
+            'intro': 'En vol, la cigogne étire son cou et ses pattes bien droits. Dans cette leçon, on va dessiner cette longue silhouette toute droite. Le bec rouge et les pattes rouges font la '
+                     'déco.',
+            'steps': [['Le corps', 'Sous la ligne en pointillés, dessine un long œuf couché. La cigogne est blanche, donc dessine d’abord un contour foncé et laisse l’intérieur blanc.'],
+                      ['Un long cou et la tête',
+                       'À droite du corps, fais partir un long cou vers l’avant et pose une petite tête au bout. Le cou doit être presque droit : en vol, la cigogne ne plie pas le cou.'],
+                      ['Le bec rouge', 'Devant la tête, dessine un bec long, pointu et rouge. Il peut faire presque trois fois la longueur de la tête.'],
+                      ['L’aile',
+                       'Dessine AU-DESSUS de la ligne en pointillés une aile large et longue. L’avant de l’aile est blanc, l’extérieur est noir. L’aile de la cigogne est bien plus grande que son '
+                       'corps, sois généreux.'],
+                      ['La queue et les pattes',
+                       'Ajoute une queue courte à gauche du corps. Puis étire deux fines pattes rouges jusque derrière la queue. En vol, la cigogne ne laisse pas pendre ses pattes, elle les tend '
+                       'vers l’arrière.']],
+            'mistakes': ['Dessiner un cou court ou courbé. Le cou d’une cigogne en vol est long et droit.',
+                         'Laisser pendre les pattes vers le bas. En vol, elles sont bien tendues vers l’arrière.',
+                         'Laisser l’oiseau blanc sans contour. Il disparaît dans le ciel.'],
+            'facts': ['La cigogne blanche mesure 100–115 cm, avec une envergure de 155–215 cm.',
+                      'Fin août, des dizaines de milliers migrent vers l’Afrique et leur route passe par le Bosphore.',
+                      'Elles n’aiment pas trop battre des ailes. Elles montent avec les courants d’air chaud et planent sur des kilomètres.',
+                      'Elles n’ont presque pas de voix. À la place, elles font claquer leur bec.']},
+ 'ibibik': {'title': 'Comment dessiner une huppe ?',
+            'bird': 'Huppe',
+            'cta': 'Dessine maintenant ta propre huppe',
+            'intro': 'La huppe a sur la tête une crête qui s’ouvre comme un éventail. En la dessinant, tu vas aussi apprendre une petite astuce sur la ligne en pointillés.',
+            'steps': [['Le corps',
+                       'Dessine un œuf couché bien en dessous de la ligne en pointillés et colorie-le en rose saumon. On garde le corps un peu bas, parce qu’il faut de la place pour la crête.'],
+                      ['La tête', 'Ajoute une tête ronde en haut à droite du corps. Place l’œil comme un point, près du milieu de la tête.'],
+                      ['La crête',
+                       'Dessine sur la tête une crête qui s’ouvre comme un éventail, avec les pointes en noir. Voilà l’astuce : garde la crête EN DESSOUS de la ligne en pointillés. Si elle dépasse '
+                       'au-dessus de la ligne, elle se met à battre comme une aile.'],
+                      ['Un long bec courbé', 'Devant la tête, dessine un bec long, fin et légèrement courbé vers le bas. La huppe l’enfonce dans la terre pour chercher des larves.'],
+                      ['L’aile rayée et la queue',
+                       'Dessine AU-DESSUS de la ligne en pointillés une aile noire, avec deux lignes blanches dessus. À gauche du corps, ajoute une queue noire traversée au milieu par une bande '
+                       'blanche. En vol, ce motif noir et blanc fait penser à un papillon.']],
+            'mistakes': ['Faire dépasser la crête au-dessus de la ligne en pointillés. Tout ce qui reste au-dessus de la ligne bat.',
+                         'Dessiner un bec court et droit. Le bec de la huppe est long et courbé vers le bas.',
+                         'Laisser l’aile d’une seule couleur. Sans les rayures noires et blanches, on ne reconnaît pas la huppe.'],
+            'facts': ['La huppe mesure 25–32 cm, avec une envergure de 44–48 cm.',
+                      'Elle ouvre sa crête quand elle s’excite ou quand elle se pose au sol.',
+                      'Selon les endroits, on l’appelle hüthüt ou çavuşkuşu. Son nom vient de son chant, « hout hout hout ».',
+                      'Quand ils sentent un danger, les petits sécrètent un liquide qui sent mauvais. Les prédateurs n’aiment pas du tout ça.']}}
 
 BIRDS = {'kumru': {'name': 'Tourterelle turque',
            'cta': 'Dessine ta propre tourterelle',
@@ -293,8 +360,7 @@ BIRDS = {'kumru': {'name': 'Tourterelle turque',
                      'Quand on l’a entendu une fois, on ne l’oublie pas.',
                      'Elles utilisent le même nid pendant des années et l’agrandissent un peu chaque année. Certains nids font plus d’un mètre de large et pèsent des centaines de kilos. Ce que pense '
                      'le propriétaire de la cheminée, on ne sait pas.'],
-            'draw': 'Comme dans la leçon de la mouette, dessine un long corps et une longue aile. Corps blanc, bout d’aile noir. Fais le bec long et rouge, et allonge le cou. Dessine aussi les '
-                    'pattes en rouge, qui dépassent derrière le corps.',
+            'draw': 'Suis la leçon de la cigogne pas à pas. Garde le cou et les pattes longs : en vol, les deux sont tout droits. Le bec et les pattes sont rouges, le bout des ailes est noir.',
             'own': ''},
  'serce': {'name': 'Moineau domestique',
            'cta': 'Dessine ton propre moineau',
@@ -376,8 +442,7 @@ BIRDS = {'kumru': {'name': 'Tourterelle turque',
                         'Elle construit son nid avec des centaines de boulettes de boue qu’elle porte dans son bec. Le même couple revient des années de suite dans le même nid pour le réparer.',
                         'Elles passent l’hiver en Afrique. Chaque année, elles font des milliers de kilomètres aller-retour, et reviennent souvent dans le village où elles sont nées au printemps. '
                         'Elles connaissent l’adresse, sans blague.'],
-               'draw': 'Reprends l’idée de la longue aile de la leçon de la mouette, mais fais l’oiseau petit et fin. Fais la queue fourchue, avec deux pointes. Dos bleu marine, gorge rouge, ventre '
-                       'blanc.',
+               'draw': 'Suis la leçon de l’hirondelle. Dessine l’oiseau petit et fin, et fais la queue fourchue avec deux pointes aiguës. Le dos est bleu marine, la gorge rouge, le ventre blanc.',
                'own': ''},
  'ebabil': {'name': 'Martinet noir',
             'cta': 'Dessine ton propre martinet',
@@ -391,8 +456,8 @@ BIRDS = {'kumru': {'name': 'Tourterelle turque',
                      'et les collent avec leur salive.',
                      'Quand on bouche les interstices des toits pendant les restaurations, les martinets perdent leur maison. Dans certaines villes, on installe des nichoirs spéciaux pour martinets '
                      'sur les bâtiments. C’est bien.'],
-            'draw': 'Dessine l’aile de la leçon de la mouette fine et recourbée comme une faucille. Fais le corps petit, la queue courte et fourchue. Colorie tout l’oiseau en brun foncé, avec une '
-                    'petite tache claire sur la gorge.',
+            'draw': 'Pars de l’oiseau de la leçon de l’hirondelle, mais dessine l’aile plus longue et courbée comme une faucille. Fais la queue courte et légèrement fourchue. Colorie tout l’oiseau '
+                    'en brun foncé et mets une petite tache claire sur la gorge.',
             'own': ''},
  'flamingo': {'name': 'Flamant rose',
               'cta': 'Dessine ton propre flamant rose',
@@ -515,7 +580,8 @@ BIRDS = {'kumru': {'name': 'Tourterelle turque',
                      'La huppe est très ancienne dans notre culture. Dans le Coran, c’est le Hüdhüd qui apporte des nouvelles à Salomon. Dans la Conférence des oiseaux de Farid al-Din Attar aussi, '
                      'l’oiseau qui guide les autres, c’est encore elle.',
                      'Au nid, quand les petits sentent un danger, ils sécrètent un liquide qui sent mauvais. Cette odeur tient les prédateurs à distance. Pas très agréable, mais ça marche.'],
-            'draw': 'Pars de la leçon du moineau. Ajoute sur la tête une crête en éventail aux bouts noirs, et un long bec courbé vers le bas. Corps rose saumon, aile rayée de noir et de blanc.',
+            'draw': 'Suis la leçon de la huppe. Ouvre la crête comme un éventail, mais garde-la sous la ligne en pointillés. Le bec est long et courbé vers le bas, le corps rose saumon, l’aile rayée '
+                    'de noir et de blanc.',
             'own': ''},
  'kelaynak': {'name': 'Ibis chauve',
               'cta': 'Dessine ton propre ibis chauve',
@@ -747,8 +813,10 @@ LEGAL = {'nasil-oynanir': {'title': 'Comment jouer ?',
                       'des utilisateurs. Le nom et le logo « DrawBird » ne sont pas cédés par cette licence.</p>\n'
                       '\n'
                       '  <h2>7. Publicité</h2>\n'
-                      '  <p>Pour pouvoir rester gratuit, DrawBird pourra afficher de la publicité à l’avenir. Quand de la publicité sera ajoutée, la page de confidentialité sera mise à jour et le '
-                      'consentement aux cookies sera demandé là où c’est nécessaire.</p>\n'
+                      '  <!--noads--><p>Pour pouvoir rester gratuit, DrawBird pourra afficher de la publicité à l’avenir. Quand de la publicité sera ajoutée, la page de confidentialité sera mise à '
+                      'jour et le consentement aux cookies sera demandé là où c’est nécessaire.</p><!--/noads--><!--ads--><p>Pour pouvoir rester gratuit, DrawBird affiche des publicités Google sur '
+                      'certaines pages de contenu. Les publicités ne se chargent que si tu donnes ton accord, et il n’y en a pas sur l’écran de jeu. L’annonceur est responsable du contenu des '
+                      'publicités. Les détails sont <a href="/gizlilik">sur la page de confidentialité</a>.</p><!--/ads-->\n'
                       '\n'
                       '  <h2>8. Responsabilité</h2>\n'
                       '  <p>L’auteur d’un dessin est responsable des dessins des utilisateurs. DrawBird n’est pas responsable des dommages dus à l’interruption du service ou à la perte de données, '
@@ -783,9 +851,21 @@ LEGAL = {'nasil-oynanir': {'title': 'Comment jouer ?',
                       'oiseaux des nouveaux artistes peuvent être soumis à validation avant publication ; l’oiseau n’est alors visible que de son auteur.</p>\n'
                       '\n'
                       '  <h2>Ce qu’on ne collecte pas</h2>\n'
-                      '  <p>Pour l’instant, on n’utilise ni publicité, ni cookie publicitaire, ni localisation, ni liste de contacts, ni outil d’analyse tiers. Si de la publicité est ajoutée, cette '
-                      'page sera mise à jour et ton consentement sera d’abord demandé là où c’est nécessaire. Les polices sont chargées depuis notre propre serveur ; à l’ouverture de la page, aucune '
-                      'requête ne part vers une autre entreprise.</p>\n'
+                      '  <!--noads--><p>Pour l’instant, on n’utilise ni publicité, ni cookie publicitaire, ni localisation, ni liste de contacts, ni outil d’analyse tiers. Si de la publicité est '
+                      'ajoutée, cette page sera mise à jour et ton consentement sera d’abord demandé là où c’est nécessaire. Les polices sont chargées depuis notre propre serveur ; à l’ouverture de '
+                      'la page, aucune requête ne part vers une autre entreprise.</p><!--/noads--><!--ads--><p>On n’utilise ni localisation, ni liste de contacts, ni outil d’analyse tiers. Les '
+                      'polices sont chargées depuis notre propre serveur.</p>\n'
+                      '\n'
+                      '  <h2>Publicité et cookies</h2>\n'
+                      '  <p>Pour que DrawBird reste gratuit, certaines pages de contenu (leçons, pages d’oiseaux, blog, FAQ) affichent des publicités Google AdSense. Il n’y a pas de publicité sur '
+                      'l’écran de dessin, dans le ciel ni sur ces pages légales.</p>\n'
+                      '  <p>Les publicités ne se chargent que si tu donnes ton accord. Quand tu ouvres une page avec publicité pour la première fois, une petite fenêtre te pose la question. Si tu '
+                      'cliques sur <b>Accepter</b>, Google peut déposer des cookies sur ton appareil et traiter ton adresse IP pour afficher des publicités, éviter les faux clics et mesurer les '
+                      'publicités. Si tu cliques sur <b>Non</b>, aucune publicité ne se charge et le site marche exactement pareil.</p>\n'
+                      '  <p>Comme des enfants utilisent aussi DrawBird, on ne demande à Google que des publicités non personnalisées. Autrement dit, les publicités sont choisies selon le sujet de la '
+                      'page, pas selon tes centres d’intérêt.</p>\n'
+                      '  <p>Tu peux changer ta décision à tout moment avec le lien <b>Paramètres des cookies</b> en bas de la page. Tu peux lire comment Google utilise ces données sur <a '
+                      'href="https://policies.google.com/technologies/partner-sites">la page de Google</a>.</p><!--/ads-->\n'
                       '\n'
                       '  <h2>Comptage des visites</h2>\n'
                       '  <p>Pour voir combien de personnes viennent, un compteur quotidien augmente de un à chaque visite. Ce compteur n’utilise pas de cookie, n’enregistre ni qui tu es ni ton '
@@ -832,8 +912,9 @@ LEGAL = {'nasil-oynanir': {'title': 'Comment jouer ?',
                   '    <li><b>Journaux du serveur :</b> les journaux techniques de notre hébergeur (Cloudflare) ; ils peuvent contenir l’adresse demandée, l’heure, le pays et des informations sur le '
                   'navigateur.</li>\n'
                   '  </ul>\n'
-                  '  <p>Le compteur quotidien de visites ne contient pas de données personnelles ; il ne garde que le total du jour. On n’utilise pas de cookies. Dans ton navigateur, seuls le code '
-                  'de ton appareil et tes préférences sont gardés.</p>\n'
+                  '  <p>Le compteur quotidien de visites ne contient pas de données personnelles ; il ne garde que le total du jour. <!--noads-->On n’utilise pas de cookies.<!--/noads--><!--ads-->On '
+                  'n’a pas de cookies à nous. Sur les pages avec publicité, si tu donnes ton accord, Google utilise des cookies (sections 3 et 4).<!--/ads--> Dans ton navigateur, seuls le code de '
+                  'ton appareil et tes préférences sont gardés.</p>\n'
                   '\n'
                   '  <h2>3. Finalités et bases juridiques</h2>\n'
                   '  <ul>\n'
@@ -841,16 +922,21 @@ LEGAL = {'nasil-oynanir': {'title': 'Comment jouer ?',
                   'd’utilisation</a>).</li>\n'
                   '    <li>Empêcher le spam, les faux votes, les contenus inappropriés et les attaques, bloquer ceux qui enfreignent les règles, examiner les dessins nouveaux et signalés : '
                   '<b>intérêt légitime</b> (KVKK m.5/2-f).</li>\n'
-                  '    <li>Demandes des autorités compétentes et obligations légales de conservation : <b>obligation légale</b> (KVKK m.5/2-ç).</li>\n'
+                  '    <li>Demandes des autorités compétentes et obligations légales de conservation : <b>obligation légale</b> (KVKK m.5/2-ç).</li><!--ads-->\n'
+                  '    <li>Afficher les publicités Google sur les pages de contenu avec publicité : <b>consentement explicite</b> (KVKK m.5/1). Tu donnes ton accord dans la fenêtre de la page et tu '
+                  'le retires à tout moment avec le lien <b>Paramètres des cookies</b>.</li><!--/ads-->\n'
                   '  </ul>\n'
-                  '  <p>On ne fait aucun traitement fondé sur le consentement explicite, aucun message marketing ni profilage.</p>\n'
+                  '  <!--noads--><p>On ne fait aucun traitement fondé sur le consentement explicite, aucun message marketing ni profilage.</p><!--/noads--><!--ads--><p>En dehors de l’accord pour la '
+                  'publicité, on ne fait aucun traitement fondé sur le consentement explicite. On n’envoie pas de message marketing et on ne fait pas de profilage.</p><!--/ads-->\n'
                   '\n'
                   '  <h2>4. Transferts</h2>\n'
                   '  <ul>\n'
                   '    <li><b>Cloudflare, Inc.</b> (hébergement et base de données) : toutes les données sont gardées sur les serveurs de Cloudflare ; la base de données se trouve dans la région '
                   'Europe de l’Est, et les pages sont servies depuis des serveurs du monde entier.</li>\n'
                   '    <li><b>Telegram</b> (modération) : l’image, le nom et le nom d’artiste des oiseaux nouveaux, en attente de validation ou signalés sont transmis au compte Telegram du '
-                  'modérateur.</li>\n'
+                  'modérateur.</li><!--ads-->\n'
+                  '    <li><b>Google</b> (publicité) : si tu donnes ton accord, Google traite sur les pages avec publicité des données comme les cookies et l’adresse IP. Ces données sont transférées '
+                  'vers les serveurs de Google à l’étranger. Si tu refuses, aucune donnée ne part chez Google.</li><!--/ads-->\n'
                   '  </ul>\n'
                   '  <p>Les serveurs de ces prestataires sont à l’étranger ; le transfert se fait au titre de l’article 9 de la KVKK. On ne vend ni ne cède tes données à personne d’autre.</p>\n'
                   '\n'
@@ -859,7 +945,8 @@ LEGAL = {'nasil-oynanir': {'title': 'Comment jouer ?',
                   '    <li>Oiseaux, votes, volées et nom d’artiste : jusqu’à ce que tu les supprimes.</li>\n'
                   '    <li>Enregistrements des limites d’envoi : 1 heure au maximum. Comptage des nouveaux comptes : 2 jours au maximum.</li>\n'
                   '    <li>Enregistrements de blocage : jusqu’à la levée du blocage pour empêcher les abus ; blocage de réseau : 24 heures.</li>\n'
-                  '    <li>Journaux du serveur : la durée de conservation des journaux de Cloudflare (quelques jours).</li>\n'
+                  '    <li>Journaux du serveur : la durée de conservation des journaux de Cloudflare (quelques jours).</li><!--ads-->\n'
+                  '    <li>Ton choix sur la publicité : dans ton navigateur, jusqu’à ce que tu le changes. Durée des cookies Google : selon la propre politique de Google.</li><!--/ads-->\n'
                   '  </ul>\n'
                   '  <p>Ce que tu écris dans le formulaire de contact, et les coordonnées que tu choisis de laisser, sont gardés jusqu’au traitement de ta demande, un an au maximum.</p>\n'
                   '\n'
@@ -912,5 +999,63 @@ POSTS = {'2026-11-drawbird-yayinda': {'title': 'DrawBird est en ligne : les note
                                       '\n'
                                       '<h2>Et ensuite ?</h2>\n'
                                       '<p>De nouvelles pages d’oiseaux, de nouvelles leçons et la traduction des leçons dans les autres langues. Si tu as une suggestion, écris-la <a '
-                                      'href="https://github.com/gunayboss/drawbird/issues">sur GitHub</a>. Je lis tout.</p>'}}
+                                      'href="https://github.com/gunayboss/drawbird/issues">sur GitHub</a>. Je lis tout.</p>'},
+ '2026-11-kesik-cizgi': {'title': 'À quoi sert la ligne en pointillés ? Comment ton oiseau bat des ailes',
+                         'desc': 'La ligne en pointillés au milieu de la zone de dessin décide de l’aile de ton oiseau. J’explique comment elle marche et comment en profiter.',
+                         'html': '<p>Il y a une ligne en pointillés au milieu de la zone de dessin. Beaucoup de gens ne la remarquent pas en dessinant leur premier oiseau, puis demandent pourquoi '
+                                 'leur oiseau ne bat pas des ailes. Dans cet article, j’explique ce que fait cette ligne.</p>\n'
+                                 '\n'
+                                 '<h2>Le dessin est coupé en deux</h2>\n'
+                                 '<p>Quand tu fais voler ton oiseau, DrawBird coupe ton dessin en deux au niveau de la ligne en pointillés. La moitié du bas reste telle quelle : c’est le corps de '
+                                 'l’oiseau. La moitié du haut, elle, raccourcit et rallonge sans arrêt. Elle s’écrase vers la ligne, puis se rouvre, et descend même un instant sous la ligne. '
+                                 'Autrement dit, la moitié du haut devient l’aile.</p>\n'
+                                 '<p>La règle est donc simple. Dessine l’aile au-dessus de la ligne et le corps en dessous. Si tu dessines tout l’oiseau sous la ligne, il vole mais ne bat pas des '
+                                 'ailes. Si tu dessines tout l’oiseau au-dessus, cette fois c’est tout l’oiseau qui bat, un peu comme un accordéon.</p>\n'
+                                 '\n'
+                                 '<h2>Tout ce qui est au-dessus de la ligne bat</h2>\n'
+                                 '<p>DrawBird ne sait pas ce qui est une aile. Il regarde seulement où se trouve chaque morceau par rapport à la ligne. Si tu laisses dépasser la tête ou la crête '
+                                 'au-dessus de la ligne, elles montent et descendent avec l’aile. C’est pour ça que, dans la <a href="/dersler/ibibik">leçon de la huppe</a>, on garde la crête sous '
+                                 'la ligne.</p>\n'
+                                 '<p>Tu peux aussi t’en servir exprès. Si tu dessines un lapin dont les oreilles dépassent au-dessus de la ligne, il vole avec ses oreilles. Pas besoin d’être un '
+                                 'oiseau : tout ce qui a une aile vole.</p>\n'
+                                 '\n'
+                                 '<h2>Quelques petits conseils</h2>\n'
+                                 '<ul>\n'
+                                 '  <li><b>Dessine une grande aile.</b> En battant, l’aile raccourcit. Si tu la dessines grande, le mouvement se voit mieux.</li>\n'
+                                 '  <li><b>Prends un gros crayon.</b> Ton oiseau rapetisse dans le ciel, et les traits fins y disparaissent.</li>\n'
+                                 '  <li><b>La direction n’est pas un souci.</b> Tu peux dessiner ton oiseau tourné vers la droite ou vers la gauche. Dans le ciel, il se tourne tout seul selon sa '
+                                 'direction.</li>\n'
+                                 '  <li><b>Les vides ne volent pas.</b> Les endroits que tu ne dessines pas restent transparents. Dans le ciel, ton oiseau n’apparaît que là où tu as dessiné.</li>\n'
+                                 '</ul>\n'
+                                 '\n'
+                                 '<p>Si tu veux essayer pas à pas, jette un œil aux <a href="/dersler/">leçons de dessin</a>. Dans chaque leçon, on montre aussi où placer l’aile.</p>'},
+ '2026-11-leylek-gocu': {'title': 'Migration d’automne : pourquoi les cigognes passent-elles par le Bosphore ?',
+                         'desc': 'Chaque année, des dizaines de milliers de cigognes passent au-dessus d’Istanbul en allant vers l’Afrique. J’explique pourquoi elles choisissent le Bosphore plutôt '
+                                 'que la mer.',
+                         'html': '<p>Si tu lèves la tête à Istanbul entre la fin août et la fin septembre, tu verras sans doute une bande de cigognes. Parfois, des centaines d’entre elles tournent '
+                                 'en même temps dans le ciel. Il y a une raison à ça, et elle a à voir avec le vent.</p>\n'
+                                 '\n'
+                                 '<h2>Les cigognes n’aiment pas battre des ailes</h2>\n'
+                                 '<p>La <a href="/kuslar/leylek">cigogne blanche</a> est un grand oiseau. Son envergure peut atteindre deux mètres. Battre d’aussi grandes ailes pendant des heures '
+                                 'dépense beaucoup d’énergie. Alors les cigognes ont trouvé une autre astuce. Quand le soleil chauffe le sol, de l’air chaud monte. La cigogne entre dans cet air '
+                                 'chaud, monte en tournant, puis plane sans battre des ailes jusqu’au courant d’air chaud suivant.</p>\n'
+                                 '\n'
+                                 '<h2>Au-dessus de la mer, pas d’air chaud</h2>\n'
+                                 '<p>Le problème, c’est que la mer ne chauffe pas autant que la terre. Au-dessus de l’eau, ces courants d’air chaud se forment à peine. Si la cigogne part en pleine '
+                                 'mer, elle doit battre des ailes et risque de ne pas tenir une longue traversée. C’est pourquoi les cigognes traversent la mer à l’endroit le plus étroit.</p>\n'
+                                 '<p>Les cigognes qui vont d’Europe en Afrique ont deux grandes routes. Celles de l’ouest passent par le détroit de Gibraltar, celles de l’est par le Bosphore. '
+                                 'Ensuite, elles traversent l’Anatolie et descendent vers l’Afrique par le Moyen-Orient. D’autres oiseaux qui volent en planant, comme les aigles, les buses et les '
+                                 'bondrées, empruntent la même route.</p>\n'
+                                 '\n'
+                                 '<h2>Quand et où les observer ?</h2>\n'
+                                 '<p>La période la plus chargée va de la dernière semaine d’août à la première moitié de septembre. Le milieu de la journée est le meilleur moment, parce que les '
+                                 'courants d’air chaud se renforcent quand le soleil monte. À Istanbul, les hauteurs comme la colline de Çamlıca sont des points connus pour observer la migration. Si '
+                                 'tu prends des jumelles, c’est bien plus agréable.</p>\n'
+                                 '<p>La migration de cette année est terminée, les cigognes sont en Afrique en ce moment. Elles reviendront par la même route en mars et en avril. Donc tu n’as pas '
+                                 'longtemps à attendre pour voir la migration de printemps.</p>\n'
+                                 '\n'
+                                 '<h2>Une bande de cigognes dans le ciel</h2>\n'
+                                 '<p>Et si cette semaine tu remplissais le ciel de DrawBird de cigognes ? La <a href="/dersler/leylek">leçon de la cigogne</a> te montre pas à pas une cigogne en vol. '
+                                 'Tu peux en dessiner plusieurs et les réunir en une bande. N’oublie pas non plus l’<a href="/kuslar/kirlangic">hirondelle</a>, qui passe elle aussi l’hiver en '
+                                 'Afrique : elle a désormais <a href="/dersler/kirlangic">sa leçon</a>.</p>'}}
 

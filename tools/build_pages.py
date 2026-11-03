@@ -24,6 +24,47 @@ AD_LABEL = {'tr': 'Reklam', 'en': 'Advertisement', 'es': 'Publicidad', 'pt': 'Pu
             'ru': 'Реклама', 'ar': 'إعلان', 'zh': '广告', 'ja': '広告', 'id': 'Iklan'}
 # Text pages that carry ads (language-neutral path prefixes). Game, legal, profile and list pages never do.
 AD_PATHS = ['/dersler/', '/kuslar/', '/blog/', '/sss', '/ogretmenler', '/hakkinda']
+ADS_ON = bool(ADSENSE_CLIENT and any(AD_SLOTS.values()))
+# Consent box shown before any ad script loads (KVKK: ad cookies need explicit consent). [text, accept, decline, settings link]
+CONSENT = {
+    'tr': ['Bu sayfada reklam var. Reklamlar yüklenirse Google çerez kullanabilir. Çocuklar için yalnız kişiselleştirilmemiş reklam istiyoruz.', 'Kabul', 'Hayır', 'Çerez ayarları'],
+    'en': ['This page has ads. If they load, Google may use cookies. Because kids use DrawBird, we only ask for non-personalised ads.', 'Accept', 'No thanks', 'Cookie settings'],
+    'es': ['Esta página tiene anuncios. Si se cargan, Google puede usar cookies. Como DrawBird lo usan niños, solo pedimos anuncios no personalizados.', 'Aceptar', 'No, gracias', 'Ajustes de cookies'],
+    'pt': ['Esta página tem anúncios. Se eles carregarem, o Google pode usar cookies. Como crianças usam o DrawBird, só pedimos anúncios não personalizados.', 'Aceitar', 'Não, obrigado', 'Configurações de cookies'],
+    'fr': ['Cette page contient des pubs. Si elles se chargent, Google peut utiliser des cookies. Comme des enfants utilisent DrawBird, on ne demande que des pubs non personnalisées.', 'Accepter', 'Non merci', 'Paramètres des cookies'],
+    'de': ['Auf dieser Seite gibt es Werbung. Wenn sie lädt, kann Google Cookies verwenden. Weil Kinder DrawBird nutzen, fragen wir nur nicht personalisierte Werbung an.', 'Akzeptieren', 'Nein danke', 'Cookie-Einstellungen'],
+    'ru': ['На этой странице есть реклама. Если она загрузится, Google может использовать файлы cookie. DrawBird пользуются дети, поэтому мы запрашиваем только неперсонализированную рекламу.', 'Принять', 'Нет, спасибо', 'Настройки cookie'],
+    'ar': ['في هذه الصفحة إعلانات. إذا تم تحميلها فقد يستخدم Google ملفات تعريف الارتباط. لأن الأطفال يستخدمون DrawBird نطلب إعلانات غير مخصصة فقط.', 'موافق', 'لا، شكرًا', 'إعدادات ملفات تعريف الارتباط'],
+    'zh': ['此页面有广告。广告加载后，Google 可能会使用 Cookie。因为有孩子在用 DrawBird，我们只请求非个性化广告。', '接受', '不用了', 'Cookie 设置'],
+    'ja': ['このページには広告があります。広告を読み込むと Google が Cookie を使うことがあります。子どもも使うので、パーソナライズされていない広告だけをリクエストしています。', '同意する', '同意しない', 'Cookie 設定'],
+    'id': ['Halaman ini ada iklannya. Kalau iklan dimuat, Google bisa memakai cookie. Karena anak-anak juga memakai DrawBird, kami hanya meminta iklan yang tidak dipersonalisasi.', 'Terima', 'Tidak', 'Pengaturan cookie'],
+}
+
+def ads_variant(html):
+    # Legal texts carry both versions: <!--ads-->…<!--/ads--> once ads run, <!--noads-->…<!--/noads--> until then.
+    drop, keep = ('noads', 'ads') if ADS_ON else ('ads', 'noads')
+    html = re.sub(rf'<!--{drop}-->.*?<!--/{drop}-->', '', html, flags=re.S)
+    return html.replace(f'<!--{keep}-->', '').replace(f'<!--/{keep}-->', '')
+
+def consent_box(lang):
+    # The ad script loads only after "Accept"; the choice is kept in this browser. "Cookie settings" in the footer asks again.
+    t, yes, no, _ = CONSENT[lang]
+    priv = f'{pre(lang)}/gizlilik'
+    return f'''<div class="consent" id="consent" hidden><p>{t} <a href="{priv}">{esc(CONSENT[lang][3])}</a></p><div><button type="button" id="cYes">{yes}</button><button type="button" id="cNo" class="ghost">{no}</button></div></div>
+<script>(() => {{
+  const K = 'drawbird.ads'; let v = null; try {{ v = localStorage.getItem(K); }} catch {{ /* storage blocked */ }}
+  const load = () => {{
+    document.documentElement.classList.add('ads-ok');
+    (window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;
+    const s = document.createElement('script'); s.async = true; s.crossOrigin = 'anonymous';
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={ADSENSE_CLIENT}'; document.head.appendChild(s);
+  }};
+  const save = x => {{ try {{ localStorage.setItem(K, x); }} catch {{ /* storage blocked */ }} }};
+  const box = document.getElementById('consent');
+  if (v === '1') load(); else if (v !== '0') box.hidden = false;
+  document.getElementById('cYes').onclick = () => {{ save('1'); box.hidden = true; load(); }};
+  document.getElementById('cNo').onclick = () => {{ save('0'); box.hidden = true; }};
+}})();</script>'''
 ROOT = os.path.join(HERE, '..')
 PUBLIC = os.path.join(ROOT, 'public')
 ALL_LANGS = ['tr', 'en', 'es', 'pt', 'fr', 'de', 'ru', 'ar', 'zh', 'ja', 'id']
@@ -72,7 +113,14 @@ def svg(steps, upto, full=False, label=''):
     return ''.join(out)
 
 EXTRA_CSS = '''<style>
-  .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
+  .ad { display: none; }
+  .ads-ok .ad { display: block; }
+  .consent { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); width: min(560px, calc(100% - 24px)); background: var(--paper); color: var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, .22); display: grid; gap: 10px; font-size: 14px; }
+  .consent p { margin: 0; max-width: none; }
+  .consent div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .consent button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 9px 16px; background: var(--beak); color: var(--beak-ink); cursor: pointer; }
+  .consent button.ghost { background: var(--chip); color: var(--ink); }
+  .ads-ok .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
   .ad-label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
   .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
@@ -125,11 +173,8 @@ def with_ads(lang, body):
 def page(lang, U, path, title, desc, body, active=None, jsonld=None):
     """path is the language-neutral path, e.g. '/dersler/serce'."""
     p = pre(lang)
-    ads = ''
-    if ADSENSE_CLIENT and any(AD_SLOTS.values()) and any(path.startswith(a) and path != a or path == a and not a.endswith('/') for a in AD_PATHS):
-        # Children use DrawBird, so every ad request asks for non-personalised ads.
-        ads = (f'\n<script>(adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;</script>'
-               f'\n<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={ADSENSE_CLIENT}" crossorigin="anonymous"></script>')
+    ad_page = ADS_ON and any(path.startswith(a) and path != a or path == a and not a.endswith('/') for a in AD_PATHS)
+    body = ads_variant(body)
     nav_items = [(f'/?lang={lang}#ciz' if lang != 'tr' else '/#ciz', U['nav_draw'], None), (f'{p}/dersler/', U['nav_lessons'], 'dersler'),
                  (f'{p}/kuslar/', U['nav_birds'], 'kuslar'), (f'{p}/haftanin-kuslari', U['nav_week'], 'hafta'),
                  (f'{p}/blog/', U['nav_blog'], 'blog'), (f'{p}/sss', U['nav_faq'], 'sss')]
@@ -139,6 +184,7 @@ def page(lang, U, path, title, desc, body, active=None, jsonld=None):
             f'<a href="{p}/gizlilik">{esc(U["foot_privacy"])}</a> · <a href="{p}/kvkk">{esc(U["foot_kvkk"])}</a> · '
             f'<a href="{"/#iletisim" if lang == "tr" else f"/?lang={lang}#iletisim"}">{esc(U["foot_contact"])}</a> · '
             f'<a href="https://github.com/gunayboss/drawbird">{esc(U["foot_source"])}</a>'
+            + (f' · <a href="#" onclick="try{{localStorage.removeItem(\'drawbird.ads\')}}catch{{}}location.reload();return false">{esc(CONSENT[lang][3])}</a>' if ADS_ON else '') +
             f'<div class="langs" aria-label="{esc(U["language"])}">' +
             ''.join(f'<a href="{pre(l)}{path}" hreflang="{l}" lang="{l}"{" aria-current=\"page\"" if l == lang else ""}>{NATIVE[l]}</a>' for l in LANGS) +
             '</div></footer>')
@@ -161,7 +207,7 @@ def page(lang, U, path, title, desc, body, active=None, jsonld=None):
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
-{EXTRA_CSS}{ld}{ads}{ADSENSE_META}
+{EXTRA_CSS}{ld}{ADSENSE_META}
 </head>
 <body>
 <main>
@@ -170,7 +216,7 @@ def page(lang, U, path, title, desc, body, active=None, jsonld=None):
 {localize(body, lang)}
 </article>
 {foot}
-</main>
+</main>{consent_box(lang) if ad_page else ''}
 </body>
 </html>
 '''

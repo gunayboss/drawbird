@@ -28,7 +28,14 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
 <style>
-  .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
+  .ad { display: none; }
+  .ads-ok .ad { display: block; }
+  .consent { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); width: min(560px, calc(100% - 24px)); background: var(--paper); color: var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, .22); display: grid; gap: 10px; font-size: 14px; }
+  .consent p { margin: 0; max-width: none; }
+  .consent div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .consent button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 9px 16px; background: var(--beak); color: var(--beak-ink); cursor: pointer; }
+  .consent button.ghost { background: var(--chip); color: var(--ink); }
+  .ads-ok .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
   .ad-label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
   .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
@@ -67,8 +74,8 @@
   <p>白鹳很难认错。身体是白的，翅尖是黑的，嘴和腿是红的。飞的时候脖子和腿都伸得笔直，远远看去像一个加号。</p><p>白鹳是候鸟。8 月底，成千上万只聚在一起飞往非洲，路线要经过伊斯坦布尔海峡。它们不太爱扇翅膀，而是借着热气流上升，一滑就是好几公里。海面上没有上升的热气流，所以它们选择了狭窄的海峡。</p><p>它们几乎不会发声，取而代之的是敲嘴。伴侣回到巢边时，白鹳会把头向后仰，长长地噼啪敲上一阵。听过一次的人就忘不了。</p><p>它们一连好多年用同一个巢，而且每年都加盖一点。有些巢宽超过一米，重达几百公斤。烟囱的主人怎么想的，我们就不知道了。</p>
   
   <h2>在 DrawBird 里画</h2>
-  <p>像海鸥教程那样画长身体和长翅膀。身体是白的，翅尖是黑的。嘴画长、涂红，脖子拉长。腿也涂成红色，从身体后面伸出去。</p>
-  <p><a href="/zh/dersler/marti">画画教程：海鸥怎么画？ →</a></p>
+  <p>跟着白鹳那一课一步一步画。脖子和腿要画长，飞的时候两样都是笔直伸出去的。嘴和腿涂红，翅尖涂黑。</p>
+  <p><a href="/zh/dersler/leylek">画画教程：白鹳怎么画？ →</a></p>
   <p><a class="cta" href="/?lang=zh#ciz">画你自己的白鹳</a></p>
   <h2>其他鸟类</h2>
   <ul class="list"><li><a href="/zh/kuslar/serce"><b>麻雀</b><br><span class="muted">麻雀和人的生活挨得那么近，哪个地方要是一只麻雀都没有，那里多半是出了什么变化。…</span></a></li><li><a href="/zh/kuslar/marti"><b>海鸥</b><br><span class="muted">跟在渡轮后面抢芝麻圈的那只海鸥，多半是黄脚银鸥。…</span></a></li><li><a href="/zh/kuslar/karga"><b>冠小嘴乌鸦</b><br><span class="muted">如果你看到一只穿灰色背心的黑乌鸦，那就是冠小嘴乌鸦，也叫灰乌鸦。它是城里最聪明的居民之一。…</span></a></li></ul>

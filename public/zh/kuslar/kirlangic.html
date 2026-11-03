@@ -28,7 +28,14 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
 <style>
-  .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
+  .ad { display: none; }
+  .ads-ok .ad { display: block; }
+  .consent { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); width: min(560px, calc(100% - 24px)); background: var(--paper); color: var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, .22); display: grid; gap: 10px; font-size: 14px; }
+  .consent p { margin: 0; max-width: none; }
+  .consent div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .consent button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 9px 16px; background: var(--beak); color: var(--beak-ink); cursor: pointer; }
+  .consent button.ghost { background: var(--chip); color: var(--ink); }
+  .ads-ok .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
   .ad-label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
   .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
@@ -67,8 +74,8 @@
   <p>背是闪亮的深蓝色，肚子是奶油色，额头和喉咙是砖红色。尾巴最外侧的两根羽毛又细又长。雄鸟的尾巴更长，雌鸟会选尾巴长的雄鸟。</p><p>家燕在空中捕食。喝水也在空中，贴着水面低低地飞过去。下雨前虫子飞得低，家燕也跟着飞低。“燕子低飞就要下雨”这句话就是这么来的。</p><p>它们的巢是用嘴一团一团衔来的几百颗泥球砌成的。同一对燕子年复一年回到同一个巢里修修补补。</p><p>冬天它们在非洲过。每年来回几千公里，而且春天多半会回到自己出生的那个村子。它们是真的认得地址。</p>
   
   <h2>在 DrawBird 里画</h2>
-  <p>借用海鸥教程里的长翅膀，但把鸟画得又小又细。尾巴画成两个尖端的分叉。背涂深蓝，喉咙涂红，肚子涂白。</p>
-  <p><a href="/zh/dersler/marti">画画教程：海鸥怎么画？ →</a></p>
+  <p>跟着燕子那一课画。鸟画得小而细，尾巴做成有两个尖端的分叉。背涂深蓝，喉咙涂红，肚子涂白。</p>
+  <p><a href="/zh/dersler/kirlangic">画画教程：燕子怎么画？ →</a></p>
   <p><a class="cta" href="/?lang=zh#ciz">画你自己的家燕</a></p>
   <h2>其他鸟类</h2>
   <ul class="list"><li><a href="/zh/kuslar/ebabil"><b>雨燕</b><br><span class="muted">夏天傍晚绕着宣礼塔尖叫着转圈的镰刀翅膀的鸟。它们几乎一辈子都在空中度过。…</span></a></li><li><a href="/zh/kuslar/flamingo"><b>火烈鸟</b><br><span class="muted">粉色，腿特别长，嘴是倒着的。大火烈鸟是土耳其咸水湖上最抢眼的鸟。…</span></a></li><li><a href="/zh/kuslar/kizilgerdan"><b>欧亚鸲</b><br><span class="muted">你在花园里挖土的时候，会有一只橙色胸脯的小鸟跑到离你一两步的地方等着吃蚯蚓。它的胆子会让你吃惊。…</span></a></li></ul>

@@ -28,7 +28,14 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
 <style>
-  .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
+  .ad { display: none; }
+  .ads-ok .ad { display: block; }
+  .consent { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); width: min(560px, calc(100% - 24px)); background: var(--paper); color: var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, .22); display: grid; gap: 10px; font-size: 14px; }
+  .consent p { margin: 0; max-width: none; }
+  .consent div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .consent button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 9px 16px; background: var(--beak); color: var(--beak-ink); cursor: pointer; }
+  .consent button.ghost { background: var(--chip); color: var(--ink); }
+  .ads-ok .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
   .ad-label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
   .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
@@ -67,8 +74,8 @@
   <p>من الصعب الخلط بين اللقلق الأبيض وغيره. جسمه أبيض، وأطراف جناحيه سوداء، ومنقاره وساقاه حمراء. أثناء الطيران يمدّ رقبته وساقيه مستقيمتين، فيبدو من بعيد كعلامة الجمع.</p><p>اللقالق مهاجرة. في نهاية أغسطس تتجمّع عشرات الآلاف منها وتتجه إلى أفريقيا، ويمرّ طريقها فوق مضيق البوسفور. لا تحب الرفرفة كثيرًا. تصعد مع الهواء الساخن وتنساب كيلومترات. ولا توجد تيارات هواء ساخن فوق البحر، ولذلك تختار المضائق الضيقة.</p><p>ويكاد صوتها لا يُسمع. وبدلًا من ذلك تقرع منقارها. حين يعود الشريك إلى العش يرمي اللقلق رأسه إلى الخلف ويقرع طويلًا. ومن سمعه مرة لا ينساه.</p><p>تستخدم العش نفسه سنوات وتكبّره كل عام قليلًا. بعض الأعشاش أعرض من متر ويبلغ وزنها مئات الكيلوغرامات. لا نعرف ماذا يظنّ صاحب المدخنة.</p>
   
   <h2>لترسمه في DrawBird</h2>
-  <p>ارسم جسمًا طويلًا وجناحًا طويلًا كما في درس النورس. الجسم أبيض وطرف الجناح أسود. اجعل المنقار طويلًا أحمر، وأطِل الرقبة. وارسم الساقين حمراوين تمتدان خلف الجسم.</p>
-  <p><a href="/ar/dersler/marti">درس الرسم: كيف ترسم نورسًا؟ ←</a></p>
+  <p>اتبع درس اللقلق خطوة خطوة. اجعل الرقبة والساقين طويلتين، فكلتاهما تمتدّ مستقيمة وهو يطير. المنقار والساقان حمراوان وطرف الجناح أسود.</p>
+  <p><a href="/ar/dersler/leylek">درس الرسم: كيف ترسم لقلقًا؟ ←</a></p>
   <p><a class="cta" href="/?lang=ar#ciz">ارسم لقلقك</a></p>
   <h2>طيور أخرى</h2>
   <ul class="list"><li><a href="/ar/kuslar/serce"><b>العصفور الدوري</b><br><span class="muted">العصفور متصل بالإنسان إلى حدّ أنه إذا اختفى من مكان فهذا يعني أن شيئًا ما قد تغيّر هناك.…</span></a></li><li><a href="/ar/kuslar/marti"><b>النورس</b><br><span class="muted">النورس الذي يتبع العبّارة ليخطف السميت غالبًا هو النورس أصفر الساقين.…</span></a></li><li><a href="/ar/kuslar/karga"><b>الغراب الرمادي</b><br><span class="muted">إذا رأيت غرابًا أسود يرتدي سترة رمادية، فهو الغراب الرمادي، أي الغراب لون الرماد. ومن أذكى…</span></a></li></ul>

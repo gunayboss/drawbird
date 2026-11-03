@@ -28,7 +28,14 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
 <style>
-  .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
+  .ad { display: none; }
+  .ads-ok .ad { display: block; }
+  .consent { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); width: min(560px, calc(100% - 24px)); background: var(--paper); color: var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, .22); display: grid; gap: 10px; font-size: 14px; }
+  .consent p { margin: 0; max-width: none; }
+  .consent div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .consent button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 9px 16px; background: var(--beak); color: var(--beak-ink); cursor: pointer; }
+  .consent button.ghost { background: var(--chip); color: var(--ink); }
+  .ads-ok .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
   .ad-label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
   .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
@@ -67,8 +74,8 @@
   <p>雨燕看起来像燕子，但不是亲戚。它是深褐色，几乎是黑的。翅膀像镰刀一样弯而长。脚短得很，从地上起飞都吃力，所以它几乎不落地。</p><p>在空中吃，在空中喝，在空中睡。不是开玩笑。研究显示，有些雨燕在非洲越冬的十个月里一次都没有落过地。</p><p>它们把巢筑在老建筑、清真寺和塔楼的屋顶缝隙里。连材料都是在空中收集的，空中飘的羽毛和碎屑，再用唾液粘起来。</p><p>修缮时把屋顶缝隙堵上，雨燕就没有家了。有些城市会在建筑上专门装雨燕巢箱。这是件好事。</p>
   
   <h2>在 DrawBird 里画</h2>
-  <p>把海鸥教程里的翅膀画得又细又像镰刀一样弯。身体小，尾巴短而分叉。整只鸟涂深褐色，喉咙点一小块浅色。</p>
-  <p><a href="/zh/dersler/marti">画画教程：海鸥怎么画？ →</a></p>
+  <p>以燕子那一课里的鸟为底，但翅膀画得更长，弯得像镰刀。尾巴短一点，稍微分叉。整只鸟涂深褐色，喉咙点一小块浅色。</p>
+  <p><a href="/zh/dersler/kirlangic">画画教程：燕子怎么画？ →</a></p>
   <p><a class="cta" href="/?lang=zh#ciz">画你自己的雨燕</a></p>
   <h2>其他鸟类</h2>
   <ul class="list"><li><a href="/zh/kuslar/flamingo"><b>火烈鸟</b><br><span class="muted">粉色，腿特别长，嘴是倒着的。大火烈鸟是土耳其咸水湖上最抢眼的鸟。…</span></a></li><li><a href="/zh/kuslar/kizilgerdan"><b>欧亚鸲</b><br><span class="muted">你在花园里挖土的时候，会有一只橙色胸脯的小鸟跑到离你一两步的地方等着吃蚯蚓。它的胆子会让你吃惊。…</span></a></li><li><a href="/zh/kuslar/saka"><b>欧金翅雀</b><br><span class="muted">红脸，翅膀上有一道亮黄色的带子，小小的，叽叽喳喳的鸟。我觉得它是土耳其最五彩缤纷的鸣禽之一。…</span></a></li></ul>

@@ -28,7 +28,14 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/sayfa.css">
 <style>
-  .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
+  .ad { display: none; }
+  .ads-ok .ad { display: block; }
+  .consent { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); width: min(560px, calc(100% - 24px)); background: var(--paper); color: var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, .22); display: grid; gap: 10px; font-size: 14px; }
+  .consent p { margin: 0; max-width: none; }
+  .consent div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .consent button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 9px 16px; background: var(--beak); color: var(--beak-ink); cursor: pointer; }
+  .consent button.ghost { background: var(--chip); color: var(--ink); }
+  .ads-ok .ad { margin: 28px 0; padding-top: 6px; border-top: 1px solid var(--line); min-height: 100px; }
   .ad-label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .steps-grid { display: grid; gap: 18px; margin-top: 12px; }
   .step { display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 16px; align-items: center; background: var(--chip); border-radius: 16px; padding: 12px; }
@@ -67,8 +74,8 @@
   <p>Kapinis mirip layang-layang tapi bukan kerabatnya. Cokelat tua, hampir hitam. Sayapnya panjang dan melengkung seperti sabit. Kakinya begitu pendek sampai susah lepas landas dari tanah, makanya dia hampir tidak pernah turun.</p><p>Makan di udara, minum di udara, tidur di udara. Bukan bercanda. Penelitian menunjukkan sebagian kapinis terbang sepuluh bulan penuh tanpa hinggap di tempat musim dinginnya di Afrika.</p><p>Mereka membuat sarang di celah atap bangunan tua, masjid, dan menara. Bahannya pun dikumpulkan dari bulu dan sampah yang beterbangan di udara, direkatkan dengan air liur.</p><p>Kalau celah atap ditutup saat restorasi, rumah kapinis hilang. Di beberapa kota dipasang kotak khusus kapinis di bangunan. Hal yang baik.</p>
   
   <h2>Untuk menggambarnya di DrawBird</h2>
-  <p>Gambar sayap tipis dan melengkung seperti sabit, seperti di pelajaran camar. Badan kecil, ekor pendek dan bercabang. Warnai seluruh burung cokelat tua, beri bercak terang kecil di tenggorokan.</p>
-  <p><a href="/id/dersler/marti">Pelajaran menggambar: Cara menggambar camar →</a></p>
+  <p>Pakai burung dari pelajaran layang-layang sebagai dasar, tapi gambar sayapnya lebih panjang dan melengkung seperti sabit. Ekornya pendek dan sedikit bercabang. Warnai seluruh burung cokelat tua, beri bercak terang kecil di tenggorokan.</p>
+  <p><a href="/id/dersler/kirlangic">Pelajaran menggambar: Cara menggambar layang-layang →</a></p>
   <p><a class="cta" href="/?lang=id#ciz">Gambar kapinismu sendiri</a></p>
   <h2>Burung lainnya</h2>
   <ul class="list"><li><a href="/id/kuslar/flamingo"><b>Flamingo</b><br><span class="muted">Pink, berkaki sangat panjang, paruhnya terbalik. Flamingo besar adalah burung paling menco…</span></a></li><li><a href="/id/kuslar/kizilgerdan"><b>Robin Eropa</b><br><span class="muted">Burung kecil berdada oranye yang datang satu dua langkah dari kamu waktu kamu menggali tan…</span></a></li><li><a href="/id/kuslar/saka"><b>Goldfinch Eropa</b><br><span class="muted">Burung mungil yang ceria, berwajah merah dengan pita kuning terang di sayapnya. Menurutku …</span></a></li></ul>

@@ -256,7 +256,69 @@ LESSONS = {'serce': {'title': 'Cara menggambar burung gereja',
              'facts': ['Kolibri mengepak 50–80 kali per detik dan bisa melayang di udara.',
                        'Mereka satu-satunya kelompok burung yang bisa terbang mundur.',
                        'Burung terkecil adalah kolibri lebah di Kuba, hanya 5–6 cm.',
-                       'Kolibri hanya hidup di benua Amerika, tidak ada di Türkiye.']}}
+                       'Kolibri hanya hidup di benua Amerika, tidak ada di Türkiye.']},
+ 'kirlangic': {'title': 'Cara menggambar layang-layang',
+               'bird': 'Layang-layang rumah',
+               'cta': 'Sekarang gambar layang-layangmu sendiri',
+               'intro': 'Untuk mengenali layang-layang, satu hal saja sudah cukup: ekor bercabang. Sisanya badan kecil dan sayap runcing. Selesai dalam lima langkah.',
+               'steps': [['Badan dulu',
+                          'Di bawah garis putus-putus, gambar badan yang kecil dan ramping, lalu warnai biru tua. Layang-layang tidak gemuk. Bentuknya seperti pensil yang meruncing ke depan.'],
+                         ['Kepala dan paruh',
+                          'Tambahkan kepala kecil di sisi kanan badan. Buat paruhnya segitiga mungil. Layang-layang menangkap serangga di udara dengan mulut terbuka, jadi tidak butuh paruh besar.'],
+                         ['Sayap runcing',
+                          'DI ATAS garis putus-putus, gambar sayap yang panjang, tipis, dan runcing di ujungnya. Lengkungkan sedikit ke belakang. Kalau sayapnya bulat, burungmu jadi mirip burung '
+                          'gereja.'],
+                         ['Ekor bercabang', 'Di sisi kiri badan, gambar ekor dengan dua ujung runcing. Ujung luarnya panjang, bagian tengahnya masuk ke dalam. Inilah ciri khas layang-layang.'],
+                         ['Warna', 'Beri bercak merah bata di tenggorokan dan garis krem di bawah perut. Dengan dua warna ini, punggung biru tua jadi tampak lebih berkilau.']],
+               'mistakes': ['Membuat ujung ekor rata. Kalau tidak bercabang, itu bukan layang-layang.',
+                            'Menggambar badan yang gemuk. Layang-layang burung yang ramping dan ringan.',
+                            'Membuat sayap pendek dan bulat. Sayapnya harus panjang dan runcing.'],
+               'facts': ['Layang-layang rumah panjangnya 17–19 cm termasuk ujung ekor, beratnya 16–22 g.',
+                         'Makanannya ditangkap di udara. Minumnya juga sambil terbang rendah di atas permukaan air.',
+                         'Sarangnya dibuat dari ratusan butir lumpur yang diangkut dengan paruh.',
+                         'Musim dingin dilewatkan di Afrika, dan di musim semi sering kembali ke tempat kelahirannya.']},
+ 'leylek': {'title': 'Cara menggambar bangau putih',
+            'bird': 'Bangau putih',
+            'cta': 'Sekarang gambar bangau putihmu sendiri',
+            'intro': 'Saat terbang, bangau putih meluruskan leher dan kakinya. Di pelajaran ini kita menggambar siluetnya yang panjang dan lurus itu. Paruh merah dan kaki merah jadi bumbunya.',
+            'steps': [['Badan',
+                       'Di bawah garis putus-putus, gambar telur panjang yang mendatar. Bangau putih berwarna putih, jadi gambar dulu garis tepi yang gelap, lalu biarkan bagian dalamnya putih.'],
+                      ['Leher panjang dan kepala',
+                       'Dari sisi kanan badan, tarik leher panjang ke depan dan beri kepala kecil di ujungnya. Buat lehernya hampir lurus, karena bangau putih tidak menekuk leher saat terbang.'],
+                      ['Paruh merah', 'Di depan kepala, gambar paruh merah yang panjang dan runcing. Panjang paruh bisa hampir tiga kali panjang kepala.'],
+                      ['Sayap',
+                       'DI ATAS garis putus-putus, gambar sayap yang lebar dan panjang. Bagian depan sayap putih, bagian luarnya hitam. Sayap bangau jauh lebih besar dari badannya, jadi jangan '
+                       'pelit.'],
+                      ['Ekor dan kaki',
+                       'Di sisi kiri badan, tambahkan ekor pendek. Lalu panjangkan dua kaki merah yang ramping sampai melewati ujung ekor. Saat terbang, bangau tidak membiarkan kakinya menggantung, '
+                       'tapi meluruskannya ke belakang.']],
+            'mistakes': ['Menggambar leher pendek atau melengkung. Leher bangau yang terbang panjang dan lurus.',
+                         'Membiarkan kaki menggantung ke bawah. Saat terbang, kakinya lurus ke belakang.',
+                         'Membiarkan burung putih tanpa garis tepi. Nanti hilang di langit.'],
+            'facts': ['Panjang bangau putih 100–115 cm, rentang sayapnya 155–215 cm.',
+                      'Di akhir Agustus, puluhan ribu bangau bermigrasi ke Afrika dan jalurnya melewati Selat Bosphorus di Istanbul.',
+                      'Mereka tidak suka mengepakkan sayap. Mereka naik bersama arus udara hangat lalu meluncur sejauh berkilo-kilometer.',
+                      'Suaranya nyaris tidak ada. Sebagai gantinya, mereka mengetukkan paruh.']},
+ 'ibibik': {'title': 'Cara menggambar hoopoe',
+            'bird': 'Hoopoe',
+            'cta': 'Sekarang gambar hoopoemu sendiri',
+            'intro': 'Di kepala hoopoe ada jambul yang membuka seperti kipas. Di pelajaran ini, sambil menggambarnya, kamu juga akan belajar satu trik kecil soal garis putus-putus.',
+            'steps': [['Badan', 'Jauh di bawah garis putus-putus, gambar telur mendatar dan warnai merah muda salmon. Badannya kita taruh agak rendah, karena jambul butuh tempat.'],
+                      ['Kepala', 'Di kanan atas badan, tambahkan kepala bulat. Taruh mata sebagai titik di dekat tengah kepala.'],
+                      ['Jambul',
+                       'Di atas kepala, gambar jambul yang membuka seperti kipas, dan buat ujungnya hitam. Ini triknya. Jaga jambul tetap DI BAWAH garis putus-putus. Kalau naik ke atas garis, '
+                       'jambulnya ikut mengepak seperti sayap.'],
+                      ['Paruh panjang melengkung', 'Di depan kepala, gambar paruh yang panjang, ramping, dan sedikit melengkung ke bawah. Hoopoe menusukkan paruh ini ke tanah untuk mencari larva.'],
+                      ['Sayap dan ekor bergaris',
+                       'DI ATAS garis putus-putus, gambar sayap hitam, lalu beri dua garis putih di atasnya. Di sisi kiri badan, tambahkan ekor hitam dengan pita putih di tengahnya. Saat terbang, '
+                       'pola hitam-putih ini tampak seperti kupu-kupu.']],
+            'mistakes': ['Membawa jambul ke atas garis putus-putus. Semua yang ada di atas garis ikut mengepak.',
+                         'Menggambar paruh pendek dan lurus. Paruh hoopoe panjang dan melengkung ke bawah.',
+                         'Membiarkan sayap satu warna. Tanpa garis hitam-putih, hoopoe tidak dikenali.'],
+            'facts': ['Panjang hoopoe 25–32 cm, rentang sayapnya 44–48 cm.',
+                      'Jambulnya dibuka saat ia bersemangat atau saat mendarat di tanah.',
+                      'Di Turki ia punya beberapa nama daerah, seperti hüthüt dan çavuşkuşu. Nama hüthüt datang dari suaranya yang terdengar seperti “hut hut hut”.',
+                      'Anak-anaknya mengeluarkan cairan berbau busuk saat merasa bahaya. Pemangsa tidak suka sama sekali.']}}
 
 BIRDS = {'kumru': {'name': 'Tekukur kerah',
            'cta': 'Gambar tekukurmu sendiri',
@@ -286,8 +348,7 @@ BIRDS = {'kumru': {'name': 'Tekukur kerah',
                      'Sekali dengar, tidak akan lupa.',
                      'Mereka memakai sarang yang sama bertahun-tahun dan memperbesarnya sedikit setiap tahun. Beberapa sarang lebarnya lebih dari satu meter dan beratnya ratusan kilo. Apa pikiran '
                      'pemilik cerobongnya, kita tidak tahu.'],
-            'draw': 'Gambar badan panjang dan sayap panjang seperti di pelajaran camar. Badan putih, ujung sayap hitam. Buat paruhnya panjang dan merah, panjangkan leher. Kakinya juga merah, '
-                    'menjulur keluar dari belakang badan.',
+            'draw': 'Ikuti pelajaran bangau putih langkah demi langkah. Buat leher dan kakinya panjang, saat terbang keduanya lurus. Paruh dan kaki merah, ujung sayap hitam.',
             'own': ''},
  'serce': {'name': 'Burung gereja',
            'cta': 'Gambar burung gerejamu sendiri',
@@ -365,8 +426,7 @@ BIRDS = {'kumru': {'name': 'Tekukur kerah',
                         'Sarangnya dibuat dari ratusan gumpalan lumpur yang dibawa dengan paruh. Pasangan yang sama kembali ke sarang yang sama bertahun-tahun dan memperbaikinya.',
                         'Mereka melewatkan musim dingin di Afrika. Setiap tahun mereka pergi-pulang ribuan kilometer dan sering kembali ke desa tempat mereka lahir di musim semi. Serius, mereka tahu '
                         'alamat.'],
-               'draw': 'Pakai ide sayap panjang dari pelajaran camar, tapi gambar burungnya kecil dan ramping. Buat ekornya bercabang dengan dua ujung runcing. Punggung biru tua, tenggorokan merah, '
-                       'perut putih.',
+               'draw': 'Ikuti pelajaran layang-layang. Gambar burungnya kecil dan ramping, buat ekornya bercabang dengan dua ujung runcing. Punggung biru tua, tenggorokan merah, perut putih.',
                'own': ''},
  'ebabil': {'name': 'Kapinis',
             'cta': 'Gambar kapinismu sendiri',
@@ -378,8 +438,8 @@ BIRDS = {'kumru': {'name': 'Tekukur kerah',
                      'Afrika.',
                      'Mereka membuat sarang di celah atap bangunan tua, masjid, dan menara. Bahannya pun dikumpulkan dari bulu dan sampah yang beterbangan di udara, direkatkan dengan air liur.',
                      'Kalau celah atap ditutup saat restorasi, rumah kapinis hilang. Di beberapa kota dipasang kotak khusus kapinis di bangunan. Hal yang baik.'],
-            'draw': 'Gambar sayap tipis dan melengkung seperti sabit, seperti di pelajaran camar. Badan kecil, ekor pendek dan bercabang. Warnai seluruh burung cokelat tua, beri bercak terang kecil '
-                    'di tenggorokan.',
+            'draw': 'Pakai burung dari pelajaran layang-layang sebagai dasar, tapi gambar sayapnya lebih panjang dan melengkung seperti sabit. Ekornya pendek dan sedikit bercabang. Warnai seluruh '
+                    'burung cokelat tua, beri bercak terang kecil di tenggorokan.',
             'own': ''},
  'flamingo': {'name': 'Flamingo',
               'cta': 'Gambar flamingomu sendiri',
@@ -487,8 +547,8 @@ BIRDS = {'kumru': {'name': 'Tekukur kerah',
                      'Hoopoe sudah sangat tua dalam budaya kita. Di Al-Qur’an, Hudhud yang membawa kabar kepada Nabi Sulaiman adalah dia. Di Mantiq al-Tayr karya Attar, burung yang menunjukkan jalan '
                      'kepada para burung juga dia.',
                      'Di sarang, saat anak-anaknya merasakan bahaya, mereka mengeluarkan cairan berbau busuk. Bau ini menjauhkan pemangsa. Memang tidak enak, tapi berhasil.'],
-            'draw': 'Pakai pelajaran burung gereja sebagai dasar. Tambahkan jambul berujung hitam yang terbuka seperti kipas di kepala, dan paruh panjang yang melengkung ke bawah. Badan merah muda '
-                    'salmon, sayap bergaris hitam-putih.',
+            'draw': 'Ikuti pelajaran hoopoe. Buka jambulnya seperti kipas, tapi jaga tetap di bawah garis putus-putus. Paruh panjang dan melengkung ke bawah, badan merah muda salmon, sayap bergaris '
+                    'hitam-putih.',
             'own': ''},
  'kelaynak': {'name': 'Ibis botak utara',
               'cta': 'Gambar ibismu sendiri',
@@ -538,8 +598,8 @@ PAGES = {'ogretmenler': {'title': 'DrawBird untuk satu kelas',
                          '</ol>\n'
                          '\n'
                          '<h2>Penting: kalau ada burung yang tidak pantas</h2>\n'
-                         '<p>Burung langsung masuk ke langit bersama begitu diterbangkan, jadi burung yang digambar di kelas langsung muncul di layar besar. Admin melihat burung-burung baru setiap hari. '
-                         'Tapi kalau di tengah pelajaran muncul burung yang tidak pantas, sentuh burungnya lalu tekan <b>Laporkan</b>. <b>Burung baru turun dari langit setelah dua laporan.</b> '
+                         '<p>Burung langsung masuk ke langit bersama begitu diterbangkan, jadi burung yang digambar di kelas langsung muncul di layar besar. Admin melihat burung-burung baru setiap '
+                         'hari. Tapi kalau di tengah pelajaran muncul burung yang tidak pantas, sentuh burungnya lalu tekan <b>Laporkan</b>. <b>Burung baru turun dari langit setelah dua laporan.</b> '
                          'Kalau kamu mau menampilkan burung kelas saja selama pelajaran, buat kawanan, masukkan burung-burungnya, lalu buka tautan kawanannya.</p>\n'
                          '\n'
                          '<h2>Keamanan anak</h2>\n'
@@ -565,8 +625,8 @@ PAGES = {'ogretmenler': {'title': 'DrawBird untuk satu kelas',
          'items': [['Apakah DrawBird berbayar?', 'Tidak, sepenuhnya gratis. Tanpa pembayaran, tanpa langganan, tanpa pembelian dalam aplikasi.'],
                    ['Apakah aku harus mendaftar?', 'Tidak. Begitu halaman terbuka, kamu bisa langsung menggambar. Browsermu membuatkan kode acak untukmu. Kami tidak meminta email atau kata sandi.'],
                    ['Kenapa burungku tidak terlihat di langit?',
-                    'Di langit hanya ada paling banyak 100 burung yang terbang bersamaan, jadi di tengah keramaian burungmu bisa ikut antre. Pilih “Terbaru” di menu “Tampilkan”, maka burungmu muncul di depan. '
-                    'Kalau burungmu sudah dapat beberapa laporan, burung itu turun dari langit sampai admin memeriksanya.'],
+                    'Di langit hanya ada paling banyak 100 burung yang terbang bersamaan, jadi di tengah keramaian burungmu bisa ikut antre. Pilih “Terbaru” di menu “Tampilkan”, maka burungmu muncul '
+                    'di depan. Kalau burungmu sudah dapat beberapa laporan, burung itu turun dari langit sampai admin memeriksanya.'],
                    ['Kenapa burungku tidak mengepak?',
                     'Bagian di atas garis putus-putus di area gambar mengepak seperti sayap, bagian bawahnya tetap jadi badan. Coba gambar sayapnya di atas garis. <a href="/dersler/">Pelajaran '
                     'menggambar</a> menunjukkannya langkah demi langkah.'],
@@ -635,8 +695,8 @@ LEGAL = {'nasil-oynanir': {'title': 'Cara main',
                            '</ol>\n'
                            '\n'
                            '<h2>Burungmu langsung terbang</h2>\n'
-                           '<p>Begitu kamu menekan “terbang!”, burungmu masuk ke langit bersama. Supaya DrawBird tetap aman untuk semua usia, setiap hari admin melihat burung-burung baru. '
-                           'Kalau kamu menemukan burung yang tidak pantas, tekan <b>Laporkan</b>, sisanya kami yang urus.</p>\n'
+                           '<p>Begitu kamu menekan “terbang!”, burungmu masuk ke langit bersama. Supaya DrawBird tetap aman untuk semua usia, setiap hari admin melihat burung-burung baru. Kalau kamu '
+                           'menemukan burung yang tidak pantas, tekan <b>Laporkan</b>, sisanya kami yang urus.</p>\n'
                            '\n'
                            '<h2>Di langit</h2>\n'
                            '<ul>\n'
@@ -698,8 +758,8 @@ LEGAL = {'nasil-oynanir': {'title': 'Cara main',
                       '  <p>Kamu menyatakan bahwa gambar yang kamu kirim adalah milikmu dan tidak melanggar hak orang lain.</p>\n'
                       '\n'
                       '  <h2>5. Moderasi</h2>\n'
-                      '  <p>Burung yang dikirim langsung terlihat oleh semua orang. Admin melihat burung-burung baru setiap hari dan menghapus yang tidak pantas. Kalau perlu, burung dari pelukis burung baru bisa ditahan untuk disetujui dulu sebelum tayang. '
-                      'Kata yang tidak pantas di nama burung, nama pelukis burung, dan nama kawanan otomatis diblokir.</p>\n'
+                      '  <p>Burung yang dikirim langsung terlihat oleh semua orang. Admin melihat burung-burung baru setiap hari dan menghapus yang tidak pantas. Kalau perlu, burung dari pelukis '
+                      'burung baru bisa ditahan untuk disetujui dulu sebelum tayang. Kata yang tidak pantas di nama burung, nama pelukis burung, dan nama kawanan otomatis diblokir.</p>\n'
                       '  <p>Setiap burung bisa ditandai dengan <b>Laporkan</b>. Burung yang mendapat tiga laporan (dua di hari pertamanya) turun dari langit dan diperiksa oleh admin. Burung yang '
                       'melanggar aturan bisa dihapus tanpa peringatan; perangkat yang berulang kali melanggar aturan bisa ditutup kemampuan mengirimnya.</p>\n'
                       '  <p>Kalau kamu merasa sebuah gambar melanggar hakmu, tulis kepada kami lewat jalur kontak di bawah beserta tautan burungnya; kami akan memeriksa dan menghapusnya.</p>\n'
@@ -709,8 +769,9 @@ LEGAL = {'nasil-oynanir': {'title': 'Cara main',
                       '“DrawBird” tidak diberikan lewat lisensi ini.</p>\n'
                       '\n'
                       '  <h2>7. Iklan</h2>\n'
-                      '  <p>Supaya tetap gratis, DrawBird bisa menayangkan iklan nanti. Kalau iklan ditambahkan, halaman privasi diperbarui dan persetujuan cookie diminta di tempat yang '
-                      'diperlukan.</p>\n'
+                      '  <!--noads--><p>Supaya tetap gratis, DrawBird bisa menayangkan iklan nanti. Kalau iklan ditambahkan, halaman privasi diperbarui dan persetujuan cookie diminta di tempat yang '
+                      'diperlukan.</p><!--/noads--><!--ads--><p>Supaya tetap gratis, DrawBird menayangkan iklan Google di beberapa halaman tulisan. Iklan hanya dimuat kalau kamu mengizinkan, dan di '
+                      'layar permainan tidak ada iklan. Isi iklan menjadi tanggung jawab pengiklan. Rinciannya ada di <a href="/gizlilik">halaman privasi</a>.</p><!--/ads-->\n'
                       '\n'
                       '  <h2>8. Tanggung jawab</h2>\n'
                       '  <p>Penggambar bertanggung jawab atas gambar pengguna. DrawBird tidak bertanggung jawab atas kerugian akibat layanan terhenti atau data hilang, sejauh diizinkan oleh hukum '
@@ -740,11 +801,24 @@ LEGAL = {'nasil-oynanir': {'title': 'Cara main',
                       'disimpan bersama akunmu; ini hanya dipakai untuk menghentikan pembuatan akun baru dari jaringan itu selama 24 jam saat akun yang melanggar aturan diblokir.</p>\n'
                       '\n'
                       '  <h2>Pemeriksaan</h2>\n'
-                      '  <p>Burung baru dan burung yang dilaporkan dilihat oleh admin. Untuk itu admin melihat gambar, nama burung, dan nama pelukis burungnya. Kalau perlu, burung dari pelukis burung baru bisa ditahan untuk disetujui dulu sebelum tayang; selama itu burung hanya terlihat oleh yang menggambarnya.</p>\n'
+                      '  <p>Burung baru dan burung yang dilaporkan dilihat oleh admin. Untuk itu admin melihat gambar, nama burung, dan nama pelukis burungnya. Kalau perlu, burung dari pelukis '
+                      'burung baru bisa ditahan untuk disetujui dulu sebelum tayang; selama itu burung hanya terlihat oleh yang menggambarnya.</p>\n'
                       '\n'
                       '  <h2>Apa yang tidak kami kumpulkan</h2>\n'
-                      '  <p>Saat ini kami tidak memakai iklan, cookie iklan, lokasi, daftar kontak, atau alat analitik pihak ketiga. Kalau iklan ditambahkan, halaman ini diperbarui dan persetujuanmu '
-                      'diminta lebih dulu di tempat yang diperlukan. Font dimuat dari server kami sendiri; saat halaman terbuka, tidak ada permintaan yang dikirim ke perusahaan lain.</p>\n'
+                      '  <!--noads--><p>Saat ini kami tidak memakai iklan, cookie iklan, lokasi, daftar kontak, atau alat analitik pihak ketiga. Kalau iklan ditambahkan, halaman ini diperbarui dan '
+                      'persetujuanmu diminta lebih dulu di tempat yang diperlukan. Font dimuat dari server kami sendiri; saat halaman terbuka, tidak ada permintaan yang dikirim ke perusahaan '
+                      'lain.</p><!--/noads--><!--ads--><p>Kami tidak memakai lokasi, daftar kontak, atau alat analitik pihak ketiga. Font dimuat dari server kami sendiri.</p>\n'
+                      '\n'
+                      '  <h2>Iklan dan cookie</h2>\n'
+                      '  <p>Supaya DrawBird tetap gratis, beberapa halaman tulisan (pelajaran, halaman burung, blog, FAQ) menampilkan iklan Google AdSense. Di layar menggambar, di langit, dan di '
+                      'halaman hukum ini tidak ada iklan.</p>\n'
+                      '  <p>Iklan baru dimuat kalau kamu mengizinkan. Saat pertama kali membuka halaman beriklan, sebuah jendela kecil bertanya. Kalau kamu pilih <b>Terima</b>, Google bisa menaruh '
+                      'cookie di perangkatmu dan memproses alamat IP-mu untuk menampilkan iklan, mencegah klik palsu, dan mengukur iklan. Kalau kamu pilih <b>Tidak</b>, iklan tidak dimuat sama '
+                      'sekali dan situs berjalan seperti biasa.</p>\n'
+                      '  <p>Karena anak-anak juga memakai DrawBird, kami hanya meminta iklan nonpersonal dari Google. Artinya, iklan dipilih berdasarkan topik halaman, bukan berdasarkan '
+                      'minatmu.</p>\n'
+                      '  <p>Kamu bisa mengubah keputusanmu kapan saja lewat tautan <b>Pengaturan cookie</b> di bagian bawah halaman. Cara Google memakai data ini bisa kamu baca di <a '
+                      'href="https://policies.google.com/technologies/partner-sites">halaman Google</a>.</p><!--/ads-->\n'
                       '\n'
                       '  <h2>Penghitungan kunjungan</h2>\n'
                       '  <p>Untuk melihat berapa orang yang datang, penghitung harian bertambah satu setiap kunjungan. Penghitung ini tidak memakai cookie, tidak mencatat siapa kamu atau alamat '
@@ -789,24 +863,31 @@ LEGAL = {'nasil-oynanir': {'title': 'Cara main',
                   '    <li><b>Data keamanan:</b> Ringkasan yang tidak bisa dibalik dari alamat IP-mu yang diacak dengan kunci rahasia. Alamat IP itu sendiri tidak ditulis ke basis data.</li>\n'
                   '    <li><b>Catatan server:</b> Catatan teknis dari penyedia hosting kami (Cloudflare); bisa berisi alamat permintaan, waktu, negara, dan info browser.</li>\n'
                   '  </ul>\n'
-                  '  <p>Penghitung kunjungan harian tidak berisi data pribadi; hanya menyimpan jumlah total hari itu. Kami tidak memakai cookie. Di browsermu hanya kode perangkat dan preferensimu '
-                  'yang disimpan.</p>\n'
+                  '  <p>Penghitung kunjungan harian tidak berisi data pribadi; hanya menyimpan jumlah total hari itu. <!--noads-->Kami tidak memakai cookie.<!--/noads--><!--ads-->Kami tidak punya '
+                  'cookie sendiri. Di halaman beriklan, kalau kamu mengizinkan, Google memakai cookie (bagian 3 dan 4).<!--/ads--> Di browsermu hanya kode perangkat dan preferensimu yang '
+                  'disimpan.</p>\n'
                   '\n'
                   '  <h2>3. Tujuan dan dasar hukum</h2>\n'
                   '  <ul>\n'
                   '    <li>Menyediakan permainan, menampilkan burungmu di langit, menyimpan suara dan kawanan: <b>pembentukan dan pelaksanaan perjanjian</b> (KVKK pasal 5/2-c; <a '
                   'href="/kosullar">ketentuan penggunaan</a>).</li>\n'
-                  '    <li>Mencegah spam, suara palsu, konten tidak pantas, dan serangan, memblokir yang melanggar aturan, memeriksa gambar baru dan yang dilaporkan: <b>kepentingan yang '
-                  'sah</b> (KVKK pasal 5/2-f).</li>\n'
-                  '    <li>Permintaan lembaga yang berwenang dan kewajiban penyimpanan menurut hukum: <b>kewajiban hukum</b> (KVKK pasal 5/2-ç).</li>\n'
+                  '    <li>Mencegah spam, suara palsu, konten tidak pantas, dan serangan, memblokir yang melanggar aturan, memeriksa gambar baru dan yang dilaporkan: <b>kepentingan yang sah</b> '
+                  '(KVKK pasal 5/2-f).</li>\n'
+                  '    <li>Permintaan lembaga yang berwenang dan kewajiban penyimpanan menurut hukum: <b>kewajiban hukum</b> (KVKK pasal 5/2-ç).</li><!--ads-->\n'
+                  '    <li>Menampilkan iklan Google di halaman tulisan yang beriklan: <b>persetujuan eksplisit</b> (KVKK pasal 5/1). Kamu memberi izin lewat jendela di halaman, dan bisa menariknya '
+                  'kapan saja lewat tautan <b>Pengaturan cookie</b>.</li><!--/ads-->\n'
                   '  </ul>\n'
-                  '  <p>Kami tidak melakukan pemrosesan berdasarkan persetujuan eksplisit, pesan pemasaran, atau pembuatan profil.</p>\n'
+                  '  <!--noads--><p>Kami tidak melakukan pemrosesan berdasarkan persetujuan eksplisit, pesan pemasaran, atau pembuatan profil.</p><!--/noads--><!--ads--><p>Di luar izin iklan, kami '
+                  'tidak melakukan pemrosesan berdasarkan persetujuan eksplisit. Kami tidak mengirim pesan pemasaran dan tidak membuat profil.</p><!--/ads-->\n'
                   '\n'
                   '  <h2>4. Pengalihan</h2>\n'
                   '  <ul>\n'
                   '    <li><b>Cloudflare, Inc.</b> (hosting dan basis data): Semua data disimpan di server Cloudflare; basis data berada di wilayah Eropa Timur, halaman disajikan dari server di '
                   'seluruh dunia.</li>\n'
-                  '    <li><b>Telegram</b> (moderasi): Gambar, nama, dan nama pelukis dari burung baru, burung yang menunggu persetujuan, atau burung yang dilaporkan dikirim ke akun Telegram admin.</li>\n'
+                  '    <li><b>Telegram</b> (moderasi): Gambar, nama, dan nama pelukis dari burung baru, burung yang menunggu persetujuan, atau burung yang dilaporkan dikirim ke akun Telegram '
+                  'admin.</li><!--ads-->\n'
+                  '    <li><b>Google</b> (iklan): Kalau kamu mengizinkan, di halaman beriklan Google memproses data seperti cookie dan alamat IP. Data ini dialihkan ke server Google di luar negeri. '
+                  'Kalau kamu tidak mengizinkan, tidak ada data yang dikirim ke Google.</li><!--/ads-->\n'
                   '  </ul>\n'
                   '  <p>Server penyedia ini berada di luar negeri; pengalihan dilakukan berdasarkan KVKK pasal 9. Kami tidak menjual atau menyerahkan datamu kepada pihak lain.</p>\n'
                   '\n'
@@ -815,7 +896,8 @@ LEGAL = {'nasil-oynanir': {'title': 'Cara main',
                   '    <li>Burung, suara, kawanan, dan nama pelukis burung: sampai kamu menghapusnya.</li>\n'
                   '    <li>Catatan batas pengiriman: paling lama 1 jam. Penghitungan akun baru: paling lama 2 hari.</li>\n'
                   '    <li>Catatan pemblokiran: sampai blokir dicabut untuk mencegah penyalahgunaan; blokir jaringan 24 jam.</li>\n'
-                  '    <li>Catatan server: selama masa penyimpanan Cloudflare (beberapa hari).</li>\n'
+                  '    <li>Catatan server: selama masa penyimpanan Cloudflare (beberapa hari).</li><!--ads-->\n'
+                  '    <li>Pilihan izin iklanmu: di browsermu, sampai kamu mengubahnya. Masa berlaku cookie Google mengikuti kebijakan Google sendiri.</li><!--/ads-->\n'
                   '  </ul>\n'
                   '  <p>Isi formulir kontak dan data kontak yang kamu pilih untuk ditinggalkan disimpan sampai permintaanmu selesai, paling lama satu tahun.</p>\n'
                   '\n'
@@ -857,8 +939,9 @@ POSTS = {'2026-11-drawbird-yayinda': {'title': 'DrawBird meluncur: catatan bulan
                                       '</ul>\n'
                                       '\n'
                                       '<h2>Langit yang aman</h2>\n'
-                                      '<p>Anak-anak juga memakai DrawBird. Karena itu setiap hari ada manusia yang melihat burung-burung baru. Kata yang tidak pantas di nama burung, pelukis burung, dan kawanan otomatis diblokir. '
-                                      'Setiap burung bisa dilaporkan, dan burung yang mendapat beberapa laporan turun sendiri dari langit. Jadi burungmu terbang tanpa menunggu, dan langit tetap menyenangkan untuk semua orang.</p>\n'
+                                      '<p>Anak-anak juga memakai DrawBird. Karena itu setiap hari ada manusia yang melihat burung-burung baru. Kata yang tidak pantas di nama burung, pelukis burung, '
+                                      'dan kawanan otomatis diblokir. Setiap burung bisa dilaporkan, dan burung yang mendapat beberapa laporan turun sendiri dari langit. Jadi burungmu terbang tanpa '
+                                      'menunggu, dan langit tetap menyenangkan untuk semua orang.</p>\n'
                                       '\n'
                                       '<h2>Tantangan bulan ini: burung hantu paling lucu</h2>\n'
                                       '<p>Bulan ini aku mengajak semua orang menggambar burung hantu. Kamu bisa mengikuti <a href="/dersler/baykus">pelajaran burung hantu</a> atau menggambar '
@@ -867,5 +950,57 @@ POSTS = {'2026-11-drawbird-yayinda': {'title': 'DrawBird meluncur: catatan bulan
                                       '\n'
                                       '<h2>Apa selanjutnya?</h2>\n'
                                       '<p>Halaman burung baru, pelajaran baru, dan penerjemahan pelajaran ke bahasa lain. Kalau kamu punya saran, tulis <a '
-                                      'href="https://github.com/gunayboss/drawbird/issues">di GitHub</a>. Aku membaca semuanya.</p>'}}
+                                      'href="https://github.com/gunayboss/drawbird/issues">di GitHub</a>. Aku membaca semuanya.</p>'},
+ '2026-11-kesik-cizgi': {'title': 'Untuk apa garis putus-putus? Begini burungmu mengepak',
+                         'desc': 'Garis putus-putus di tengah area gambar menentukan sayap burungmu. Aku jelaskan cara kerjanya dan cara memanfaatkannya.',
+                         'html': '<p>Di tengah area gambar ada garis putus-putus. Kebanyakan orang tidak menyadarinya saat menggambar burung pertama, lalu bertanya kenapa burungnya tidak mengepak. '
+                                 'Di tulisan ini aku jelaskan apa fungsi garis itu.</p>\n'
+                                 '\n'
+                                 '<h2>Gambarmu dibagi dua</h2>\n'
+                                 '<p>Saat burungmu diterbangkan, DrawBird membagi gambarmu dua di garis putus-putus itu. Separuh bawah tetap seperti semula, itulah badan burung. Separuh atas terus '
+                                 'memendek dan memanjang. Ia ditekan ke arah garis, lalu dibuka lagi, bahkan sesaat turun sampai ke bawah garis. Jadi separuh atas itulah sayapnya.</p>\n'
+                                 '<p>Karena itu aturannya sederhana. Gambar sayap di atas garis, badan di bawahnya. Kalau seluruh burung kamu gambar di bawah garis, burungmu terbang tapi tidak '
+                                 'mengepak. Kalau seluruhnya di atas garis, seluruh burung ikut mengepak, agak seperti akordeon.</p>\n'
+                                 '\n'
+                                 '<h2>Semua yang ada di atas garis ikut mengepak</h2>\n'
+                                 '<p>DrawBird tidak tahu mana yang sayap. Ia hanya melihat posisi gambarmu terhadap garis. Kalau kepala atau jambul kamu bawa ke atas garis, mereka ikut naik turun '
+                                 'bersama sayap. Karena itu di <a href="/dersler/ibibik">pelajaran hoopoe</a> kita menjaga jambul tetap di bawah garis.</p>\n'
+                                 '<p>Tentu saja kamu bisa memakainya dengan sengaja. Gambar kelinci dengan telinga di atas garis, dan ia terbang dengan telinganya. Jadi tidak harus burung. Apa pun '
+                                 'yang punya sayap bisa terbang.</p>\n'
+                                 '\n'
+                                 '<h2>Beberapa tips kecil</h2>\n'
+                                 '<ul>\n'
+                                 '  <li><b>Gambar sayap besar.</b> Saat mengepak, sayap memendek. Kalau kamu gambar besar, gerakannya lebih terlihat.</li>\n'
+                                 '  <li><b>Pakai pena tebal.</b> Burungmu mengecil di langit, dan garis tipis hilang di sana.</li>\n'
+                                 '  <li><b>Arah tidak masalah.</b> Kamu boleh menggambar burung yang menghadap ke kanan atau ke kiri. Di langit ia berbalik sendiri sesuai arah terbangnya.</li>\n'
+                                 '  <li><b>Bagian kosong tidak terbang.</b> Tempat yang tidak kamu gambar tetap transparan. Di langit, burungmu hanya terlihat sebesar yang kamu gambar.</li>\n'
+                                 '</ul>\n'
+                                 '\n'
+                                 '<p>Kalau mau mencobanya langkah demi langkah, lihat <a href="/dersler/">pelajaran menggambar</a>. Di setiap pelajaran, posisi sayap ditunjukkan terpisah.</p>'},
+ '2026-11-leylek-gocu': {'title': 'Migrasi musim gugur: kenapa bangau melewati Selat Bosphorus di Istanbul?',
+                         'desc': 'Setiap tahun puluhan ribu bangau melintas di atas Istanbul menuju Afrika. Aku jelaskan kenapa mereka memilih selat, bukan laut lepas.',
+                         'html': '<p>Dari akhir Agustus sampai akhir September, kalau kamu mendongak di Istanbul, kemungkinan besar kamu melihat kawanan bangau. Kadang ratusan ekor berputar di '
+                                 'langit sekaligus. Ada alasannya, dan alasannya berkaitan dengan angin.</p>\n'
+                                 '\n'
+                                 '<h2>Bangau tidak suka mengepak</h2>\n'
+                                 '<p><a href="/kuslar/leylek">Bangau putih</a> adalah burung besar. Rentang sayapnya bisa mencapai dua meter. Mengepakkan sayap sebesar itu berjam-jam menghabiskan '
+                                 'banyak tenaga. Jadi bangau menemukan cara lain. Saat matahari memanaskan tanah, udara hangat naik ke atas. Bangau masuk ke udara hangat itu, berputar sambil naik, '
+                                 'lalu meluncur tanpa mengepak sama sekali sampai arus udara hangat berikutnya.</p>\n'
+                                 '\n'
+                                 '<h2>Di atas laut tidak ada udara hangat</h2>\n'
+                                 '<p>Masalahnya, laut tidak sepanas daratan. Di atas laut, arus udara hangat ini hampir tidak terbentuk. Kalau bangau terbang ke laut lepas, ia terpaksa mengepak dan '
+                                 'mungkin tidak kuat menyeberang jauh. Karena itu bangau menyeberangi laut di tempat tersempitnya.</p>\n'
+                                 '<p>Bangau dari Eropa ke Afrika punya dua jalur besar. Yang di barat lewat Selat Gibraltar, yang di timur lewat Selat Bosphorus di Istanbul. Lalu mereka melintasi '
+                                 'Anatolia dan turun ke Afrika lewat Timur Tengah. Burung lain yang terbang dengan meluncur, seperti elang, alap-alap, dan elang lebah, memakai jalur yang sama.</p>\n'
+                                 '\n'
+                                 '<h2>Kapan dan dari mana mengamatinya?</h2>\n'
+                                 '<p>Waktu paling ramai adalah minggu terakhir Agustus sampai separuh pertama September. Siang hari paling bagus, karena arus udara hangat menguat saat matahari naik. '
+                                 'Di Istanbul, tempat tinggi seperti Bukit Çamlıca dikenal sebagai titik untuk mengamati migrasi. Kalau membawa teropong, pengalamannya jauh lebih seru.</p>\n'
+                                 '<p>Migrasi tahun ini sudah selesai, dan bangau sekarang ada di Afrika. Mereka akan kembali lewat jalur yang sama pada Maret dan April. Jadi untuk melihat migrasi '
+                                 'musim semi, kamu tidak perlu menunggu lama.</p>\n'
+                                 '\n'
+                                 '<h2>Satu kawanan bangau di langit</h2>\n'
+                                 '<p>Bagaimana kalau minggu ini kamu memenuhi langit DrawBird dengan bangau? <a href="/dersler/leylek">Pelajaran bangau putih</a> menunjukkan cara menggambarnya '
+                                 'langkah demi langkah. Gambar beberapa ekor lalu kumpulkan jadi satu kawanan. Jangan lupakan juga <a href="/kuslar/kirlangic">layang-layang</a> yang melewatkan musim '
+                                 'dingin di Afrika. Sekarang ia juga punya <a href="/dersler/kirlangic">pelajaran sendiri</a>.</p>'}}
 
