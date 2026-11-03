@@ -624,7 +624,7 @@ LEGAL = {'nasil-oynanir': {'title': '怎么玩？',
                       '  <p>用户的画由画者本人负责。对于服务中断或数据丢失造成的损失，在现行法律允许的范围内，DrawBird 不承担责任。</p>\n'
                       '\n'
                       '  <h2>9. 变更与联系</h2>\n'
-                      '  <p>这些条款可能会更新；日期写在本页开头。如有问题、侵权通知和建议，请<a href="https://github.com/gunayboss/drawbird/issues">在 GitHub 上</a>留言。</p>\n'
+                      '  <p>这些条款可能会更新；日期写在本页开头。如有问题、侵权通知和建议，请使用网站上的<a href="/#iletisim">联系我们</a>表单，或发邮件至 <a href="mailto:kvkk@drawbird.app">kvkk@drawbird.app</a>。</p>\n'
                       '\n'
                       '  <p><a class="cta" href="/#ciz">画一只鸟</a></p>'},
  'gizlilik': {'title': '隐私',
@@ -678,11 +678,11 @@ LEGAL = {'nasil-oynanir': {'title': '怎么玩？',
                       '  <p><a href="/">← 回到 DrawBird</a></p>'},
  'kvkk': {'title': 'KVKK 告知声明',
           'desc': 'DrawBird 依据《个人数据保护法》（KVKK）发布的告知声明。',
-          'html': '<p class="muted">依据第 6698 号《个人数据保护法》第 10 条 · 最后更新：2026 年 11 月 2 日</p>\n'
+          'html': '<p class="muted">依据第 6698 号《个人数据保护法》第 10 条 · 最后更新：2026 年 11 月 3 日</p>\n'
                   '\n'
                   '  <h2>1. 数据控制者</h2>\n'
-                  '  <p>运营 DrawBird 的自然人是数据控制者。你可以<a href="https://github.com/gunayboss/drawbird/issues">在 GitHub 上</a>提出申请和问题。</p>\n'
-                  '  <p>最简单的方式是网站上的<a href="/#iletisim">联系我们</a>表单，主题选择“我的个人数据 (KVKK)”。</p>\n'
+                  '  <p>运营 DrawBird 的自然人 Günay Aygün 是数据控制者。你可以通过电子邮件向 <a href="mailto:kvkk@drawbird.app">kvkk@drawbird.app</a> 提出申请和问题。</p>\n'
+                  '  <p>你也可以使用网站上的<a href="/#iletisim">联系我们</a>表单，主题选择“我的个人数据 (KVKK)”。</p>\n'
                   '\n'
                   '  <h2>2. 我们处理哪些数据</h2>\n'
                   '  <ul>\n'
@@ -705,8 +705,8 @@ LEGAL = {'nasil-oynanir': {'title': '怎么玩？',
                   '\n'
                   '  <h2>4. 传输</h2>\n'
                   '  <ul>\n'
-                  '    <li><b>Cloudflare, Inc.</b>（托管和数据库）：所有数据都保存在 Cloudflare 的服务器上；数据库位于东欧地区，页面通过全球各地的服务器提供。</li>\n'
-                  '    <li><b>Telegram</b>（内容审核）：新鸟、待审核或被举报的鸟的图片、名字和鸟友名，会发送到管理员的 Telegram 账号。</li><!--ads-->\n'
+                  '    <li><b>Cloudflare, Inc.</b>（托管、数据库和电子邮件转发）：所有数据都保存在 Cloudflare 的服务器上；数据库位于东欧地区，页面通过全球各地的服务器提供。</li>\n'
+                  '    <li><b>Telegram</b>（内容审核）：新鸟、待审核或被举报的鸟的图片、名字和鸟友名，会发送到管理员的 Telegram 账号。通过联系我们表单发来的消息和发到 kvkk@drawbird.app 的电子邮件，也会通过同样的方式通知管理员。</li><!--ads-->\n'
                   '    <li><b>Google</b>（广告）：如果你同意，在带广告的页面上，Google 会处理 Cookie 和 IP 地址之类的数据。这些数据会传输到 Google 在境外的服务器。如果你不同意，不会有任何数据发到 Google。</li><!--/ads-->\n'
                   '  </ul>\n'
                   '  <p>这些服务商的服务器在境外；传输依据 KVKK 第 9 条进行。我们不会把你的数据卖给或转让给其他任何人。</p>\n'
@@ -719,7 +719,7 @@ LEGAL = {'nasil-oynanir': {'title': '怎么玩？',
                   '    <li>服务器日志：与 Cloudflare 的日志保存期一致（几天）。</li><!--ads-->\n'
                   '    <li>广告同意的选择：保存在你的浏览器里，直到你改变为止。Google Cookie 的有效期按 Google 自己的政策。</li><!--/ads-->\n'
                   '  </ul>\n'
-                  '  <p>你在联系表单中写的内容，以及你自愿留下的联系方式，会保存到请求处理完毕为止，最长一年。</p>\n'
+                  '  <p>你在联系表单或电子邮件中写的内容、你自愿留下的联系方式以及你的电子邮件地址，会保存到请求处理完毕为止，最长一年。</p>\n'
                   '\n'
                   '  <h2>6. 你的权利（KVKK 第 11 条）</h2>\n'
                   '  <p>你有权了解自己的个人数据是否被处理；如果被处理，有权要求获得相关信息；有权了解处理目的以及是否按目的使用；有权知道数据被传输给了哪些人；有权在数据不完整或错误时要求更正，在符合 KVKK 第 7 条的条件下要求删除，并要求把这些操作通知数据的接收方；有权对自动化分析得出的不利于你的结果提出异议；如果因违法处理而受到损失，有权要求赔偿。</p>\n'

@@ -1,4 +1,5 @@
 // DrawBird API: anonymous device tokens, birds, votes, flags, flocks, moderation on D1.
+import PostalMime from 'postal-mime';
 import { STATIC_PAGES, LANGS, WEEK_UI } from './static_pages.js';
 import { isBadName, notifyBird, notifyText, connectTelegram, telegramStatus, handleTelegram, sendDigest, setting } from './moderation.js';
 const MAX_BIRDS = 8;
@@ -719,7 +720,28 @@ async function sharePage(req, env, url, birdId) {
     .transform(page);
 }
 
+// Mail sent to kvkk@drawbird.app (Cloudflare Email Routing -> this Worker) lands in the same inbox as "Bize yaz":
+// stored in messages and forwarded to the owner's Telegram. Nothing is sent back; the owner replies from their own address.
+async function receiveEmail(message, env) {
+  if (message.rawSize > 512 * 1024) { message.setReject('Message too large'); return; }
+  // At most 30 mails an hour in total, so a flood cannot fill the table or the Telegram chat.
+  if (await overLimit(env, { headers: new Headers({ 'cf-connecting-ip': 'email' }) }, 'email', 30, 3600)) { message.setReject('Try again later'); return; }
+  const mail = await PostalMime.parse(message.raw);
+  const from = clean(mail.from?.address || message.from, 120);
+  const subject = clean(mail.subject, 200);
+  const text = String(mail.text || (mail.html || '').replace(/<[^>]*>/g, ' ') || '')
+    .replace(/[\u0000-\u0008\u000b-\u001f\u007f\u200b-\u200f\u202a-\u202e\u2060-\u206f\ufeff]/g, '').replace(/\n{3,}/g, '\n\n').trim();
+  const body = `${subject ? `Konu: ${subject}\n\n` : ''}${text}`.slice(0, 4000) || '(boş e-posta)';
+  const topic = String(message.to).toLowerCase().startsWith('kvkk@') ? 'kvkk' : 'other';
+  await env.DB.prepare('INSERT INTO messages (id, uid, topic, body, contact, created) VALUES (?, ?, ?, ?, ?, ?)')
+    .bind(newId(), null, topic, body, from, Date.now()).run();
+  await notifyText(env, `📧 ${message.to} adresine e-posta\nKimden: ${from}\n${body.slice(0, 900)}`);
+}
+
 export default {
+  async email(message, env) {
+    await receiveEmail(message, env);
+  },
   async scheduled(event, env) {
     const now = Date.now();
     await env.DB.batch([

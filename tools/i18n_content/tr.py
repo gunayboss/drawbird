@@ -767,8 +767,8 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                       'ölçüde sorumlu değildir.</p>\n'
                       '\n'
                       '  <h2>9. Değişiklikler ve iletişim</h2>\n'
-                      '  <p>Bu koşullar güncellenebilir; tarih bu sayfanın başında yazar. Sorular, hak ihlali bildirimleri ve öneriler için <a '
-                      'href="https://github.com/gunayboss/drawbird/issues">GitHub üzerinden</a> yazabilirsin.</p>\n'
+                      '  <p>Bu koşullar güncellenebilir; tarih bu sayfanın başında yazar. Sorular, hak ihlali bildirimleri ve öneriler için sitedeki <a href="/#iletisim">Bize yaz</a> formunu '
+                      'kullanabilir ya da <a href="mailto:kvkk@drawbird.app">kvkk@drawbird.app</a> adresine yazabilirsin.</p>\n'
                       '\n'
                       '  <p><a class="cta" href="/#ciz">Bir kuş çiz</a></p>'},
  'gizlilik': {'title': 'Gizlilik',
@@ -833,11 +833,12 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                       '  <p><a href="/">← DrawBird\'e dön</a></p>'},
  'kvkk': {'title': 'KVKK aydınlatma metni',
           'desc': 'DrawBird kişisel verilerin korunması kanunu (KVKK) aydınlatma metni.',
-          'html': '<p class="muted">6698 sayılı Kişisel Verilerin Korunması Kanunu\'nun 10. maddesi kapsamında · Son güncelleme: 2 Kasım 2026</p>\n'
+          'html': '<p class="muted">6698 sayılı Kişisel Verilerin Korunması Kanunu\'nun 10. maddesi kapsamında · Son güncelleme: 3 Kasım 2026</p>\n'
                   '\n'
                   '  <h2>1. Veri sorumlusu</h2>\n'
-                  '  <p>DrawBird\'ü işleten gerçek kişi veri sorumlusudur. Başvuru ve sorularını <a href="https://github.com/gunayboss/drawbird/issues">GitHub üzerinden</a> iletebilirsin.</p>\n'
-                  '  <p>En kolay yol sitedeki <a href="/#iletisim">Bize yaz</a> formu. Konu olarak "Kişisel verilerim (KVKK)"yı seç.</p>\n'
+                  '  <p>Veri sorumlusu, DrawBird\'ü işleten gerçek kişi Günay Aygün\'dür. Başvuru ve sorularını <a href="mailto:kvkk@drawbird.app">kvkk@drawbird.app</a> adresine e-postayla '
+                  'iletebilirsin.</p>\n'
+                  '  <p>Sitedeki <a href="/#iletisim">Bize yaz</a> formunu da kullanabilirsin. Konu olarak "Kişisel verilerim (KVKK)"yı seç.</p>\n'
                   '\n'
                   '  <h2>2. Hangi verileri işliyoruz</h2>\n'
                   '  <ul>\n'
@@ -865,9 +866,10 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                   '\n'
                   '  <h2>4. Aktarım</h2>\n'
                   '  <ul>\n'
-                  '    <li><b>Cloudflare, Inc.</b> (barındırma ve veritabanı): Tüm veriler Cloudflare sunucularında tutulur; veritabanı Doğu Avrupa bölgesindedir, sayfalar dünya genelindeki '
-                  'sunuculardan sunulur.</li>\n'
-                  '    <li><b>Telegram</b> (moderasyon): Yeni, onay bekleyen veya bildirilen kuşların resmi, adı ve kuşçu adı yöneticinin Telegram hesabına iletilir.</li><!--ads-->\n'
+                  '    <li><b>Cloudflare, Inc.</b> (barındırma, veritabanı ve e-posta yönlendirme): Tüm veriler Cloudflare sunucularında tutulur; veritabanı Doğu Avrupa bölgesindedir, sayfalar dünya '
+                  'genelindeki sunuculardan sunulur.</li>\n'
+                  '    <li><b>Telegram</b> (moderasyon): Yeni, onay bekleyen veya bildirilen kuşların resmi, adı ve kuşçu adı yöneticinin Telegram hesabına iletilir. Bize yaz mesajları ve '
+                  'kvkk@drawbird.app adresine gelen e-postalar da aynı yoldan yöneticiye bildirilir.</li><!--ads-->\n'
                   "    <li><b>Google</b> (reklam): İzin verirsen reklamlı sayfalarda Google çerez ve IP adresi gibi verileri işler. Bu veriler Google'ın yurt dışındaki sunucularına aktarılır. İzin "
                   "vermezsen Google'a hiçbir veri gitmez.</li><!--/ads-->\n"
                   '  </ul>\n'
@@ -881,7 +883,7 @@ LEGAL = {'nasil-oynanir': {'title': 'Nasıl oynanır?',
                   "    <li>Sunucu kayıtları: Cloudflare'in kayıt süresi kadar (birkaç gün).</li><!--ads-->\n"
                   "    <li>Reklam izni tercihin: tarayıcında, sen değiştirene kadar. Google çerezlerinin süresi Google'ın kendi politikasına göre.</li><!--/ads-->\n"
                   '  </ul>\n'
-                  '  <p>Bize yaz formuna yazdıkların ve istersen bıraktığın iletişim bilgisi, talebin sonuçlanana kadar, en fazla bir yıl saklanır.</p>\n'
+                  '  <p>Bize yaz formuna ya da e-postayla yazdıkların, istersen bıraktığın iletişim bilgisi ve e-posta adresin, talebin sonuçlanana kadar, en fazla bir yıl saklanır.</p>\n'
                   '\n'
                   '  <h2>6. Hakların (KVKK m.11)</h2>\n'
                   '  <p>Kişisel verinin işlenip işlenmediğini öğrenme, işlenmişse bilgi isteme, amacını ve amaca uygun kullanılıp kullanılmadığını öğrenme, aktarıldığı kişileri bilme, eksik veya '

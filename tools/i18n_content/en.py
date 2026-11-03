@@ -815,8 +815,8 @@ LEGAL = {'nasil-oynanir': {'title': 'How to play',
                       'service or loss of data.</p>\n'
                       '\n'
                       '  <h2>9. Changes and contact</h2>\n'
-                      '  <p>These terms may be updated; the date is written at the top of this page. For questions, reports of rights violations and suggestions, you can write <a '
-                      'href="https://github.com/gunayboss/drawbird/issues">on GitHub</a>.</p>\n'
+                      '  <p>These terms may be updated; the date is written at the top of this page. For questions, reports of rights violations and suggestions, you can use the <a '
+                      'href="/#iletisim">Contact us</a> form on the site or write to <a href="mailto:kvkk@drawbird.app">kvkk@drawbird.app</a>.</p>\n'
                       '\n'
                       '  <p><a class="cta" href="/#ciz">Draw a bird</a></p>'},
  'gizlilik': {'title': 'Privacy',
@@ -881,12 +881,12 @@ LEGAL = {'nasil-oynanir': {'title': 'How to play',
                       '  <p><a href="/">← Back to DrawBird</a></p>'},
  'kvkk': {'title': 'KVKK notice',
           'desc': 'DrawBird notice under the Turkish Personal Data Protection Law (KVKK).',
-          'html': '<p class="muted">Under Article 10 of the Personal Data Protection Law no. 6698 · Last updated: November 2, 2026</p>\n'
+          'html': '<p class="muted">Under Article 10 of the Personal Data Protection Law no. 6698 · Last updated: November 3, 2026</p>\n'
                   '\n'
                   '  <h2>1. Data controller</h2>\n'
-                  '  <p>The individual who operates DrawBird is the data controller. You can send your requests and questions <a href="https://github.com/gunayboss/drawbird/issues">on '
-                  'GitHub</a>.</p>\n'
-                  '  <p>The easiest way is the <a href="/#iletisim">Contact us</a> form on the site. Choose "My personal data (KVKK)" as the topic.</p>\n'
+                  '  <p>The data controller is the individual who operates DrawBird, Günay Aygün. You can send your requests and questions by e-mail to <a '
+                  'href="mailto:kvkk@drawbird.app">kvkk@drawbird.app</a>.</p>\n'
+                  '  <p>You can also use the <a href="/#iletisim">Contact us</a> form on the site. Choose "My personal data (KVKK)" as the topic.</p>\n'
                   '\n'
                   '  <h2>2. What data we process</h2>\n'
                   '  <ul>\n'
@@ -914,10 +914,10 @@ LEGAL = {'nasil-oynanir': {'title': 'How to play',
                   '\n'
                   '  <h2>4. Transfers</h2>\n'
                   '  <ul>\n'
-                  '    <li><b>Cloudflare, Inc.</b> (hosting and database): All data is kept on Cloudflare servers; the database is in the Eastern Europe region, and pages are served from servers '
-                  'around the world.</li>\n'
-                  "    <li><b>Telegram</b> (moderation): The picture, name and artist name of new birds, birds awaiting approval and reported birds are sent to the admin's Telegram "
-                  'account.</li><!--ads-->\n'
+                  '    <li><b>Cloudflare, Inc.</b> (hosting, database and e-mail forwarding): All data is kept on Cloudflare servers; the database is in the Eastern Europe region, and pages are '
+                  'served from servers around the world.</li>\n'
+                  "    <li><b>Telegram</b> (moderation): The picture, name and artist name of new birds, birds awaiting approval and reported birds are sent to the admin's Telegram account. Contact "
+                  'us messages and e-mails sent to kvkk@drawbird.app are also notified to the admin the same way.</li><!--ads-->\n'
                   "    <li><b>Google</b> (ads): If you allow it, Google processes data such as cookies and your IP address on pages with ads. This data is transferred to Google's servers abroad. If "
                   "you don't allow it, no data goes to Google.</li><!--/ads-->\n"
                   '  </ul>\n'
@@ -931,7 +931,8 @@ LEGAL = {'nasil-oynanir': {'title': 'How to play',
                   "    <li>Server logs: as long as Cloudflare's log retention (a few days).</li><!--ads-->\n"
                   "    <li>Your ad consent choice: in your browser, until you change it. The lifetime of Google cookies follows Google's own policy.</li><!--/ads-->\n"
                   '  </ul>\n'
-                  '  <p>What you write in the contact form, and any contact details you choose to leave, are kept until your request is handled, for at most one year.</p>\n'
+                  '  <p>What you write in the contact form or by e-mail, any contact details you choose to leave, and your e-mail address are kept until your request is handled, for at most one '
+                  'year.</p>\n'
                   '\n'
                   '  <h2>6. Your rights (KVKK Art. 11)</h2>\n'
                   '  <p>You have the right to learn whether your personal data is processed, to request information if it has been processed, to learn its purpose and whether it is used accordingly, '
