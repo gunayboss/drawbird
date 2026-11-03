@@ -36,6 +36,12 @@ ROWS = [
  ('Koşullar', 'Terms', 'Condiciones', 'Termos', 'Conditions', 'Bedingungen', 'Условия', 'الشروط', '条款', '利用規約', 'Ketentuan'),
  ('Gizlilik', 'Privacy', 'Privacidad', 'Privacidade', 'Confidentialité', 'Datenschutz', 'Конфиденциальность', 'الخصوصية', '隐私', 'プライバシー', 'Privasi'),
  ('Kaynak kod', 'Source code', 'Código fuente', 'Código-fonte', 'Code source', 'Quellcode', 'Исходный код', 'الشيفرة المصدرية', '源代码', 'ソースコード', 'Kode sumber'),
+ ('Çizim dersleri', 'Drawing lessons', 'Lecciones de dibujo', 'Aulas de desenho', 'Leçons de dessin', 'Zeichenlektionen', 'Уроки рисования', 'دروس الرسم', '绘画教程', 'お絵かきレッスン', 'Pelajaran menggambar'),
+ ('Kuşlar', 'Birds', 'Pájaros', 'Aves', 'Oiseaux', 'Vögel', 'Птицы', 'الطيور', '鸟类', '鳥図鑑', 'Burung'),
+ ('Blog', 'Blog', 'Blog', 'Blog', 'Blog', 'Blog', 'Блог', 'المدونة', '博客', 'ブログ', 'Blog'),
+ ('SSS', 'FAQ', 'Preguntas', 'Perguntas frequentes', 'FAQ', 'FAQ', 'Вопросы', 'الأسئلة الشائعة', '常见问题', 'よくある質問', 'FAQ'),
+ ('Öğretmenler', 'Teachers', 'Profesores', 'Professores', 'Enseignants', 'Für Lehrkräfte', 'Учителям', 'للمعلّمين', '老师专区', '先生へ', 'Guru'),
+ ('Hakkında', 'About', 'Acerca de', 'Sobre', 'À propos', 'Über DrawBird', 'О проекте', 'عن الموقع', '关于', 'DrawBirdについて', 'Tentang'),
  # sky
  ('Gökyüzü daha boş', 'The sky is still empty', 'El cielo aún está vacío', 'O céu ainda está vazio', 'Le ciel est encore vide', 'Der Himmel ist noch leer', 'Небо пока пустое', 'السماء ما زالت فارغة', '天空还空着', '空はまだ空っぽ', 'Langit masih kosong'),
  ('İlk kuşu sen çiz; buradaki herkes onu görecek.', 'Draw the first bird; everyone here will see it.', 'Dibuja el primer pájaro; todos aquí lo verán.', 'Desenhe o primeiro pássaro; todos aqui vão vê-lo.', 'Dessine le premier oiseau ; tout le monde le verra.', 'Zeichne den ersten Vogel; alle hier sehen ihn.', 'Нарисуй первую птицу — её увидят все.', 'ارسم أول طائر؛ سيراه الجميع هنا.', '画下第一只鸟，大家都会看到。', '最初の鳥を描こう。みんなが見られます。', 'Gambar burung pertama; semua orang akan melihatnya.'),
