@@ -1,7 +1,7 @@
 // DrawBird API: anonymous device tokens, birds, votes, flags, flocks, moderation on D1.
 import PostalMime from 'postal-mime';
 import { STATIC_PAGES, LANGS, WEEK_UI } from './static_pages.js';
-import { isBadName, notifyBird, notifyText, connectTelegram, telegramStatus, handleTelegram, sendDigest, setting } from './moderation.js';
+import { isBadName, notifyBird, notifyText, connectTelegram, telegramStatus, handleTelegram, setting } from './moderation.js';
 const MAX_BIRDS = 8;
 const MAX_FLOCKS = 12;
 const MAX_IMG = 90_000; // data URL characters (~65 KB image)
@@ -427,7 +427,7 @@ async function handleApi(req, env, url, ctx) {
     const filtered = isBadName(name);
     if (filtered) name = 'İsimsiz kuş';
     // Pre-review of new artists is optional (admin setting 'review'); without it birds go live at once
-    // and the community's reports plus the nightly Telegram digest are the safety net.
+    // and each one is sent to the owner's Telegram with delete buttons; community reports are the second net.
     const review = (await setting(env, 'review')) === '1';
     const trusted = review && await env.DB.prepare('SELECT trusted FROM users WHERE uid = ?').bind(me.uid).first('trusted');
     const status = !review || trusted ? 'live' : 'pending';
@@ -436,6 +436,7 @@ async function handleApi(req, env, url, ctx) {
       env.DB.prepare('UPDATE users SET ip_hash = ? WHERE uid = ?').bind(await ipKey(req, env), me.uid),
     ]);
     if (status === 'pending') ctx.waitUntil(notifyBird(env, url.origin, { id, name, author: me.name, sig: await imgSig(env, id) }, 'pending'));
+    else ctx.waitUntil(notifyBird(env, url.origin, { id, name, author: me.name }, 'new'));
     return json({ id, pending: status === 'pending', filtered });
   }
 
@@ -750,9 +751,6 @@ export default {
       env.DB.prepare('DELETE FROM new_ids WHERE day < ?').bind(new Date(now - 2 * 864e5).toISOString().slice(0, 10)),
       env.DB.prepare('DELETE FROM ip_bans WHERE exp < ?').bind(now),
     ]);
-    const { results } = await env.DB.prepare(`SELECT b.id, b.name, u.name AS author FROM birds b LEFT JOIN users u ON u.uid = b.uid
-      WHERE b.created >= ? AND b.status = 'live' AND b.uid NOT IN (SELECT uid FROM bans) ORDER BY b.created`).bind(now - 864e5).all();
-    await sendDigest(env, results);
   },
   async fetch(req, env, ctx) {
     const url = new URL(req.url);
