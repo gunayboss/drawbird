@@ -756,6 +756,10 @@ export default {
     // English pages that moved when every language got the same pages.
     const moved = { '/en/how-to-play': '/en/nasil-oynanir', '/en/terms': '/en/kosullar', '/en/privacy': '/en/gizlilik' }[url.pathname.replace(/\.html$/, '')];
     if (moved) return Response.redirect(url.origin + moved, 301);
+    // Google Search Console ownership file. Served here because static .html files are redirected to clean URLs.
+    if (url.pathname === '/google83710215f7857799.html') {
+      return secure(new Response('google-site-verification: google83710215f7857799.html', { headers: { 'content-type': 'text/html; charset=utf-8' } }));
+    }
     if (url.pathname === '/sitemap.xml') return secure(await cached(req, () => sitemap(env, url), 3600));
     if (url.pathname === '/robots.txt') {
       return secure(new Response(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${url.origin}/sitemap.xml\n`, { headers: { 'content-type': 'text/plain; charset=utf-8' } }));

@@ -3,7 +3,7 @@
   "name": "drawbird",
   "main": "src/worker.js",
   "compatibility_date": "2026-10-01",
-  "assets": { "directory": "./public", "binding": "ASSETS", "not_found_handling": "404-page", "run_worker_first": ["/", "/api/*", "/k/*", "/u/*", "/s/*", "/en", "/en/", "/es", "/es/", "/pt", "/pt/", "/fr", "/fr/", "/de", "/de/", "/ru", "/ru/", "/ar", "/ar/", "/zh", "/zh/", "/ja", "/ja/", "/id", "/id/", "/haftanin-kuslari", "/hafta", "/hafta/*", "/*/haftanin-kuslari", "/*/hafta", "/*/hafta/*", "/en/how-to-play*", "/en/terms*", "/en/privacy*", "/sitemap.xml", "/robots.txt"] },
+  "assets": { "directory": "./public", "binding": "ASSETS", "not_found_handling": "404-page", "run_worker_first": ["/", "/google83710215f7857799.html", "/api/*", "/k/*", "/u/*", "/s/*", "/en", "/en/", "/es", "/es/", "/pt", "/pt/", "/fr", "/fr/", "/de", "/de/", "/ru", "/ru/", "/ar", "/ar/", "/zh", "/zh/", "/ja", "/ja/", "/id", "/id/", "/haftanin-kuslari", "/hafta", "/hafta/*", "/*/haftanin-kuslari", "/*/hafta", "/*/hafta/*", "/en/how-to-play*", "/en/terms*", "/en/privacy*", "/sitemap.xml", "/robots.txt"] },
   "d1_databases": [
     { "binding": "DB", "database_name": "drawbird", "database_id": "f8f26ac2-12df-4c4a-bc7d-83eecc2f4787", "migrations_dir": "migrations" }
   ],
