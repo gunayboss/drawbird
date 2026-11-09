@@ -72,6 +72,7 @@
 <h2>Which ages?</h2>
 <p>The drawing part suits everyone from preschool up. The pages with bird facts are for 2nd grade of primary school and above. In middle school you can connect it to topics like "classification of living things", "migration" and "habitat".</p>
 
+<aside class="ad" aria-label="Advertisement"><span class="ad-label">Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5448096630528045" data-ad-slot="1200621668" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></aside>
 <h2>A 40-minute lesson plan</h2>
 <ol class="steps">
   <li><b>Warm-up (5 min):</b> Ask which birds they have seen in the school yard or through the window and write them on the board. Then read one together from the <a href="/en/kuslar/">Birds of Türkiye</a> page.</li>
@@ -102,9 +103,24 @@
   <li>Create a flock, add the class's birds to it and share the link with parents. Something like "Class 5-B's sky".</li>
   <li>In a crowded class, raise the "Bird count" in the Sky to 40.</li>
 </ul>
+<aside class="ad" aria-label="Advertisement"><span class="ad-label">Advertisement</span><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5448096630528045" data-ad-slot="2070850207" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></aside>
   <p><a class="cta" href="/?lang=en#ciz">Open DrawBird</a></p>
 </article>
-<footer>DrawBird · <a href="/en/hakkinda">About</a> · <a href="/en/ogretmenler">Teachers</a> · <a href="/en/nasil-oynanir">How to play</a> · <a href="/en/kosullar">Terms</a> · <a href="/en/gizlilik">Privacy</a> · <a href="/en/kvkk">KVKK</a> · <a href="/?lang=en#iletisim">Contact us</a> · <a href="https://github.com/gunayboss/drawbird">Source code</a><div class="langs" aria-label="Language"><a href="/ogretmenler" hreflang="tr" lang="tr">Türkçe</a><a href="/en/ogretmenler" hreflang="en" lang="en" aria-current="page">English</a><a href="/es/ogretmenler" hreflang="es" lang="es">Español</a><a href="/pt/ogretmenler" hreflang="pt" lang="pt">Português</a><a href="/fr/ogretmenler" hreflang="fr" lang="fr">Français</a><a href="/de/ogretmenler" hreflang="de" lang="de">Deutsch</a><a href="/ru/ogretmenler" hreflang="ru" lang="ru">Русский</a><a href="/ar/ogretmenler" hreflang="ar" lang="ar">العربية</a><a href="/zh/ogretmenler" hreflang="zh" lang="zh">中文</a><a href="/ja/ogretmenler" hreflang="ja" lang="ja">日本語</a><a href="/id/ogretmenler" hreflang="id" lang="id">Bahasa Indonesia</a></div></footer>
-</main>
+<footer>DrawBird · <a href="/en/hakkinda">About</a> · <a href="/en/ogretmenler">Teachers</a> · <a href="/en/nasil-oynanir">How to play</a> · <a href="/en/kosullar">Terms</a> · <a href="/en/gizlilik">Privacy</a> · <a href="/en/kvkk">KVKK</a> · <a href="/?lang=en#iletisim">Contact us</a> · <a href="https://github.com/gunayboss/drawbird">Source code</a> · <a href="#" onclick="try{localStorage.removeItem('drawbird.ads')}catch{}location.reload();return false">Cookie settings</a><div class="langs" aria-label="Language"><a href="/ogretmenler" hreflang="tr" lang="tr">Türkçe</a><a href="/en/ogretmenler" hreflang="en" lang="en" aria-current="page">English</a><a href="/es/ogretmenler" hreflang="es" lang="es">Español</a><a href="/pt/ogretmenler" hreflang="pt" lang="pt">Português</a><a href="/fr/ogretmenler" hreflang="fr" lang="fr">Français</a><a href="/de/ogretmenler" hreflang="de" lang="de">Deutsch</a><a href="/ru/ogretmenler" hreflang="ru" lang="ru">Русский</a><a href="/ar/ogretmenler" hreflang="ar" lang="ar">العربية</a><a href="/zh/ogretmenler" hreflang="zh" lang="zh">中文</a><a href="/ja/ogretmenler" hreflang="ja" lang="ja">日本語</a><a href="/id/ogretmenler" hreflang="id" lang="id">Bahasa Indonesia</a></div></footer>
+</main><div class="consent" id="consent" hidden><p>This page has ads. If they load, Google may use cookies. Because kids use DrawBird, we only ask for non-personalised ads. <a href="/en/gizlilik">Cookie settings</a></p><div><button type="button" id="cYes">Accept</button><button type="button" id="cNo" class="ghost">No thanks</button></div></div>
+<script>(() => {
+  const K = 'drawbird.ads'; let v = null; try { v = localStorage.getItem(K); } catch { /* storage blocked */ }
+  const load = () => {
+    document.documentElement.classList.add('ads-ok');
+    (window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;
+    const s = document.createElement('script'); s.async = true; s.crossOrigin = 'anonymous';
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5448096630528045'; document.head.appendChild(s);
+  };
+  const save = x => { try { localStorage.setItem(K, x); } catch { /* storage blocked */ } };
+  const box = document.getElementById('consent');
+  if (v === '1') load(); else if (v !== '0') box.hidden = false;
+  document.getElementById('cYes').onclick = () => { save('1'); box.hidden = true; load(); };
+  document.getElementById('cNo').onclick = () => { save('0'); box.hidden = true; };
+})();</script>
 </body>
 </html>

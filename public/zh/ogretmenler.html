@@ -72,6 +72,7 @@
 <h2>适合几岁？</h2>
 <p>画画的部分从学前班起谁都能参加。带鸟类知识的页面适合小学二年级以上。到了初中，你可以把它和“生物的分类”“迁徙”“栖息地”这些内容联系起来。</p>
 
+<aside class="ad" aria-label="广告"><span class="ad-label">广告</span><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5448096630528045" data-ad-slot="1200621668" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></aside>
 <h2>40 分钟课程方案</h2>
 <ol class="steps">
   <li><b>热身（5 分钟）：</b>问问大家在校园里或者窗外看到过哪些鸟，写在黑板上。然后从<a href="/zh/kuslar/">土耳其的鸟</a>页面里选一种，一起读一读。</li>
@@ -102,9 +103,24 @@
   <li>建一个鸟群，把全班的鸟都加进去，再把链接分享给家长。比如叫“5-B 班的天空”。</li>
   <li>人多的班级，可以把“天空”里的“鸟的数量”调到 40。</li>
 </ul>
+<aside class="ad" aria-label="广告"><span class="ad-label">广告</span><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5448096630528045" data-ad-slot="2070850207" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></aside>
   <p><a class="cta" href="/?lang=zh#ciz">打开 DrawBird</a></p>
 </article>
-<footer>DrawBird · <a href="/zh/hakkinda">关于</a> · <a href="/zh/ogretmenler">老师专区</a> · <a href="/zh/nasil-oynanir">怎么玩</a> · <a href="/zh/kosullar">使用条款</a> · <a href="/zh/gizlilik">隐私</a> · <a href="/zh/kvkk">KVKK</a> · <a href="/?lang=zh#iletisim">联系我们</a> · <a href="https://github.com/gunayboss/drawbird">源代码</a><div class="langs" aria-label="语言"><a href="/ogretmenler" hreflang="tr" lang="tr">Türkçe</a><a href="/en/ogretmenler" hreflang="en" lang="en">English</a><a href="/es/ogretmenler" hreflang="es" lang="es">Español</a><a href="/pt/ogretmenler" hreflang="pt" lang="pt">Português</a><a href="/fr/ogretmenler" hreflang="fr" lang="fr">Français</a><a href="/de/ogretmenler" hreflang="de" lang="de">Deutsch</a><a href="/ru/ogretmenler" hreflang="ru" lang="ru">Русский</a><a href="/ar/ogretmenler" hreflang="ar" lang="ar">العربية</a><a href="/zh/ogretmenler" hreflang="zh" lang="zh" aria-current="page">中文</a><a href="/ja/ogretmenler" hreflang="ja" lang="ja">日本語</a><a href="/id/ogretmenler" hreflang="id" lang="id">Bahasa Indonesia</a></div></footer>
-</main>
+<footer>DrawBird · <a href="/zh/hakkinda">关于</a> · <a href="/zh/ogretmenler">老师专区</a> · <a href="/zh/nasil-oynanir">怎么玩</a> · <a href="/zh/kosullar">使用条款</a> · <a href="/zh/gizlilik">隐私</a> · <a href="/zh/kvkk">KVKK</a> · <a href="/?lang=zh#iletisim">联系我们</a> · <a href="https://github.com/gunayboss/drawbird">源代码</a> · <a href="#" onclick="try{localStorage.removeItem('drawbird.ads')}catch{}location.reload();return false">Cookie 设置</a><div class="langs" aria-label="语言"><a href="/ogretmenler" hreflang="tr" lang="tr">Türkçe</a><a href="/en/ogretmenler" hreflang="en" lang="en">English</a><a href="/es/ogretmenler" hreflang="es" lang="es">Español</a><a href="/pt/ogretmenler" hreflang="pt" lang="pt">Português</a><a href="/fr/ogretmenler" hreflang="fr" lang="fr">Français</a><a href="/de/ogretmenler" hreflang="de" lang="de">Deutsch</a><a href="/ru/ogretmenler" hreflang="ru" lang="ru">Русский</a><a href="/ar/ogretmenler" hreflang="ar" lang="ar">العربية</a><a href="/zh/ogretmenler" hreflang="zh" lang="zh" aria-current="page">中文</a><a href="/ja/ogretmenler" hreflang="ja" lang="ja">日本語</a><a href="/id/ogretmenler" hreflang="id" lang="id">Bahasa Indonesia</a></div></footer>
+</main><div class="consent" id="consent" hidden><p>此页面有广告。广告加载后，Google 可能会使用 Cookie。因为有孩子在用 DrawBird，我们只请求非个性化广告。 <a href="/zh/gizlilik">Cookie 设置</a></p><div><button type="button" id="cYes">接受</button><button type="button" id="cNo" class="ghost">不用了</button></div></div>
+<script>(() => {
+  const K = 'drawbird.ads'; let v = null; try { v = localStorage.getItem(K); } catch { /* storage blocked */ }
+  const load = () => {
+    document.documentElement.classList.add('ads-ok');
+    (window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;
+    const s = document.createElement('script'); s.async = true; s.crossOrigin = 'anonymous';
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5448096630528045'; document.head.appendChild(s);
+  };
+  const save = x => { try { localStorage.setItem(K, x); } catch { /* storage blocked */ } };
+  const box = document.getElementById('consent');
+  if (v === '1') load(); else if (v !== '0') box.hidden = false;
+  document.getElementById('cYes').onclick = () => { save('1'); box.hidden = true; load(); };
+  document.getElementById('cNo').onclick = () => { save('0'); box.hidden = true; };
+})();</script>
 </body>
 </html>

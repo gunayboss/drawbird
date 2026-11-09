@@ -1,6 +1,6 @@
 // DrawBird API: anonymous device tokens, birds, votes, flags, flocks, moderation on D1.
 import PostalMime from 'postal-mime';
-import { STATIC_PAGES, LANGS, WEEK_UI } from './static_pages.js';
+import { STATIC_PAGES, LANGS, WEEK_UI, GAME_ADS } from './static_pages.js';
 import { isBadName, notifyBird, notifyText, connectTelegram, telegramStatus, handleTelegram, setting } from './moderation.js';
 const MAX_BIRDS = 8;
 const MAX_FLOCKS = 12;
@@ -20,6 +20,12 @@ const CSP = [
   "font-src 'self'", "img-src 'self' data: blob:", "connect-src 'self'", "manifest-src 'self'",
   "object-src 'none'", "base-uri 'none'", "form-action 'none'", "frame-ancestors 'none'",
 ].join('; ');
+// The game page with side ads needs Google's ad hosts (scripts, frames, images, beacons); same list as the ad pages in _headers.
+const AD_CSP = [
+  "default-src 'self'", "script-src 'self' 'unsafe-inline' https:", "style-src 'self' 'unsafe-inline'", "font-src 'self'",
+  "img-src 'self' data: blob: https:", "connect-src 'self' https:", "frame-src https:", "manifest-src 'self'",
+  "object-src 'none'", "base-uri 'none'", "form-action 'none'", "frame-ancestors 'none'",
+].join('; ');
 const SECURITY_HEADERS = {
   'x-content-type-options': 'nosniff',
   'referrer-policy': 'strict-origin-when-cross-origin',
@@ -27,11 +33,11 @@ const SECURITY_HEADERS = {
   'x-frame-options': 'DENY',
   'strict-transport-security': 'max-age=31536000; includeSubDomains',
 };
-function secure(res) {
+function secure(res, ads = false) {
   const out = new Response(res.body, res);
   for (const [k, v] of Object.entries(SECURITY_HEADERS)) out.headers.set(k, v);
   const type = out.headers.get('content-type') || '';
-  if (type.startsWith('text/html')) out.headers.set('content-security-policy', CSP);
+  if (type.startsWith('text/html')) out.headers.set('content-security-policy', ads ? AD_CSP : CSP);
   else if (!out.headers.has('content-security-policy')) out.headers.set('content-security-policy', "default-src 'none'; frame-ancestors 'none'; sandbox");
   return out;
 }
@@ -773,7 +779,7 @@ export default {
       if (req.method !== 'GET' && res.ok && url.pathname !== '/api/hit') await caches.default.delete(publicKey(url));
       return secure(res);
     }
-    if (/^\/[us]\/[a-z0-9]{16}$/.test(url.pathname)) return secure(await env.ASSETS.fetch(new Request(new URL('/', url), req)));
+    if (/^\/[us]\/[a-z0-9]{16}$/.test(url.pathname)) return secure(await env.ASSETS.fetch(new Request(new URL('/', url), req)), GAME_ADS);
     const langRoot = /^\/([a-z]{2})\/?$/.exec(url.pathname);
     if (langRoot && LANGS.includes(langRoot[1]) && langRoot[1] !== 'tr') return Response.redirect(`${url.origin}/?lang=${langRoot[1]}`, 302);
     const share = /^\/k\/([a-z0-9]{16})$/.exec(url.pathname);
@@ -799,6 +805,6 @@ export default {
     if (url.pathname === '/robots.txt') {
       return secure(new Response(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${url.origin}/sitemap.xml\n`, { headers: { 'content-type': 'text/plain; charset=utf-8' } }));
     }
-    return secure(await env.ASSETS.fetch(req));
+    return secure(await env.ASSETS.fetch(req), GAME_ADS && url.pathname === '/');
   },
 };

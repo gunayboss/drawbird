@@ -95,6 +95,16 @@
   .sub { color: var(--muted); margin: 4px 0 0; font-size: 15px; }
   .theme-chip { display: inline-block; margin-top: 8px; padding: 5px 12px; border-radius: 999px; background: var(--chip, #eef2f7); color: inherit; font-size: 14px; font-weight: 600; text-decoration: none; }
   .theme-chip[hidden] { display: none; }
+  /* Side ads beside the draw screen: wide and tall screens only, well away from the canvas and buttons. */
+  .side-ad { position: fixed; top: 96px; width: 160px; z-index: 1; display: grid; gap: 4px; justify-items: center; }
+  .side-ad.left { left: 16px; } .side-ad.right { right: 16px; }
+  .side-ad span { font-size: 11px; color: var(--muted); }
+  .consent { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); width: min(560px, calc(100% - 24px)); background: var(--paper); color: var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, .22); display: grid; gap: 10px; font-size: 14px; }
+  .consent[hidden] { display: none; }
+  .consent p { margin: 0; }
+  .consent div { display: flex; gap: 8px; flex-wrap: wrap; }
+  .consent button { font: inherit; font-weight: 700; border: 0; border-radius: 12px; padding: 9px 16px; background: var(--beak); color: var(--beak-ink); cursor: pointer; }
+  .consent button.ghost { background: var(--chip); color: var(--ink); }
 
   .btn {
     border: 0; border-radius: 10px; padding: 8px 12px; font-weight: 500; cursor: pointer;
@@ -281,7 +291,8 @@
     </div>
     <div class="verdict" id="verdict" hidden></div>
   </div>
-  <p class="foot">Kuşlar herkese açıktır; uygunsuz çizimi Bildir ile işaretle. <a href="/nasil-oynanir.html">Nasıl oynanır</a> · <a href="/dersler/">Çizim dersleri</a> · <a href="/kuslar/">Kuşlar</a> · <a href="/haftanin-kuslari">Haftanın kuşları</a> · <a href="/blog/">Blog</a> · <a href="/sss">SSS</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/hakkinda">Hakkında</a> · <a href="/kosullar.html">Koşullar</a> · <a href="/gizlilik.html">Gizlilik</a> · <a href="/kvkk.html">KVKK</a> · <a href="#iletisim">Bize yaz</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a></p>
+  <p class="foot">Kuşlar herkese açıktır; uygunsuz çizimi Bildir ile işaretle. <a href="/nasil-oynanir.html">Nasıl oynanır</a> · <a href="/dersler/">Çizim dersleri</a> · <a href="/kuslar/">Kuşlar</a> · <a href="/haftanin-kuslari">Haftanın kuşları</a> · <a href="/blog/">Blog</a> · <a href="/sss">SSS</a> · <a href="/ogretmenler">Öğretmenler</a> · <a href="/hakkinda">Hakkında</a> · <a href="/kosullar.html">Koşullar</a> · <a href="/gizlilik.html">Gizlilik</a> · <a href="/kvkk.html">KVKK</a> · <a href="#iletisim">Bize yaz</a> · <a href="https://github.com/gunayboss/drawbird">Kaynak kod</a> <span id="cookieLink" hidden>· <a href="#">Çerez ayarları</a></span></p>
+  <div class="consent" id="adConsent" hidden><p>Bu sayfada reklam var. Reklamlar yüklenirse Google çerez kullanabilir. Çocuklar için yalnız kişiselleştirilmemiş reklam istiyoruz. <a href="/gizlilik">Çerez ayarları</a></p><div><button type="button" id="adYes">Kabul</button><button type="button" id="adNo" class="ghost">Hayır</button></div></div>
 </section>
 
 <section id="gok" class="view" hidden>
@@ -1430,6 +1441,40 @@
   }
 
   // Cookieless visit count: one ping per browser session.
+  // Side ads beside the draw screen (wide screens only), after the same consent the text pages ask for (drawbird.ads).
+  // tools/build_pages.py fills the slot; while it is empty there are no ads and no consent box here.
+  const AD_CLIENT = 'ca-pub-5448096630528045', AD_SIDE_SLOT = '9231154925';
+  if (AD_SIDE_SLOT) {
+    const KEY = 'drawbird.ads', wide = matchMedia('(min-width: 1100px) and (min-height: 720px)');
+    let choice = null; try { choice = localStorage.getItem(KEY); } catch { /* storage blocked: ask every time */ }
+    const save = v => { choice = v; try { localStorage.setItem(KEY, v); } catch { /* storage blocked */ } };
+    let loaded = false;
+    const place = () => {
+      if (choice !== '1' || !wide.matches || $('ciz').hidden || document.querySelector('.side-ad')) return;
+      if (!loaded) {
+        loaded = true;
+        (window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;
+        const s = document.createElement('script'); s.async = true; s.crossOrigin = 'anonymous';
+        s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_CLIENT}`; document.head.appendChild(s);
+      }
+      for (const side of ['left', 'right']) {
+        const box = el('aside', `side-ad ${side}`); box.setAttribute('aria-label', 'Reklam');
+        const ins = el('ins', 'adsbygoogle'); ins.style.cssText = 'display:inline-block;width:160px;height:600px';
+        ins.dataset.adClient = AD_CLIENT; ins.dataset.adSlot = AD_SIDE_SLOT;
+        box.append(el('span', null, 'Reklam'), ins); $('ciz').append(box);
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      }
+    };
+    const ask = $('adConsent');
+    if (choice === null && wide.matches) ask.hidden = false;
+    $('adYes').onclick = () => { save('1'); ask.hidden = true; place(); };
+    $('adNo').onclick = () => { save('0'); ask.hidden = true; };
+    $('cookieLink').hidden = false;
+    $('cookieLink').querySelector('a').onclick = e => { e.preventDefault(); try { localStorage.removeItem(KEY); } catch { /* storage blocked */ } location.reload(); };
+    place();
+    wide.addEventListener('change', place);
+    window.addEventListener('hashchange', () => setTimeout(place));
+  }
   // This week's drawing theme from the Worker; the chip stays hidden if the request fails.
   fetch('/api/theme?lang=' + LANG).then(r => r.ok ? r.json() : null).then(t => {
     if (!t) return;
