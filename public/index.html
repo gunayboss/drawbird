@@ -1503,8 +1503,11 @@
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     };
     const ask = $('adConsent');
-    $('adYes').onclick = () => { save('1'); ask.hidden = true; waiting.splice(0).forEach(a => fill(...a)); };
-    $('adNo').onclick = () => { save('0'); ask.hidden = true; waiting.length = 0; };
+    // The question waits while the sky is open: it would cover the sky's controls, and the sky has no ads anyway.
+    const showAsk = () => { ask.hidden = !waiting.length || !$('gok').hidden; };
+    window.addEventListener('hashchange', () => setTimeout(showAsk));
+    $('adYes').onclick = () => { save('1'); waiting.splice(0).forEach(a => fill(...a)); showAsk(); };
+    $('adNo').onclick = () => { save('0'); waiting.length = 0; showAsk(); };
     if (on) {
       $('cookieLink').hidden = false;
       $('cookieLink').querySelector('a').onclick = e => { e.preventDefault(); try { localStorage.removeItem(KEY); } catch { /* storage blocked */ } location.reload(); };
@@ -1514,7 +1517,7 @@
       if (!on || !AD_SLOTS[kind] || holder.dataset.ad) return;
       holder.dataset.ad = '1';
       if (choice === '1') fill(holder, kind, w, h);
-      else if (choice === null) { waiting.push([holder, kind, w, h]); ask.hidden = false; }
+      else if (choice === null) { waiting.push([holder, kind, w, h]); showAsk(); }
     };
   })();
   const wideAds = matchMedia('(min-width: 1100px) and (min-height: 720px)');
