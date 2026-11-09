@@ -16,6 +16,18 @@
 <meta property="og:image" content="https://drawbird.app/og-card.png">
 <meta name="google-adsense-account" content="ca-pub-5448096630528045">
 <meta property="og:url" content="https://drawbird.app/">
+<link rel="alternate" hreflang="tr" href="https://drawbird.app/">
+<link rel="alternate" hreflang="en" href="https://drawbird.app/?lang=en">
+<link rel="alternate" hreflang="es" href="https://drawbird.app/?lang=es">
+<link rel="alternate" hreflang="pt" href="https://drawbird.app/?lang=pt">
+<link rel="alternate" hreflang="fr" href="https://drawbird.app/?lang=fr">
+<link rel="alternate" hreflang="de" href="https://drawbird.app/?lang=de">
+<link rel="alternate" hreflang="ru" href="https://drawbird.app/?lang=ru">
+<link rel="alternate" hreflang="ar" href="https://drawbird.app/?lang=ar">
+<link rel="alternate" hreflang="zh" href="https://drawbird.app/?lang=zh">
+<link rel="alternate" hreflang="ja" href="https://drawbird.app/?lang=ja">
+<link rel="alternate" hreflang="id" href="https://drawbird.app/?lang=id">
+<link rel="alternate" hreflang="x-default" href="https://drawbird.app/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
@@ -573,7 +585,8 @@
                   ru: 'Русский', ar: 'العربية', zh: '中文', ja: '日本語', id: 'Bahasa Indonesia' };
   const pickLang = () => {
     const asked = new URLSearchParams(location.search).get('lang');
-    if (LANGS[asked]) { lsSet('drawbird.lang', asked); window.history.replaceState(null, '', '/' + location.hash); return asked; }
+    // ?lang= stays in the address: it is the page's own URL for that language (hreflang, sitemap), not a redirect.
+    if (LANGS[asked]) { lsSet('drawbird.lang', asked); return asked; }
     const saved = lsGet('drawbird.lang', '');
     if (LANGS[saved]) return saved;
     for (const l of navigator.languages || [navigator.language || '']) { const k = String(l).slice(0, 2).toLowerCase(); if (LANGS[k]) return k; }
@@ -633,7 +646,7 @@
   })();
   const langSel = $('langSel');
   for (const [k, v] of Object.entries(LANGS)) langSel.append(new Option(v, k, false, k === LANG));
-  langSel.onchange = () => { lsSet('drawbird.lang', langSel.value); location.reload(); };
+  langSel.onchange = () => { lsSet('drawbird.lang', langSel.value); location.href = (langSel.value === 'tr' ? '/' : '/?lang=' + langSel.value) + location.hash; };
   function toast(msg) {
     const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
     $('toasts').appendChild(t); setTimeout(() => t.remove(), 4200);

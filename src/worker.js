@@ -687,6 +687,8 @@ async function sitemap(env, url) {
   const weeks = [...new Set(results.map(b => weekKey(isoWeek(b.created))))];
   const pages = [
     ...STATIC_PAGES.map(([p, d]) => [p, d === 'today' ? today : d]),
+    // Each language's home page is /?lang=xx (the game page translates itself from that).
+    ...LANGS.filter(l => l !== 'tr').map(l => [`/?lang=${l}`, today]),
     ...LANGS.flatMap(l => weeks.map(w => [`${pre(l)}/hafta/${w}`])),
     ...results.map(b => [`/k/${b.id}`, day(b.created)]),
   ];
@@ -803,7 +805,7 @@ export default {
     }
     if (url.pathname === '/sitemap.xml') return secure(await cached(req, () => sitemap(env, url), 3600));
     if (url.pathname === '/robots.txt') {
-      return secure(new Response(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${url.origin}/sitemap.xml\n`, { headers: { 'content-type': 'text/plain; charset=utf-8' } }));
+      return secure(new Response(`User-agent: *\nAllow: /\nDisallow: /api\nDisallow: /me$\nDisallow: /flocks\nDisallow: /u/$\nDisallow: /s/$\nSitemap: ${url.origin}/sitemap.xml\n`, { headers: { 'content-type': 'text/plain; charset=utf-8' } }));
     }
     return secure(await env.ASSETS.fetch(req), GAME_ADS && url.pathname === '/');
   },
