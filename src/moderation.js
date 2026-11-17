@@ -125,7 +125,9 @@ export async function notifyBird(env, origin, bird, kind) {
 // Handle a button press coming back from Telegram. `act(kind, birdId)` performs the decision and returns a short result text.
 export async function handleTelegram(req, env, act) {
   const secret = await setting(env, 'tg_secret');
-  if (!secret || req.headers.get('x-telegram-bot-api-secret-token') !== secret) return new Response('forbidden', { status: 403 });
+  const given = new TextEncoder().encode(req.headers.get('x-telegram-bot-api-secret-token') || '');
+  const want = new TextEncoder().encode(secret || '');
+  if (!secret || given.length !== want.length || !crypto.subtle.timingSafeEqual(given, want)) return new Response('forbidden', { status: 403 });
   const update = await req.json().catch(() => ({}));
   const cb = update.callback_query;
   const chat = await setting(env, 'tg_chat');

@@ -95,12 +95,22 @@ async function auth(req, env, create) {
   }
   return row;
 }
+// Every wrong key counts, wherever it is sent (/api/state, deletes, admin calls): 20 misses per IP in an hour
+// lock that network out of admin for the hour, even with the right key, so no endpoint is a free guessing oracle.
+const ADMIN_FAILS = 20;
 async function isAdmin(req, env) {
   const given = req.headers.get('x-admin-key');
   if (!env.ADMIN_KEY || !given) return false;
+  const failKey = 'adminfail:' + (await sha256(`${clientIp(req)}|${env.ADMIN_KEY}`)).slice(0, 32);
+  const fails = await env.DB.prepare('SELECT n FROM limits WHERE k = ? AND exp > ?').bind(failKey, Date.now()).first('n');
+  if (fails > ADMIN_FAILS) return false;
   const enc = t => new TextEncoder().encode(t);
   const [a, b] = await Promise.all([sha256(given), sha256(env.ADMIN_KEY)]);
-  return crypto.subtle.timingSafeEqual(enc(a), enc(b));
+  if (crypto.subtle.timingSafeEqual(enc(a), enc(b))) return true;
+  if (await overLimit(env, req, 'adminfail', ADMIN_FAILS, 3600) && !(await overLimit(env, req, 'adminfail-alert', 1, 3600))) {
+    await notifyText(env, '🚨 Yönetici anahtarı bir saatte 20 kez yanlış girildi. O ağ bir saat kilitlendi. Sen değilsen anahtarı yenile: npx wrangler secret put ADMIN_KEY');
+  }
+  return false;
 }
 const isBanned = (env, uid) => env.DB.prepare('SELECT 1 FROM bans WHERE uid = ?').bind(uid).first();
 const ipKey = async (req, env) => (await sha256(`ip|${clientIp(req)}|${env.ADMIN_KEY || ''}`)).slice(0, 32);
@@ -262,14 +272,7 @@ async function decide(env, kind, id, url) {
 
 async function adminApi(req, env, path, method, body) {
   if (await limited(env.RL_ADMIN, 'admin:' + clientIp(req))) return fail(429, 'slow_down');
-  if (!(await isAdmin(req, env))) {
-    // Wrong keys are counted: 20 misses per IP lock admin out for an hour.
-    if (await overLimit(env, req, 'adminfail', 20, 3600)) {
-      if (!(await overLimit(env, req, 'adminfail-alert', 1, 3600))) await notifyText(env, '🚨 Yönetici anahtarı bir saatte 20 kez yanlış girildi. O ağ bir saat kilitlendi. Sen değilsen anahtarı yenile: npx wrangler secret put ADMIN_KEY');
-      return fail(429, 'slow_down');
-    }
-    return fail(403, 'not_admin');
-  }
+  if (!(await isAdmin(req, env))) return fail(403, 'not_admin'); // isAdmin counts wrong keys and locks out
   if (method === 'GET' && path === '/admin/reports') {
     const [reported, bans] = await env.DB.batch([
       env.DB.prepare(`SELECT b.id, b.uid, b.name, b.created, COUNT(f.uid) AS flags,

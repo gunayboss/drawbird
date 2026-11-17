@@ -511,7 +511,10 @@
       d.birds = [...(d.pending || []), ...sky.birds]; d.names = sky.names; d.flocks = [...sky.flocks, ...(d.flocks || [])];
       S.mode = 'remote'; S.birdsLoaded = true;
       S.me = d.me?.uid || 'anon'; S.myName = d.me?.name || '';
-      S.readonly = !!d.readonly; S.isOwner = !!d.admin; S.banned = !!d.me?.banned; HIDE_FLAGS = d.hideFlags || 3; HIDE_FLAGS_NEW = d.hideFlagsNew || 2;
+      S.readonly = !!d.readonly; S.isOwner = !!d.admin;
+      // A key the server refused is dropped, so polling never keeps sending a wrong key (each one counts toward the lockout).
+      if (adminKey && !d.admin) { adminKey = ''; lsSet('drawbird.admin', ''); }
+S.banned = !!d.me?.banned; HIDE_FLAGS = d.hideFlags || 3; HIDE_FLAGS_NEW = d.hideFlagsNew || 2;
       S.list = d.birds; S.names = d.names; S.flockRows = d.flocks; S.mine = d.mine;
       emit();
     }, () => {
@@ -1248,6 +1251,8 @@
   };
   $('adminSave').onclick = () => {
     adminKey = $('adminKey').value.trim(); lsSet('drawbird.admin', adminKey);
+    // If the ad script is already on this page, start over without it before working as admin.
+    if (adminKey && document.querySelector('script[src*="adsbygoogle"]')) { location.reload(); return; }
     refresh().then(() => { toast(S.isOwner ? 'Yönetici modu açık: her kuşu silebilirsin.' : (adminKey ? 'Anahtar tutmadı.' : 'Yönetici anahtarı kaldırıldı.')); });
   };
   onChange(() => {
@@ -1497,7 +1502,8 @@
   // Never on the sky, where taps never stop. tools/build_pages.py fills the slots; empty slots mean no ads, no consent box.
   const AD_CLIENT = 'ca-pub-5448096630528045', AD_SLOTS = { side: '9231154925', flown: '8392715979', list: '9446602335' };
   const ads = (() => {
-    const on = Object.values(AD_SLOTS).some(Boolean), KEY = 'drawbird.ads';
+    // No ads in a browser that holds the admin key: the ad script runs in this origin and could read localStorage.
+    const on = Object.values(AD_SLOTS).some(Boolean) && !lsGet('drawbird.admin', ''), KEY = 'drawbird.ads';
     let choice = null; try { choice = localStorage.getItem(KEY); } catch { /* storage blocked: ask every time */ }
     const save = v => { choice = v; try { localStorage.setItem(KEY, v); } catch { /* storage blocked */ } };
     let loaded = false;
